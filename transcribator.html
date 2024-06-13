@@ -89,7 +89,7 @@
 
 </head>
 
-<body>
+<body class="body page-transcribator">
 	<div class="wrapper">
 		<header class="header">
 			<div class="header__line"></div>
@@ -111,89 +111,162 @@
 				<img src="img/footer-logo.svg" alt="A4iG" width="151" height="62" />
 			</a>
 		</header>
+		<main class="page ">
+			<section class="servises" id="top">
+				<div class="servises__title-block">
+					<div class="servises__container">
+						<h1 class="servises__title">Транскрибатор «Аллегро» <br><span>расшифровка аудио и видео с помощью ИИ</span></h1>
+					</div>
+				</div>
 
-		<main>
-			<section class="top" id="top">
-				<div class="container">
-					<div class="top__inner">
-						<h2 class="top__title">Ai4G —</h2>
-						<div class="top__suptitle">
-							Нейросервис для построения траектории развития. Симбиоз технологий data science
-							и&nbsp;успешного подхода к&nbsp;наставничеству.
+				<div class="servises__text-block">
+					<div class="servises__container">
+						<div class="servises__text">
+							<p>Сервис позволяет преобразовывать аудио и видеозаписи в текст быстро и точно с помощью технологии искусственного интеллекта.
+								Транскрибатор «Аллегро» поддерживает более <span class="black">300 медиаформатов</span> и распознает свыше <span class="black">50</span>
+								языков, обеспечивая легкость в работе с глобальным
+								контентом.</p>
+							<p>Получите свои транскрипты, субтитры или конспекты быстро, автоматически и без необходимости регистрации. Ускорьте свой рабочий процесс с
+								помощью конвертации медиаконтента в текст, доступный для редактирования, всего за несколько минут</p>
+						</div>
+
+						<div class="servises__items">
+							<div class="servise">
+								<div class="servise__item">
+									<picture><source srcset="img/transcribator/cost.webp" type="image/webp"><img src="img/transcribator/cost.png" alt="" class="servise__img"></picture>
+									<div class="servise__block">
+										<div class="servise__title">Стоимость продукта
+										</div>
+										<div class="servise__text">800 ₽ за 1 файл
+										</div>
+									</div>
+								</div>
+								<div class="servise__item">
+									<picture><source srcset="img/transcribator/time.webp" type="image/webp"><img src="img/transcribator/time.png" alt="" class="servise__img"></picture>
+									<div class="servise__block">
+										<div class="servise__title">Объем файла
+										</div>
+										<div class="servise__text">до 3 часов (180 мин)
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
 			</section>
 
 
+			<!-- для trancrib класс .trancrib-default - начальное состояние -->
+			<!-- для trancrib класс .file-is-loading - загрузка файла -->
+			<!-- для trancrib класс .loading-is-complete - загрузка завершена -->
+			<!-- для trancrib класс .decoding - расшифровка -->
+			<!-- для trancrib класс .file-is-ready - файл готов к отправке -->
+			<div class="trancrib" id="drop-area">
+				<div class="trancrib__container">
+					<div class="trancrib__body">
+						<form action="" class="trancrib__form ">
+							<div class="trancrib__img"></div>
+							<input type="file" id="file-upload" style="display:none;" />
+							<div class="trancrib__text trancrib-text"></div>
+							<div class="loading-points">...</div>
+						</form>
+						<button class="trancrib__link" id="upload-button">добавить файл </button>
+						<div class="trancrib__loading" id="loading-bar"><span>37C_sB6B.mp3</span></div>
+					</div>
+				</div>
+			</div>
 
 
-			<section class="oferta">
-				<div class="oferta__container">
-					<div class="oferta__inner">
-						<h1 class="oferta__title">Правила оплаты и возврата</h1>
+			<!-- О продукте -->
+			<div class="product" id="product">
+				<div class="product__container">
+					<div class="product__body">
+						<div class="product__content">
 
-						<h2 class="oferta__label">Политика конфиденциальности</h2>
-						<div class="oferta__text">
-							<p>
-								Безопасность платежей обеспечивается с помощью Банка-эквайера, функционирующего на основе современных протоколов и технологий,
-								разработанных
-								платежными системами МИР, Visa International и Mastercard Worldwide (3D-Secure: Verified by VISA, Mastercard SecureCode, MirAccept).
-								Обработка
-								полученных конфиденциальных данных держателя карты производится в процессинговом центре Банка-эквайера, сертифицированного по стандарту
-								PCI
-								DSS.
-							</p>
+							<div class="product__item">
+								<div class="product__number-item">1.</div>
+								<div class="product__title">
+									<div class="product__label">Загрузите аудио или видео</div>
+									<div class="product__text-item">Перетащите файл в назначенную область или нажмите кнопку «Загрузить файл». Вы также можете загрузить
+										видео, вставив ссылку.</div>
+								</div>
+
+							</div>
+
+							<div class="product__item">
+								<div class="product__number-item">2.</div>
+								<div class="product__title">
+									<div class="product__label">Преобразуйте ваш файл <br>в текст</div>
+									<div class="product__text-item">Нажмите «Конвертировать», и «Аллегро» преобразует файл в текст.</div>
+								</div>
+							</div>
+
+							<div class="product__item">
+								<div class="product__number-item">3.</div>
+								<div class="product__title">
+									<div class="product__label">Скачайте результат</div>
+									<div class="product__text-item">Вы можете загрузить результат на свое устройство в формате .docx, .xlsx, .srt или .txt. Выберите
+										нужный
+										формат и нажмите кнопку "Загрузить".</div>
+								</div>
+
+							</div>
+
 						</div>
-						<h2 class="oferta__label">Положение о защищенности передаваемых данных</h2>
-						<div class="oferta__text">
-							<p>
-								Безопасность передаваемой информации обеспечивается с помощью современных протоколов обеспечения безопасности в Интернет. К оплате
-								принимаются
-								банковские карты платежных систем МИР, Visa, MasterCard. Если карта подключена к системе безопасных платежей 3D-Secure (можно уточнить в
-								банке, выдавшем карту), то держатель карты подтверждает каждую операцию по своей карте специальным одноразовым паролем.
-							</p>
-						</div>
-						<h2 class="oferta__label">Пошаговая инструкция оплаты по картам</h2>
-						<div class="oferta__text">
-							<p>
-								Для оплаты услуг с применением банковских карт в виджете или на сайте необходимо выбрать предложенный способ оплаты «Банковская карта».
-								После
-								вы будете перенаправлены на защищенную платежную страницу, где будет необходимо ввести данные вашей пластиковой карты. После оплаты вы
-								получите от сайта уведомление о том, что оплата проведена и/или описание порядка получения товара/услуги.
-							</p>
-						</div>
-						<h2 class="oferta__label">Политика отмены/возвратов платежей по картам</h2>
-						<div class="oferta__text">
-							<p>
-								При ошибочной оплате денежные средства могут быть возвращены. Для выполнения отмены или возврата оплаты необходимо обратиться в
-								техническую
-								поддержку с заявлением:
-							</p>
-						</div>
-						<ul class="oferta__contact">
-							<li>По телефону: <span class="bold">+7 965 753-66-93</span></li>
-							<li>По e-mail: <span class="bold">info@ai4g.ru</span></li>
-						</ul>
-						<div class="oferta__text">
-							<p>
-								При обращении необходимо указать причину возврата и реквизиты операции. В рамках технологии Интернет-эквайринга возврат денежных средств
-								возможен исключительно по реквизитам банковской карты, с которой проводилась оплата.
-							</p>
-						</div>
-						<h2 class="oferta__label">Если в обслуживании отказано</h2>
-						<div class="oferta__text">
-							<p> За разъяснениями об особенностях оплаты по вашей банковской карте в сети Интернет, причинах отказа в оплате вам необходимо в первую
-								очередь обратиться в службу поддержки банка, выпустившего карту.</p>
-						</div>
+					</div>
+				</div>
+			</div>
 
 
+			<!-- Форматы -->
+			<section class="format" id="format">
+				<div class="format__container">
+					<div class="format__body">
+
+						<div class="format__block">
+							<h2 class="format__title">
+								Конвертируйте <br>
+								различные аудио <br>
+								и видео файлы в текст
+							</h2>
+							<div class="format__text">
+								Вы можете использовать «Аллегро» <br> для конвертации самых разных <br> форматов файлов
+							</div>
+						</div>
+						<div class="format__content">
+
+							<div class="format__items">
+								<div class="format__item">M4A</div>
+								<div class="format__item">MOV</div>
+								<div class="format__item">MP4</div>
+								<div class="format__item">MP3</div>
+								<div class="format__item">OGG</div>
+								<div class="format__item">WAV</div>
+							</div>
+							<div class="format__item-text">в</div>
+							<div class="format__item">WAV</div>
+
+						</div>
 
 					</div>
 				</div>
 			</section>
 
 
+			<section class="skill">
+				<div class="skill__container">
+					<div class="skill__content">
+
+						<h2 class="skill__title">Транскрибатор <br>«Аллегро» —</h2>
+						<div class="skill__text">
+							Транскрибатор «Аллегро» специализируется на применении искусственного интеллекта для предоставления услуг транскрибирования аудио и видео
+							контента. Использование ИИ позволяет «Аллегро» эффективно и точно конвертировать устную речь в текстовый формат, что является значимым
+							ресурсом для различных секторов, включая медиа, образование, юриспруденцию и мероприятия.
+						</div>
+					</div>
+				</div>
+			</section>
 
 		</main>
 		<footer class="footer">

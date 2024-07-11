@@ -9,11 +9,11 @@
 	<link rel="manifest" href="js/manifest.json" />
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=PT+Sans:ital,wght@0,400;0,700;1,400&display=swap&_v=20240613163953" rel="stylesheet" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css?_v=20240613163953" />
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css?_v=20240613163953" />
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css?_v=20240613163953" />
-	<link rel="stylesheet" href="css/styles.min.css?_v=20240613163953">
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=PT+Sans:ital,wght@0,400;0,700;1,400&display=swap&_v=20240711230420" rel="stylesheet" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css?_v=20240711230420" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css?_v=20240711230420" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css?_v=20240711230420" />
+	<link rel="stylesheet" href="css/styles.min.css?_v=20240711230420">
 
 	<link rel="icon" href="img/favicon.ico">
 
@@ -73,19 +73,20 @@
 	</noscript>
 	<!-- /Yandex.Metrika counter -->
 
-	<script src="https://code.jquery.com/jquery-3.6.4.min.js?_v=20240613163953" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js?_v=20240711230420" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
 	<script src="
 	https://cdn.jsdelivr.net/npm/just-validate@4.2.0/dist/just-validate.production.min.js
-	?_v=20240613163953"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.7/inputmask.min.js?_v=20240613163953" integrity="sha512-czERuOifK1fy7MssE4JJ7d0Av55NPiU2Ymv4R6F0mOGpyPUb9HkP9DcEeE+Qj9In7hWQHGg0CqH1ELgNBJXqGA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-	<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js?_v=20240613163953"></script>
-	<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js?_v=20240613163953"></script>
+	?_v=20240711230420"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.7/inputmask.min.js?_v=20240711230420" integrity="sha512-czERuOifK1fy7MssE4JJ7d0Av55NPiU2Ymv4R6F0mOGpyPUb9HkP9DcEeE+Qj9In7hWQHGg0CqH1ELgNBJXqGA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js?_v=20240711230420"></script>
+	<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js?_v=20240711230420"></script>
 	<script>
 		if (typeof navigator.serviceWorker !== 'undefined') {
 			navigator.serviceWorker.register('js/sw.js')
 		}
 	</script>
 	<link rel="manifest" href="js/manifest.json" />
+	<link rel="manifest" href="js/sw.js" />
 
 </head>
 
@@ -697,72 +698,6 @@
 			</div>
 		</div>
 
-		<div class="modal-oplata" id="modal-oplata">
-			<h3 class="modal-oplata__title">Транскрибация видео-аудио контента</h3>
-			<form class="modal-oplata__form" action="oplata.php" enctype="multipart/form-data" method="POST">
-				<div class="modal-oplata__item">
-					<input class="modal-oplata__name" data-validate-field="name" name="Имя" type="text" placeholder="Представьтесь, пожалуйста" />
-				</div>
-
-				<div class="modal-oplata__item">
-					<input class="modal-oplata__email" data-validate-field="email" name="email" type="email" placeholder="Электронная почта для отправки файла" />
-				</div>
-
-				<button class="modal-oplata__btn" type="submit">к оплате</button>
-
-			</form>
-			<div class="modal-oplata__agree">
-				Отправляя форму, вы&nbsp;соглашаетесь с&nbsp;обработкой персональных данных и&nbsp;
-				<a href="https://docs.google.com/file/d/1pnHJaJK5kQtxE3m8iUJ-3nji23o9XnpV/edit?filetype=msword">
-					<span>условиями договора-оферты</span>
-				</a>
-			</div>
-		</div>
-
-		<div class="modal-pay" id="modal-pay">
-			<div class="modal-pay__title modal-pay__title_green">сумма к оплате: <br><span>200 ₽</span></div>
-			<div class="modal-pay__title">выберите предпочтительный способ оплаты</div>
-			<form class="modal-pay__form" action="pay.php" enctype="multipart/form-data" method="POST">
-				<input type="hidden" name="Имя" class="hidden-name">
-				<input type="hidden" name="email" class="hidden-email">
-				<div class="modal-pay__block">
-					<div class="modal-pay__item">
-						<label class="modal-pay__label">
-							<input class="modal-request__radio" type="radio" name="payment_method" value="card" /> <span>Банковская карта</span>
-						</label>
-						<picture><source srcset="img/transcribator/card.webp" type="image/webp"><img src="img/transcribator/card.jpg" alt=""></picture>
-					</div>
-					<div class="modal-pay__item">
-						<label class="modal-pay__label">
-							<input class="modal-request__radio" type="radio" name="payment_method" value="umoney" /> <span>ЮMoney</span>
-						</label>
-						<picture><source srcset="img/transcribator/umoney.webp" type="image/webp"><img src="img/transcribator/umoney.jpg" alt=""></picture>
-					</div>
-					<div class="modal-pay__item">
-						<label class="modal-pay__label">
-							<input class="modal-request__radio" type="radio" name="payment_method" value="sbp" /> <span>СБП</span>
-						</label>
-						<picture><source srcset="img/transcribator/sbp.webp" type="image/webp"><img src="img/transcribator/sbp.jpg" alt=""></picture>
-					</div>
-				</div>
-				<button class="modal-pay__btn" type="submit">оплатить</button>
-			</form>
-			<div class="modal-pay__agree">
-				Отправляя форму, вы&nbsp;соглашаетесь с&nbsp;обработкой персональных данных и&nbsp;
-				<a href="https://docs.google.com/file/d/1pnHJaJK5kQtxE3m8iUJ-3nji23o9XnpV/edit?filetype=msword">
-					<span>условиями договора-оферты</span>
-				</a>
-			</div>
-		</div>
-
-		<div class="file-sent" id="file-sent">
-			<div class="file-sent__content">
-				<h3 class="file-sent__title file-sent__title_white">оплата успешно <br>проведена</h3>
-				<div class="file-sent__title">
-					файл отправлен <br>на почту!
-				</div>
-			</div>
-		</div>
 
 
 
@@ -780,7 +715,7 @@
 			</div>
 		</div>
 	</div>
-	<script src="js/app.min.js?_v=20240613163953"></script>
+	<script src="js/app.min.js?_v=20240711230420"></script>
 </body>
 
 </html>

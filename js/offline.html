@@ -1,48 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Нет подключения | AI4G</title>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <style>
-      body {
-        font-family: helvetica, arial, sans-serif;
-        margin: 2em;
-      }
+	<title>Нет подключения | AI4G</title>
 
-      h1 {
-        font-style: italic;
-        color: #373fff;
-      }
+	<style>
+		body {
+			font-family: helvetica, arial, sans-serif;
+			margin: 2em;
+		}
 
-      p {
-        margin-block: 1rem;
-      }
+		h1 {
+			font-style: italic;
+			color: #373fff;
+		}
 
-      button {
-        display: block;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>Нет сети или сервер не отвечает</h1>
+		p {
+			margin-block: 1rem;
+		}
 
-    <p>Подключитесь к интернету и/или нажмите на кнопку:</p>
-    <button type="button">⤾ Перезагрузить</button>
-    <script>
-      // Manual reload feature.
-      document.querySelector("button").addEventListener("click", () => {
-        window.location.reload();
-      });
+		button {
+			display: block;
+		}
+	</style>
+</head>
 
-      // Listen to changes in the network state, reload when online.
-      // This handles the case when the device is completely offline.
-      window.addEventListener('online', () => {
-        window.location.reload();
-      });
-    </script>
-  </body>
+<body>
+	<h1>Нет сети или сервер не отвечает</h1>
+
+	<p>Подключитесь к интернету и/или нажмите на кнопку:</p>
+	<button type="button">⤾ Перезагрузить</button>
+	<script>
+		// Manual reload feature.
+		document.querySelector("button").addEventListener("click", () => {
+			window.location.reload();
+		});
+
+		// Listen to changes in the network state, reload when online.
+		// This handles the case when the device is completely offline.
+		window.addEventListener('online', () => {
+			window.location.reload();
+		});
+	</script>
+</body>
+
 </html>

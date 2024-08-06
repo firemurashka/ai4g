@@ -10,14 +10,13 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 	<link
-		href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=PT+Sans:ital,wght@0,400;0,700;1,400&display=swap&_v=20240711200120"
+		href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=PT+Sans:ital,wght@0,400;0,700;1,400&display=swap&_v=20240805113626"
 		rel="stylesheet" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css?_v=20240711200120" />
-
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css?_v=20240711200120" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.min.css?_v=20240711200120" />
-	<link rel="stylesheet" href="css/styles.min.css?_v=20240711200120">
-
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css?_v=20240805113626" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css?_v=20240805113626" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.min.css?_v=20240805113626" />
+	<link rel="stylesheet" href="css/styles.css">
+	<link rel="stylesheet" href="css/transcribator.css">
 	<link rel="icon" href="img/favicon.ico">
 
 	<!-- Facebook Pixel Code -->
@@ -80,27 +79,27 @@
 		</div>
 	</noscript>
 	<!-- /Yandex.Metrika counter -->
-
-	<script src="https://code.jquery.com/jquery-3.6.4.min.js?_v=20240711200120" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js?_v=20240805113626" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="
 		crossorigin="anonymous"></script>
 	<script src="
 	https://cdn.jsdelivr.net/npm/just-validate@4.2.0/dist/just-validate.production.min.js
-	?_v=20240711200120"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.7/inputmask.min.js?_v=20240711200120"
+	?_v=20240805113626"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.7/inputmask.min.js?_v=20240805113626"
 		integrity="sha512-czERuOifK1fy7MssE4JJ7d0Av55NPiU2Ymv4R6F0mOGpyPUb9HkP9DcEeE+Qj9In7hWQHGg0CqH1ELgNBJXqGA==" crossorigin="anonymous"
 		referrerpolicy="no-referrer"></script>
-	<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js?_v=20240711200120"></script>
+	<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js?_v=20240805113626"></script>
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.js?_v=20240711200120"></script>
-
-
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.js?_v=20240805113626"></script>
 	<link rel="manifest" href="js/manifest.json" />
-
+	<!-- Include Plyr.js for video play duration detection -->
+	<link rel="stylesheet" href="https://cdn.plyr.io/3.6.8/plyr.css" />
+	<script src="https://cdn.plyr.io/3.6.8/plyr.js"></script>
 </head>
 
 
 <body class="body page-transcribator">
 	<div class="wrapper">
+
 		<header class="header">
 			<div class="header__line"></div>
 			<a class="header__logo" href="index.html">
@@ -121,6 +120,7 @@
 				<img src="img/footer-logo.svg" alt="A4iG" width="151" height="62" />
 			</a>
 		</header>
+
 		<main class="page ">
 			<section class="servises" id="top">
 				<div class="servises__title-block">
@@ -172,21 +172,17 @@
 			</section>
 
 
-			<div class="trancrib trancrib-default" id="drop-area">
+			<div class="trancrib" id="drop-area">
 				<div class="trancrib__container">
 					<div class="trancrib__body">
 						<form action="upload.php" class="trancrib__form dropzone" id="my-dropzone">
 							<div class="trancrib__img">
-								<picture>
-									<source srcset="img/transcribator/download.webp" type="image/webp"><img src="img/transcribator/download.png" alt="">
-								</picture>
+								<img src="img/transcribator/download.png" alt="">
 							</div>
 							<div class="trancrib__text trancrib-text"></div>
-							<!-- <div class="loading-points">...</div> -->
-							<!--<input type="file" id="file-upload" style="display:none;" multiple /> -->
 
 						</form>
-						<button class="trancrib__link" id="upload-button">добавить файл</button>
+						<button class="trancrib__link" id="upload-button">Загрузить файл</button>
 						<div class="trancrib__bottom">
 							<button class="trancrib__link trancrib__link_add" id="button-add">
 								<img src="img/transcribator/plus.svg" alt="">
@@ -195,9 +191,12 @@
 							<button class="trancrib__link trancrib__link_proccess" id="button-proccess">Конвертировать
 								<img src="img/transcribator/arrow-right.svg" alt="">
 							</button>
-							<!-- <div class="trancrib__loading" id="loading-bar"><span>0%</span></div> -->
 						</div>
+						<div id="alert-info" class="alert-info"></div>
+
 					</div>
+					<div id="price-info" class="price-info"></div>
+
 				</div>
 			</div>
 
@@ -293,6 +292,7 @@
 			</section>
 
 		</main>
+
 		<footer class="footer">
 			<div class="footer__super-wrapper">
 				<div class="footer__wrapper">
@@ -313,12 +313,6 @@
 							</a>
 						</div>
 						<div class="footer__logo">
-							<!-- <img
-						 class="footer__logo-desktop"
-						 src="img/footer-logo_.svg"
-						 alt="Ai4G"
-						 loading="lazy"
-					  /> -->
 							<a class="footer__logo2" href="https://fasie.ru">
 								<img class="footer__logo-desktop" src="img/footer-logo2.svg" alt="fond" loading="lazy" />
 								<img class="footer__logo-mobile" src="img/mobile-footer-logo.svg" alt="Ai4G" loading="lazy" />
@@ -327,39 +321,10 @@
 					</div>
 				</div>
 
-				<!-- <div class="footer__super-wrapper">
-			  <div class="footer__wrapper"> -->
-				<!-- <div class="container"> -->
-				<!--  <h2 class="footer__title">Контактная информация</h2> -->
-				<!-- <div class="footer__items">
-					  <a href="mailto:info@ai4g.ru" class="footer__item">
-						 <img src="img/email.svg" alt="email" loading="lazy" />
-						 <span>info@ai4g.ru</span> -->
-				<!-- </a>
-					  <a href="https://t.me/+79852000434" target="_blank" class="footer__item">
-						 <img src="img/telegram.svg" alt="telegram" loading="lazy" />
-						 <span>+7 985 2000434</span>
-					  </a>
-					  <a href="https://ai4g.ru/login" target="_blank" class="footer__item">
-						 <img src="img/lk.svg" alt="личный кабинет" loading="lazy" />
-						 <span>Личный кабинет</span>
-					  </a> 
-			</div>-->
 
 				<div class="footer__logo">
-					<!-- <img
-						 class="footer__logo-desktop"
-						 src="img/footer-logo_.svg"
-						 alt="Ai4G"
-						 loading="lazy"
-					  /> -->
-					<!-- <a class="footer__logo2" href="https://fasie.ru"> -->
-					<picture>
-						<source srcset="img/logo3h.webp" type="image/webp"><img class="footer2__logo-desktop" src="img/logo3h.png" alt="fond" loading="lazy" />
-					</picture>
-					<picture>
-						<source srcset="img/logo3v.webp" type="image/webp"><img class="footer__logo-mobile" src="img/logo3v.png" alt="Ai4G" loading="lazy" />
-					</picture>
+					<img class="footer2__logo-desktop" src="img/logo3h.png" alt="fond" loading="lazy" />
+					<img class="footer__logo-mobile" src="img/logo3v.png" alt="Ai4G" loading="lazy" />
 					</a>
 				</div>
 
@@ -375,14 +340,13 @@
 						Реквизиты
 					</a>
 				</div>
+			</div>
 
 		</footer>
-
 
 		<div class="scrollUp">
 			<img cla src="img/arrow-up.svg" alt="scrollUp" />
 		</div>
-
 
 		<div class="modal-thanks" id="modal-thanks">
 			<div class="modal-thanks__logo">
@@ -528,13 +492,9 @@
 			</div>
 		</div>
 
-
-
-
 	</div>
 	<script src="js/transcribator.js"></script>
 
-	<script src="js/app.min.js?_v=20240711200120"></script>
 </body>
 
 </html>

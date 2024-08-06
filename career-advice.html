@@ -2,26 +2,32 @@
 <html lang="ru">
 
 <head>
-	<title>Карьерная консультация с Еленой Семеновой</title>
 	<meta charset="UTF-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Карьерная консультация с Еленой Семеновой</title>
 	<link rel="manifest" href="js/manifest.json" />
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=PT+Sans:ital,wght@0,400;0,700;1,400&display=swap&_v=20240711230420" rel="stylesheet" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css?_v=20240711230420" />
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css?_v=20240711230420" />
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css?_v=20240711230420" />
-	<link rel="stylesheet" href="css/styles.min.css?_v=20240711230420">
+	<link
+		href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=PT+Sans:ital,wght@0,400;0,700;1,400&display=swap&_v=20240604140331"
+		rel="stylesheet" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css?_v=20240604140331" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css?_v=20240604140331" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css?_v=20240604140331" />
+	<link rel="stylesheet" href="css/styles.css" />
 
 	<link rel="icon" href="img/favicon.ico">
 
 	<!-- Facebook Pixel Code -->
 	<script>
-		! function(f, b, e, v, n, t, s) {
+		function generateOrderId() {
+			var orderId = 'orderCA-' + Math.floor(Math.random() * 1000000);
+			document.getElementById('orderid').value = orderId;
+		}
+		! function (f, b, e, v, n, t, s) {
 			if (f.fbq) return;
-			n = f.fbq = function() {
+			n = f.fbq = function () {
 				n.callMethod ?
 					n.callMethod.apply(n, arguments) : n.queue.push(arguments)
 			};
@@ -47,8 +53,8 @@
 	<!-- End Facebook Pixel Code -->
 	<!-- Yandex.Metrika counter -->
 	<script type="text/javascript">
-		(function(m, e, t, r, i, k, a) {
-			m[i] = m[i] || function() {
+		(function (m, e, t, r, i, k, a) {
+			m[i] = m[i] || function () {
 				(m[i].a = m[i].a || []).push(arguments)
 			};
 			m[i].l = 1 * new Date();
@@ -59,7 +65,7 @@
 			}
 			k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
 		})
-		(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+			(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
 
 		ym(93953514, "init", {
 			clickmap: true,
@@ -69,24 +75,22 @@
 		});
 	</script>
 	<noscript>
-		<div><picture><source srcset="https://mc.yandex.ru/watch/93953514" type="image/webp"><img src="https://mc.yandex.ru/watch/93953514" style="position:absolute; left:-9999px;" alt="" /></picture></div>
+		<div>
+			<picture>
+				<source srcset="https://mc.yandex.ru/watch/93953514" type="image/webp"><img src="https://mc.yandex.ru/watch/93953514"
+					style="position:absolute; left:-9999px;" alt="" />
+			</picture>
+		</div>
 	</noscript>
 	<!-- /Yandex.Metrika counter -->
 
-	<script src="https://code.jquery.com/jquery-3.6.4.min.js?_v=20240711230420" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
-	<script src="
-	https://cdn.jsdelivr.net/npm/just-validate@4.2.0/dist/just-validate.production.min.js
-	?_v=20240711230420"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.7/inputmask.min.js?_v=20240711230420" integrity="sha512-czERuOifK1fy7MssE4JJ7d0Av55NPiU2Ymv4R6F0mOGpyPUb9HkP9DcEeE+Qj9In7hWQHGg0CqH1ELgNBJXqGA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-	<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js?_v=20240711230420"></script>
-	<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js?_v=20240711230420"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js?_v=20240604140331"></script>
 	<script>
 		if (typeof navigator.serviceWorker !== 'undefined') {
 			navigator.serviceWorker.register('js/sw.js')
 		}
 	</script>
-	<link rel="manifest" href="js/manifest.json" />
-	<link rel="manifest" href="js/sw.js" />
 
 </head>
 
@@ -112,13 +116,16 @@
 				<img src="img/footer-logo.svg" alt="A4iG" width="151" height="62" />
 			</a>
 		</header>
-		<main class="page">
+		<main class="page ">
 			<section class="session" id="top">
 				<div class="session__title-block">
 					<div class="session__container">
 						<div class="session__content">
 							<h1 class="session__title">Карьерная консультация <br>с Еленой Семеновой —</span></h1>
-							<picture><source srcset="img/coaching-session/coach.webp" type="image/webp"><img src="img/coaching-session/coach.jpg" alt="" class="session__coach"></picture>
+							<picture>
+								<source srcset="img/coaching-session/coach.webp" type="image/webp"><img src="img/coaching-session/coach.jpg" alt=""
+									class="session__coach">
+							</picture>
 						</div>
 					</div>
 				</div>
@@ -132,14 +139,14 @@
 
 
 							<div class="solution__item solution__item_01">
-								<picture><source srcset="img/career-advice/square.webp" type="image/webp"><img src="img/career-advice/square.png" alt="" class="solution__img"></picture>
+								<img src="img/career-advice/square.png" alt="" class="solution__img">
 								<div class="solution__text">
 									Чек-лист по резюме, рекомендации по улучшению резюме
 								</div>
 							</div>
 
 							<div class="solution__item solution__item_02">
-								<picture><source srcset="img/coaching-session/triangle.webp" type="image/webp"><img src="img/coaching-session/triangle.png" alt="" class="solution__img solution__img_triangle"></picture>
+								<img src="img/coaching-session/triangle.png" alt="" class="solution__img solution__img_triangle">
 								<div class="solution__text">
 									Корректировка действий по поиску работы
 								</div>
@@ -148,7 +155,7 @@
 
 
 							<div class="solution__item solution__item_03">
-								<picture><source srcset="img/coaching-session/triangle.webp" type="image/webp"><img src="img/coaching-session/triangle.png" alt="" class="solution__img solution__img_triangle"></picture>
+								<img src="img/coaching-session/triangle.png" alt="" class="solution__img solution__img_triangle">
 								<div class="solution__text">Рекомендации по организации поиска работы
 								</div>
 							</div>
@@ -156,7 +163,7 @@
 
 
 							<div class="solution__item solution__item_04">
-								<picture><source srcset="img/career-advice/square.webp" type="image/webp"><img src="img/career-advice/square.png" alt="" class="solution__img"></picture>
+								<img src="img/career-advice/square.png" alt="" class="solution__img">
 								<div class="solution__text">
 									Подготовка к собеседованиям
 								</div>
@@ -164,28 +171,26 @@
 
 
 							<div class="solution__item solution__item_05">
-								<picture><source srcset="img/career-advice/square.webp" type="image/webp"><img src="img/career-advice/square.png" alt="" class="solution__img"></picture>
+								<img src="img/career-advice/square.png" alt="" class="solution__img">
 								<div class="solution__text">
 									Разработка персональной стратегии поиска работы
 								</div>
 							</div>
 							<div class="solution__item solution__item_06">
-								<picture><source srcset="img/coaching-session/triangle.webp" type="image/webp"><img src="img/coaching-session/triangle.png" alt="" class="solution__img solution__img_triangle"></picture>
+								<img src="img/coaching-session/triangle.png" alt="" class="solution__img solution__img_triangle">
 								<div class="solution__text">
 									Комплексное тестирование личности: мотивация, соответствие культуре, уровень управленческих и бизнес компетенций, потенциал,
 									интеллектуальные способности.
 								</div>
 							</div>
-
-
 						</div>
-
-
 						<div class="session__servise servise-session">
-
 							<div class="servise-session__items">
 								<div class="servise-session__item">
-									<picture><source srcset="img/career-advice/cost.webp" type="image/webp"><img src="img/career-advice/cost.png" alt="" class="servise-session__img"></picture>
+									<picture>
+										<source srcset="img/career-advice/cost.webp" type="image/webp"><img src="img/career-advice/cost.png" alt=""
+											class="servise-session__img">
+									</picture>
 									<div class="servise-session__block">
 										<div class="servise-session__title">Стоимость продукта</div>
 										<div class="servise-session__text">15 000 ₽</div>
@@ -193,7 +198,10 @@
 								</div>
 
 								<div class="servise-session__item">
-									<picture><source srcset="img/career-advice/time.webp" type="image/webp"><img src="img/career-advice/time.png" alt="" class="servise-session__img"></picture>
+									<picture>
+										<source srcset="img/career-advice/time.webp" type="image/webp"><img src="img/career-advice/time.png" alt=""
+											class="servise-session__img">
+									</picture>
 									<div class="servise-session__block">
 										<div class="servise-session__title">Длительность</div>
 										<div class="servise-session__text">60 минут</div>
@@ -201,37 +209,46 @@
 								</div>
 
 								<div class="servise-session__item">
-									<picture><source srcset="img/career-advice/format.webp" type="image/webp"><img src="img/career-advice/format.png" alt="" class="servise-session__img"></picture>
+									<picture>
+										<source srcset="img/career-advice/format.webp" type="image/webp"><img src="img/career-advice/format.png" alt=""
+											class="servise-session__img">
+									</picture>
 									<div class="servise-session__block">
 										<div class="servise-session__title">Формат проведения <br>консультации</div>
 										<div class="servise-session__text">онлайн</div>
 									</div>
 								</div>
-								<picture><source srcset="img/career-advice/decor-career.webp" type="image/webp"><img src="img/career-advice/decor-career.png" alt="" class="servise-session__decor-img"></picture>
+								<picture>
+									<source srcset="img/career-advice/decor-career.webp" type="image/webp"><img src="img/career-advice/decor-career.png" alt=""
+										class="servise-session__decor-img">
+								</picture>
 
 
 							</div>
 						</div>
-
-
-						<div class="session__text">
-							Запишитесь на бесплатную консультацию <br>и задайте интересующие вопросы
+						<!-- КНОПКИ -->
+						<div class="session__btn-block">
+							<div class="session__text">
+								Запишитесь на консультацию <br>и задайте интересующие вопросы
+							</div>
+							<a href="#modal-request" class="session__link link" data-fancybox>
+								записаться
+							</a>
 						</div>
-
-						<a href="#modal-request" class="session__link link  _anim-items _anim-no-hide" data-fancybox>
-							записаться на консультацию
+						<div class="session__text">
+							Оплатите карьерную консультацию
+						</div>
+						<a href="#payment" class="session__link link session__link_green" data-fancybox>
+							Оплатить
 						</a>
 					</div>
-
-
 				</div>
-
 			</section>
-
-
-
-
 		</main>
+
+		<div class="scrollUp">
+			<img cla src="img/arrow-up.svg" alt="scrollUp" />
+		</div>
 		<footer class="footer">
 			<div class="footer__super-wrapper">
 				<div class="footer__wrapper">
@@ -252,12 +269,6 @@
 							</a>
 						</div>
 						<div class="footer__logo">
-							<!-- <img
-				 class="footer__logo-desktop"
-				 src="img/footer-logo_.svg"
-				 alt="Ai4G"
-				 loading="lazy"
-			  /> -->
 							<a class="footer__logo2" href="https://fasie.ru">
 								<img class="footer__logo-desktop" src="img/footer-logo2.svg" alt="fond" loading="lazy" />
 								<img class="footer__logo-mobile" src="img/mobile-footer-logo.svg" alt="Ai4G" loading="lazy" />
@@ -265,137 +276,136 @@
 						</div>
 					</div>
 				</div>
-
-				<!-- <div class="footer__super-wrapper">
-	  <div class="footer__wrapper"> -->
-				<!-- <div class="container"> -->
-				<!--  <h2 class="footer__title">Контактная информация</h2> -->
-				<!-- <div class="footer__items">
-			  <a href="mailto:info@ai4g.ru" class="footer__item">
-				 <img src="img/email.svg" alt="email" loading="lazy" />
-				 <span>info@ai4g.ru</span> -->
-				<!-- </a>
-			  <a href="https://t.me/+79852000434" target="_blank" class="footer__item">
-				 <img src="img/telegram.svg" alt="telegram" loading="lazy" />
-				 <span>+7 985 2000434</span>
-			  </a>
-			  <a href="https://ai4g.ru/login" target="_blank" class="footer__item">
-				 <img src="img/lk.svg" alt="личный кабинет" loading="lazy" />
-				 <span>Личный кабинет</span>
-			  </a> 
-	</div>-->
-
-				<div class="footer__logo">
-					<!-- <img
-				 class="footer__logo-desktop"
-				 src="img/footer-logo_.svg"
-				 alt="Ai4G"
-				 loading="lazy"
-			  /> -->
-					<!-- <a class="footer__logo2" href="https://fasie.ru"> -->
-					<picture><source srcset="img/logo3h.webp" type="image/webp"><img class="footer2__logo-desktop" src="img/logo3h.png" alt="fond" loading="lazy" /></picture>
-					<picture><source srcset="img/logo3v.webp" type="image/webp"><img class="footer__logo-mobile" src="img/logo3v.png" alt="Ai4G" loading="lazy" /></picture>
-					</a>
-				</div>
-
-
-				<div class="footer__links">
-					<a href="/oferta.html" class="footer__link">
-						Договор оферты
-					</a>
-					<a href="/oplata.html" class="footer__link">
-						Правила оплаты и возврата
-					</a>
-					<a href="/requisites.html" class="footer__link">
-						Реквизиты
-					</a>
-				</div>
-
+		</footer>
+		<footer class="footer">
+			<div class="footer__logo">
+				<img class="footer2__logo-desktop" src="img/logo3h.png" alt="fond" loading="lazy" />
+				<img class="footer__logo-mobile" src="img/logo3v.png" alt="Ai4G" loading="lazy" />
+				</a>
+			</div>
+			<div class="footer__links">
+				<a href="/oferta.html" class="footer__link">
+					Договор оферты
+				</a>
+				<a href="/oplata.html" class="footer__link">
+					Правила оплаты и возврата
+				</a>
+				<a href="/requisites.html" class="footer__link">
+					Реквизиты
+				</a>
+			</div>
 		</footer>
 
-
-		<div class="scrollUp">
-			<img cla src="img/arrow-up.svg" alt="scrollUp" />
-		</div>
-
-
+		<!-- modal-request -->
 		<div class="modal-request" id="modal-request">
 			<h3 class="modal-request__title">Запись на&nbsp;serf-сессию</h3>
-			<form class="modal-request__form" action="mail.php" enctype="multipart/form-data" method="POST">
-				<div class="modal-request__item">
-					<input class="modal-request__name" data-validate-field="name" name="Имя" type="text" placeholder="Представьтесь, пожалуйста" />
-				</div>
-				<div class="modal-request__item">
-					<input class="modal-request__phone" data-validate-field="tel" name="Телефон" type="tel" placeholder="Телефон" />
-				</div>
-				<div class="modal-request__item">
-					<input class="modal-request__phone" data-validate-field="email" name="email" type="email" placeholder="Электронная почта" />
-				</div>
+			<form class="modal-request__form" action="mail.php" enctype="multipart/form-data" method="POST" id="serf-session-form">
+
+				<!-- Имя -->
+				<input class="modal-request__name" data-validate-field="name" name="Имя" type="text" placeholder="Представьтесь, пожалуйста" required />
+
+				<!-- Телефон -->
+				<input class="modal-request__phone" data-validate-field="tel" name="Телефон" type="tel" placeholder="Телефон" required />
+
+				<!-- email -->
+				<input class="modal-request__phone modal-request__email" data-validate-field="email" name="email" type="email" placeholder="Электронная почта"
+					required />
+
 				<div class="modal-request__choice">
 					<div class="modal-request__left">Предпочтительный способ связи:</div>
 					<div class="modal-request__right">
-						<label class="modal-request__label"><input class="modal-request__radio" type="radio" name="Предпочтительный способ связи:" value="Телефон" checked /><span>Телефон</span></label>
-						<label class="modal-request__label"><input class="modal-request__radio" type="radio" name="Предпочтительный способ связи:" value="WhatsApp" /><span>WhatsApp</span></label>
-						<label class="modal-request__label">
-							<input class="modal-request__radio" type="radio" name="Предпочтительный способ связи:" value="Telegram" /><span>Telegram</span></label>
+						<label class="modal-request__label"><input class="modal-request__radio" type="radio" id="contactChoice1" name="contact" value="Телефон"
+								checked /><span>Телефон</span></label>
+						<label class="modal-request__label"><input class="modal-request__radio" type="radio" id="contactChoice2" name="contact"
+								value="WhatsApp" /><span>WhatsApp</span></label>
+						<label class="modal-request__label"><input class="modal-request__radio" type="radio" id="contactChoice3" name="contact"
+								value="Telegram" /><span>Telegram</span></label>
 					</div>
 				</div>
+
 				<button class="modal-request__btn" type="submit">Записаться</button>
-
-				<script>
-					let params = new URLSearchParams(window.location.search);
-					let bc = params.get('bc'); //код партнера, который был передан в url (?bc=12345)
-					document.writeln("<input type='hidden' name='bc' value='" + bc + "'>");
-					let utm_campaign = params.get('utm_campaign');
-					document.writeln("<input type='hidden' name='utm_campaign' value='" + utm_campaign + "'>");
-					let utm_content = params.get('utm_content');
-					document.writeln("<input type='hidden' name='utm_content' value='" + utm_content + "'>");
-					let utm_medium = params.get('utm_medium');
-					document.writeln("<input type='hidden' name='utm_medium' value='" + utm_medium + "'>");
-					let utm_source = params.get('utm_source');
-					document.writeln("<input type='hidden' name='utm_source' value='" + utm_source + "'>");
-					let utm_term = params.get('utm_term');
-					document.writeln("<input type='hidden' name='utm_term' value='" + utm_term + "'>");
-				</script>
-
 
 			</form>
 			<div class="modal-request__agree">
 				Отправляя форму, вы&nbsp;соглашаетесь с&nbsp;обработкой персональных данных и&nbsp;
-				<a target="_blank" href="/oferta.html">
+				<a href="https://ai4g.ru/oferta.html" target="_blank">
 					<span>условиями договора-оферты</span>
 				</a>
 			</div>
 		</div>
 
+		<!--payment  -->
+		<div class="payment" id="payment">
+			<h3 class="payment__title">Оплата коуч-сессии</h3>
+			<form class="payment__form" action="https://ai4g.server.paykeeper.ru/create/" enctype="multipart/form-data" method="POST" id="payment-form">
+				<input type='hidden' id='sum' name='sum' value='15000' readonly />
+				<input type='hidden' name='orderid' id='orderid' />
+				<input type='hidden' name='service_name' value='Коуч-сессия' />
+
+				<!--Имя  -->
+				<input class="payment__name" data-validate-field="name" name="clientid" type="text" placeholder="Имя и Фамилия" required />
+
+				<!-- Телефон -->
+				<input class="payment__phone" data-validate-field="tel" name="client_phone" type="tel" placeholder="Телефон" required />
+
+				<!-- email-->
+				<input class="payment__phone payment__email" data-validate-field="email" name="client_email" type="email" placeholder="Электронная почта"
+					required />
+
+				<div class="payment__choice">
+					<div class="payment__left">Предпочтительный способ связи:</div>
+					<div class="payment__right">
+						<label class="payment__label"><input class="payment__radio" type="radio" id="contactChoice1" name="contact" value="Телефон"
+								checked /><span>Телефон</span></label>
+						<label class="payment__label"><input class="payment__radio" type="radio" id="contactChoice2" name="contact"
+								value="WhatsApp" /><span>WhatsApp</span></label>
+						<label class="payment__label"><input class="payment__radio" type="radio" id="contactChoice3" name="contact"
+								value="Telegram" /><span>Telegram</span></label>
+					</div>
+				</div>
+				<button class="payment__btn" type="submit" onclick="generateOrderId()">Оплатить</button>
+			</form>
+			<div class="payment__agree">
+				Отправляя форму, вы&nbsp;соглашаетесь с&nbsp;обработкой персональных данных и&nbsp;
+				<a href="https://ai4g.ru/oferta.html" target="_blank">
+					<span>условиями договора-оферты</span>
+				</a>
+			</div>
+		</div>
+
+		<!-- modal-thanks -->
 		<div class="modal-thanks" id="modal-thanks">
 			<div class="modal-thanks__logo">
 				<img src="img/modal-thanks-logo.svg" alt="Ai4G" loading="lazy" />
 			</div>
-			<h3 class="modal-thanks__title">Вы&nbsp;успешно записались на&nbsp;serf-сессию.</h3>
+			<h3 class="modal-thanks__title">Вы&nbsp;успешно записались на&nbsp;карьерную консультацию</h3>
 			<div class="modal-thanks__text">
 				В&nbsp;ближайшее время мы&nbsp;свяжемся с&nbsp;вами указанным способом
 			</div>
 		</div>
 
-
-
-
-		<div class="modal-swiper" id="modal-swiper-1">
-			<div class="modal-swiper__name">Татьяна Андреева</div>
-			<div class="modal-swiper__text">
-				Я&nbsp;шла на&nbsp;поддерживающую сессию с&nbsp;твёрдым пониманием, что сессия необходима,
-				но&nbsp;не&nbsp;осознавала всей полезности, ввиду того, что в&nbsp;мыслях и&nbsp;чувствах
-				была неопределённость. Это вторая сессия с&nbsp;Еленой, и&nbsp;у&nbsp;меня сформировалось
-				мнение, что: 1. Елена очень точно понимает невысказанное, а&nbsp;также суть
-				&laquo;коряво&raquo; высказанного, когда в&nbsp;голове и&nbsp;на&nbsp;словах присутствует
-				туманность, нечеткость, подмечает детали, которые порой выглядят для говорящего как нечто
-				проходное, но&nbsp;на&nbsp;самом деле несут в&nbsp;себе важное значение; и&nbsp;умело
-				&laquo;упаковывает&raquo; всё это ...
+		<!-- successful-payment -->
+		<div class="modal-thanks" id="successful-payment">
+			<div class="modal-thanks__logo">
+				<img src="img/modal-thanks-logo.svg" alt="Ai4G" loading="lazy" />
+			</div>
+			<h3 class="modal-thanks__title">Вы&nbsp;успешно оплатили &nbsp;карьерную консультацию.</h3>
+			<div class="modal-thanks__text">
+				В&nbsp;ближайшее время мы&nbsp;свяжемся с&nbsp;вами указанным способом
 			</div>
 		</div>
+
 	</div>
-	<script src="js/app.min.js?_v=20240711230420"></script>
+
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.7/inputmask.min.js"
+		integrity="sha512-czERuOifK1fy7MssE4JJ7d0Av55NPiU2Ymv4R6F0mOGpyPUb9HkP9DcEeE+Qj9In7hWQHGg0CqH1ELgNBJXqGA==" crossorigin="anonymous"
+		referrerpolicy="no-referrer"></script>
+	<script src="
+		 https://cdn.jsdelivr.net/npm/just-validate@4.2.0/dist/just-validate.production.min.js
+		 "></script>
+	<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+	<script src="js/main.js"></script>
 </body>
 
 </html>

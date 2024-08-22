@@ -364,13 +364,11 @@
 }
 
 .technics__content {
-  .technics__content {
-    background-color: rgb(220 220 220 / 10%);
-    border-radius: 12px;
-    padding: 24px;
-    margin: 10px 0px 20px 0px;
-    line-height: 30px;
-  }
+  background-color: rgb(220 220 220 / 10%);
+  border-radius: 12px;
+  padding: 24px;
+  margin: 10px 0px 20px 0px;
+  line-height: 30px;
 }
 
 /* -filter---------------- */

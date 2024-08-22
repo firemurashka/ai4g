@@ -34,7 +34,7 @@
   font-weight: 600;
   color: #0386ff;
   display: block;
-  margin: 0 0 0 10px;
+  margin: 0 0 0 0px;
 }
 @media (max-width: 768px) {
   .title {
@@ -362,72 +362,15 @@
 .technics__title {
   margin: 0px 0px 10px 0px;
 }
-.title {
-}
-.technics__category {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 20px;
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 20px;
-  text-align: center;
-  padding: 2px 10px;
-  color: #fff;
-}
-.technics__category.motives {
-  background: #06ea6f;
-}
-.technics__category.meanings {
-  background: #93cbff;
-}
-.technics__category.words {
-  background: #0386ff;
-}
-.technics__category.processes {
-  background: #4a006c;
-}
-.technics__category.states {
-  background: #ff9900;
-}
 
-.technics__time {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #fff;
-  color: #0386ff;
-  border-radius: 20px;
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 20px;
-  position: relative;
-  z-index: 10;
-  transition: all 0.3s ease;
-  text-align: center;
-  align-self: center;
-  padding: 2px 5px;
-  width: 100px;
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  border: 1px solid #0386ff;
-}
-@media (max-width: 768px) {
-  .technics__time {
-    font-size: 10px;
-    top: 5px;
-    right: -10px;
-    width: 90px;
-  }
-}
 .technics__content {
   background-color: #fff;
   border-radius: 12px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
   padding: 24px;
+  margin: 10px 0px 20px 0px;
 }
+
 /* -filter---------------- */
 .filter {
   display: flex;

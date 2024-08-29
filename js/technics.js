@@ -254,7 +254,7 @@ document.addEventListener('DOMContentLoaded', () => {
 					const subtitle = row[4];
 					const description = row[5];
 					const category = row[2];
-					const time = row[9];
+					const time = row[8];
 					const link = row[6];
 					const imageUrl = row[7];
 

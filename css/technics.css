@@ -30,11 +30,9 @@
   font-weight: 500;
   font-style: italic;
 }
-.step {
+
+.item-title {
   font-weight: 600;
-  color: #0386ff;
-  display: block;
-  margin: 0 0 0 0px;
 }
 @media (max-width: 768px) {
   .title {
@@ -122,7 +120,7 @@
   display: none;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 920px) {
   .card {
     padding: 14px;
   }
@@ -131,18 +129,14 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 320px;
+  height: 360px;
 }
 @media (max-width: 1100px) {
   .card__body {
-    height: 270px;
+    height: 320px;
   }
 }
-@media (max-width: 920px) {
-  .card__body {
-    height: 300px;
-  }
-}
+
 @media (max-width: 768px) {
   .card__body {
     height: auto;
@@ -171,6 +165,7 @@
   font-size: 14px;
   text-align: center;
   color: #949494;
+  line-height: 150%;
 }
 @media (max-width: 768px) {
   .card__description {
@@ -291,8 +286,37 @@
   font-size: 16px;
   line-height: 24px;
 }
+.page-technics .header__line {
+  margin-bottom: 24px;
+}
+.page-technics .header {
+  height: 140px;
+}
+@media (max-width: 980px) {
+  .page-technics .header {
+    height: 90px;
+  }
+  .page-technics .header__logo {
+    display: flex;
+    animation: none;
+  }
+  .page-technics .header__logo-mobile {
+    display: none;
+  }
+  .page-technics .header__line {
+    margin-bottom: 18px;
+  }
+}
+.page-technics .technics__container {
+  padding: 0 15px;
+}
 .technics {
-  margin: 200px 0px 50px 0px;
+  margin: 150px 0px 50px 0px;
+}
+@media (max-width: 980px) {
+  .technics {
+    margin: 95px 0px 50px 0px;
+  }
 }
 .technics p:not(:last-child) {
   margin: 0px 0px 10px 0px;
@@ -302,23 +326,43 @@
   flex-direction: column;
   gap: 30px;
 }
-.technics__list-item {
-  line-height: 1.6;
-  margin: 0 0 10px 0;
+@media (max-width: 768px) {
+  .technics__body {
+    gap: 20px;
+  }
 }
+
 .technics__list {
   padding-left: 0px;
+  counter-reset: step-counter; /* Инициализация счетчика */
 }
-@media (max-width: 980px) {
-  .technics {
-    margin: 150px 0px 50px 0px;
-  }
+
+.technics__list li {
+  position: relative;
+  counter-increment: step-counter; /* Увеличение счетчика на 1 для каждого элемента списка */
+  list-style: none; /* Убираем стандартную нумерацию */
+  line-height: 1.6;
+  margin: 35px 0 10px 0px;
+}
+
+.technics__list li::before {
+  position: absolute;
+  content: "Шаг " counter(step-counter) ":"; /* Используем счетчик в :before для нумерации */
+  font-weight: 600;
+  color: #0386ff;
+  display: block;
+  top: -25px;
+}
+
+.technics__catalog {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
 }
 .technics__catalog li {
   margin: 0px 0px 5px 0px;
   position: relative;
-  display: inline-flex;
-  align-items: center;
+  display: inline-block;
   padding: 0px 0px 0px 10px;
 }
 .technics__catalog li::before {
@@ -328,10 +372,17 @@
   width: 5px;
   height: 5px;
   position: absolute;
-  top: 7px;
+  top: 9px;
   left: 0;
 }
-
+.technics__catalog a {
+  color: #045db1;
+  transition: all 0.7s ease 0s;
+}
+.technics__catalog a:hover {
+  color: #0386ff;
+  text-decoration: underline;
+}
 .technics__links a {
   color: #0386ff;
   font-weight: 500;
@@ -340,7 +391,6 @@
 }
 .technics__links a:hover {
   color: #045db1;
-  font-weight: 500;
 }
 
 .technics__top {
@@ -350,6 +400,7 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  gap: 20px;
 }
 .technics__img {
   height: 100px;
@@ -357,20 +408,92 @@
   border-radius: 120px;
   overflow: hidden;
   justify-self: center;
-  margin: 0px 0px 10px 0px;
 }
 .technics__title {
-  margin: 0px 0px 10px 0px;
 }
 
 .technics__content {
   background-color: rgb(220 220 220 / 10%);
   border-radius: 12px;
-  padding: 24px;
-  margin: 10px 0px 20px 0px;
+  padding: 12px 24px;
   line-height: 30px;
 }
+@media (max-width: 768px) {
+  .technics__content {
+    padding: 14px;
+  }
+}
+.technics__content ul {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+.technics__content li {
+  margin: 0px 0px 5px 0px;
+  position: relative;
+  display: inline-block;
+  padding: 0px 0px 0px 10px;
+}
+.technics__content li::before {
+  content: "-";
+  color: #e60076;
+  font-weight: 700;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.technics__how-do-it li {
+  margin: 0px 0px 5px 10px;
+  position: relative;
+  display: inline-block;
+  padding: 0px 0px 0px 10px;
+}
+.technics__how-do-it ul {
+  margin: 0px 0px 10px 0px;
+}
+.technics__how-do-it li::before {
+  content: "-";
+  color: #e60076;
+  font-weight: 700;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
 
+.technics__bread-crumbs {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #045db1;
+  font-family: "PT Sans", sans-serif;
+  margin: 0px 0px 30px 0px;
+}
+@media (max-width: 768px) {
+  .technics__bread-crumbs {
+    margin: 0px 0px 10px 0px;
+  }
+}
+.technics__bread-crumbs li:last-child {
+  color: #150931;
+}
+.technics__bread-crumbs a {
+  transition: all 0.3s ease 0s;
+  text-decoration: underline;
+  position: relative;
+}
+.technics__bread-crumbs li {
+  position: relative;
+}
+.technics__bread-crumbs li:not(:last-child)::after {
+  content: "∙";
+  display: inline-block;
+  font-size: 14px;
+  color: rgb(116, 122, 150);
+  margin: 0px 10px;
+}
+.technics__bread-crumbs a:hover {
+  color: #05437d;
+}
 /* -filter---------------- */
 .filter {
   display: flex;

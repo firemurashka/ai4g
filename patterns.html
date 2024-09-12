@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+	<title>Паттерны - основные термины и определения</title>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="manifest" href="js/manifest.json" />
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link
+		href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=PT+Sans:ital,wght@0,400;0,700;1,400&display=swap&_v=20240711230420"
+		rel="stylesheet" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css?_v=20240711230420" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css?_v=20240711230420" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css?_v=20240711230420" />
+	<link rel="stylesheet" href="css/styles.css">
+	<link rel="stylesheet" href="css/patterns.css">
+
+	<link rel="icon" href="img/favicon.ico">
+
+	<!-- Facebook Pixel Code -->
+	<script>
+		! function (f, b, e, v, n, t, s) {
+			if (f.fbq) return;
+			n = f.fbq = function () {
+				n.callMethod ?
+					n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+			};
+			if (!f._fbq) f._fbq = n;
+			n.push = n;
+			n.loaded = !0;
+			n.version = '2.0';
+			n.queue = [];
+			t = b.createElement(e);
+			t.async = !0;
+			t.src = v;
+			s = b.getElementsByTagName(e)[0];
+			s.parentNode.insertBefore(t, s)
+		}(window, document, 'script',
+			'https://connect.facebook.net/en_US/fbevents.js');
+		fbq('init', '632030395545001');
+		fbq('track', 'PageView');
+	</script>
+	<noscript>
+		<img height="1" width="1" src="https://www.facebook.com/tr?id=632030395545001&ev=PageView
+&noscript=1" />
+	</noscript>
+	<!-- End Facebook Pixel Code -->
+	<!-- Yandex.Metrika counter -->
+	<script type="text/javascript">
+		(function (m, e, t, r, i, k, a) {
+			m[i] = m[i] || function () {
+				(m[i].a = m[i].a || []).push(arguments)
+			};
+			m[i].l = 1 * new Date();
+			for (var j = 0; j < document.scripts.length; j++) {
+				if (document.scripts[j].src === r) {
+					return;
+				}
+			}
+			k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
+		})
+			(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+		ym(93953514, "init", {
+			clickmap: true,
+			trackLinks: true,
+			accurateTrackBounce: true,
+			webvisor: true
+		});
+	</script>
+	<noscript>
+		<div>
+			<picture>
+				<source srcset="https://mc.yandex.ru/watch/93953514" type="image/webp"><img src="https://mc.yandex.ru/watch/93953514"
+					style="position:absolute; left:-9999px;" alt="" />
+			</picture>
+		</div>
+	</noscript>
+	<!-- /Yandex.Metrika counter -->
+
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js?_v=20240711230420" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="
+		crossorigin="anonymous"></script>
+	<script src="
+	https://cdn.jsdelivr.net/npm/just-validate@4.2.0/dist/just-validate.production.min.js
+	?_v=20240711230420"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.7/inputmask.min.js?_v=20240711230420"
+		integrity="sha512-czERuOifK1fy7MssE4JJ7d0Av55NPiU2Ymv4R6F0mOGpyPUb9HkP9DcEeE+Qj9In7hWQHGg0CqH1ELgNBJXqGA==" crossorigin="anonymous"
+		referrerpolicy="no-referrer"></script>
+	<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js?_v=20240711230420"></script>
+	<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js?_v=20240711230420"></script>
+	<script>
+		if (typeof navigator.serviceWorker !== 'undefined') {
+			navigator.serviceWorker.register('js/sw.js')
+		}
+	</script>
+	<link rel="manifest" href="js/manifest.json" />
+	<link rel="manifest" href="js/sw.js" />
+
+</head>
+
+<body class="page-patterns">
+	<div class="wrapper">
+		<header class="header">
+			<div class="header__line"></div>
+			<a class="header__logo" href="../index.html">
+				<div class="header__square">
+					<img src="../img/logo-square.svg" alt="logo" width="51" height="47.6" />
+				</div>
+				<div class="header__logo-title">
+					<div class="header__Ai4G">
+						<img src="../img/logo-Ai4G.svg" alt="logo" />
+					</div>
+					<span class="header__logo-suptitle">Фарватер успешного развития</span>
+				</div>
+				<div class="header__triangle">
+					<img src="../img/logo-triangle.svg" alt="logo" />
+				</div>
+			</a>
+			<a class="header__logo-mobile" href="index.html">
+				<img src="../img/footer-logo.svg" alt="A4iG" width="151" height="62" />
+			</a>
+		</header>
+
+		<main>
+
+			<section class="patterns" id="top">
+				<div class="patterns__container">
+					<h1 class="patterns__title title">
+						Паттерны
+					</h1>
+
+					<div class="patterns__body">
+						<div class="patterns__head patterns__head_01">
+							<img src="img/patterns/clock.svg" alt="">
+							<h2 class="patterns__subtitle subtitle">Паттерны организации времени <span>как ориентируется и планирует</span></h2>
+						</div>
+
+						<div class="patterns__content patterns__content_01">
+
+
+							<div class="patterns__item">
+								<img src="img/patterns/pattern-01.jpg" alt="">
+								<h3 class="patterns__name">Дефицит времени</h3>
+								<div class="patterns__description">
+									Недостаточно времени для выполнения задач. Постоянное чувство перегруженности работой и обязанностями. Испытывает трудности в
+									расстановке приоритетов. Делает несколько дел одновременно. Частое ощущение тревоги и стресса.
+								</div>
+							</div>
+
+
+							<div class="patterns__item">
+								<img src="img/patterns/pattern-02.jpg" alt="">
+								<h3 class="patterns__name">Изобилие времени</h3>
+								<div class="patterns__description">
+									Достаточно времени для всех своих дел. Эффективно планирует задачи и мероприятия. Умеет сбалансировать работу и личное время.
+									Обладает высокой продуктивностью при выполнении задач. Ощущение контроля над временем.
+								</div>
+							</div>
+
+
+							<div class="patterns__item">
+								<img src="img/patterns/pattern-03.jpg" alt="">
+								<h3 class="patterns__name">Монохронность</h3>
+								<div class="patterns__description">Концентрация на одном виде деятельности и/или отношениях в один момент времени. Время
+									структурировано. Часто следует строгим графикам и дедлайнам. Ориентирован на достижение конкретных результатов. Стремится к
+									максимальной эффективности и производительности.
+								</div>
+							</div>
+
+							<div class="patterns__item">
+								<img src="img/patterns/pattern-01.jpg" alt="">
+								<h3 class="patterns__name">Полихронность</h3>
+								<div class="patterns__description">Концентрация одновременно на нескольких задачах и/или отношениях. Может легко переключаться между
+									задачами и не испытывает дискомфорта при выполнении нескольких задач параллельно. Легко адаптируется к изменениям и непредсказуемым
+									ситуациям, ценит возможность действовать по обстоятельствам. Нацелен на сам процесс, включая межличностные взаимоотношения и
+									коммуникацию.
+								</div>
+							</div>
+
+
+							<div class="patterns__item">
+								<img src="img/patterns/pattern-01.jpg" alt="">
+								<h3 class="patterns__name">Прошлое</h3>
+								<div class="patterns__description">Сосредоточен на событиях и опытах, которые произошли ранее, часто анализируя и оценивая их влияние на
+									настоящее и будущее. Рефлексирует о прошедших хороших временах.
+									Получает удовольствие от воспоминаний о прошлом.
+								</div>
+							</div>
+
+
+
+							<div class="patterns__item">
+								<img src="img/patterns/pattern-01.jpg" alt="">
+								<h3 class="patterns__name">Настоящее</h3>
+								<div class="patterns__description">Сосредоточен на текущем моменте, живет "здесь и сейчас" и стремится максимально использовать
+									настоящее.
+									Умеет находить радость и удовлетворение в повседневной деятельности.
+
+								</div>
+							</div>
+
+							<div class="patterns__item">
+								<img src="img/patterns/pattern-01.jpg" alt="">
+								<h3 class="patterns__name">Будущее</h3>
+								<div class="patterns__description">Сосредоточен на том, что произойдет впереди, строит планы и планы на будущее. Ставит долгосрочные
+									цели и
+									стремиться их достичь. Испытывает интерес к новым технологиям, идеям и возможностям. Стремится к постоянному развитию и
+									совершенствованию.
+
+								</div>
+							</div>
+
+							<div class="patterns__item">
+								<img src="img/patterns/pattern-01.jpg" alt="">
+								<h3 class="patterns__name">Краткосрочная стратегия</h3>
+								<div class="patterns__description">Живет здесь и сейчас, планирует короткими отрезками времени: неделя, месяц, квартал. Планы часто
+									меняет,
+									не ориентируется на свое видение будущего.
+								</div>
+							</div>
+
+							<div class="patterns__item">
+								<img src="img/patterns/pattern-01.jpg" alt="">
+								<h3 class="patterns__name">Долгосрочная стратегия</h3>
+								<div class="patterns__description">Важен жизненный план на будущее. Планирует на год или несколько лет вперед. </div>
+							</div>
+						</div>
+
+						<div class="patterns__head patterns__head_02">
+							<img src="img/patterns/man.svg" alt="">
+							<h2 class="patterns__subtitle subtitle">Паттерны поведения <span>как делает</span></h2>
+						</div>
+
+						<div class="patterns__content patterns__content_02">
+							<div class="patterns__item">
+								<img src="img/patterns/pattern-01.jpg" alt="">
+								<h3 class="patterns__name">Контроль</h3>
+								<div class="patterns__description">Стремление активно управлять своей жизнью и окружающими обстоятельствами. Стремление к идеальным
+									результатам, высоким стандартам и требованиям к себе и окружающим.</div>
+							</div>
+
+							<div class="patterns__item">
+								<img src="img/patterns/pattern-11.jpg" alt="">
+								<h3 class="patterns__name">Гармония</h3>
+								<div class="patterns__description">Сосредоточенность на достижении баланса и согласованности в различных аспектах жизни. Стремление к
+									внутреннему и внешнему равновесию, поддержанию гармоничных отношений с окружающими.</div>
+							</div>
+
+							<div class="patterns__item">
+								<img src="img/patterns/pattern-01.jpg" alt="">
+								<h3 class="patterns__name">Смирение</h3>
+								<div class="patterns__description">Осознанное и спокойное принятие реальности такой, какая она есть. Готовность адаптироваться к
+									изменяющимся обстоятельствам.</div>
+							</div>
+
+							<div class="patterns__item">
+								<img src="img/patterns/pattern-01.jpg" alt="">
+								<h3 class="patterns__name">Защищать границы</h3>
+								<div class="patterns__description">Стремление защищать свои личные, эмоциональные, физические и социальные границы, а также уважать и
+									защищать границы других людей. Устанавливает и поддерживает чёткие границы для избежания вторжения или чрезмерной нагрузки. Способен
+									распознавать и защищать свои эмоциональные потребности, избегать токсичных отношений и ситуаций, которые могут повредить
+									эмоциональному
+									состоянию. Ясно и прямо выражает свои потребности, ожидания и ограничения, не позволяя другим игнорировать или нарушать эти границы.
+									Способен противостоять попыткам манипуляций и давления со стороны других людей, сохраняя при этом свою автономию и независимость.
+								</div>
+							</div>
+
+							<div class="patterns__item">
+								<img src="img/patterns/pattern-01.jpg" alt="">
+								<h3 class="patterns__name">Делиться ресурсами</h3>
+								<div class="patterns__description">Стремление индивида или группы делиться своими ресурсами, как материальными, так и нематериальными, с
+									другими людьми или организациями для развития сотрудничества, повышения общего благосостояния и укрепления социальных связей. Делится
+									информацией, опытом и навыками с теми, кто в этом нуждается, способствуя тем самым росту и обучению других. Предоставляет свои
+									ресурсы
+									без ожидания немедленной обратной выгоды. Понимает и учитывает потребности других людей, делая акцент на помощь и поддержку.</div>
+							</div>
+
+
+							<div class="patterns__item">
+								<img src="img/patterns/pattern-01.jpg" alt="">
+								<h3 class="patterns__name">Быть</h3>
+								<div class="patterns__description">Акцентирует внимание на текущих ощущениях, мыслях и переживаниях, не отвлекаясь на прошлое или
+									будущее.
+									Глубокое осознание своего существования и внутреннего состояния, окружающей среды. Принимает самого себя и обстоятельства такими,
+									какие
+									они есть, без необходимости их изменения в данный момент. Стремится к внутренней гармонии и балансу, ощущая себя частью мира,
+									природы,
+									общества. В стрессовых ситуациях сохраняет фокус на выполнении задач.</div>
+							</div>
+
+							<div class="patterns__item">
+								<img src="img/patterns/pattern-01.jpg" alt="">
+								<h3 class="patterns__name">Делать</h3>
+								<div class="patterns__description">Акцентирует внимание на активных действиях, достижении целей и прагматическом подходе к решению
+									задач.
+									Ориентируется на конкретные результаты и практическую пользу от своих действий. Обладает высоким уровнем внутренней мотивации,
+									активной
+									жизненной позиции, а также склонностью к социальным взаимодействиям и сотрудничеству. Чётко понимает цели и планирует шаги для их
+									достижения. Проявляет инициативу и готовность к самостоятельному принятию решений и действий.</div>
+							</div>
+
+
+							<div class="patterns__item">
+								<img src="img/patterns/pattern-01.jpg" alt="">
+								<h3 class="patterns__name">Индивидуализм</h3>
+								<div class="patterns__description">Делает акцент на личных достижениях, амбициях и саморазвитии. Придает большое значение личной свободе
+									и
+									независимости. Стремится принимать решения самостоятельно, проявляет свои индивидуальные качества, способности и идеи. </div>
+							</div>
+
+
+							<div class="patterns__item">
+								<img src="img/patterns/pattern-01.jpg" alt="">
+								<h3 class="patterns__name">Коллективизм</h3>
+								<div class="patterns__description">Акцент делает на коллективные цели, сотрудничество и сплоченность. Высоко ценит взаимопомощь и
+									поддержку
+									внутри группы. Рассматривает себя как часть большего целого и стремится поддерживать гармоничные отношения. </div>
+							</div>
+
+							<div class="patterns__item">
+								<img src="img/patterns/pattern-01.jpg" alt="">
+								<h3 class="patterns__name">Стабильность</h3>
+								<div class="patterns__description">Стремится поддерживать последовательность, постоянство и предсказуемость в своей жизни или окружении.
+									Обладает неизменными факторами, которые создают ощущение безопасности и комфорта, и способствуют более спокойному существованию.
+								</div>
+							</div>
+
+							<div class="patterns__item">
+								<img src="img/patterns/pattern-01.jpg" alt="">
+								<h3 class="patterns__name">Изменения</h3>
+								<div class="patterns__description">Стремится к адаптации и развитию, ищет новые возможности и готов рисковать ради достижения лучших
+									результатов. Склонен к принятию новых концепций, технологий и методов работы. Рассматривает изменения как источник роста и улучшения.
+								</div>
+							</div>
+
+
+							<div class="patterns__item">
+								<img src="img/patterns/pattern-01.jpg" alt="">
+								<h3 class="patterns__name">Конкуренция</h3>
+								<div class="patterns__description">Стремится преуспеть в сопоставлении с другими. Любит соревноваться и достигать успеха за счет
+									превосходства над конкурентами. </div>
+							</div>
+
+
+							<div class="patterns__item">
+								<img src="img/patterns/pattern-01.jpg" alt="">
+								<h3 class="patterns__name">Сотрудничество</h3>
+								<div class="patterns__description">Стремится к совместной работе, взаимодействию и объединению усилий для достижения общей цели.</div>
+							</div>
+
+
+
+
+
+
+
+
+
+						</div>
+
+						<div class="patterns__head patterns__head_03">
+							<img src="img/patterns/hands.svg" alt="">
+							<h2 class="patterns__subtitle subtitle">Паттерны коммуникации <span>как чувствует и взаимодействует</span></h2>
+						</div>
+
+						<div class="patterns__content patterns__content_03">
+							<div class="patterns__item">
+								<img src="img/patterns/pattern-01.jpg" alt="">
+								<h3 class="patterns__name">Высокий контекст</h3>
+								<div class="patterns__description">Большую часть информации передает неявно, через контекст, невербальные сигналы, ситуацию, общие
+									знания, учитывая эмоциональные аспекты и нюансы. Значение часто зависит от межличностных отношений и обстоятельств.</div>
+							</div>
+
+							<div class="patterns__item">
+								<img src="img/patterns/pattern-01.jpg" alt="">
+								<h3 class="patterns__name">Низкий контекст</h3>
+								<div class="patterns__description">Информацию передает более открыто и непосредственно через речь. Акцент делает на ясности, логичности
+									и
+									четкости сообщений. Здесь меньше места для интерпретаций, и внимание уделяет фактам, а не эмоциям или контексту.</div>
+							</div>
+
+
+							<div class="patterns__item">
+								<img src="img/patterns/pattern-01.jpg" alt="">
+								<h3 class="patterns__name">Прямая коммуникация</h3>
+								<div class="patterns__description">Четко и однозначно формулирует мысли. Отдает предпочтение конкретным высказываниям и прямым вопросам,
+									чтобы избежать недоразумений. Важна минимизация двусмысленностей и обратная связь.</div>
+							</div>
+
+							<div class="patterns__item">
+								<img src="img/patterns/pattern-01.jpg" alt="">
+								<h3 class="patterns__name">Непрямая коммуникация</h3>
+								<div class="patterns__description">Сильно зависит от контекста. Многое подразумевает, и большее значение придает невербальному общению,
+									тону голоса, жестам и прочим деталям. Важна осторожность в формулировках, чтобы не задеть чувства.</div>
+							</div>
+
+							<div class="patterns__item">
+								<img src="img/patterns/pattern-01.jpg" alt="">
+								<h3 class="patterns__name">Эмоциональность</h3>
+								<div class="patterns__description">Способствует созданию близости, доверия и поддержания отношений между участниками общения, облегчая
+									процесс обмена идеями и мнениями. Проявляется в невербальных сигналах, таких как интонация голоса, мимика и жесты. Яркие эмоции
+									выражает
+									через усиленное изменение тона, объема голоса или динамику движений.</div>
+							</div>
+
+							<div class="patterns__item">
+								<img src="img/patterns/pattern-01.jpg" alt="">
+								<h3 class="patterns__name">Нейтральность</h3>
+								<div class="patterns__description">Использует факты и информацию без выражения личных эмоций, оценок и переживаний. Создает ясные
+									границы,
+									важные для профессионального общения и соблюдения этикета в формальных ситуациях, что помогает избегать недоразумений и обеспечивает
+									более объективный подход к обсуждаемым темам. </div>
+							</div>
+
+
+							<div class="patterns__item">
+								<img src="img/patterns/pattern-01.jpg" alt="">
+								<h3 class="patterns__name">Формальность</h3>
+								<div class="patterns__description">Формальный стиль общения. Язык более структурированный и грамматически правильный. Использует полные
+									предложения и сложные конструкции. Избегает эмоций и личных мнений, акцентируя внимание на фактах и логике. </div>
+							</div>
+							<div class="patterns__item">
+								<img src="img/patterns/pattern-01.jpg" alt="">
+								<h3 class="patterns__name">Неформальность</h3>
+								<div class="patterns__description">Неформальный стиль общения. Использует разговорные выражения, сленг и сокращения. Язык более легкий и
+									непринужденный, часто включает в себя выражение эмоций, мнений и субъективных оценок.</div>
+							</div>
+
+						</div>
+
+						<div class="patterns__head patterns__head_04">
+							<img src="img/patterns/mind.svg" alt="">
+							<h2 class="patterns__subtitle subtitle">Паттерны мышления <span>как думает </span></h2>
+						</div>
+						<div class="patterns__content patterns__content_04">
+							<div class="patterns__item">
+								<img src="img/patterns/pattern-01.jpg" alt="">
+								<h3 class="patterns__name">Дедуктивное мышление</h3>
+								<div class="patterns__description">Работает от общего к частному. Формирует логическое обоснование и выводы на основе общих принципов
+									или
+									аксиом, начиная с общего утверждения и, переходя к конкретным случаям, а затем к специфическим заключениям. Обеспечивает более
+									высокий
+									уровень уверенности в выводах, поскольку, следует логическим принципам.</div>
+							</div>
+
+							<div class="patterns__item">
+								<img src="img/patterns/pattern-01.jpg" alt="">
+								<h3 class="patterns__name">Индуктивное мышление</h3>
+								<div class="patterns__description">Работает от частного к общему. Включает сбор данных, наблюдений и фактов, которые затем обобщаются
+									для
+									формирования более широких выводов или теорий. Касается вероятностных выводов и всегда включает элемент неопределенности.</div>
+							</div>
+
+							<div class="patterns__item">
+								<img src="img/patterns/pattern-01.jpg" alt="">
+								<h3 class="patterns__name">Аналитичное мышление</h3>
+								<div class="patterns__description">Разбивает сложные задачи на более мелкие, управляемые элементы и исследует каждую часть отдельно с
+									целью
+									понимания и решения всей проблемы. Определяет причинно-следственные отношения между различными элементами, сравнивает данные и
+									мнения,
+									выявляет inconsistencies и проверяет их достоверность. Делает выводы на основе конкретных данных, чисел и фактов.</div>
+							</div>
+							<div class="patterns__item">
+								<img src="img/patterns/pattern-01.jpg" alt="">
+								<h3 class="patterns__name">Системное мышление</h3>
+								<div class="patterns__description">Рассматривает всю систему в целом вместо отдельных ее частей. Изучает взаимосвязи между элементами
+									системы, зависимости и взаимодействия. Формирует модели для прогнозирования поведения систем. Ведет учет различных точек зрения и
+									факторов, оказывающих влияние на систему.</div>
+							</div>
+							<div class="patterns__item">
+								<img src="img/patterns/pattern-01.jpg" alt="">
+								<h3 class="patterns__name">Полезависимость</h3>
+								<div class="patterns__description">Более чувствителен к социальным сигналам и стимулам, склонен к сотрудничеству и чаще стремится к
+									поддержке и одобрению со стороны других. Воспринимает мир в целом, могут возникать трудности с выделением деталей из общего контекста
+									или фона. Склонен полагаться на внешние подсказки и окружающий контекст при решении задач или принятии решений. Имеет тенденцию
+									искать
+									социальное взаимодействие и предпочитает работу в группах, что помогает получать поддержку и подтверждение своих действий. </div>
+							</div>
+							<div class="patterns__item">
+								<img src="img/patterns/pattern-01.jpg" alt="">
+								<h3 class="patterns__name">Поленезависимость</h3>
+								<div class="patterns__description">Склонность к независимым действиям и решению задач без внешней помощи. Способен работать более
+									эффективно сам по себе. Легко выделяет детали из сложного фона. При решении задач полагается больше на свои внутренние представления
+									и
+									меньше зависит от внешнего контекста или социальных сигналов. Менее зависим от групповой поддержки и одобрения, предпочитает работать
+									самостоятельно и может чувствовать себя комфортно в одиночку.</div>
+							</div>
+							<div class="patterns__item">
+								<img src="img/patterns/pattern-01.jpg" alt="">
+								<h3 class="patterns__name">Рефлексивность</h3>
+								<div class="patterns__description">Склонность принимать решения медленно, тщательно анализировать информацию и ситуации перед принятием
+									решения. Избегает неоправданно рискованных действий и предпочитает более безопасные и предсказуемые варианты. Настроен на достижение
+									долгосрочных целей и не ищет немедленного удовлетворения.</div>
+							</div>
+
+							<div class="patterns__item">
+								<img src="img/patterns/pattern-01.jpg" alt="">
+								<h3 class="patterns__name">Импульсивность</h3>
+								<div class="patterns__description">Склонность принимать решения быстро, зачастую без тщательного обдумывания и анализа информации.
+									Действия
+									часто спонтанны и незапланированы. Быстро реагирует в ситуации множественного выбора (выбирать одно). Не испытывает стресса в
+									ситуации
+									неопределенности. Более склонен к риску. Ииспытывает трудности с поддержанием концентрации на одной задаче в течение длительного
+									времени.
+									Может легко переключаться на что-то новое и интересное. </div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</section>
+
+		</main>
+		<footer class="footer">
+			<div class="footer__super-wrapper">
+				<div class="footer__wrapper">
+					<div class="container">
+						<h2 class="footer__title">Контактная информация</h2>
+						<div class="footer__items">
+							<a href="mailto:info@ai4g.ru" class="footer__item">
+								<img src="img/email.svg" alt="email" loading="lazy" />
+								<span>info@ai4g.ru</span>
+							</a>
+							<a href="https://t.me/+79852000434" target="_blank" class="footer__item">
+								<img src="img/telegram.svg" alt="telegram" loading="lazy" />
+								<span>+7 985 2000434</span>
+							</a>
+							<a href="https://ai4g.ru/login" target="_blank" class="footer__item">
+								<img src="img/lk.svg" alt="личный кабинет" loading="lazy" />
+								<span>Личный кабинет</span>
+							</a>
+						</div>
+						<div class="footer__logo">
+							<a class="footer__logo2" target="_blank" href="https://fasie.ru">
+								<img class="footer__logo-desktop" src="img/footer-logo2.svg" alt="fond" loading="lazy" />
+								<img class="footer__logo-mobile" src="img/mobile-footer-logo.svg" alt="Ai4G" loading="lazy" />
+							</a>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="footer__logo">
+					<img class="footer2__logo-desktop" src="img/logo3h.png" alt="fond" loading="lazy" />
+					<img class="footer__logo-mobile" src="img/logo3v.png" alt="Ai4G" loading="lazy" />
+					</a>
+				</div>
+
+
+				<div class="footer__links">
+					<a href="/oferta.html" class="footer__link">
+						Договор оферты
+					</a>
+					<a href="/oplata.html" class="footer__link">
+						Правила оплаты и возврата
+					</a>
+					<a href="/requisites.html" class="footer__link">
+						Реквизиты
+					</a>
+				</div>
+			</div>
+
+		</footer>
+
+		<div class="scrollUp">
+			<img src="img/arrow-up-dark.svg" alt="scrollUp" />
+		</div>
+
+
+
+
+
+	</div>
+	<script src="js/patterns.js"></script>
+</body>
+
+</html>

@@ -36,7 +36,7 @@ function scrollUp() {
 }
 scrollUp();
 
-
+let uploadedFiles = [];
 /* Dropzone */
 Dropzone.autoDiscover = false;
 
@@ -168,6 +168,36 @@ document.addEventListener("DOMContentLoaded", function () {
 					progressElement.textContent = "Загрузка завершена";
 				}
 			});
+			 this.on("success", function (file, response) {
+            try {
+                // Преобразование ответа в JSON, если это строка
+                if (typeof response === "string") {
+                    response = JSON.parse(response);
+                }
+
+                if (response.uuid) {
+                    console.log(response.uuid);
+                    uploadedFiles.push(response.uuid); // Добавляем UUID файла в массив
+                    console.log("Загруженные файлы:", uploadedFiles);
+
+                    // Сохранение UUID в файле для дальнейшего использования
+                    file.serverId = response.uuid;
+                } else {
+                    console.error("Ошибка: не удалось получить UUID из ответа.");
+                }
+            } catch (e) {
+                console.error("Ошибка парсинга ответа:", e);
+            }
+        });
+
+        this.on("removedfile", function (file) {
+            // Удаляем файл из массива при его удалении из Dropzone
+            if (file.serverId) {
+                uploadedFiles = uploadedFiles.filter(f => f !== file.serverId);
+                console.log("Обновленный список загруженных файлов:", uploadedFiles);
+            }
+        });
+
 			this.on("error", function (file, errorMessage, xhr) {
 				console.error("Error uploading file:", file, errorMessage, xhr);
 
@@ -297,6 +327,19 @@ function btnValidationOplata() {
 	const inputName = document.querySelector(".modal-oplata__name");
 	const inputPhone = document.querySelector(".modal-oplata__phone");
 	const inputEmail = document.querySelector(".modal-oplata__email");
+	const selectedform = document.querySelector('input[name="format"]:checked');
+	const pricetext = document.getElementById("price-info");
+	const text = pricetext.textContent;
+	console.log(text);// Получаем текст из элемента
+    const match = text.match(/\d+/); // Ищем числовое значение в строке
+
+    let price = 0; // Инициализируем переменную по умолчанию
+
+    if (match) {
+        price = parseInt(match[0], 10); // Преобразуем найденное значение в число
+    }
+
+
 
 	inputName.addEventListener("input", checkLength);
 	inputPhone.addEventListener("input", checkLength);
@@ -306,6 +349,7 @@ function btnValidationOplata() {
 	function checkLength() {
 		if (inputName.value.length > 1 && inputPhone.value.length > 1 && inputEmail.value.length > 1 && isValidEmail(inputEmail.value)) {
 			btn.classList.add("active");
+
 		} else {
 			btn.classList.remove("active");
 		}
@@ -316,6 +360,32 @@ function btnValidationOplata() {
 		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 		return emailRegex.test(email);
 	}
+	 btn.addEventListener("click", function (e) {
+        e.preventDefault(); // Предотвращаем стандартное поведение кнопки
+
+        if (btn.classList.contains("active")) { // Проверяем, активна ли кнопка
+            let formData = new FormData(); // Создаём объект FormData
+            formData.append("name", inputName.value); // Добавляем имя
+            formData.append("phone", inputPhone.value); // Добавляем телефон
+            formData.append("email", inputEmail.value); // Добавляем email
+            formData.append("files", JSON.stringify(uploadedFiles));
+            formData.append("format", selectedform.value);// Добавляем файлы в формате JSON
+            formData.append("price", parseInt(document.getElementById("price-info").textContent.match(/\d+/)[0]));
+            let xhr = new XMLHttpRequest(); // Создаем новый AJAX-запрос
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    const paymentLink = xhr.responseText; // Получаем ссылку на оплату
+                    window.location.href = paymentLink; // Перенаправляем пользователя на страницу оплаты
+                }
+            };
+
+            xhr.open("POST", "pay.php", true); // Настройка AJAX-запроса на отправку данных на сервер
+            xhr.send(formData); // Отправка данных формы
+        }
+    });
+
+
 }
 btnValidationOplata();
 

@@ -60,3 +60,21 @@ document.querySelectorAll('.category').forEach(anchor => {
 		scrollToTarget(targetElement);
 	});
 });
+
+
+
+function initializeCollapsibleSections() {
+	// Получаем все элементы с классом 'vozmozhnosti__category'
+	const categories = document.querySelectorAll('.vozmozhnosti__category');
+
+	categories.forEach(function (category) {
+		// Добавляем обработчик события клика на each элементе 'vozmozhnosti__top'
+		const top = category.querySelector('.vozmozhnosti__top-category');
+		top.addEventListener('click', function () {
+			// Переключаем класс 'active' для родительского элемента
+			category.classList.toggle('active');
+		});
+	});
+}
+
+initializeCollapsibleSections() 

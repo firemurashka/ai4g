@@ -1,211 +1,179 @@
-
-document.addEventListener("DOMContentLoaded", (function () {
-	function animateSolution(containerSelector, itemSelector, initialDelay, itemDelay, threshold) {
-		const items = document.querySelectorAll(itemSelector);
-		const showItems = () => {
-			items.forEach(((item, index) => {
-				setTimeout((() => {
-					item.classList.add("visible");
-				}), index * itemDelay);
-			}));
-		};
-		const observer = new IntersectionObserver((entries => {
-			entries.forEach((entry => {
-				if (entry.isIntersecting) {
-					setTimeout(showItems, initialDelay);
-					observer.disconnect();
-				}
-			}));
-		}), {
-			threshold
-		});
-		const container = document.querySelector(containerSelector);
-		observer.observe(container);
-	}
-	function animateServiceItems() {
-		const items = document.querySelectorAll(".servise-session__item");
-		const decorImg = document.querySelector(".servise-session__decor-img");
-		if (items.length > 0 && decorImg) {
-			items.forEach(((item, index) => {
-				const img = item.querySelector(".servise-session__img");
-				const block = item.querySelector(".servise-session__block");
-				setTimeout((() => {
-					img.classList.add("show");
-				}), 300 * index);
-				setTimeout((() => {
-					block.classList.add("show");
-				}), 300 * index + 300);
-			}));
-			setTimeout((() => {
-				decorImg.classList.add("show");
-			}), 300 * items.length + 200);
-		}
-	}
-	const serviceObserver = new IntersectionObserver((entries => {
-		entries.forEach((entry => {
-			if (entry.isIntersecting) {
-				setTimeout((() => {
-					animateServiceItems();
-				}), 100);
-				serviceObserver.disconnect();
-			}
-		}));
-	}), {
-		threshold: .1
-	});
-	const serviceContainer = document.querySelector(".session__servise");
-	animateSolution(".session__solution", ".solution__item", 500, 200, .1);
-	setTimeout((() => {
-		serviceObserver.observe(serviceContainer);
-	}), 500 + 300 * document.querySelectorAll(".solution__item").length + 200);
-}));
-const animItems = document.querySelectorAll("._anim-items");
-if (animItems.length > 0) {
-	window.addEventListener("scroll", animOnScroll);
-	let animInterval = 300;
-	function animOnScroll() {
-		for (let index = 0; index < animItems.length; index++) {
-			const animItem = animItems[index];
-			const animItemHeight = animItem.offsetHeight;
-			const animItemOffset = offset(animItem).top;
-			const animStart = 200;
-			let animItemPoint = window.innerHeight - animItemHeight / animStart;
-			if (animItemHeight > window.innerHeight) {
-				window.innerHeight, window.innerHeight;
-			}
-			if (pageYOffset > animItemOffset - animItemPoint && pageYOffset < animItemOffset + animItemHeight) {
-				if (!animItem.classList.contains("_active")) setTimeout((() => {
-					animItem.classList.add("_active");
-				}), index * animInterval);
-			} else if (!animItem.classList.contains("_anim-no-hide")) animItem.classList.remove("_active");
-		}
-	}
-	function offset(el) {
-		const rect = el.getBoundingClientRect(), scrollLeft = window.pageXOffset || document.documentElement.scrollLeft, scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-		return {
-			top: rect.top + scrollTop,
-			left: rect.left + scrollLeft
-		};
-	}
-	animOnScroll();
-}
+// Проверяем наличие элемента с классом "swiper" на странице.  Если его нет, код внутри if не выполнится.
 const swiper = document.querySelector(".swiper");
+
 if (swiper) {
+
+	// Функция для показа/скрытия блока "4G плоскости подробно"
 	function showMore() {
+		// Получаем элементы кнопка "4G плоскости подробно"
 		const btnReadMore = document.querySelector(".plane__btn");
 		const planeItems = document.querySelector(".plane__bottom-items");
-		btnReadMore.addEventListener("click", (() => {
-			planeItems.classList.toggle("active");
-		}));
+
+		// Проверка на существование элементов перед добавлением обработчика событий.
+		if (btnReadMore && planeItems) {
+			btnReadMore.addEventListener("click", () => {
+				// Переключаем класс "active" для показа/скрытия дополнительной информации
+				planeItems.classList.toggle("active");
+			});
+		} else {
+			console.error("Elements .plane__btn or .plane__bottom-items not found!");
+		}
 	}
+
+	// Функция для анимации блока ".fairway__row-back" при прокрутке страницы
 	function showFairway1() {
-		window.addEventListener("scroll", (() => {
-			const fairwayBlock = document.querySelector(".fairway__row");
-			const fairwayBlockBack = document.querySelector(".fairway__row-back");
-			const animItemHeight = fairwayBlock.offsetHeight;
-			const animItemOffset = offset(fairwayBlock).top;
-			const animStart = 4;
-			let animItemPoint = window.innerHeight - animItemHeight / animStart;
-			if (scrollY > animItemOffset - animItemPoint && scrollY < animItemOffset + animItemHeight) fairwayBlockBack.style.animation = "fairway 2.2s forwards";
-		}));
+		// Получаем элементы для анимации
+		const fairwayBlock = document.querySelector(".fairway__row");
+		const fairwayBlockBack = document.querySelector(".fairway__row-back");
+
+		// Проверка на существование элементов перед добавлением обработчика событий.
+		if (fairwayBlock && fairwayBlockBack) {
+			window.addEventListener("scroll", () => {
+				// Вычисляем высоту и смещение блока
+				const animItemHeight = fairwayBlock.offsetHeight;
+				const animItemOffset = offset(fairwayBlock).top;
+				const animStart = 4; // Коэффициент для определения точки начала анимации
+				let animItemPoint = window.innerHeight - animItemHeight / animStart;
+				// Проверяем, находится ли блок в зоне видимости и запускаем анимацию
+				if (window.scrollY > animItemOffset - animItemPoint && window.scrollY < animItemOffset + animItemHeight) {
+					fairwayBlockBack.style.animation = "fairway 2.2s forwards";
+				}
+			});
+		} else {
+			console.error("Elements .fairway__row or .fairway__row-back not found!");
+		}
 	}
+
+	// Функция для анимации фона блока ".mentors__line" при прокрутке страницы
 	function mentors() {
-		window.addEventListener("scroll", (() => {
-			const mentorsBlock = document.querySelector(".mentors__line");
-			const mentorsBg = document.querySelector(".mentors__line-bg-2");
-			const animItemHeight = mentorsBlock.offsetHeight;
-			const animItemOffset = offset(mentorsBlock).top;
-			const animStart = 4;
-			let animItemPoint = window.innerHeight - animItemHeight / animStart;
-			if (scrollY > animItemOffset - animItemPoint && scrollY < animItemOffset + animItemHeight) mentorsBg.classList.add("active");
-		}));
+		// Получаем элементы для анимации
+		const mentorsBlock = document.querySelector(".mentors__line");
+		const mentorsBg = document.querySelector(".mentors__line-bg-2");
+
+		// Проверка на существование элементов перед добавлением обработчика событий.
+		if (mentorsBlock && mentorsBg) {
+			window.addEventListener("scroll", () => {
+				// Вычисляем высоту и смещение блока
+				const animItemHeight = mentorsBlock.offsetHeight;
+				const animItemOffset = offset(mentorsBlock).top;
+				const animStart = 4; // Коэффициент для определения точки начала анимации
+				const animItemPoint = window.innerHeight - animItemHeight / animStart;
+				// Проверяем, находится ли блок в зоне видимости и добавляем класс "active"
+				if (window.scrollY > animItemOffset - animItemPoint && window.scrollY < animItemOffset + animItemHeight) {
+					mentorsBg.classList.add("active");
+				} else {
+					mentorsBg.classList.remove("active"); // Удаляем класс, если блок выходит из зоны видимости
+				}
+			});
+		} else {
+			console.error("Elements .mentors__line or .mentors__line-bg-2 not found!");
+		}
 	}
+	// Функция для анимации блоков с классом "ci-1", "ci-2", "ci-3" при прокрутке страницы
 	function choice() {
-		window.addEventListener("scroll", (() => {
-			const choiceBlock = document.querySelector(".choice__items");
-			const block1 = document.querySelector(".ci-1");
-			const block2 = document.querySelector(".ci-2");
-			const block3 = document.querySelector(".ci-3");
-			const animItemHeight = choiceBlock.offsetHeight;
-			const animItemOffset = offset(choiceBlock).top;
-			const animStart = 4;
-			let animItemPoint = window.innerHeight - animItemHeight / animStart;
-			if (scrollY > animItemOffset - animItemPoint && scrollY < animItemOffset + animItemHeight) {
-				block1.style.animation = "ci-1 0.5s forwards";
-				block2.style.animation = "ci-2 0.5s forwards";
-				block2.style.animationDelay = "0.5s";
-				block3.style.animation = "ci-3 0.5s forwards";
-				block3.style.animationDelay = "1s";
-			}
-		}));
+		// Получаем элементы для анимации
+		const choiceBlock = document.querySelector(".choice__items");
+		const block1 = document.querySelector(".ci-1");
+		const block2 = document.querySelector(".ci-2");
+		const block3 = document.querySelector(".ci-3");
+
+		// Проверка на существование элементов перед добавлением обработчика событий.
+		if (choiceBlock && block1 && block2 && block3) {
+			window.addEventListener("scroll", () => {
+				// Вычисляем высоту и смещение блока
+				const animItemHeight = choiceBlock.offsetHeight;
+				const animItemOffset = offset(choiceBlock).top;
+				const animStart = 4; // Коэффициент для определения точки начала анимации
+				const animItemPoint = window.innerHeight - animItemHeight / animStart;
+				// Проверяем, находится ли блок в зоне видимости и запускаем анимацию
+				if (window.scrollY > animItemOffset - animItemPoint && window.scrollY < animItemOffset + animItemHeight) {
+					block1.style.animation = "ci-1 0.5s forwards";
+					block2.style.animation = "ci-2 0.5s forwards";
+					block2.style.animationDelay = "0.5s";
+					block3.style.animation = "ci-3 0.5s forwards";
+					block3.style.animationDelay = "1s";
+				} else {
+					block1.style.animation = ''; // Сбрасываем анимацию, если блок выходит из зоны видимости
+					block2.style.animation = ''; // Сбрасываем анимацию, если блок выходит из зоны видимости
+					block3.style.animation = ''; // Сбрасываем анимацию, если блок выходит из зоны видимости
+				}
+			});
+		} else {
+			console.error("Elements .choice__items, .ci-1, .ci-2, or .ci-3 not found!");
+		}
 	}
+
+	// Функция для обрезки текста в элементах с классом "swiper-item__text"
 	function cutText() {
-		let texts = document.querySelectorAll(".swiper-item__text");
-		texts.forEach((text => {
-			text.textContent.length > 709 ? text.textContent = text.textContent.slice(0, 709) + "..." : text.textContent = text.textContent;
-		}));
+		const texts = document.querySelectorAll(".swiper-item__text");
+		texts.forEach(text => {
+			// Обрезаем текст, если его длина больше 709 символов и добавляем троеточие
+			text.textContent = text.textContent.length > 709 ? text.textContent.slice(0, 709) + "..." : text.textContent;
+		});
 	}
+
+	// Функция для применения стилей для Firefox
 	function isMozilla() {
 		const userAgent = navigator.userAgent.toLowerCase();
-		const mozila = /firefox/.test(userAgent);
+		const mozila = /firefox/.test(userAgent); // Проверяем, является ли браузер Firefox
 		const link = document.querySelector(".fairway__link");
-		if (mozila) link.style.marginTop = "-7px";
+		if (mozila) link.style.marginTop = "-7px"; // Применяем стиль, если браузер Firefox
 	}
-	function scrollUp2() {
-		const scrollUp = document.querySelector(".scrollUp");
-		window.addEventListener("scroll", (() => {
-			if (scrollY > 499) scrollUp.classList.add("active"); else scrollUp.classList.remove("active");
-		}));
-		scrollUp.addEventListener("click", (() => {
-			$("html, body").animate({
-				scrollTop: $("#top").offset().top
-			}, "slow");
-		}));
-	}
+
+
+	// Инициализация Swiper слайдера
 	new Swiper(".swiper", {
-		speed: 400,
-		spaceBetween: 50,
-		slidesPerView: 1,
-		allowTouchMove: false,
+		speed: 400, // Скорость анимации смены слайдов в мс
+		spaceBetween: 50, // Расстояние между слайдами в px
+		slidesPerView: 1, // Количество видимых слайдов
+		allowTouchMove: false, // Отключаем возможность прокрутки свайпом
 		navigation: {
-			nextEl: ".swiper-button-next",
-			prevEl: ".swiper-button-prev"
+			nextEl: ".swiper-button-next", // Селектор для кнопки "Вперед"
+			prevEl: ".swiper-button-prev" // Селектор для кнопки "Назад"
 		}
 	});
-	function scrollToMentor() {
-		const mentorIgor = document.getElementById("mentors-igor");
-		mentorIgor.addEventListener("click", (() => {
-			localStorage.setItem("mentor", "igor");
-		}));
-	}
+
+	/* 	function scrollToMentor() { // закомментированная функция
+			const mentorIgor = document.getElementById("mentors-igor");
+			mentorIgor.addEventListener("click", (() => {
+				localStorage.setItem("mentor", "igor");
+			}));
+		} */
+
+	// Функция для получения смещения элемента относительно документа
 	function offset(el) {
-		const rect = el.getBoundingClientRect(), scrollLeft = window.pageXOffset || document.documentElement.scrollLeft, scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+		const rect = el.getBoundingClientRect(),
+			scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
+			scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 		return {
 			top: rect.top + scrollTop,
 			left: rect.left + scrollLeft
 		};
 	}
+
+	// Вызов функций
 	showMore();
 	showFairway1();
 	mentors();
 	choice();
 	cutText();
 	isMozilla();
-	scrollUp2();
-	scrollToMentor();
+
+
+	/* 	scrollToMentor(); // закомментированная функция */
 }
 
+// Функция валидации формы
 function formValidation() {
-	const validation = new JustValidate(".modal-request__form");
-
+	const validation = new JustValidate(".modal-request__form"); // Инициализация JustValidate
 
 	// Маска для телефона
 	const inputMask = new Inputmask("+7 (999) 999-99-99");
 	const telSelector = document.querySelector(".modal-request__phone");
-	inputMask.mask(telSelector);
+	inputMask.mask(telSelector); // Применение маски к полю ввода телефона
 
 	validation
-		.addField(".modal-request__name", [
+		.addField(".modal-request__name", [ // Валидация поля имени
 			{
 				rule: "minLength",
 				value: 2
@@ -220,14 +188,14 @@ function formValidation() {
 				errorMessage: "Введите имя"
 			}
 		])
-		.addField(".modal-request__phone", [
+		.addField(".modal-request__phone", [ // Валидация поля телефона
 			{
 				rule: "required",
 				value: true,
 				errorMessage: "Введите телефон"
 			}
 		])
-		.addField(".modal-request__email", [
+		.addField(".modal-request__email", [ // Валидация поля email
 			{
 				rule: "required",
 				value: true,
@@ -239,15 +207,16 @@ function formValidation() {
 				errorMessage: "Введите корректную электронную почту"
 			}
 		])
-		.onSuccess((event => {
+		.onSuccess((event => { // Обработка успешной отправки формы
 			let formData = new FormData(event.target);
 			let xhr = new XMLHttpRequest;
-			console.log(...formData);
+			console.log(...formData); // Вывод данных формы в консоль
 
 			xhr.onreadystatechange = function () {
 				if (xhr.readyState === 4 && xhr.status === 200) {
-					console.log("Отправлено");
+					console.log("Отправлено"); // Сообщение об успешной отправке
 				}
+				// Код для работы с Fancybox (предполагается подключение библиотеки Fancybox)
 				$.fancybox.close("fancybox-content");
 				$.fancybox.open({
 					src: "#modal-thanks",
@@ -256,11 +225,13 @@ function formValidation() {
 
 			};
 
-			xhr.open("POST", "mail.php", true);
+			xhr.open("POST", "mail.php", true); // Отправка данных на сервер
 			xhr.send(formData);
-			event.target.reset();
+			event.target.reset(); // Очистка формы после отправки
 		}));
 }
+
+// Функция валидации формы (проверка полей перед отправкой)
 function btnValidation() {
 	const btn = document.querySelector(".modal-request__btn");
 	const inputName = document.querySelector(".modal-request__name");
@@ -272,101 +243,27 @@ function btnValidation() {
 	inputEmail.addEventListener("input", checkLength);
 
 	function checkLength() {
+		// Проверяем длину полей ввода и валидность email
 		if (inputName.value.length > 1 && inputPhone.value.length > 1 && inputEmail.value.length > 1 && isValidEmail(inputEmail.value)) {
-			btn.classList.add("active");
+			btn.classList.add("active"); // Активируем кнопку, если поля заполнены корректно
 		} else {
-			btn.classList.remove("active");
+			btn.classList.remove("active"); // Деактивируем кнопку, если поля заполнены некорректно
 		}
 	}
 
+	// Функция проверки валидности email адреса
 	function isValidEmail(email) {
 		// Регулярное выражение для проверки email-адреса
 		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 		return emailRegex.test(email);
 	}
 }
+
+// Вызов функций валидации
 formValidation();
 btnValidation();
 
-
-
-/* форма оплаты в продуктах */
-function formValidationPayment() {
-	const validation = new JustValidate(".payment__form");
-
-	// Маска для телефона
-	const inputMask = new Inputmask("+7 (999) 999-99-99");
-	const telSelector = document.querySelector(".payment__phone");
-	inputMask.mask(telSelector);
-
-	validation
-		.addField(".payment__name", [
-			{
-				rule: "minLength",
-				value: 2,
-				errorMessage: "Имя должно состоять минимум из 2 символов"
-			},
-			{
-				rule: "maxLength",
-				value: 50,
-				errorMessage: "Имя не должно превышать 50 символов"
-			},
-			{
-				rule: "required",
-				errorMessage: "Введите имя"
-			}
-		])
-		.addField(".payment__phone", [
-			{
-				rule: "required",
-				errorMessage: "Введите телефон"
-			}
-		])
-		.addField(".payment__email", [
-			{
-				rule: "required",
-				errorMessage: "Введите электронную почту"
-			},
-			{
-				rule: "email",
-				errorMessage: "Введите корректную электронную почту"
-			}
-		])
-		.onSuccess((event) => {
-			event.target.submit(); // Отправка формы без открытия нового окна
-		});
-}
-
-function btnValidationPayment() {
-	const btn = document.querySelector(".payment__btn");
-	const inputName = document.querySelector(".payment__name");
-	const inputPhone = document.querySelector(".payment__phone");
-	const inputEmail = document.querySelector(".payment__email");
-
-	inputName.addEventListener("input", checkLength);
-	inputPhone.addEventListener("input", checkLength);
-	inputEmail.addEventListener("input", checkLength);
-
-	function checkLength() {
-		if (inputName.value.length > 1 && inputPhone.value.length > 1 && inputEmail.value.length > 1 && isValidEmail(inputEmail.value)) {
-			btn.classList.add("active");
-		} else {
-			btn.classList.remove("active");
-		}
-	}
-
-	function isValidEmail(email) {
-		// Регулярное выражение для проверки email-адреса
-		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-		return emailRegex.test(email);
-	}
-}
-
-formValidationPayment();
-btnValidationPayment();
-
-
-
+// Функция для отображения кнопки прокрутки вверх
 function scrollUp2() {
 	const scrollUp = document.querySelector(".scrollUp");
 	window.addEventListener("scroll", (() => {
@@ -378,5 +275,6 @@ function scrollUp2() {
 		}, "slow");
 	}));
 }
+
 scrollUp2();
 

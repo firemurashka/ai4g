@@ -5,7 +5,10 @@
 	<meta charset="UTF-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>Коучинговая сессия с Еленой Семеновой</title>
+	<title>Коучинговая сессия с Еленой Семеновой – Путь к успеху - Ai4G</title>
+	<meta name="description"
+		content="Запишитесь на коучинговую сессию с Еленой Семеновой, чтобы избавиться от стрессов и продвигаться к личным и профессиональным целям.🔹 Нейросервис Ai4G" />
+
 	<link rel="manifest" href="js/manifest.json" />
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -291,7 +294,8 @@
 			</div>
 		</footer>
 
-		<!-- modal-request -->
+
+		<!-- Форма записи на сессию -->
 		<div class="modal-request" id="modal-request">
 			<h3 class="modal-request__title">Запись на&nbsp;serf-сессию</h3>
 			<form class="modal-request__form" action="mail.php" enctype="multipart/form-data" method="POST" id="serf-session-form">
@@ -329,7 +333,18 @@
 			</div>
 		</div>
 
-		<!--payment  -->
+		<!-- popup об успешной записи -->
+		<div class="modal-thanks" id="modal-thanks">
+			<div class="modal-thanks__logo">
+				<img src="img/modal-thanks-logo.svg" alt="Ai4G" loading="lazy" />
+			</div>
+			<h3 class="modal-thanks__title">Вы&nbsp;успешно записались на&nbsp;коучинговую сессию.</h3>
+			<div class="modal-thanks__text">
+				В&nbsp;ближайшее время мы&nbsp;свяжемся с&nbsp;вами указанным способом
+			</div>
+		</div>
+
+		<!-- Форма оплаты на сессию -->
 		<div class="payment" id="payment">
 			<h3 class="payment__title">Оплата коуч-сессии</h3>
 			<form class="payment__form" action="https://ai4g.server.paykeeper.ru/create/" enctype="multipart/form-data" method="POST" id="payment-form">
@@ -368,18 +383,7 @@
 			</div>
 		</div>
 
-		<!-- modal-thanks -->
-		<div class="modal-thanks" id="modal-thanks">
-			<div class="modal-thanks__logo">
-				<img src="img/modal-thanks-logo.svg" alt="Ai4G" loading="lazy" />
-			</div>
-			<h3 class="modal-thanks__title">Вы&nbsp;успешно записались на&nbsp;коучинговую сессию.</h3>
-			<div class="modal-thanks__text">
-				В&nbsp;ближайшее время мы&nbsp;свяжемся с&nbsp;вами указанным способом
-			</div>
-		</div>
-
-		<!-- successful-payment -->
+		<!-- popup об успешной оплате -->
 		<div class="modal-thanks" id="successful-payment">
 			<div class="modal-thanks__logo">
 				<img src="img/modal-thanks-logo.svg" alt="Ai4G" loading="lazy" />
@@ -400,7 +404,7 @@
 		 https://cdn.jsdelivr.net/npm/just-validate@4.2.0/dist/just-validate.production.min.js
 		 "></script>
 	<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
-	<script src="js/main.js"></script>
+	<script src="js/products.js"></script>
 </body>
 
 </html>

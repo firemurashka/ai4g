@@ -62,37 +62,48 @@ document.addEventListener("DOMContentLoaded", (function () {
 	}), 500 + 300 * document.querySelectorAll(".solution__item").length + 200);
 }));
 
-const animItems = document.querySelectorAll("._anim-items");
-if (animItems.length > 0) {
-	window.addEventListener("scroll", animOnScroll);
-	let animInterval = 300;
-	function animOnScroll() {
-		for (let index = 0; index < animItems.length; index++) {
-			const animItem = animItems[index];
-			const animItemHeight = animItem.offsetHeight;
-			const animItemOffset = offset(animItem).top;
-			const animStart = 200;
-			let animItemPoint = window.innerHeight - animItemHeight / animStart;
-			if (animItemHeight > window.innerHeight) {
-				window.innerHeight, window.innerHeight;
-			}
-			if (pageYOffset > animItemOffset - animItemPoint && pageYOffset < animItemOffset + animItemHeight) {
-				if (!animItem.classList.contains("_active")) setTimeout((() => {
-					animItem.classList.add("_active");
-				}), index * animInterval);
-			} else if (!animItem.classList.contains("_anim-no-hide")) animItem.classList.remove("_active");
-		}
-	}
-	function offset(el) {
-		const rect = el.getBoundingClientRect(), scrollLeft = window.pageXOffset || document.documentElement.scrollLeft, scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-		return {
-			top: rect.top + scrollTop,
-			left: rect.left + scrollLeft
+function initAnimations({
+	animSelector = "._anim-items",
+	// Селектор анимируемых элементов (по умолчанию "._anim-items")
+	observerOptions = {
+		root: null,
+		rootMargin: "0px",
+		threshold: 0.3,
+		// Процент пересечения, при котором начинается анимация
+	},
+	animDuration = 1.5
+	// Продолжительность анимации в секундах
+} = {}) {
+	const animItems = document.querySelectorAll(animSelector);
+
+	if (animItems.length > 0) {
+		const animCallback = (entries, observer) => {
+			entries.forEach(entry => {
+				if (entry.isIntersecting) {
+					entry.target.style.transition = `opacity ${animDuration}s ease, transform ${animDuration}s ease`;
+					entry.target.classList.add("_active");
+					if (!entry.target.classList.contains("_anim-no-hide")) {
+						observer.unobserve(entry.target); // Убираем дальнейшее наблюдение
+					}
+				} else {
+					if (!entry.target.classList.contains("_anim-no-hide")) {
+						entry.target.classList.remove("_active");
+					}
+				}
+			});
 		};
+
+		// Создаем наблюдатель для отслеживания элементов
+		const observer = new IntersectionObserver(animCallback, observerOptions);
+
+		// Наблюдаем за каждым элементом
+		animItems.forEach(animItem => {
+			observer.observe(animItem);
+		});
 	}
-	animOnScroll();
 }
 
+initAnimations();
 
 // Валидация формы записи в продуктах (аналогична formValidation)
 function formValidation() {
@@ -191,7 +202,6 @@ formValidation();
 btnValidation();
 
 
-
 // Валидация формы оплаты в продуктах (аналогична formValidation)
 function formValidationPayment() {
 	const validation = new JustValidate(".payment__form");
@@ -268,8 +278,6 @@ function btnValidationPayment() {
 formValidationPayment();
 btnValidationPayment();
 
-
-
 // Функция для плавной прокрутки вверх
 function scrollUp2() {
 	const scrollUp = document.querySelector(".scrollUp");
@@ -284,4 +292,3 @@ function scrollUp2() {
 	});
 }
 scrollUp2();
-

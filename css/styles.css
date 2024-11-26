@@ -7933,8 +7933,19 @@ input:-webkit-autofill:focus {
 
 	@media (max-width:768px) {
 		max-width: none;
-		line-height: 1.25;
 		font-size: 24px;
+	}
+}
+
+/* .call-action__subtitle-----------------------*/
+.call-action__subtitle {
+	font-weight: 600;
+	line-height: 1.25;
+	font-size: 26px;
+	margin: 0px 0px 20px 0px;
+
+	@media (max-width:768px) {
+		font-size: 22px;
 	}
 }
 

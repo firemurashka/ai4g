@@ -292,3 +292,68 @@ function scrollUp2() {
 	});
 }
 scrollUp2();
+
+function animateNgLine() {
+	// Получаем элементы: контейнер линии и само изображение.
+	const ngLine = document.querySelector(".ng-line"); // Весь блок
+	const ngLineBg = document.querySelector(".ng-line-bg"); // Изображение линии
+
+	// Проверяем наличие элементов перед добавлением логики
+	if (ngLine && ngLineBg) {
+		// Слушаем событие прокрутки
+		window.addEventListener("scroll", () => {
+			// Вычисляем размеры и позицию элемента относительно страницы
+			const animItemHeight = ngLine.offsetHeight;
+			const animItemOffset = offset(ngLine).top;
+			const animStart = 4; // Коэффициент видимости анимации
+			const animItemPoint = window.innerHeight - animItemHeight / animStart;
+
+			// Условие: блок (линию) видно => запускаем анимацию
+			if (window.scrollY > animItemOffset - animItemPoint && window.scrollY < animItemOffset + animItemHeight) {
+				ngLineBg.classList.add("active"); // Добавляем класс, запускаем анимацию
+			} else {
+				ngLineBg.classList.remove("active"); // Убираем класс, если блок больше не виден
+			}
+		});
+	} else {
+		console.error("Element .ng-line or .ng-line-bg not found!");
+	}
+}
+
+// Функция для вычисления позиции элемента относительно страницы
+function offset(el) {
+	const rect = el.getBoundingClientRect(),
+		scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
+		scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+	return { top: rect.top + scrollTop, left: rect.left + scrollLeft };
+}
+
+// Запуск анимации для линии
+animateNgLine();
+
+// Настройка Swiper
+const swiper = new Swiper('.my-slider', {
+	loop: true,
+	slidesPerView: 1,
+	spaceBetween: 20,
+	autoplay: {
+		delay: 3000,
+		disableOnInteraction: false,
+	},
+	speed: 2000,
+	breakpoints: {
+
+		480: {
+			slidesPerView: 1,
+		},
+		768: {
+			slidesPerView: 2,
+		},
+		1024: {
+			slidesPerView: 3,
+		},
+		1400: {
+			slidesPerView: 5,
+		},
+	},
+});

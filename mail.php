@@ -68,11 +68,18 @@ try {
   $mail->SMTPAuth   = true;
 
   // Настройки вашей почты
-  $mail->Host       = 'mail.nic.ru'; // SMTP сервера вашей почты
+  $mail->Host       = 'mail.ai4g.ru'; // SMTP сервера вашей почты
   $mail->Username   = 'no-reply@ai4g.ru'; // Логин на почте
-  $mail->Password   = '5tgbNHY^'; // Пароль на почте
+  $mail->Password   = 'SYp-9H7-XmV-USj'; // Пароль на почте
   $mail->SMTPSecure = 'ssl';
   $mail->Port       = 465;
+  $mail->SMTPOptions = array(
+        'ssl' => array(
+            'verify_peer' => false,
+            'verify_peer_name' => false,
+            'allow_self_signed' => true
+        )
+    );
 
   $mail->setFrom('no-reply@ai4g.ru', 'Заявка с сайта'); // Адрес самой почты и имя отправителя
 
@@ -113,11 +120,18 @@ try {
   $mail->SMTPAuth   = true;
 
   // Настройки вашей почты
-  $mail->Host       = 'mail.nic.ru'; // SMTP сервера вашей почты
+  $mail->Host       = 'mail.ai4g.ru'; // SMTP сервера вашей почты
   $mail->Username   = 'no-reply@ai4g.ru'; // Логин на почте
-  $mail->Password   = '5tgbNHY^'; // Пароль на почте
+  $mail->Password   = 'SYp-9H7-XmV-USj'; // Пароль на почте
   $mail->SMTPSecure = 'ssl';
   $mail->Port       = 465;
+  $mail->SMTPOptions = array(
+        'ssl' => array(
+            'verify_peer' => false,
+            'verify_peer_name' => false,
+            'allow_self_signed' => true
+        )
+    );
 
   $mail->setFrom('no-reply@ai4g.ru', 'AI4G');
 

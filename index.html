@@ -702,6 +702,7 @@
 			<div class="products__container container">
 				<h2 class="products__title">Продуктовая линейка</h2> <br>
 				<div class="products__content">
+
 					<!-- Коучинговая сессия -->
 					<div class="products__item">
 						<div class="products__block">
@@ -712,8 +713,8 @@
 							тупиками, а также увеличить доход и масштабировать бизнес. Запишитесь на бесплатную консультацию, чтобы узнать подробности.
 						</div>
 						<a class="products__link" href="/coaching-session.html">Подробнее</a>
-
 					</div>
+
 					<!-- Карьерная консультация -->
 					<div class="products__item">
 						<div class="products__block">
@@ -723,11 +724,10 @@
 						<div class="products__text">Получите карьерную консультацию с Еленой Семеновой для успешного трудоустройства, улучшения резюме и
 							персональной
 							стратегии поиска работы. Запишитесь на бесплатную консультацию для подробностей и тестирования личности.
-
 						</div>
 						<a class="products__link" href="/career-advice.html">Подробнее</a>
-
 					</div>
+
 					<!-- Serf-сессия -->
 					<div class="products__item">
 						<div class="products__block">
@@ -737,23 +737,36 @@
 						<div class="products__text">Пройдите комплексный аудит жизненного пути через диагностическую и обратную сессии с выявлением сильных сторон
 							и
 							направлений развития. Запишитесь для получения карты жизненных ориентиров и рекомендаций эксперта.
-
 						</div>
 						<a class="products__link" href="/serf-session.html">Подробнее</a>
+					</div>
+
+					<!-- Стратегия "Новый год" -->
+					<div class="products__item">
+						<div class="products__block">
+							<div class="products__num">4.</div>
+							<h3 class="products__subtitle">Стратегия "Новый год"</h3>
+						</div>
+						<div class="products__text">Начните 2025 год с программы "Дерево Года" — определите 12 целей, которые изменят вашу жизнь.
+							Создайте четкий пошаговый план с использованием ресурсов и времени для их достижения.
+							Воплощайте мечты и достигайте новых высот уже с первых дней января!
+						</div>
+						<a class="products__link" href="/strategy-new-year.html">Подробнее</a>
 					</div>
 
 					<!-- Транскрибатор "Аллегро" -->
 					<div class="products__item">
 						<div class="products__block">
-							<div class="products__num">4.</div>
+							<div class="products__num">5.</div>
 							<h3 class="products__subtitle">Транскрибатор "Аллегро"</h3>
 						</div>
-
 						<div class="products__text">Транскрибатор «Аллегро» преобразует аудио и видео в текст с помощью ИИ, поддерживая более 300 форматов и 50
 							языков. Получите транскрипты, субтитры или конспекты за считанные минуты без необходимости регистрации, ускоряя свой рабочий процесс.
 						</div>
 						<a class="products__link" href="/allegro.html">Подробнее</a>
 					</div>
+
+
 				</div>
 			</div>
 		</div>
@@ -771,6 +784,218 @@
 			</div>
 		</div>
 	</main>
+
+
+	<!-- Попап -->
+	<div class="popup-overlay" id="popup">
+		<div class="popup-overlay__content">
+			<div class="popup-overlay__close" id="popup-close">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+					<path d="M13 12l5-5-1-1-5 5-5-5-1 1 5 5-5 5 1 1 5-5 5 5 1-1z"></path>
+				</svg>
+			</div>
+
+			<div class="popup-overlay__block">
+				<div class="popup-overlay__title">Дерево Года 2025</div>
+				<div class="popup-overlay__text">
+					Начните 2025 с четким планом, чтобы <strong>достичь своих целей</strong>!</div>
+
+				<ul class="popup-overlay__list">
+					<li>Определите 12 главных желаний на год.</li>
+					<li>Создайте пошаговый план, ведущий к успеху.</li>
+					<li>Достигните результата уже в первые месяцы!</li>
+				</ul>
+
+				<div class="popup-overlay__text">✨ Вдохновляйтесь, выстраивайте стратегию и воплощайте мечты.</div>
+				<div class="popup-overlay__text">💡 Начать легко — сделайте первый шаг прямо сейчас!</div>
+
+				<a href="strategy-new-year.html" class="popup-overlay__button">Узнать больше</a>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		// Показываем попап через 2 секунды после загрузки страницы
+		window.addEventListener('load', function () {
+			setTimeout(function () {
+				document.getElementById('popup').style.display = 'flex';
+			}, 2000);
+		});
+
+		// Закрываем попап, если нажали на кнопку закрытия
+		document.getElementById('popup-close').addEventListener('click', function () {
+			document.getElementById('popup').style.display = 'none';
+		});
+
+		// Закрываем попап, если кликнули вне его
+		document.getElementById('popup').addEventListener('click', function (event) {
+			if (event.target.id === 'popup') {
+				document.getElementById('popup').style.display = 'none';
+			}
+		});
+	</script>
+
+	<style>
+		/* Стили для затемнения фона */
+		.popup-overlay {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(0, 0, 0, 0.5);
+			display: none;
+			justify-content: center;
+			align-items: center;
+			z-index: 1000;
+		}
+
+		.popup-overlay__block {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+
+		.popup-overlay__content {
+			position: relative;
+			background: #fff;
+			padding: 20px;
+			color: #150931;
+			text-align: center;
+			box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+			width: 610px;
+			padding: 60px;
+			border-radius: 20px;
+		}
+
+		.popup-overlay__title {
+			font-size: 37px;
+			font-weight: 700;
+			margin: 0px 0px 20px 0px;
+			line-height: 150%;
+		}
+
+		.popup-overlay__text {
+			font-size: 22px;
+			margin: 0px 0px 20px 0px;
+			line-height: 150%;
+		}
+
+		.popup-overlay__button {
+			width: 490px;
+			height: 80px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			background: #06ea6f;
+			color: #150931;
+			border-radius: 37px;
+			font-weight: 800;
+			font-size: 30px;
+			line-height: 37px;
+			text-transform: uppercase;
+			border: none;
+			transition: all 0.3s ease 0s;
+			margin: 20px 0px 0px 0px;
+		}
+
+		.popup-overlay__button:hover {
+			background: #ff018a;
+		}
+
+		.popup-overlay__close {
+			position: absolute;
+			top: 15px;
+			right: 15px;
+			cursor: pointer;
+			width: 24px;
+			height: 24px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			transition: transform 0.2s ease, opacity 0.2s ease;
+			/* Анимация при наведении */
+		}
+
+		.popup-overlay__close svg {
+			width: 100%;
+			height: 100%;
+			fill: #444;
+			/* Цвет иконки */
+			transition: fill 0.3s ease;
+			/* Плавное изменение цвета */
+		}
+
+		.popup-overlay__close:hover {
+			transform: scale(1.1);
+			/* Увеличение кнопки при наведении */
+			opacity: 0.8;
+		}
+
+		.popup-overlay__close:hover svg {
+			fill: #ff018a;
+			/* Изменение цвета иконки при наведении */
+		}
+
+		.popup-overlay__list {
+			margin: 0px 0px 20px 0px;
+		}
+
+		.popup-overlay__list li {
+			position: relative;
+			margin: 0px 0px 10px 0px;
+			font-size: 18px;
+			line-height: 140%;
+			padding: 0px 0px 0px 20px;
+			text-align: left;
+		}
+
+		.popup-overlay__list li::before {
+			position: absolute;
+			content: "";
+			display: inline-block;
+			width: 7px;
+			height: 7px;
+			left: 0;
+			top: 7px;
+			background-color: #150931;
+			border-radius: 50%;
+		}
+
+		@media (max-width: 650px) {
+			.popup-overlay__content {
+				width: 98%;
+				padding: 30px;
+			}
+
+			.popup-overlay__title {
+				font-size: 24px;
+			}
+
+			.popup-overlay__text {
+				font-size: 18px;
+
+			}
+
+			.popup-overlay__button {
+				width: 260px;
+				font-size: 18px;
+				line-height: 22px;
+				height: 60px;
+			}
+
+			.popup-overlay__list li {
+				font-size: 16px;
+			}
+		}
+
+		@media (max-width: 400px) {
+			.popup-overlay__content {
+				padding: 30px 15px;
+			}
+		}
+	</style>
+
 
 	<footer class="footer">
 		<div class="footer__super-wrapper">
@@ -824,7 +1049,7 @@
               <a href="https://ai4g.ru/login" target="_blank" class="footer__item">
                 <img src="img/lk.svg" alt="личный кабинет" loading="lazy" />
                 <span>Личный кабинет</span>
-              </a> 
+              </a>
 		</div>-->
 
 		<div class="footer__logo">
@@ -875,6 +1100,8 @@
 			<div class="modal-request__item">
 				<input class="modal-request__phone modal-request__email" data-validate-field="email" name="email" type="email" placeholder="Электронная почта" />
 			</div>
+			<input type="hidden" name="page_title" value="Запись на serf-сессию с главной страницы">
+
 			<div class="modal-request__choice">
 				<div class="modal-request__left">Предпочтительный способ связи:</div>
 				<div class="modal-request__right">

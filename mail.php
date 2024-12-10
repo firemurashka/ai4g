@@ -28,7 +28,9 @@ function httpPost($url, $data)
 $user_login = generateRandomString();
 $user_password = generateRandomString();
 
-$title = "Заявка на serf-сессию";
+/* $title = "Заявка на serf-сессию"; */
+$title = isset($_POST['page_title']) ? $_POST['page_title'] : "Заявка с неизвестной страницы";
+
 //$file = $_FILES['file'];
 $body = "";
 $c = true;
@@ -146,4 +148,3 @@ try {
 } catch (Exception $e) {
   $status = "Сообщение не было отправлено. Причина ошибки: {$mail->ErrorInfo}";
 }
-

@@ -1,1047 +1,935 @@
 <!DOCTYPE html>
 <html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Нейросервис Ai4G – ИИ-технологии для личностного роста - Ai4G</title>
+    <meta
+      name="description"
+      content="Откройте возможности нейросервиса Ai4G для саморазвития и эффективного управления эмоциями с помощью передовых технологий искусственного интеллекта🔹 Ai4G"
+    />
 
-<head>
-	<meta charset="UTF-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>Нейросервис Ai4G – ИИ-технологии для личностного роста - Ai4G</title>
-	<meta name="description"
-		content="Откройте возможности нейросервиса Ai4G для саморазвития и эффективного управления эмоциями с помощью передовых технологий искусственного интеллекта🔹 Ai4G" />
+    <link rel="manifest" href="js/manifest.json" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=PT+Sans:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="icon" href="img/favicon.ico" />
 
-	<link rel="manifest" href="js/manifest.json" />
-	<link rel="preconnect" href="https://fonts.googleapis.com" />
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=PT+Sans:ital,wght@0,400;0,700;1,400&display=swap"
-		rel="stylesheet" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
-	<link rel="stylesheet" href="css/styles.css" />
-	<link rel="icon" href="img/favicon.ico">
+    <!-- Facebook Pixel Code -->
+    <script>
+      !(function (f, b, e, v, n, t, s) {
+        if (f.fbq) return;
+        n = f.fbq = function () {
+          n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+        };
+        if (!f._fbq) f._fbq = n;
+        n.push = n;
+        n.loaded = !0;
+        n.version = "2.0";
+        n.queue = [];
+        t = b.createElement(e);
+        t.async = !0;
+        t.src = v;
+        s = b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t, s);
+      })(window, document, "script", "https://connect.facebook.net/en_US/fbevents.js");
+      fbq("init", "632030395545001");
+      fbq("track", "PageView");
+    </script>
+    <noscript>
+      <img
+        height="1"
+        width="1"
+        src="https://www.facebook.com/tr?id=632030395545001&ev=PageView
+&noscript=1"
+      />
+    </noscript>
+    <!-- End Facebook Pixel Code -->
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+      (function (m, e, t, r, i, k, a) {
+        m[i] =
+          m[i] ||
+          function () {
+            (m[i].a = m[i].a || []).push(arguments);
+          };
+        m[i].l = 1 * new Date();
+        for (var j = 0; j < document.scripts.length; j++) {
+          if (document.scripts[j].src === r) {
+            return;
+          }
+        }
+        (k = e.createElement(t)), (a = e.getElementsByTagName(t)[0]), (k.async = 1), (k.src = r), a.parentNode.insertBefore(k, a);
+      })(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
 
-	<!-- Facebook Pixel Code -->
-	<script>
-		!function (f, b, e, v, n, t, s) {
-			if (f.fbq) return; n = f.fbq = function () {
-				n.callMethod ?
-					n.callMethod.apply(n, arguments) : n.queue.push(arguments)
-			};
-			if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
-			n.queue = []; t = b.createElement(e); t.async = !0;
-			t.src = v; s = b.getElementsByTagName(e)[0];
-			s.parentNode.insertBefore(t, s)
-		}(window, document, 'script',
-			'https://connect.facebook.net/en_US/fbevents.js');
-		fbq('init', '632030395545001');
-		fbq('track', 'PageView');
-	</script>
-	<noscript>
-		<img height="1" width="1" src="https://www.facebook.com/tr?id=632030395545001&ev=PageView
-&noscript=1" />
-	</noscript>
-	<!-- End Facebook Pixel Code -->
-	<!-- Yandex.Metrika counter -->
-	<script type="text/javascript">
-		(function (m, e, t, r, i, k, a) {
-			m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments) };
-			m[i].l = 1 * new Date();
-			for (var j = 0; j < document.scripts.length; j++) { if (document.scripts[j].src === r) { return; } }
-			k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
-		})
-			(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+      ym(93953514, "init", {
+        clickmap: true,
+        trackLinks: true,
+        accurateTrackBounce: true,
+        webvisor: true,
+      });
+    </script>
+    <noscript>
+      <div><img src="https://mc.yandex.ru/watch/93953514" style="position: absolute; left: -9999px" alt /></div>
+    </noscript>
+    <!-- /Yandex.Metrika counter -->
+  </head>
 
-		ym(93953514, "init", {
-			clickmap: true,
-			trackLinks: true,
-			accurateTrackBounce: true,
-			webvisor: true
-		});
-	</script>
-	<noscript>
-		<div><img src="https://mc.yandex.ru/watch/93953514" style="position:absolute; left:-9999px;" alt /></div>
-	</noscript>
-	<!-- /Yandex.Metrika counter -->
-</head>
+  <body>
+    <script>
+      if (typeof navigator.serviceWorker !== "undefined") {
+        navigator.serviceWorker.register("js/sw.js");
+      }
+    </script>
+    <header class="header">
+      <div class="header__line"></div>
+      <a class="header__logo" href="index.html">
+        <div class="header__square">
+          <img src="img/logo-square.svg" alt="logo" width="51" height="47.6" />
+        </div>
+        <div class="header__logo-title">
+          <div class="header__Ai4G">
+            <img src="img/logo-Ai4G.svg" alt="logo" />
+          </div>
+          <span class="header__logo-suptitle">Фарватер успешного развития</span>
+        </div>
+        <div class="header__triangle">
+          <img src="img/logo-triangle.svg" alt="logo" />
+        </div>
+      </a>
+      <a class="header__logo-mobile" href="index.html">
+        <img src="img/footer-logo.svg" alt="A4iG" width="151" height="62" />
+      </a>
+    </header>
 
-<body>
-	<script>
-		if (typeof navigator.serviceWorker !== 'undefined') {
-			navigator.serviceWorker.register('js/sw.js')
-		}
-	</script>
-	<header class="header">
-		<div class="header__line"></div>
-		<a class="header__logo" href="index.html">
-			<div class="header__square">
-				<img src="img/logo-square.svg" alt="logo" width="51" height="47.6" />
-			</div>
-			<div class="header__logo-title">
-				<div class="header__Ai4G">
-					<img src="img/logo-Ai4G.svg" alt="logo" />
-				</div>
-				<span class="header__logo-suptitle">Фарватер успешного развития</span>
-			</div>
-			<div class="header__triangle">
-				<img src="img/logo-triangle.svg" alt="logo" />
-			</div>
-		</a>
-		<a class="header__logo-mobile" href="index.html">
-			<img src="img/footer-logo.svg" alt="A4iG" width="151" height="62" />
-		</a>
-	</header>
+    <main>
+      <section class="top" id="top">
+        <div class="container">
+          <div class="top__inner">
+            <h1 class="top__title">Ai4G —</h1>
+            <div class="top__suptitle">
+              Нейросервис для построения траектории развития. Симбиоз технологий data science и&nbsp;успешного подхода к&nbsp;наставничеству.
+            </div>
+          </div>
+        </div>
+      </section>
 
-	<main>
-		<section class="top" id="top">
-			<div class="container">
-				<div class="top__inner">
-					<h1 class="top__title">Ai4G —</h1>
-					<div class="top__suptitle">
-						Нейросервис для построения траектории развития. Симбиоз технологий data science
-						и&nbsp;успешного подхода к&nbsp;наставничеству.
-					</div>
-				</div>
-			</div>
-		</section>
+      <section class="plane">
+        <div class="container">
+          <h2 class="plane__title-mobile">Развитие в&nbsp;4&nbsp;плоскостях:</h2>
+          <div class="plane__inner">
+            <div class="plane__top">
+              <div class="plane__left">
+                <img class="plane__img-1" src="img/plane-1.png" alt="img" />
+                <img class="plane__img-2" src="img/plane-2.png" alt="img" />
+                <img class="plane__img-3" src="img/plane-3.png" alt="img" />
+                <img class="plane__img-4" src="img/plane-4.png" alt="img" />
+              </div>
+              <div class="plane__right">
+                <h2 class="plane__title">Развитие в&nbsp;4&nbsp;плоскостях:</h2>
+                <div class="plane__right-items">
+                  <div class="plane__right-item">
+                    <span class="plane__right-num">1.</span>
+                    <span class="plane__right-text">αG-личность: формирование и развитие</span>
+                  </div>
+                  <div class="plane__right-item">
+                    <span class="plane__right-num">2.</span>
+                    <span class="plane__right-text">Близкий круг&nbsp;αG (отношения в&nbsp;семье, среди близких и&nbsp;друзей)</span>
+                  </div>
+                  <div class="plane__right-item">
+                    <span class="plane__right-num">3.</span>
+                    <span class="plane__right-text">αG-карьера (амбиции, построение карьеры, профрост)</span>
+                  </div>
+                  <div class="plane__right-item">
+                    <span class="plane__right-num">4.</span>
+                    <span class="plane__right-text">Общество (публичная жизнь, развитие бренда, благотворительность, общественно значимые роли)</span>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-		<section class="plane">
-			<div class="container">
-				<h2 class="plane__title-mobile">Развитие в&nbsp;4&nbsp;плоскостях:</h2>
-				<div class="plane__inner">
-					<div class="plane__top">
-						<div class="plane__left">
-							<img class="plane__img-1" src="img/plane-1.png" alt="img" />
-							<img class="plane__img-2" src="img/plane-2.png" alt="img" />
-							<img class="plane__img-3" src="img/plane-3.png" alt="img" />
-							<img class="plane__img-4" src="img/plane-4.png" alt="img" />
-						</div>
-						<div class="plane__right">
-							<h2 class="plane__title">Развитие в&nbsp;4&nbsp;плоскостях:</h2>
-							<div class="plane__right-items">
-								<div class="plane__right-item">
-									<span class="plane__right-num">1.</span>
-									<span class="plane__right-text">αG-личность: формирование и развитие</span>
-								</div>
-								<div class="plane__right-item">
-									<span class="plane__right-num">2.</span>
-									<span class="plane__right-text">Близкий круг&nbsp;αG (отношения в&nbsp;семье, среди близких и&nbsp;друзей)</span>
-								</div>
-								<div class="plane__right-item">
-									<span class="plane__right-num">3.</span>
-									<span class="plane__right-text">αG-карьера (амбиции, построение карьеры, профрост)</span>
-								</div>
-								<div class="plane__right-item">
-									<span class="plane__right-num">4.</span>
-									<span class="plane__right-text">Общество (публичная жизнь, развитие бренда, благотворительность, общественно
-										значимые роли)</span>
-								</div>
-							</div>
-						</div>
-					</div>
+            <div class="plane__bottom">
+              <button class="plane__btn btn-reset">4G плоскости подробно</button>
+              <div class="plane__bottom-items">
+                <div class="plane__bottom-item">
+                  <div class="plane__bottom-left">
+                    <img src="img/plane-1.svg" alt="img" loading="lazy" />
+                  </div>
+                  <div class="plane__bottom-right">
+                    <h3 class="plane__bottom-title">
+                      <img class="plane__bottom-hidden" src="img/plane-1.svg" alt="img" loading="lazy" />
+                      αG-личность
+                    </h3>
+                    <div class="plane__bottom-bold">Найти баланс между &laquo;надо&raquo; и&nbsp;&laquo;интересно&raquo;</div>
+                    <ul class="plane__bottom-list list-reset">
+                      <li class="plane__bottom-li">Обрести новый источник удовольствия в&nbsp;вашей жизни</li>
+                      <li class="plane__bottom-li">Удовлетворенность</li>
+                    </ul>
+                    <div class="plane__bottom-bold">
+                      Личностное развитие&nbsp;&mdash; базис, на&nbsp;котором основано движение во&nbsp;всех сферах вашей жизни:
+                    </div>
+                    <ul class="plane__bottom-list list-reset">
+                      <li class="plane__bottom-li">отношения с&nbsp;ближним кругом: семья, родные, переход знакомых в&nbsp;категорию друзей;</li>
+                      <li class="plane__bottom-li">
+                        подъем по&nbsp;карьерной лестнице: новые роли в&nbsp;коллективе, восприятие обязанностей и&nbsp;скорость освоения нового;
+                      </li>
+                      <li class="plane__bottom-li">реализация в&nbsp;жизни общества, среди важных людей города, страны</li>
+                    </ul>
+                    <div class="plane__bottom-bold">Высота, которой удастся достичь, зависит от&nbsp;ваших амбиций и&nbsp;установок.</div>
+                    <div class="plane__bottom-bold">Список качеств и&nbsp;навыков очень широк:</div>
+                    <ul class="plane__bottom-list list-reset mb0">
+                      <li class="plane__bottom-li">развитие лидерских качеств;</li>
+                      <li class="plane__bottom-li">избавление от&nbsp;лени и&nbsp;других вредных привычек;</li>
+                      <li class="plane__bottom-li">
+                        умение входить в&nbsp;ресурсное состояние, когда желание действовать само по&nbsp;себе подпитывает вас внутренней энергией;
+                      </li>
+                      <li class="plane__bottom-li">развитие коммуникативных навыков и&nbsp;эмоционального интеллекта.</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="plane__bottom-item">
+                  <div class="plane__bottom-left">
+                    <img src="img/plane-2.svg" alt="img" loading="lazy" />
+                  </div>
+                  <div class="plane__bottom-right">
+                    <h3 class="plane__bottom-title">
+                      <img class="plane__bottom-hidden" src="img/plane-2.svg" alt="img" loading="lazy" />
+                      Близкий круг αG
+                    </h3>
+                    <ul class="plane__bottom-list list-reset">
+                      <li class="plane__bottom-li">Избавиться от&nbsp;токсичных отношений</li>
+                      <li class="plane__bottom-li">Изменить характер взаимоотношений в&nbsp;семье</li>
+                      <li class="plane__bottom-li">Приобрести авторитет в&nbsp;кругу близких людей</li>
+                    </ul>
+                    <div class="plane__bottom-text">
+                      На&nbsp;ощущение собственной значимости во&nbsp;многом влияют отношения с&nbsp;родителями, детьми и&nbsp;супругами. От&nbsp;ироничных
+                      оценок друзей и&nbsp;знакомых страдали известные политики и&nbsp;популярные кинодивы, подобно Анджелине Джоли и&nbsp;Дженнифер Лопес.
+                      Избавляться от&nbsp;негативных контактов крайне важно для эмоционального состояния.
+                    </div>
+                    <div class="plane__bottom-text">
+                      Умения правильно подать себя, заводить знакомства, которые движут вперёд&nbsp;&mdash; важные навыки для вашего развития.
+                    </div>
+                    <div class="plane__bottom-text mb0">Решение этих задач невозможно без точного понимания, что окружает тебя в&nbsp;настоящий момент.</div>
+                  </div>
+                </div>
+                <div class="plane__bottom-item">
+                  <div class="plane__bottom-left">
+                    <img src="img/plane-3.svg" alt="img" loading="lazy" />
+                  </div>
+                  <div class="plane__bottom-right">
+                    <h3 class="plane__bottom-title">
+                      <img class="plane__bottom-hidden" src="img/plane-3.svg" alt="img" loading="lazy" />
+                      αG-карьера
+                    </h3>
 
-					<div class="plane__bottom">
-						<button class="plane__btn btn-reset">4G плоскости подробно</button>
-						<div class="plane__bottom-items">
-							<div class="plane__bottom-item">
-								<div class="plane__bottom-left">
-									<img src="img/plane-1.svg" alt="img" loading="lazy" />
-								</div>
-								<div class="plane__bottom-right">
-									<h3 class="plane__bottom-title">
-										<img class="plane__bottom-hidden" src="img/plane-1.svg" alt="img" loading="lazy" />
-										αG-личность
-									</h3>
-									<div class="plane__bottom-bold">
-										Найти баланс между &laquo;надо&raquo; и&nbsp;&laquo;интересно&raquo;
-									</div>
-									<ul class="plane__bottom-list list-reset">
-										<li class="plane__bottom-li">
-											Обрести новый источник удовольствия в&nbsp;вашей жизни
-										</li>
-										<li class="plane__bottom-li">Удовлетворенность</li>
-									</ul>
-									<div class="plane__bottom-bold">
-										Личностное развитие&nbsp;&mdash; базис, на&nbsp;котором основано движение
-										во&nbsp;всех сферах вашей жизни:
-									</div>
-									<ul class="plane__bottom-list list-reset">
-										<li class="plane__bottom-li">
-											отношения с&nbsp;ближним кругом: семья, родные, переход знакомых
-											в&nbsp;категорию друзей;
-										</li>
-										<li class="plane__bottom-li">
-											подъем по&nbsp;карьерной лестнице: новые роли в&nbsp;коллективе, восприятие
-											обязанностей и&nbsp;скорость освоения нового;
-										</li>
-										<li class="plane__bottom-li">
-											реализация в&nbsp;жизни общества, среди важных людей города, страны
-										</li>
-									</ul>
-									<div class="plane__bottom-bold">
-										Высота, которой удастся достичь, зависит от&nbsp;ваших амбиций
-										и&nbsp;установок.
-									</div>
-									<div class="plane__bottom-bold">Список качеств и&nbsp;навыков очень широк:</div>
-									<ul class="plane__bottom-list list-reset mb0">
-										<li class="plane__bottom-li">развитие лидерских качеств;</li>
-										<li class="plane__bottom-li">
-											избавление от&nbsp;лени и&nbsp;других вредных привычек;
-										</li>
-										<li class="plane__bottom-li">
-											умение входить в&nbsp;ресурсное состояние, когда желание действовать само
-											по&nbsp;себе подпитывает вас внутренней энергией;
-										</li>
-										<li class="plane__bottom-li">
-											развитие коммуникативных навыков и&nbsp;эмоционального интеллекта.
-										</li>
-									</ul>
-								</div>
-							</div>
-							<div class="plane__bottom-item">
-								<div class="plane__bottom-left">
-									<img src="img/plane-2.svg" alt="img" loading="lazy" />
-								</div>
-								<div class="plane__bottom-right">
-									<h3 class="plane__bottom-title">
-										<img class="plane__bottom-hidden" src="img/plane-2.svg" alt="img" loading="lazy" />
-										Близкий круг αG
-									</h3>
-									<ul class="plane__bottom-list list-reset">
-										<li class="plane__bottom-li">Избавиться от&nbsp;токсичных отношений</li>
-										<li class="plane__bottom-li">
-											Изменить характер взаимоотношений в&nbsp;семье
-										</li>
-										<li class="plane__bottom-li">
-											Приобрести авторитет в&nbsp;кругу близких людей
-										</li>
-									</ul>
-									<div class="plane__bottom-text">
-										На&nbsp;ощущение собственной значимости во&nbsp;многом влияют отношения
-										с&nbsp;родителями, детьми и&nbsp;супругами. От&nbsp;ироничных оценок друзей
-										и&nbsp;знакомых страдали известные политики и&nbsp;популярные кинодивы,
-										подобно Анджелине Джоли и&nbsp;Дженнифер Лопес. Избавляться от&nbsp;негативных
-										контактов крайне важно для эмоционального состояния.
-									</div>
-									<div class="plane__bottom-text">
-										Умения правильно подать себя, заводить знакомства, которые движут
-										вперёд&nbsp;&mdash; важные навыки для вашего развития.
-									</div>
-									<div class="plane__bottom-text mb0">
-										Решение этих задач невозможно без точного понимания, что окружает тебя
-										в&nbsp;настоящий момент.
-									</div>
-								</div>
-							</div>
-							<div class="plane__bottom-item">
-								<div class="plane__bottom-left">
-									<img src="img/plane-3.svg" alt="img" loading="lazy" />
-								</div>
-								<div class="plane__bottom-right">
-									<h3 class="plane__bottom-title">
-										<img class="plane__bottom-hidden" src="img/plane-3.svg" alt="img" loading="lazy" />
-										αG-карьера
-									</h3>
+                    <ul class="plane__bottom-list list-reset">
+                      <li class="plane__bottom-li">Высокий статус</li>
+                      <li class="plane__bottom-li">Удовлетворение от&nbsp;своей профессии/должности</li>
+                      <li class="plane__bottom-li">Поддержание ресурсного состояния</li>
+                      <li class="plane__bottom-li">Новые скилы</li>
+                    </ul>
+                    <div class="plane__bottom-text">
+                      Успешное развитие карьеры не&nbsp;случайность, а&nbsp;результат планомерного развития. Многие крупные компании стремятся выращивать
+                      руководящие кадры из&nbsp;рядовых сотрудников. Другие скупают самых талантливых на&nbsp;пике их&nbsp;потенциала.
+                    </div>
+                    <div class="plane__bottom-text">Ai4G расставляет координаты:</div>
+                    <ul class="plane__bottom-list list-reset">
+                      <li class="plane__bottom-li">как найти себя среди всех возможностей,</li>
+                      <li class="plane__bottom-li">определить наиболее близкую по&nbsp;интересам сферу,</li>
+                      <li class="plane__bottom-li">пройти в&nbsp;безопасный фарватер.</li>
+                    </ul>
+                    <div class="plane__bottom-text">С&nbsp;точным знанием цели, любой маршрут окажется по&nbsp;плечу.</div>
+                    <div class="plane__bottom-text">
+                      Нейросервис Ai4G рассчитает, где стоит удвоить усилия и&nbsp;как победить в&nbsp;регате за&nbsp;заветное &laquo;кресло&raquo;.
+                    </div>
+                    <div class="plane__bottom-text mb0">
+                      Наставник поможет на&nbsp;порогах новых знаний, трекинг удержит в&nbsp;тонусе на&nbsp;самых сложных участках.
+                    </div>
+                  </div>
+                </div>
+                <div class="plane__bottom-item">
+                  <div class="plane__bottom-left">
+                    <img src="img/plane-4.svg" alt="img" loading="lazy" />
+                  </div>
+                  <div class="plane__bottom-right">
+                    <h3 class="plane__bottom-title">
+                      <img class="plane__bottom-hidden" src="img/plane-4.svg" alt="img" loading="lazy" />
+                      αG-Общество
+                    </h3>
 
-									<ul class="plane__bottom-list list-reset">
-										<li class="plane__bottom-li">Высокий статус</li>
-										<li class="plane__bottom-li">
-											Удовлетворение от&nbsp;своей профессии/должности
-										</li>
-										<li class="plane__bottom-li">Поддержание ресурсного состояния</li>
-										<li class="plane__bottom-li">Новые скилы</li>
-									</ul>
-									<div class="plane__bottom-text">
-										Успешное развитие карьеры не&nbsp;случайность, а&nbsp;результат планомерного
-										развития. Многие крупные компании стремятся выращивать руководящие кадры
-										из&nbsp;рядовых сотрудников. Другие скупают самых талантливых на&nbsp;пике
-										их&nbsp;потенциала.
-									</div>
-									<div class="plane__bottom-text">Ai4G расставляет координаты:</div>
-									<ul class="plane__bottom-list list-reset">
-										<li class="plane__bottom-li">как найти себя среди всех возможностей,</li>
-										<li class="plane__bottom-li">
-											определить наиболее близкую по&nbsp;интересам сферу,
-										</li>
-										<li class="plane__bottom-li">пройти в&nbsp;безопасный фарватер.</li>
-									</ul>
-									<div class="plane__bottom-text">
-										С&nbsp;точным знанием цели, любой маршрут окажется по&nbsp;плечу.
-									</div>
-									<div class="plane__bottom-text">
-										Нейросервис Ai4G рассчитает, где стоит удвоить усилия
-										и&nbsp;как победить в&nbsp;регате за&nbsp;заветное &laquo;кресло&raquo;.
-									</div>
-									<div class="plane__bottom-text mb0">
-										Наставник поможет на&nbsp;порогах новых знаний, трекинг удержит
-										в&nbsp;тонусе на&nbsp;самых сложных участках.
-									</div>
-								</div>
-							</div>
-							<div class="plane__bottom-item">
-								<div class="plane__bottom-left">
-									<img src="img/plane-4.svg" alt="img" loading="lazy" />
-								</div>
-								<div class="plane__bottom-right">
-									<h3 class="plane__bottom-title">
-										<img class="plane__bottom-hidden" src="img/plane-4.svg" alt="img" loading="lazy" />
-										αG-Общество
-									</h3>
-
-									<ul class="plane__bottom-list list-reset">
-										<li class="plane__bottom-li">Членство в&nbsp;клубе значимых лиц города</li>
-										<li class="plane__bottom-li">Известность в&nbsp;широких кругах</li>
-										<li class="plane__bottom-li">Развитие личностного бренда</li>
-										<li class="plane__bottom-li">
-											Продвижение собственных взглядов на&nbsp;развитие процессов
-										</li>
-										<li class="plane__bottom-li">
-											Изменение стереотипов мышления групп и&nbsp;объединений
-										</li>
-									</ul>
-									<div class="plane__bottom-text">
-										Активные и&nbsp;предприимчивые люди нужны не&nbsp;только компаниям,
-										но&nbsp;развитию общества в&nbsp;целом. Самые сильные духом и&nbsp;знаниями
-										формируют среду, в&nbsp;которой мы&nbsp;живем. Кто-то занимает позицию Альфы,
-										другие движутся к&nbsp;зениту по&nbsp;его волне.
-									</div>
-									<div class="plane__bottom-text">
-										Войти в&nbsp;круг лидеров общественности не&nbsp;простая задача,
-										но&nbsp;решаемая. Возможности использовать силу волны есть на&nbsp;каждом
-										этапе роста. Наставник проведёт вас и&nbsp;по&nbsp;крутой лестнице,
-										и&nbsp;по&nbsp;красной дорожке.
-									</div>
-									<div class="plane__bottom-text">
-										Serf-сессия Ai4G&nbsp;&mdash; начальная точка на&nbsp;пути
-										по&nbsp;&laquo;завоеванию мира&raquo;.
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- <a href="#modal-request" class="plane__link link" data-fancybox>
+                    <ul class="plane__bottom-list list-reset">
+                      <li class="plane__bottom-li">Членство в&nbsp;клубе значимых лиц города</li>
+                      <li class="plane__bottom-li">Известность в&nbsp;широких кругах</li>
+                      <li class="plane__bottom-li">Развитие личностного бренда</li>
+                      <li class="plane__bottom-li">Продвижение собственных взглядов на&nbsp;развитие процессов</li>
+                      <li class="plane__bottom-li">Изменение стереотипов мышления групп и&nbsp;объединений</li>
+                    </ul>
+                    <div class="plane__bottom-text">
+                      Активные и&nbsp;предприимчивые люди нужны не&nbsp;только компаниям, но&nbsp;развитию общества в&nbsp;целом. Самые сильные духом
+                      и&nbsp;знаниями формируют среду, в&nbsp;которой мы&nbsp;живем. Кто-то занимает позицию Альфы, другие движутся к&nbsp;зениту по&nbsp;его
+                      волне.
+                    </div>
+                    <div class="plane__bottom-text">
+                      Войти в&nbsp;круг лидеров общественности не&nbsp;простая задача, но&nbsp;решаемая. Возможности использовать силу волны есть на&nbsp;каждом
+                      этапе роста. Наставник проведёт вас и&nbsp;по&nbsp;крутой лестнице, и&nbsp;по&nbsp;красной дорожке.
+                    </div>
+                    <div class="plane__bottom-text">Serf-сессия Ai4G&nbsp;&mdash; начальная точка на&nbsp;пути по&nbsp;&laquo;завоеванию мира&raquo;.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <a href="#modal-request" class="plane__link link" data-fancybox>
 				Запись на&nbsp;serf-сессию
 			</a> -->
-		</section>
+      </section>
 
-		<section class="fairway">
-			<div class="fairway__wrapper">
-				<div class="fairway__container">
-					<h2 class="fairway__title">Двигаясь в&nbsp;фарватере Ai4G, легче достичь цели</h2>
-					<div class="fairway__row">
-						<img src="img/fairway.png" alt="fairway" loading="lazy" />
-						<div class="fairway__row-back"></div>
-					</div>
-				</div>
-				<div class="container">
-					<div class="fairway__items">
-						<div class="fairway__item fi-1">
-							<div class="fairway__item-left">1.</div>
-							<div class="fairway__item-right">
-								<h3 class="fairway__item-title">Serf-сессия с&nbsp;гуру</h3>
-								<div class="fairway__item-suptitle">
-									45&nbsp;минутная онлайн-встреча, во&nbsp;время которой мы&nbsp;анализируем:
-								</div>
-								<ul class="fairway__item-list list-reset">
-									<li class="fairway__item-li">Ваш уровень образования,</li>
-									<li class="fairway__item-li">Основные проблемы и&nbsp;потребности роста,</li>
-									<li class="fairway__item-li">Интересы и&nbsp;психологические барьеры,</li>
-									<li class="fairway__item-li">Готовность самостоятельно осваивать новое,</li>
-									<li class="fairway__item-li">
-										Определяем стимулы доплыть к&nbsp;заветным берегам.
-									</li>
-								</ul>
-							</div>
-						</div>
-						<div class="fairway__item fi-2">
-							<div class="fairway__item-left">2.</div>
-							<div class="fairway__item-right">
-								<h3 class="fairway__item-title">Выбираем фарватер</h3>
-								<div class="fairway__item-suptitle">
-									Data science технологии обрабатывают ваши ответы. В&nbsp;результате
-									вы&nbsp;получаете:
-								</div>
-								<ul class="fairway__item-list list-reset">
-									<li class="fairway__item-li">Максимально точную оценку текущего состояния,</li>
-									<li class="fairway__item-li">Несколько вариантов будущего маршрута.</li>
-									<li class="fairway__item-li">Построение траектории в&nbsp;4-х плоскостях.</li>
-								</ul>
-								<div class="fairway__item-bold">
-									Вы&nbsp;можете двигаться к&nbsp;цели самостоятельно или вместе
-									с&nbsp;Наставником.
-								</div>
-								<div class="fairway__item-arrow">
-									<span class="fairway__item-arrow-svg">
-										<svg width="46" height="60" viewBox="0 0 46 60" xmlns="http://www.w3.org/2000/svg">
-											<path
-												d="M45.1965 36.911C44.6413 37.7134 43.8079 38.2485 42.6964 38.2485H34.3625C32.6957 38.2485 31.5847 39.3182 31.5847 40.923V45.7351C31.5847 47.3399 30.4736 48.4097 28.8069 48.4097C27.1401 48.4097 26.0291 47.3399 26.0291 45.7351V40.923C26.0291 36.3759 29.6403 32.899 34.363 32.899H37.9741L23.2505 8.82672L8.52691 32.899H12.1386C16.8613 32.899 20.4725 36.3759 20.4725 40.923V54.2969H39.9186C41.5853 54.2969 42.6964 55.3666 42.6964 56.9714C42.6964 58.5762 41.5853 59.646 39.9186 59.646L12.1386 59.6464C10.4718 59.6464 9.36077 58.5767 9.36077 56.9719C9.36077 55.3671 10.4718 54.2973 12.1386 54.2973H14.9164V40.9235C14.9164 39.3187 13.8054 38.2489 12.1386 38.2489L3.80468 38.2485C2.69365 38.2485 1.86026 37.7134 1.30451 36.911C0.748757 36.1086 0.748757 35.0389 1.30451 34.2365L20.7499 2.14014C21.8609 0.535319 24.6392 0.535319 25.4726 2.14014L44.918 34.2365C45.4737 35.0389 45.4747 36.1086 45.1965 36.911Z" />
-										</svg>
-									</span>
-									<a href="img/itr2.pdf" target="_blank" class="fairway__item-arrow-text">
-										<span class="fairway__item-arrow-text">Пример индивидуальной траектории развития
-										</span></a>
-
-								</div>
-							</div>
-						</div>
-						<div class="fairway__item fi-3">
-							<div class="fairway__item-left">3.</div>
-							<div class="fairway__item-right">
-								<h3 class="fairway__item-title">aG-помощники и&nbsp;трекинг</h3>
-								<div class="fairway__item-suptitle">
-									Трекинг поддержка помогает вам пополнять ресурс и&nbsp;выходить на&nbsp;новый
-									уровень. Каждый день в&nbsp;мессенджере или мобильном приложении
-									вы&nbsp;получаете:
-								</div>
-								<ul class="fairway__item-list list-reset">
-									<li class="fairway__item-li">Мотивационные напутствия.</li>
-									<li class="fairway__item-li">
-										Подсказки и&nbsp;лайфхаки для ускорения процесса.
-									</li>
-									<li class="fairway__item-li">Дополнительный push-резерв для движения вперед,</li>
-									<li class="fairway__item-li">
-										Отмечаете маленькие и&nbsp;большие победы над собой.
-									</li>
-								</ul>
-							</div>
-						</div>
-						<div class="fairway__item fi-4">
-							<div class="fairway__item-left">4.</div>
-							<div class="fairway__item-right">
-								<h3 class="fairway__item-title">Наставничество</h3>
-								<div class="fairway__item-suptitle">
-									Каждые 2&nbsp;недели проводится диагностика результатов вашего развития.
-									По&nbsp;итогам мы&nbsp;корректируем маршрут и&nbsp;контрольные точки. Наставник
-									проводит разбор принятых решений и&nbsp;возникающих проблем. Используя его опыт
-									и&nbsp;возможности, вы:
-								</div>
-								<ul class="fairway__item-list list-reset">
-									<li class="fairway__item-li">
-										Четко видите цель и&nbsp;ваше положение на&nbsp;карте,
-									</li>
-									<li class="fairway__item-li">
-										Быстро и&nbsp;точно движетесь в&nbsp;фарватере,
-									</li>
-									<li class="fairway__item-li">
-										Преобразуете внутренние барьеры в&nbsp;новые возможности,
-									</li>
-									<li class="fairway__item-li">
-										Экономите резервы и&nbsp;открываете новые ресурсы,
-									</li>
-									<li class="fairway__item-li">
-										Испытаете кураж от&nbsp;скорости и&nbsp;прогресса.
-									</li>
-								</ul>
-								<div class="fairway__item-purple-bold">
-									Возможна экстренная связь с&nbsp;гуру в&nbsp;удобном для вас формате.
-								</div>
-								<div class="fairway__item-bold">
-									Мы&nbsp;готовы поддержать вас на&nbsp;любой стадии развития. Хотите быстрее
-									оказаться на&nbsp;гребне волны?
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- 	<div class="fairway__footer">
+      <section class="fairway">
+        <div class="fairway__wrapper">
+          <div class="fairway__container">
+            <h2 class="fairway__title">Двигаясь в&nbsp;фарватере Ai4G, легче достичь цели</h2>
+            <div class="fairway__row">
+              <img src="img/fairway.png" alt="fairway" loading="lazy" />
+              <div class="fairway__row-back"></div>
+            </div>
+          </div>
+          <div class="container">
+            <div class="fairway__items">
+              <div class="fairway__item fi-1">
+                <div class="fairway__item-left">1.</div>
+                <div class="fairway__item-right">
+                  <h3 class="fairway__item-title">Serf-сессия с&nbsp;гуру</h3>
+                  <div class="fairway__item-suptitle">45&nbsp;минутная онлайн-встреча, во&nbsp;время которой мы&nbsp;анализируем:</div>
+                  <ul class="fairway__item-list list-reset">
+                    <li class="fairway__item-li">Ваш уровень образования,</li>
+                    <li class="fairway__item-li">Основные проблемы и&nbsp;потребности роста,</li>
+                    <li class="fairway__item-li">Интересы и&nbsp;психологические барьеры,</li>
+                    <li class="fairway__item-li">Готовность самостоятельно осваивать новое,</li>
+                    <li class="fairway__item-li">Определяем стимулы доплыть к&nbsp;заветным берегам.</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="fairway__item fi-2">
+                <div class="fairway__item-left">2.</div>
+                <div class="fairway__item-right">
+                  <h3 class="fairway__item-title">Выбираем фарватер</h3>
+                  <div class="fairway__item-suptitle">Data science технологии обрабатывают ваши ответы. В&nbsp;результате вы&nbsp;получаете:</div>
+                  <ul class="fairway__item-list list-reset">
+                    <li class="fairway__item-li">Максимально точную оценку текущего состояния,</li>
+                    <li class="fairway__item-li">Несколько вариантов будущего маршрута.</li>
+                    <li class="fairway__item-li">Построение траектории в&nbsp;4-х плоскостях.</li>
+                  </ul>
+                  <div class="fairway__item-bold">Вы&nbsp;можете двигаться к&nbsp;цели самостоятельно или вместе с&nbsp;Наставником.</div>
+                  <div class="fairway__item-arrow">
+                    <span class="fairway__item-arrow-svg">
+                      <svg width="46" height="60" viewBox="0 0 46 60" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M45.1965 36.911C44.6413 37.7134 43.8079 38.2485 42.6964 38.2485H34.3625C32.6957 38.2485 31.5847 39.3182 31.5847 40.923V45.7351C31.5847 47.3399 30.4736 48.4097 28.8069 48.4097C27.1401 48.4097 26.0291 47.3399 26.0291 45.7351V40.923C26.0291 36.3759 29.6403 32.899 34.363 32.899H37.9741L23.2505 8.82672L8.52691 32.899H12.1386C16.8613 32.899 20.4725 36.3759 20.4725 40.923V54.2969H39.9186C41.5853 54.2969 42.6964 55.3666 42.6964 56.9714C42.6964 58.5762 41.5853 59.646 39.9186 59.646L12.1386 59.6464C10.4718 59.6464 9.36077 58.5767 9.36077 56.9719C9.36077 55.3671 10.4718 54.2973 12.1386 54.2973H14.9164V40.9235C14.9164 39.3187 13.8054 38.2489 12.1386 38.2489L3.80468 38.2485C2.69365 38.2485 1.86026 37.7134 1.30451 36.911C0.748757 36.1086 0.748757 35.0389 1.30451 34.2365L20.7499 2.14014C21.8609 0.535319 24.6392 0.535319 25.4726 2.14014L44.918 34.2365C45.4737 35.0389 45.4747 36.1086 45.1965 36.911Z"
+                        />
+                      </svg>
+                    </span>
+                    <a href="img/itr2.pdf" target="_blank" class="fairway__item-arrow-text">
+                      <span class="fairway__item-arrow-text">Пример индивидуальной траектории развития </span></a
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="fairway__item fi-3">
+                <div class="fairway__item-left">3.</div>
+                <div class="fairway__item-right">
+                  <h3 class="fairway__item-title">aG-помощники и&nbsp;трекинг</h3>
+                  <div class="fairway__item-suptitle">
+                    Трекинг поддержка помогает вам пополнять ресурс и&nbsp;выходить на&nbsp;новый уровень. Каждый день в&nbsp;мессенджере или мобильном
+                    приложении вы&nbsp;получаете:
+                  </div>
+                  <ul class="fairway__item-list list-reset">
+                    <li class="fairway__item-li">Мотивационные напутствия.</li>
+                    <li class="fairway__item-li">Подсказки и&nbsp;лайфхаки для ускорения процесса.</li>
+                    <li class="fairway__item-li">Дополнительный push-резерв для движения вперед,</li>
+                    <li class="fairway__item-li">Отмечаете маленькие и&nbsp;большие победы над собой.</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="fairway__item fi-4">
+                <div class="fairway__item-left">4.</div>
+                <div class="fairway__item-right">
+                  <h3 class="fairway__item-title">Наставничество</h3>
+                  <div class="fairway__item-suptitle">
+                    Каждые 2&nbsp;недели проводится диагностика результатов вашего развития. По&nbsp;итогам мы&nbsp;корректируем маршрут и&nbsp;контрольные
+                    точки. Наставник проводит разбор принятых решений и&nbsp;возникающих проблем. Используя его опыт и&nbsp;возможности, вы:
+                  </div>
+                  <ul class="fairway__item-list list-reset">
+                    <li class="fairway__item-li">Четко видите цель и&nbsp;ваше положение на&nbsp;карте,</li>
+                    <li class="fairway__item-li">Быстро и&nbsp;точно движетесь в&nbsp;фарватере,</li>
+                    <li class="fairway__item-li">Преобразуете внутренние барьеры в&nbsp;новые возможности,</li>
+                    <li class="fairway__item-li">Экономите резервы и&nbsp;открываете новые ресурсы,</li>
+                    <li class="fairway__item-li">Испытаете кураж от&nbsp;скорости и&nbsp;прогресса.</li>
+                  </ul>
+                  <div class="fairway__item-purple-bold">Возможна экстренная связь с&nbsp;гуру в&nbsp;удобном для вас формате.</div>
+                  <div class="fairway__item-bold">
+                    Мы&nbsp;готовы поддержать вас на&nbsp;любой стадии развития. Хотите быстрее оказаться на&nbsp;гребне волны?
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- 	<div class="fairway__footer">
 					<a href="#modal-request" class="fairway__link link" data-fancybox>Запись на&nbsp;serf-сессию
 					</a>
 				</div> -->
-			</div>
-		</section>
+        </div>
+      </section>
 
-		<section class="mentors">
-			<div class="mentors__wrapper">
-				<div class="container-big">
-					<h2 class="mentors__title">Наставники</h2>
-					<div class="mentors__inner">
-						<div class="mentors__item">
-							<div class="mentors__img">
-								<img src="img/elena.png" alt="Elena Semenova" loading="lazy" />
-							</div>
-							<div class="mentors__info">
-								<div class="mentors__name">ЕЛЕНА СЕМЕНОВА</div>
-								<div class="mentors__text">
-									Сертифицированный коуч, фасилитатор и&nbsp;наставник, ведущий эксперт
-									в&nbsp;области оценки и&nbsp;карьерного консультирования, а&nbsp;также
-									действующий топ-менеджер крупных российских компаний с&nbsp;опытом работы более
-									30&nbsp;лет.
-								</div>
-								<a class="mentors__link" href="mentors.html"> Подробнее </a>
-							</div>
-						</div>
+      <section class="mentors">
+        <div class="mentors__wrapper">
+          <div class="container-big">
+            <h2 class="mentors__title">Наставники</h2>
+            <div class="mentors__inner">
+              <div class="mentors__item">
+                <div class="mentors__img">
+                  <img src="img/elena.png" alt="Elena Semenova" loading="lazy" />
+                </div>
+                <div class="mentors__info">
+                  <div class="mentors__name">ЕЛЕНА СЕМЕНОВА</div>
+                  <div class="mentors__text">
+                    Сертифицированный коуч, фасилитатор и&nbsp;наставник, ведущий эксперт в&nbsp;области оценки и&nbsp;карьерного консультирования, а&nbsp;также
+                    действующий топ-менеджер крупных российских компаний с&nbsp;опытом работы более 30&nbsp;лет.
+                  </div>
+                  <a class="mentors__link" href="mentors.html"> Подробнее </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mentors__line">
+            <div class="mentors__line-bg-1">
+              <img src="img/mentors-square.svg" alt="img" loading="lazy" />
+            </div>
 
-					</div>
-				</div>
-				<div class="mentors__line">
-					<div class="mentors__line-bg-1">
-						<img src="img/mentors-square.svg" alt="img" loading="lazy" />
-					</div>
+            <div class="mentors__line-bg-2">
+              <img src="img/mentors-page-line.svg" alt="img" loading="lazy" />
+            </div>
+            <div class="mentors__line-bg-3">
+              <img src="img/mentors-triangle.svg" alt="img" loading="lazy" />
+            </div>
+          </div>
+        </div>
+      </section>
 
-					<div class="mentors__line-bg-2">
-						<img src="img/mentors-page-line.svg" alt="img" loading="lazy" />
-					</div>
-					<div class="mentors__line-bg-3">
-						<img src="img/mentors-triangle.svg" alt="img" loading="lazy" />
-					</div>
-				</div>
-			</div>
-		</section>
-
-		<section class="choice">
-			<div class="container-big">
-				<h2 class="choice__title">Ai4G выбирают, чтобы:</h2>
-				<div class="choice__items">
-					<div class="choice__item ci-1">
-						<div class="choice__item-img">
-							<div>
-								<img src="img/choice-1.svg" alt="img" loading="lazy" />
-							</div>
-						</div>
-						<ul class="choice__item-ul list-reset">
-							<li class="choice__item-li">Укрепить позиции в&nbsp;компании</li>
-							<li class="choice__item-li">Повысить социальную значимость</li>
-							<li class="choice__item-li">Завоевать авторитет группы</li>
-							<li class="choice__item-li">Избежать выгорания</li>
-							<li class="choice__item-li">Развить дополнительные способности</li>
-							<li class="choice__item-li">Расширить специализацию</li>
-						</ul>
-					</div>
-					<div class="choice__item ci-2">
-						<div class="choice__item-img">
-							<div>
-								<img src="img/choice-2.svg" alt="img" loading="lazy" />
-							</div>
-						</div>
-						<ul class="choice__item-ul list-reset">
-							<li class="choice__item-li">Подняться на&nbsp;волну HIPO и&nbsp;HIPRO</li>
-							<li class="choice__item-li">Научиться аккумулировать и&nbsp;распределять силы</li>
-							<li class="choice__item-li">Расширить специализацию</li>
-							<li class="choice__item-li">Найти новые источники пополнения энергии</li>
-							<li class="choice__item-li">Сменить профессию</li>
-							<li class="choice__item-li">
-								Внедрить в&nbsp;практику новые знания и&nbsp;инструменты для работы
-							</li>
-						</ul>
-					</div>
-					<div class="choice__item ci-3">
-						<div class="choice__item-img">
-							<div>
-								<img src="img/choice-3.svg" alt="img" loading="lazy" />
-							</div>
-						</div>
-						<ul class="choice__item-ul list-reset">
-							<li class="choice__item-li">Сохранить лидерские позиции</li>
-							<li class="choice__item-li">Удержаться на&nbsp;гребне волны</li>
-							<li class="choice__item-li">Активировать новые источники энергии</li>
-							<li class="choice__item-li">Устранить токсичные отношения</li>
-							<li class="choice__item-li">Пройти экспресс-курс от&nbsp;списания на&nbsp;берег</li>
-							<li class="choice__item-li">
-								Развить личностный бренд&nbsp;&mdash; осознать собственный потенциал, его
-								востребованность для общества, научиться правильно себя позиционировать
-							</li>
-						</ul>
-					</div>
-				</div>
-				<!-- 	<a href="#modal-request" class="choice__link link" data-fancybox>
+      <section class="choice">
+        <div class="container-big">
+          <h2 class="choice__title">Ai4G выбирают, чтобы:</h2>
+          <div class="choice__items">
+            <div class="choice__item ci-1">
+              <div class="choice__item-img">
+                <div>
+                  <img src="img/choice-1.svg" alt="img" loading="lazy" />
+                </div>
+              </div>
+              <ul class="choice__item-ul list-reset">
+                <li class="choice__item-li">Укрепить позиции в&nbsp;компании</li>
+                <li class="choice__item-li">Повысить социальную значимость</li>
+                <li class="choice__item-li">Завоевать авторитет группы</li>
+                <li class="choice__item-li">Избежать выгорания</li>
+                <li class="choice__item-li">Развить дополнительные способности</li>
+                <li class="choice__item-li">Расширить специализацию</li>
+              </ul>
+            </div>
+            <div class="choice__item ci-2">
+              <div class="choice__item-img">
+                <div>
+                  <img src="img/choice-2.svg" alt="img" loading="lazy" />
+                </div>
+              </div>
+              <ul class="choice__item-ul list-reset">
+                <li class="choice__item-li">Подняться на&nbsp;волну HIPO и&nbsp;HIPRO</li>
+                <li class="choice__item-li">Научиться аккумулировать и&nbsp;распределять силы</li>
+                <li class="choice__item-li">Расширить специализацию</li>
+                <li class="choice__item-li">Найти новые источники пополнения энергии</li>
+                <li class="choice__item-li">Сменить профессию</li>
+                <li class="choice__item-li">Внедрить в&nbsp;практику новые знания и&nbsp;инструменты для работы</li>
+              </ul>
+            </div>
+            <div class="choice__item ci-3">
+              <div class="choice__item-img">
+                <div>
+                  <img src="img/choice-3.svg" alt="img" loading="lazy" />
+                </div>
+              </div>
+              <ul class="choice__item-ul list-reset">
+                <li class="choice__item-li">Сохранить лидерские позиции</li>
+                <li class="choice__item-li">Удержаться на&nbsp;гребне волны</li>
+                <li class="choice__item-li">Активировать новые источники энергии</li>
+                <li class="choice__item-li">Устранить токсичные отношения</li>
+                <li class="choice__item-li">Пройти экспресс-курс от&nbsp;списания на&nbsp;берег</li>
+                <li class="choice__item-li">
+                  Развить личностный бренд&nbsp;&mdash; осознать собственный потенциал, его востребованность для общества, научиться правильно себя
+                  позиционировать
+                </li>
+              </ul>
+            </div>
+          </div>
+          <!-- 	<a href="#modal-request" class="choice__link link" data-fancybox>
 					Запись на&nbsp;serf-сессию
 				</a> -->
-			</div>
-			<div class="choice__footer">
-				<div class="choice__footer-left">
-					<img src="img/choice-bg-1.svg" alt="img" loading="lazy" />
-				</div>
-				<div class="choice__footer-centr">Пора найти свой фарватер!</div>
-				<div class="choice__footer-right">
-					<img src="img/choice-bg-2.svg" alt="img" loading="lazy" />
-				</div>
-			</div>
-		</section>
+        </div>
+        <div class="choice__footer">
+          <div class="choice__footer-left">
+            <img src="img/choice-bg-1.svg" alt="img" loading="lazy" />
+          </div>
+          <div class="choice__footer-centr">Пора найти свой фарватер!</div>
+          <div class="choice__footer-right">
+            <img src="img/choice-bg-2.svg" alt="img" loading="lazy" />
+          </div>
+        </div>
+      </section>
 
-		<section class="reviews">
-			<div class="container-big">
-				<h2 class="reviews__title">Отзывы</h2>
-				<div class="swiper">
-					<div class="swiper-wrapper">
-						<div class="swiper-slide">
-							<div class="swiper-item">
-								<div class="swiper-item__left">
-									<img src="img/slider-woman.png" alt="person" loading="lazy" />
-								</div>
-								<div class="swiper-item__right">
-									<div class="swiper-item__name">Елена Музафарова</div>
-									<div class="swiper-item__text">
-										Здравствуйте! Меня зовут Елена. Хотелось&nbsp;бы оставить отзыв со&nbsp;слов
-										благодарности. У&nbsp;меня случилась продуктивная встреча с&nbsp;коуч
-										тренером, в&nbsp;результате которой мы&nbsp;выявили над чем и&nbsp;как мне
-										можно поработать в&nbsp;своём развитии. Развитие для меня это в&nbsp;первую
-										очередь раскрытие истинного потенциала. Для меня важно подойти к&nbsp;этому
-										вопросу осознанно и&nbsp;дисциплинированно. Вот со&nbsp;вторым моментом
-										и&nbsp;есть трудность. Спасибо. Рада продолжать работу с&nbsp;вашим сервисом.
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="swiper-slide">
-							<div class="swiper-item">
-								<div class="swiper-item__left">
-									<img src="img/slider-woman.png" alt="person" loading="lazy" />
-								</div>
-								<div class="swiper-item__right">
-									<div class="swiper-item__name">Наталья Журавлёва</div>
-									<div class="swiper-item__text">
-										Встреча с&nbsp;Еленой потрясла! Оказалось, что ей&nbsp;и&nbsp;правда как будто &laquo;виднее&raquo;, что со&nbsp;мной происходит.
-										Она отметила моменты, на&nbsp;которые я&nbsp;боялась честно посмотреть, и&nbsp;наметила мне путь, по&nbsp;которому сразу
-										захотелось пойти, пойти к&nbsp;самой себе, себе счастливой, спокойной, уверенной! Я&nbsp;очень жду второй встречи с&nbsp;Еленой,
-										так как понимаю, что сама не&nbsp;вижу в&nbsp;полной мере, в&nbsp;какой именно точке намеченного развития нахожусь! Мне кажется,
-										что&nbsp;в сложные моменты жизни нужно позволить себе не&nbsp;быть сильной, не&nbsp;бояться и&nbsp;не&nbsp;стесняться попросить
-										о&nbsp;помощи и&nbsp;просто принять&nbsp;её, довериться Вселенной, разрешить ей&nbsp;тебя спасти! И&nbsp;хорошо, когда рядом
-										профессионалы и&nbsp;очень неравнодушные люди! Пусть и&nbsp;вам повезёт! От&nbsp;всей души!
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="swiper-slide">
-							<div class="swiper-item">
-								<div class="swiper-item__left">
-									<img src="img/slider-man.png" alt="person" loading="lazy" />
-								</div>
-								<div class="swiper-item__right">
-									<div class="swiper-item__name">Николай Ганюшкин</div>
-									<div class="swiper-item__text">
-										Я&nbsp;считаю, чтобы успеть за&nbsp;скоростью изменений нашего мира вокруг
-										нужно постоянно в&nbsp;чем-то совершенствоваться. Поэтому мне стало интересно
-										попробовать сервис. Все началось с&nbsp;диагностической сессии. Не&nbsp;ожидал
-										столь глубокой проработки моих потребностей на&nbsp;бесплатном занятии. Это
-										было приятно и&nbsp;действительно полезно. Не&nbsp;всегда сам себе готов
-										задать сложные вопросы. Здесь мы&nbsp;это сделали.
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="swiper-slide">
-							<div class="swiper-item">
-								<div class="swiper-item__left">
-									<img src="img/slider-woman.png" alt="person" loading="lazy" />
-								</div>
-								<div class="swiper-item__right">
-									<div class="swiper-item__name">Светлана Ефремова</div>
-									<div class="swiper-item__text">
-										Елена, добрый день! Спасибо Вам большое. Я&nbsp;практикую все, что&nbsp;Вы сказали.
-										Со&nbsp;вчерашнего нашего общения, у&nbsp;меня стало ощущение, что больше сил.
-										Ощущение, что я&nbsp;наполнилась энергией.
-										Решение, которое зрело 12&nbsp;лет&nbsp;&mdash; у&nbsp;меня в&nbsp;голове сложилось...
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="swiper-slide">
-							<div class="swiper-item">
-								<div class="swiper-item__left">
-									<img src="img/slider-woman.png" alt="person" loading="lazy" />
-								</div>
-								<div class="swiper-item__right">
-									<div class="swiper-item__name">Татьяна Андреева</div>
-									<div class="swiper-item__text">
-										Я&nbsp;шла на&nbsp;поддерживающую сессию с&nbsp;твёрдым пониманием, что сессия
-										необходима, но&nbsp;не&nbsp;осознавала всей полезности, ввиду того, что
-										в&nbsp;мыслях и&nbsp;чувствах была неопределённость. Это вторая сессия
-										с&nbsp;Еленой, и&nbsp;у&nbsp;меня сформировалось мнение, что: 1. Елена очень
-										точно понимает невысказанное, а&nbsp;также суть &laquo;коряво&raquo;
-										высказанного, когда в&nbsp;голове и&nbsp;на&nbsp;словах присутствует
-										туманность, нечеткость, подмечает детали, которые порой выглядят для
-										говорящего как нечто проходное, но&nbsp;на&nbsp;самом деле несут в&nbsp;себе
-										важное значение; и&nbsp;умело &laquo;упаковывает&raquo; всё это ...
-									</div>
-									<a class="swiper-item__link" href="#modal-swiper-1" data-fancybox>Читать весь отзыв</a>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="swiper-button-prev"></div>
-					<div class="swiper-button-next"></div>
-					<div class="swiper-arrows">
-						<div class="swiper-button-prev"></div>
-						<div class="swiper-button-next"></div>
-					</div>
-				</div>
-			</div>
-			<a class="reviews__link link" href="#modal-request" data-fancybox>
-				Запись на&nbsp;serf-сессию
-			</a>
-		</section>
+      <section class="reviews">
+        <div class="container-big">
+          <h2 class="reviews__title">Отзывы</h2>
+          <div class="swiper">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <div class="swiper-item">
+                  <div class="swiper-item__left">
+                    <img src="img/slider-woman.png" alt="person" loading="lazy" />
+                  </div>
+                  <div class="swiper-item__right">
+                    <div class="swiper-item__name">Елена Музафарова</div>
+                    <div class="swiper-item__text">
+                      Здравствуйте! Меня зовут Елена. Хотелось&nbsp;бы оставить отзыв со&nbsp;слов благодарности. У&nbsp;меня случилась продуктивная встреча
+                      с&nbsp;коуч тренером, в&nbsp;результате которой мы&nbsp;выявили над чем и&nbsp;как мне можно поработать в&nbsp;своём развитии. Развитие
+                      для меня это в&nbsp;первую очередь раскрытие истинного потенциала. Для меня важно подойти к&nbsp;этому вопросу осознанно
+                      и&nbsp;дисциплинированно. Вот со&nbsp;вторым моментом и&nbsp;есть трудность. Спасибо. Рада продолжать работу с&nbsp;вашим сервисом.
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="swiper-item">
+                  <div class="swiper-item__left">
+                    <img src="img/slider-woman.png" alt="person" loading="lazy" />
+                  </div>
+                  <div class="swiper-item__right">
+                    <div class="swiper-item__name">Наталья Журавлёва</div>
+                    <div class="swiper-item__text">
+                      Встреча с&nbsp;Еленой потрясла! Оказалось, что ей&nbsp;и&nbsp;правда как будто &laquo;виднее&raquo;, что со&nbsp;мной происходит. Она
+                      отметила моменты, на&nbsp;которые я&nbsp;боялась честно посмотреть, и&nbsp;наметила мне путь, по&nbsp;которому сразу захотелось пойти,
+                      пойти к&nbsp;самой себе, себе счастливой, спокойной, уверенной! Я&nbsp;очень жду второй встречи с&nbsp;Еленой, так как понимаю, что сама
+                      не&nbsp;вижу в&nbsp;полной мере, в&nbsp;какой именно точке намеченного развития нахожусь! Мне кажется, что&nbsp;в сложные моменты жизни
+                      нужно позволить себе не&nbsp;быть сильной, не&nbsp;бояться и&nbsp;не&nbsp;стесняться попросить о&nbsp;помощи и&nbsp;просто
+                      принять&nbsp;её, довериться Вселенной, разрешить ей&nbsp;тебя спасти! И&nbsp;хорошо, когда рядом профессионалы и&nbsp;очень неравнодушные
+                      люди! Пусть и&nbsp;вам повезёт! От&nbsp;всей души!
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="swiper-item">
+                  <div class="swiper-item__left">
+                    <img src="img/slider-man.png" alt="person" loading="lazy" />
+                  </div>
+                  <div class="swiper-item__right">
+                    <div class="swiper-item__name">Николай Ганюшкин</div>
+                    <div class="swiper-item__text">
+                      Я&nbsp;считаю, чтобы успеть за&nbsp;скоростью изменений нашего мира вокруг нужно постоянно в&nbsp;чем-то совершенствоваться. Поэтому мне
+                      стало интересно попробовать сервис. Все началось с&nbsp;диагностической сессии. Не&nbsp;ожидал столь глубокой проработки моих потребностей
+                      на&nbsp;бесплатном занятии. Это было приятно и&nbsp;действительно полезно. Не&nbsp;всегда сам себе готов задать сложные вопросы. Здесь
+                      мы&nbsp;это сделали.
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="swiper-item">
+                  <div class="swiper-item__left">
+                    <img src="img/slider-woman.png" alt="person" loading="lazy" />
+                  </div>
+                  <div class="swiper-item__right">
+                    <div class="swiper-item__name">Светлана Ефремова</div>
+                    <div class="swiper-item__text">
+                      Елена, добрый день! Спасибо Вам большое. Я&nbsp;практикую все, что&nbsp;Вы сказали. Со&nbsp;вчерашнего нашего общения, у&nbsp;меня стало
+                      ощущение, что больше сил. Ощущение, что я&nbsp;наполнилась энергией. Решение, которое зрело 12&nbsp;лет&nbsp;&mdash; у&nbsp;меня
+                      в&nbsp;голове сложилось...
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="swiper-item">
+                  <div class="swiper-item__left">
+                    <img src="img/slider-woman.png" alt="person" loading="lazy" />
+                  </div>
+                  <div class="swiper-item__right">
+                    <div class="swiper-item__name">Татьяна Андреева</div>
+                    <div class="swiper-item__text">
+                      Я&nbsp;шла на&nbsp;поддерживающую сессию с&nbsp;твёрдым пониманием, что сессия необходима, но&nbsp;не&nbsp;осознавала всей полезности,
+                      ввиду того, что в&nbsp;мыслях и&nbsp;чувствах была неопределённость. Это вторая сессия с&nbsp;Еленой, и&nbsp;у&nbsp;меня сформировалось
+                      мнение, что: 1. Елена очень точно понимает невысказанное, а&nbsp;также суть &laquo;коряво&raquo; высказанного, когда в&nbsp;голове
+                      и&nbsp;на&nbsp;словах присутствует туманность, нечеткость, подмечает детали, которые порой выглядят для говорящего как нечто проходное,
+                      но&nbsp;на&nbsp;самом деле несут в&nbsp;себе важное значение; и&nbsp;умело &laquo;упаковывает&raquo; всё это ...
+                    </div>
+                    <a class="swiper-item__link" href="#modal-swiper-1" data-fancybox>Читать весь отзыв</a>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-		<!-- 	<div class="capability">
-			<div class="capability__container container">
-				<h2 class="capability__title">Вы получите возможности и увидите свои ограничения</h2>
-				<div class="capability__content">
-					<div class="capability__block">
-						<p class="capability__description">Узнайте больше о ваших возможностях и способах улучшения личной эффективности благодаря нашим инструментам
-							и
-							ресурсам. <br> Откройте для себя различные паттерны поведения и научитесь интегрировать их в вашу повседневную жизнь.</p>
-						<img class="capability__img" src="img/main/kjo.JPG" alt="">
-					</div>
-					<div class="capability__links">
-						<div class="capability__links-item">
-							<div class="capability__text">Виды возможностей</div>
-							<a class="capability__link" href="/vozmozhnosti.html">Подробнее</a>
-						</div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
 
-						<div class="capability__links-item">
-							<div class="capability__text">Виды возможных паттернов</div>
-							<a class="capability__link" href="/patterns.html">Подробнее</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div> -->
+            <div class="swiper-arrows">
+              <div class="swiper-button-prev"></div>
+              <div class="swiper-button-next"></div>
+            </div>
+          </div>
+        </div>
+        <a class="reviews__link link" href="#modal-request" data-fancybox> Запись на&nbsp;serf-сессию </a>
+      </section>
 
+      <div class="capability">
+        <div class="capability__container container">
+          <h2 class="capability__title">
+            Вы получите возможности и <br />
+            увидите свои ограничения
+          </h2>
+          <div class="capability__content">
+            <div class="capability__block">
+              <img class="capability__img" src="img/main/куб_01.04.24.gif" alt="" />
 
-		<div class="products">
-			<div class="products__container container">
-				<h2 class="products__title">Продуктовая линейка</h2> <br>
-				<div class="products__content">
+              <ul class="capability__description">
+                <li>Узнайте больше о ваших возможностях и способах улучшения личной эффективности благодаря нашим инструментам и ресурсам.</li>
+                <li>Откройте для себя различные паттерны поведения и научитесь интегрировать их в вашу повседневную жизнь.</li>
+              </ul>
+            </div>
 
-					<!-- Коучинговая сессия -->
-					<div class="products__item">
-						<div class="products__block">
-							<div class="products__num">1.</div>
-							<h3 class="products__subtitle">Коучинговая сессия</h3>
-						</div>
-						<div class="products__text">Коучинговая сессия с Еленой Семеновой поможет справиться с выгоранием, стрессом, прокрастинацией и жизненными
-							тупиками, а также увеличить доход и масштабировать бизнес. Запишитесь на бесплатную консультацию, чтобы узнать подробности.
-						</div>
-						<a class="products__link" href="/coaching-session.html">Подробнее</a>
-					</div>
+            <div class="capability__links">
+              <div class="capability__links-item">
+                <div class="capability__text">Виды возможностей</div>
+                <a class="capability__link" href="/vozmozhnosti.html">Подробнее</a>
+              </div>
 
-					<!-- Карьерная консультация -->
-					<div class="products__item">
-						<div class="products__block">
-							<div class="products__num">2.</div>
-							<h3 class="products__subtitle">Карьерная консультация</h3>
-						</div>
-						<div class="products__text">Получите карьерную консультацию с Еленой Семеновой для успешного трудоустройства, улучшения резюме и
-							персональной
-							стратегии поиска работы. Запишитесь на бесплатную консультацию для подробностей и тестирования личности.
-						</div>
-						<a class="products__link" href="/career-advice.html">Подробнее</a>
-					</div>
+              <div class="capability__links-item">
+                <div class="capability__text">Виды возможных паттернов</div>
+                <a class="capability__link capability__link_green" href="/patterns.html">Подробнее</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-					<!-- Serf-сессия -->
-					<div class="products__item">
-						<div class="products__block">
-							<div class="products__num">3.</div>
-							<h3 class="products__subtitle">Serf-сессия определения паттернов</h3>
-						</div>
-						<div class="products__text">Пройдите комплексный аудит жизненного пути через диагностическую и обратную сессии с выявлением сильных сторон
-							и
-							направлений развития. Запишитесь для получения карты жизненных ориентиров и рекомендаций эксперта.
-						</div>
-						<a class="products__link" href="/serf-session.html">Подробнее</a>
-					</div>
+      <div class="products">
+        <div class="products__container container">
+          <h2 class="products__title">Продуктовая линейка</h2>
+          <br />
+          <div class="products__content">
+            <!-- Коучинговая сессия -->
+            <div class="products__item">
+              <div class="products__block">
+                <div class="products__num">1.</div>
+                <h3 class="products__subtitle">Коучинговая сессия</h3>
+              </div>
+              <div class="products__text">
+                Коучинговая сессия с Еленой Семеновой поможет справиться с выгоранием, стрессом, прокрастинацией и жизненными тупиками, а также увеличить доход
+                и масштабировать бизнес. Запишитесь на бесплатную консультацию, чтобы узнать подробности.
+              </div>
+              <a class="products__link" href="/coaching-session.html">Подробнее</a>
+            </div>
 
-					<!-- Стратегия "Новый год" -->
-					<div class="products__item">
-						<div class="products__block">
-							<div class="products__num">4.</div>
-							<h3 class="products__subtitle">Стратегия "Новый год"</h3>
-						</div>
-						<div class="products__text">Начните 2025 год с программы "Дерево Года" — определите 12 целей, которые изменят вашу жизнь.
-							Создайте четкий пошаговый план с использованием ресурсов и времени для их достижения.
-							Воплощайте мечты и достигайте новых высот уже с первых дней января!
-						</div>
-						<a class="products__link" href="/strategy-new-year.html">Подробнее</a>
-					</div>
+            <!-- Карьерная консультация -->
+            <div class="products__item">
+              <div class="products__block">
+                <div class="products__num">2.</div>
+                <h3 class="products__subtitle">Карьерная консультация</h3>
+              </div>
+              <div class="products__text">
+                Получите карьерную консультацию с Еленой Семеновой для успешного трудоустройства, улучшения резюме и персональной стратегии поиска работы.
+                Запишитесь на бесплатную консультацию для подробностей и тестирования личности.
+              </div>
+              <a class="products__link" href="/career-advice.html">Подробнее</a>
+            </div>
 
-					<!-- Транскрибатор "Аллегро" -->
-					<div class="products__item">
-						<div class="products__block">
-							<div class="products__num">5.</div>
-							<h3 class="products__subtitle">Транскрибатор "Аллегро"</h3>
-						</div>
-						<div class="products__text">Транскрибатор «Аллегро» преобразует аудио и видео в текст с помощью ИИ, поддерживая более 300 форматов и 50
-							языков. Получите транскрипты, субтитры или конспекты за считанные минуты без необходимости регистрации, ускоряя свой рабочий процесс.
-						</div>
-						<a class="products__link" href="/allegro.html">Подробнее</a>
-					</div>
+            <!-- Serf-сессия -->
+            <div class="products__item">
+              <div class="products__block">
+                <div class="products__num">3.</div>
+                <h3 class="products__subtitle">Serf-сессия определения паттернов</h3>
+              </div>
+              <div class="products__text">
+                Пройдите комплексный аудит жизненного пути через диагностическую и обратную сессии с выявлением сильных сторон и направлений развития.
+                Запишитесь для получения карты жизненных ориентиров и рекомендаций эксперта.
+              </div>
+              <a class="products__link" href="/serf-session.html">Подробнее</a>
+            </div>
 
+            <!-- Стратегия "Новый год" -->
+            <div class="products__item">
+              <div class="products__block">
+                <div class="products__num">4.</div>
+                <h3 class="products__subtitle">Стратегия "Новый год"</h3>
+              </div>
+              <div class="products__text">
+                Начните 2025 год с программы "Дерево Года" — определите 12 целей, которые изменят вашу жизнь. Создайте четкий пошаговый план с использованием
+                ресурсов и времени для их достижения. Воплощайте мечты и достигайте новых высот уже с первых дней января!
+              </div>
+              <a class="products__link" href="/strategy-new-year.html">Подробнее</a>
+            </div>
 
-				</div>
-			</div>
-		</div>
+            <!-- Транскрибатор "Аллегро" -->
+            <div class="products__item">
+              <div class="products__block">
+                <div class="products__num">5.</div>
+                <h3 class="products__subtitle">Транскрибатор "Аллегро"</h3>
+              </div>
+              <div class="products__text">
+                Транскрибатор «Аллегро» преобразует аудио и видео в текст с помощью ИИ, поддерживая более 300 форматов и 50 языков. Получите транскрипты,
+                субтитры или конспекты за считанные минуты без необходимости регистрации, ускоряя свой рабочий процесс.
+              </div>
+              <a class="products__link" href="/allegro.html">Подробнее</a>
+            </div>
+          </div>
+        </div>
+      </div>
 
-		<div class="techniques">
-			<div class="techniques__container container">
+      <div class="techniques">
+        <div class="techniques__container container">
+          <h2 class="techniques__title">Техники развития</h2>
+          <h3 class="techniques__subtitle">Откройте новые горизонты личностного роста</h3>
+          <p class="techniques__text">
+            Наши техники развития помогают прорабатывать внутренние блоки, достигать целей и улучшать качество жизни. Каждая техника предлагает уникальные
+            подходы для решения конкретных задач и преодоления жизненных трудностей.
+          </p>
+          <a class="techniques__link link" href="technics.html">Узнать больше</a>
+        </div>
+      </div>
+    </main>
 
-				<h2 class="techniques__title">Техники развития</h2>
-				<h3 class="techniques__subtitle">Откройте новые горизонты личностного роста</h3>
-				<p class="techniques__text">Наши техники развития помогают прорабатывать внутренние блоки, достигать целей и улучшать качество жизни. Каждая
-					техника
-					предлагает уникальные
-					подходы для решения конкретных задач и преодоления жизненных трудностей.</p>
-				<a class="techniques__link link" href="technics.html">Узнать больше</a>
-			</div>
-		</div>
-	</main>
+    <!-- Попап -->
+    <div class="popup-overlay" id="popup">
+      <div class="popup-overlay__content">
+        <div class="popup-overlay__close" id="popup-close">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 12l5-5-1-1-5 5-5-5-1 1 5 5-5 5 1 1 5-5 5 5 1-1z"></path>
+          </svg>
+        </div>
 
+        <div class="popup-overlay__block">
+          <div class="popup-overlay__title">Дерево Года 2025</div>
+          <div class="popup-overlay__text">Начните 2025 с четким планом, чтобы <strong>достичь своих целей</strong>!</div>
 
-	<!-- Попап -->
-	<div class="popup-overlay" id="popup">
-		<div class="popup-overlay__content">
-			<div class="popup-overlay__close" id="popup-close">
-				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-					<path d="M13 12l5-5-1-1-5 5-5-5-1 1 5 5-5 5 1 1 5-5 5 5 1-1z"></path>
-				</svg>
-			</div>
+          <ul class="popup-overlay__list">
+            <li>Определите 12 главных желаний на год.</li>
+            <li>Создайте пошаговый план, ведущий к успеху.</li>
+            <li>Достигните результата уже в первые месяцы!</li>
+          </ul>
 
-			<div class="popup-overlay__block">
-				<div class="popup-overlay__title">Дерево Года 2025</div>
-				<div class="popup-overlay__text">
-					Начните 2025 с четким планом, чтобы <strong>достичь своих целей</strong>!</div>
+          <div class="popup-overlay__text">✨ Вдохновляйтесь, выстраивайте стратегию и воплощайте мечты.</div>
+          <div class="popup-overlay__text">💡 Начать легко — сделайте первый шаг прямо сейчас!</div>
 
-				<ul class="popup-overlay__list">
-					<li>Определите 12 главных желаний на год.</li>
-					<li>Создайте пошаговый план, ведущий к успеху.</li>
-					<li>Достигните результата уже в первые месяцы!</li>
-				</ul>
+          <a href="strategy-new-year.html" class="popup-overlay__button">Узнать больше</a>
+        </div>
+      </div>
+    </div>
 
-				<div class="popup-overlay__text">✨ Вдохновляйтесь, выстраивайте стратегию и воплощайте мечты.</div>
-				<div class="popup-overlay__text">💡 Начать легко — сделайте первый шаг прямо сейчас!</div>
+    <script>
+      // Показываем попап через 2 секунды после загрузки страницы
+      window.addEventListener("load", function () {
+        setTimeout(function () {
+          document.getElementById("popup").style.display = "flex";
+        }, 200);
+      });
 
-				<a href="strategy-new-year.html" class="popup-overlay__button">Узнать больше</a>
-			</div>
-		</div>
-	</div>
+      // Закрываем попап, если нажали на кнопку закрытия
+      document.getElementById("popup-close").addEventListener("click", function () {
+        document.getElementById("popup").style.display = "none";
+      });
 
-	<script>
-		// Показываем попап через 2 секунды после загрузки страницы
-		window.addEventListener('load', function () {
-			setTimeout(function () {
-				document.getElementById('popup').style.display = 'flex';
-			}, 2000);
-		});
+      // Закрываем попап, если кликнули вне его
+      document.getElementById("popup").addEventListener("click", function (event) {
+        if (event.target.id === "popup") {
+          document.getElementById("popup").style.display = "none";
+        }
+      });
+    </script>
 
-		// Закрываем попап, если нажали на кнопку закрытия
-		document.getElementById('popup-close').addEventListener('click', function () {
-			document.getElementById('popup').style.display = 'none';
-		});
+    <style>
+      /* Стили для затемнения фона */
+      .popup-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+      }
 
-		// Закрываем попап, если кликнули вне его
-		document.getElementById('popup').addEventListener('click', function (event) {
-			if (event.target.id === 'popup') {
-				document.getElementById('popup').style.display = 'none';
-			}
-		});
-	</script>
+      .popup-overlay__block {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
 
-	<style>
-		/* Стили для затемнения фона */
-		.popup-overlay {
-			position: fixed;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
-			background-color: rgba(0, 0, 0, 0.5);
-			display: none;
-			justify-content: center;
-			align-items: center;
-			z-index: 1000;
-		}
+      .popup-overlay__content {
+        position: relative;
+        background: #fff;
+        padding: 20px;
+        color: #150931;
+        text-align: center;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        width: 610px;
+        padding: 60px;
+        border-radius: 20px;
+      }
 
-		.popup-overlay__block {
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-		}
+      .popup-overlay__title {
+        font-size: 37px;
+        font-weight: 700;
+        margin: 0px 0px 20px 0px;
+        line-height: 150%;
+      }
 
-		.popup-overlay__content {
-			position: relative;
-			background: #fff;
-			padding: 20px;
-			color: #150931;
-			text-align: center;
-			box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-			width: 610px;
-			padding: 60px;
-			border-radius: 20px;
-		}
+      .popup-overlay__text {
+        font-size: 22px;
+        margin: 0px 0px 20px 0px;
+        line-height: 150%;
+      }
 
-		.popup-overlay__title {
-			font-size: 37px;
-			font-weight: 700;
-			margin: 0px 0px 20px 0px;
-			line-height: 150%;
-		}
+      .popup-overlay__button {
+        width: 490px;
+        height: 80px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #06ea6f;
+        color: #150931;
+        border-radius: 37px;
+        font-weight: 800;
+        font-size: 30px;
+        line-height: 37px;
+        text-transform: uppercase;
+        border: none;
+        transition: all 0.3s ease 0s;
+        margin: 20px 0px 0px 0px;
+      }
 
-		.popup-overlay__text {
-			font-size: 22px;
-			margin: 0px 0px 20px 0px;
-			line-height: 150%;
-		}
+      .popup-overlay__button:hover {
+        background: #ff018a;
+      }
 
-		.popup-overlay__button {
-			width: 490px;
-			height: 80px;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			background: #06ea6f;
-			color: #150931;
-			border-radius: 37px;
-			font-weight: 800;
-			font-size: 30px;
-			line-height: 37px;
-			text-transform: uppercase;
-			border: none;
-			transition: all 0.3s ease 0s;
-			margin: 20px 0px 0px 0px;
-		}
+      .popup-overlay__close {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        cursor: pointer;
+        width: 24px;
+        height: 24px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: transform 0.2s ease, opacity 0.2s ease;
+        /* Анимация при наведении */
+      }
 
-		.popup-overlay__button:hover {
-			background: #ff018a;
-		}
+      .popup-overlay__close svg {
+        width: 100%;
+        height: 100%;
+        fill: #444;
+        /* Цвет иконки */
+        transition: fill 0.3s ease;
+        /* Плавное изменение цвета */
+      }
 
-		.popup-overlay__close {
-			position: absolute;
-			top: 15px;
-			right: 15px;
-			cursor: pointer;
-			width: 24px;
-			height: 24px;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			transition: transform 0.2s ease, opacity 0.2s ease;
-			/* Анимация при наведении */
-		}
+      .popup-overlay__close:hover {
+        transform: scale(1.1);
+        /* Увеличение кнопки при наведении */
+        opacity: 0.8;
+      }
 
-		.popup-overlay__close svg {
-			width: 100%;
-			height: 100%;
-			fill: #444;
-			/* Цвет иконки */
-			transition: fill 0.3s ease;
-			/* Плавное изменение цвета */
-		}
+      .popup-overlay__close:hover svg {
+        fill: #ff018a;
+        /* Изменение цвета иконки при наведении */
+      }
 
-		.popup-overlay__close:hover {
-			transform: scale(1.1);
-			/* Увеличение кнопки при наведении */
-			opacity: 0.8;
-		}
+      .popup-overlay__list {
+        margin: 0px 0px 20px 0px;
+      }
 
-		.popup-overlay__close:hover svg {
-			fill: #ff018a;
-			/* Изменение цвета иконки при наведении */
-		}
+      .popup-overlay__list li {
+        position: relative;
+        margin: 0px 0px 10px 0px;
+        font-size: 18px;
+        line-height: 140%;
+        padding: 0px 0px 0px 20px;
+        text-align: left;
+      }
 
-		.popup-overlay__list {
-			margin: 0px 0px 20px 0px;
-		}
+      .popup-overlay__list li::before {
+        position: absolute;
+        content: "";
+        display: inline-block;
+        width: 7px;
+        height: 7px;
+        left: 0;
+        top: 7px;
+        background-color: #150931;
+        border-radius: 50%;
+      }
 
-		.popup-overlay__list li {
-			position: relative;
-			margin: 0px 0px 10px 0px;
-			font-size: 18px;
-			line-height: 140%;
-			padding: 0px 0px 0px 20px;
-			text-align: left;
-		}
+      @media (max-width: 650px) {
+        .popup-overlay__content {
+          width: 98%;
+          padding: 30px;
+        }
 
-		.popup-overlay__list li::before {
-			position: absolute;
-			content: "";
-			display: inline-block;
-			width: 7px;
-			height: 7px;
-			left: 0;
-			top: 7px;
-			background-color: #150931;
-			border-radius: 50%;
-		}
+        .popup-overlay__title {
+          font-size: 24px;
+        }
 
-		@media (max-width: 650px) {
-			.popup-overlay__content {
-				width: 98%;
-				padding: 30px;
-			}
+        .popup-overlay__text {
+          font-size: 18px;
+        }
 
-			.popup-overlay__title {
-				font-size: 24px;
-			}
+        .popup-overlay__button {
+          width: 260px;
+          font-size: 18px;
+          line-height: 22px;
+          height: 60px;
+        }
 
-			.popup-overlay__text {
-				font-size: 18px;
+        .popup-overlay__list li {
+          font-size: 16px;
+        }
+      }
 
-			}
+      @media (max-width: 400px) {
+        .popup-overlay__content {
+          padding: 30px 15px;
+        }
+      }
+    </style>
 
-			.popup-overlay__button {
-				width: 260px;
-				font-size: 18px;
-				line-height: 22px;
-				height: 60px;
-			}
-
-			.popup-overlay__list li {
-				font-size: 16px;
-			}
-		}
-
-		@media (max-width: 400px) {
-			.popup-overlay__content {
-				padding: 30px 15px;
-			}
-		}
-	</style>
-
-
-	<footer class="footer">
-		<div class="footer__super-wrapper">
-			<div class="footer__wrapper">
-				<div class="container">
-					<h2 class="footer__title">Контактная информация</h2>
-					<div class="footer__items">
-						<a href="mailto:info@ai4g.ru" class="footer__item">
-							<img src="img/email.svg" alt="email" loading="lazy" />
-							<span>info@ai4g.ru</span>
-						</a>
-						<a href="https://t.me/+79852000434" target="_blank" class="footer__item">
-							<img src="img/telegram.svg" alt="telegram" loading="lazy" />
-							<span>+7 985 2000434</span>
-						</a>
-						<a href="https://ai4g.ru/login" target="_blank" class="footer__item">
-							<img src="img/lk.svg" alt="личный кабинет" loading="lazy" />
-							<span>Личный кабинет</span>
-						</a>
-					</div>
-					<div class="footer__logo">
-						<!-- <img
-                class="footer__logo-desktop"
-                src="img/footer-logo_.svg"
-                alt="Ai4G"
-                loading="lazy"
-              /> -->
-						<a class="footer__logo2" href="https://fasie.ru">
-							<img class="footer__logo-desktop" src="img/footer-logo2.svg" alt="fond" loading="lazy" />
-							<img class="footer__logo-mobile" src="img/mobile-footer-logo.svg" alt="Ai4G" loading="lazy" />
-						</a>
-					</div>
-				</div>
-			</div>
-	</footer>
-
-	<footer class="footer">
-		<!-- <div class="footer__super-wrapper">
-        <div class="footer__wrapper"> -->
-		<!-- <div class="container"> -->
-		<!--  <h2 class="footer__title">Контактная информация</h2> -->
-		<!-- <div class="footer__items">
+    <footer class="footer">
+      <div class="footer__super-wrapper">
+        <div class="footer__wrapper">
+          <div class="container">
+            <h2 class="footer__title">Контактная информация</h2>
+            <div class="footer__items">
               <a href="mailto:info@ai4g.ru" class="footer__item">
                 <img src="img/email.svg" alt="email" loading="lazy" />
-                <span>info@ai4g.ru</span> -->
-		<!-- </a>
+                <span>info@ai4g.ru</span>
+              </a>
               <a href="https://t.me/+79852000434" target="_blank" class="footer__item">
                 <img src="img/telegram.svg" alt="telegram" loading="lazy" />
                 <span>+7 985 2000434</span>
@@ -1050,131 +938,118 @@
                 <img src="img/lk.svg" alt="личный кабинет" loading="lazy" />
                 <span>Личный кабинет</span>
               </a>
-		</div>-->
+            </div>
+            <div class="footer__logo">
+              <a class="footer__logo2" href="https://fasie.ru">
+                <img class="footer__logo-desktop" src="img/footer-logo2.svg" alt="fond" loading="lazy" />
+              </a>
+            </div>
+            <div class="footer__pay">
+              <img class="footer2__logo-desktop" src="img/logo3h.png" alt="fond" loading="lazy" />
+              <img class="footer__logo-mobile" src="img/logo3v.png" alt="Ai4G" loading="lazy" />
+            </div>
+          </div>
+        </div>
+      </div>
 
-		<div class="footer__logo">
-			<!-- <img
-                class="footer__logo-desktop"
-                src="img/footer-logo_.svg"
-                alt="Ai4G"
-                loading="lazy"
-              /> -->
-			<!-- <a class="footer__logo2" href="https://fasie.ru"> -->
-			<img class="footer2__logo-desktop" src="img/logo3h.png" alt="fond" loading="lazy" />
-			<img class="footer__logo-mobile" src="img/logo3v.png" alt="Ai4G" loading="lazy" />
-			</a>
-		</div>
+      <div class="footer__links">
+        <a href="/oferta.html" class="footer__link"> Договор оферты </a>
+        <a href="/oplata.html" class="footer__link"> Правила оплаты и возврата </a>
+        <a href="/requisites.html" class="footer__link"> Реквизиты </a>
+      </div>
+    </footer>
 
-		<div class="footer__links">
-			<a href="oferta.html" class="footer__link">
-				Договор оферты
-			</a>
+    <div class="scrollUp">
+      <img cla src="img/arrow-up.svg" alt="scrollUp" />
+    </div>
 
-			<a href="oplata.html" class="footer__link">
-				Правила оплаты и возврата
-			</a>
-			<a href="requisites.html" class="footer__link">
-				Реквизиты
-			</a>
-			<!-- 		<a href="mentors.html" class="footer__link">
-				Менторы
-			</a> -->
-		</div>
+    <!-- Форма записи на сессию -->
+    <div class="modal-request" id="modal-request">
+      <h3 class="modal-request__title">Запись на&nbsp;serf-сессию</h3>
+      <form class="modal-request__form" action="mail.php" enctype="multipart/form-data" method="POST">
+        <div class="modal-request__item">
+          <input class="modal-request__name" data-validate-field="name" name="Имя" type="text" placeholder="Представьтесь, пожалуйста" />
+        </div>
+        <div class="modal-request__item">
+          <input class="modal-request__phone" data-validate-field="tel" name="Телефон" type="tel" placeholder="Телефон" />
+        </div>
+        <div class="modal-request__item">
+          <input class="modal-request__phone modal-request__email" data-validate-field="email" name="email" type="email" placeholder="Электронная почта" />
+        </div>
+        <input type="hidden" name="page_title" value="Запись на serf-сессию с главной страницы" />
 
-	</footer>
+        <div class="modal-request__choice">
+          <div class="modal-request__left">Предпочтительный способ связи:</div>
+          <div class="modal-request__right">
+            <label class="modal-request__label"
+              ><input class="modal-request__radio" type="radio" name="Предпочтительный способ связи:" value="Телефон" checked /><span>Телефон</span></label
+            >
+            <label class="modal-request__label"
+              ><input class="modal-request__radio" type="radio" name="Предпочтительный способ связи:" value="WhatsApp" /><span>WhatsApp</span></label
+            >
+            <label class="modal-request__label">
+              <input class="modal-request__radio" type="radio" name="Предпочтительный способ связи:" value="Telegram" /><span>Telegram</span></label
+            >
+          </div>
+        </div>
+        <button class="modal-request__btn" type="submit">Записаться</button>
 
-	<div class="scrollUp">
-		<img cla src="img/arrow-up.svg" alt="scrollUp" />
-	</div>
+        <script>
+          let params = new URLSearchParams(window.location.search);
+          let bc = params.get("bc"); //код партнера, который был передан в url (?bc=12345)
+          document.writeln("<input type='hidden' name='bc' value='" + bc + "'>");
+          let utm_campaign = params.get("utm_campaign");
+          document.writeln("<input type='hidden' name='utm_campaign' value='" + utm_campaign + "'>");
+          let utm_content = params.get("utm_content");
+          document.writeln("<input type='hidden' name='utm_content' value='" + utm_content + "'>");
+          let utm_medium = params.get("utm_medium");
+          document.writeln("<input type='hidden' name='utm_medium' value='" + utm_medium + "'>");
+          let utm_source = params.get("utm_source");
+          document.writeln("<input type='hidden' name='utm_source' value='" + utm_source + "'>");
+          let utm_term = params.get("utm_term");
+          document.writeln("<input type='hidden' name='utm_term' value='" + utm_term + "'>");
+        </script>
+      </form>
+      <div class="modal-request__agree">
+        Отправляя форму, вы&nbsp;соглашаетесь с&nbsp;обработкой персональных данных и&nbsp;
+        <a href="https://ai4g.ru/oferta.html" target="_blank">
+          <span>условиями договора-оферты</span>
+        </a>
+      </div>
+    </div>
 
-	<!-- Форма записи на сессию -->
-	<div class="modal-request" id="modal-request">
-		<h3 class="modal-request__title">Запись на&nbsp;serf-сессию</h3>
-		<form class="modal-request__form" action="mail.php" enctype="multipart/form-data" method="POST">
-			<div class="modal-request__item">
-				<input class="modal-request__name" data-validate-field="name" name="Имя" type="text" placeholder="Представьтесь, пожалуйста" />
-			</div>
-			<div class="modal-request__item">
-				<input class="modal-request__phone" data-validate-field="tel" name="Телефон" type="tel" placeholder="Телефон" />
-			</div>
-			<div class="modal-request__item">
-				<input class="modal-request__phone modal-request__email" data-validate-field="email" name="email" type="email" placeholder="Электронная почта" />
-			</div>
-			<input type="hidden" name="page_title" value="Запись на serf-сессию с главной страницы">
+    <!-- popup об успешной записи -->
+    <div class="modal-thanks" id="modal-thanks">
+      <div class="modal-thanks__logo">
+        <img src="img/modal-thanks-logo.svg" alt="Ai4G" loading="lazy" />
+      </div>
+      <h3 class="modal-thanks__title">Вы&nbsp;успешно записались на&nbsp;serf-сессию.</h3>
+      <div class="modal-thanks__text">В&nbsp;ближайшее время мы&nbsp;свяжемся с&nbsp;вами указанным способом</div>
+    </div>
 
-			<div class="modal-request__choice">
-				<div class="modal-request__left">Предпочтительный способ связи:</div>
-				<div class="modal-request__right">
-					<label class="modal-request__label"><input class="modal-request__radio" type="radio" name="Предпочтительный способ связи:" value="Телефон"
-							checked /><span>Телефон</span></label>
-					<label class="modal-request__label"><input class="modal-request__radio" type="radio" name="Предпочтительный способ связи:"
-							value="WhatsApp" /><span>WhatsApp</span></label>
-					<label class="modal-request__label">
-						<input class="modal-request__radio" type="radio" name="Предпочтительный способ связи:" value="Telegram" /><span>Telegram</span></label>
-				</div>
-			</div>
-			<button class="modal-request__btn" type="submit">Записаться</button>
+    <div class="modal-swiper" id="modal-swiper-1">
+      <div class="modal-swiper__name">Татьяна Андреева</div>
+      <div class="modal-swiper__text">
+        Я&nbsp;шла на&nbsp;поддерживающую сессию с&nbsp;твёрдым пониманием, что сессия необходима, но&nbsp;не&nbsp;осознавала всей полезности, ввиду того, что
+        в&nbsp;мыслях и&nbsp;чувствах была неопределённость. Это вторая сессия с&nbsp;Еленой, и&nbsp;у&nbsp;меня сформировалось мнение, что: 1. Елена очень
+        точно понимает невысказанное, а&nbsp;также суть &laquo;коряво&raquo; высказанного, когда в&nbsp;голове и&nbsp;на&nbsp;словах присутствует туманность,
+        нечеткость, подмечает детали, которые порой выглядят для говорящего как нечто проходное, но&nbsp;на&nbsp;самом деле несут в&nbsp;себе важное значение;
+        и&nbsp;умело &laquo;упаковывает&raquo; всё это ...
+      </div>
+    </div>
 
-			<script>
-				let params = new URLSearchParams(window.location.search);
-				let bc = params.get('bc'); //код партнера, который был передан в url (?bc=12345)
-				document.writeln("<input type='hidden' name='bc' value='" + bc + "'>");
-				let utm_campaign = params.get('utm_campaign');
-				document.writeln("<input type='hidden' name='utm_campaign' value='" + utm_campaign + "'>");
-				let utm_content = params.get('utm_content');
-				document.writeln("<input type='hidden' name='utm_content' value='" + utm_content + "'>");
-				let utm_medium = params.get('utm_medium');
-				document.writeln("<input type='hidden' name='utm_medium' value='" + utm_medium + "'>");
-				let utm_source = params.get('utm_source');
-				document.writeln("<input type='hidden' name='utm_source' value='" + utm_source + "'>");
-				let utm_term = params.get('utm_term');
-				document.writeln("<input type='hidden' name='utm_term' value='" + utm_term + "'>");
-			</script>
-
-		</form>
-		<div class="modal-request__agree">
-			Отправляя форму, вы&nbsp;соглашаетесь с&nbsp;обработкой персональных данных и&nbsp;
-			<a href="https://ai4g.ru/oferta.html" target="_blank">
-				<span>условиями договора-оферты</span>
-			</a>
-		</div>
-	</div>
-
-	<!-- popup об успешной записи -->
-	<div class="modal-thanks" id="modal-thanks">
-		<div class="modal-thanks__logo">
-			<img src="img/modal-thanks-logo.svg" alt="Ai4G" loading="lazy" />
-		</div>
-		<h3 class="modal-thanks__title">Вы&nbsp;успешно записались на&nbsp;serf-сессию.</h3>
-		<div class="modal-thanks__text">
-			В&nbsp;ближайшее время мы&nbsp;свяжемся с&nbsp;вами указанным способом
-		</div>
-	</div>
-
-	<div class="modal-swiper" id="modal-swiper-1">
-		<div class="modal-swiper__name">Татьяна Андреева</div>
-		<div class="modal-swiper__text">
-			Я&nbsp;шла на&nbsp;поддерживающую сессию с&nbsp;твёрдым пониманием, что сессия необходима,
-			но&nbsp;не&nbsp;осознавала всей полезности, ввиду того, что в&nbsp;мыслях и&nbsp;чувствах
-			была неопределённость. Это вторая сессия с&nbsp;Еленой, и&nbsp;у&nbsp;меня сформировалось
-			мнение, что: 1. Елена очень точно понимает невысказанное, а&nbsp;также суть
-			&laquo;коряво&raquo; высказанного, когда в&nbsp;голове и&nbsp;на&nbsp;словах присутствует
-			туманность, нечеткость, подмечает детали, которые порой выглядят для говорящего как нечто
-			проходное, но&nbsp;на&nbsp;самом деле несут в&nbsp;себе важное значение; и&nbsp;умело
-			&laquo;упаковывает&raquo; всё это ...
-		</div>
-	</div>
-
-	<script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
-	<script src="
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+    <script src="
     https://cdn.jsdelivr.net/npm/just-validate@4.2.0/dist/just-validate.production.min.js
     "></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.7/inputmask.min.js"
-		integrity="sha512-czERuOifK1fy7MssE4JJ7d0Av55NPiU2Ymv4R6F0mOGpyPUb9HkP9DcEeE+Qj9In7hWQHGg0CqH1ELgNBJXqGA==" crossorigin="anonymous"
-		referrerpolicy="no-referrer"></script>
-	<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-	<script src="js/main.js"></script>
-</body>
-
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.7/inputmask.min.js"
+      integrity="sha512-czERuOifK1fy7MssE4JJ7d0Av55NPiU2Ymv4R6F0mOGpyPUb9HkP9DcEeE+Qj9In7hWQHGg0CqH1ELgNBJXqGA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    <script src="js/main.js"></script>
+  </body>
 </html>

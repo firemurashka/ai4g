@@ -2460,7 +2460,7 @@ input:-webkit-autofill:focus {
   }
 
   .reviews {
-    margin-bottom: 90px;
+    margin-bottom: 40px;
   }
 
   .swiper-item__text {
@@ -2908,9 +2908,10 @@ input:-webkit-autofill:focus {
   }
 
   .swiper-arrows {
-    margin-top: 35px;
     display: flex;
     justify-content: center;
+    bottom: 0;
+    position: absolute;
   }
 
   .swiper-arrows .swiper-button-next,
@@ -8487,6 +8488,12 @@ input:-webkit-autofill:focus {
     max-height: 200px;
     margin: 10px 0;
   }
+  @media (max-width: 600px) {
+    max-height: 280px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 }
 .my-slider .swiper-slide {
   display: flex;
@@ -8558,7 +8565,7 @@ input:-webkit-autofill:focus {
   padding: 80px 0;
   background: linear-gradient(2deg, #e2ddd6 0%, rgba(44, 51, 75, 0) 100%);
   @media (max-width: 768px) {
-    padding: 55px 0;
+    padding: 25px 0;
   }
 }
 
@@ -8572,6 +8579,7 @@ input:-webkit-autofill:focus {
   @media (max-width: 768px) {
     font-size: 20px;
     line-height: 24px;
+    margin-bottom: 20px;
   }
 }
 
@@ -8580,6 +8588,9 @@ input:-webkit-autofill:focus {
   flex-direction: column;
   align-items: center;
   gap: 40px;
+  @media (max-width: 768px) {
+    gap: 0px;
+  }
 }
 
 .capability__block {
@@ -8590,6 +8601,7 @@ input:-webkit-autofill:focus {
   @media (max-width: 768px) {
     flex-direction: column;
     align-items: center;
+    gap: 20px;
   }
 }
 
@@ -8597,6 +8609,9 @@ input:-webkit-autofill:focus {
   max-width: 250px;
   height: auto;
   border-radius: 9px;
+  @media (max-width: 768px) {
+    max-width: 200px;
+  }
 }
 
 .capability__links {
@@ -8605,6 +8620,7 @@ input:-webkit-autofill:focus {
   align-items: flex-end;
   @media (max-width: 768px) {
     flex-direction: column;
+    gap: 10px;
   }
 }
 

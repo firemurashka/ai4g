@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <title>Тест по Паттернам - Проверьте свои знания и развивайтесь с Ai4G</title>
+    <meta
+      name="description"
+      content="Проверьте свои знания о паттернах и узнайте, как они влияют на наше поведение и принятие решений. Углубите понимание психологических механизмов и откройте новые горизонты.🔹 Присоединяйтесь к тестированию на Ai4G!"
+    />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=PT+Sans:ital,wght@0,400;0,700;1,400&display=swap&_v=20240711230420"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/pattern-test.css" />
+
+    <link rel="icon" href="img/favicon.ico" />
+
+    <!-- Facebook Pixel Code -->
+    <script>
+      !(function (f, b, e, v, n, t, s) {
+        if (f.fbq) return;
+        n = f.fbq = function () {
+          n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+        };
+        if (!f._fbq) f._fbq = n;
+        n.push = n;
+        n.loaded = !0;
+        n.version = "2.0";
+        n.queue = [];
+        t = b.createElement(e);
+        t.async = !0;
+        t.src = v;
+        s = b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t, s);
+      })(window, document, "script", "https://connect.facebook.net/en_US/fbevents.js");
+      fbq("init", "632030395545001");
+      fbq("track", "PageView");
+    </script>
+    <noscript>
+      <img
+        height="1"
+        width="1"
+        src="https://www.facebook.com/tr?id=632030395545001&ev=PageView
+&noscript=1"
+      />
+    </noscript>
+    <!-- End Facebook Pixel Code -->
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+      (function (m, e, t, r, i, k, a) {
+        m[i] =
+          m[i] ||
+          function () {
+            (m[i].a = m[i].a || []).push(arguments);
+          };
+        m[i].l = 1 * new Date();
+        for (var j = 0; j < document.scripts.length; j++) {
+          if (document.scripts[j].src === r) {
+            return;
+          }
+        }
+        (k = e.createElement(t)), (a = e.getElementsByTagName(t)[0]), (k.async = 1), (k.src = r), a.parentNode.insertBefore(k, a);
+      })(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+      ym(93953514, "init", {
+        clickmap: true,
+        trackLinks: true,
+        accurateTrackBounce: true,
+        webvisor: true,
+      });
+    </script>
+    <noscript>
+      <div>
+        <picture>
+          <source srcset="https://mc.yandex.ru/watch/93953514" type="image/webp" />
+          <img src="https://mc.yandex.ru/watch/93953514" style="position: absolute; left: -9999px" alt="" />
+        </picture>
+      </div>
+    </noscript>
+    <!-- /Yandex.Metrika counter -->
+  </head>
+
+  <body class="page-patterns">
+    <div class="wrapper">
+      <header class="header">
+        <div class="header__line"></div>
+        <a class="header__logo" href="index.html">
+          <div class="header__square">
+            <img src="img/logo-square.svg" alt="logo" width="51" height="47.6" />
+          </div>
+          <div class="header__logo-title">
+            <div class="header__Ai4G">
+              <img src="img/logo-Ai4G.svg" alt="logo" />
+            </div>
+            <span class="header__logo-suptitle">Фарватер успешного развития</span>
+          </div>
+          <div class="header__triangle">
+            <img src="img/logo-triangle.svg" alt="logo" />
+          </div>
+        </a>
+      </header>
+
+      <main>
+        <section class="quiz-patterns" id="top">
+          <div class="quiz-patterns__container">
+            <h1 class="quiz-patterns__title title">Тест по Паттернам</h1>
+            <h2 class="quiz-patterns__subtitle">Выберите слово по смыслу</h2>
+
+            <div class="quiz-patterns__block">
+              <div id="question-counter" class="question-counter">
+                <!-- Счетчик вопроса будет динамически вставлен здесь -->
+              </div>
+              <div class="quiz-patterns__contant" id="quiz-content">
+                <div id="question-container">
+                  <!-- Вопросы будут динамически вставлены здесь -->
+                </div>
+
+                <button class="quiz-patterns__button" id="next-button" onclick="nextQuestion()">Далее</button>
+              </div>
+
+              <div id="result-container" class="result__contain" style="display: none">
+                <div class="result__content" id="result-content">
+                  <!-- Здесь будут выводиться результаты -->
+                </div>
+                <button class="quiz-patterns__button quiz-patterns__button_result" onclick="resetQuiz()">Пройти опрос снова</button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <div class="footer__super-wrapper">
+          <div class="footer__wrapper">
+            <div class="container">
+              <h2 class="footer__title">Контактная информация</h2>
+              <div class="footer__items">
+                <a href="mailto:info@ai4g.ru" class="footer__item">
+                  <img src="img/email.svg" alt="email" loading="lazy" />
+                  <span>info@ai4g.ru</span>
+                </a>
+                <a href="https://t.me/+79852000434" target="_blank" class="footer__item">
+                  <img src="img/telegram.svg" alt="telegram" loading="lazy" />
+                  <span>+7 985 2000434</span>
+                </a>
+                <a href="https://ai4g.ru/login" target="_blank" class="footer__item">
+                  <img src="img/lk.svg" alt="личный кабинет" loading="lazy" />
+                  <span>Личный кабинет</span>
+                </a>
+              </div>
+              <div class="footer__logo">
+                <a class="footer__logo2" href="https://fasie.ru">
+                  <img class="footer__logo-desktop" src="img/footer-logo2.svg" alt="fond" loading="lazy" />
+                </a>
+              </div>
+              <div class="footer__pay">
+                <img class="footer2__logo-desktop" src="img/logo3h.png" alt="fond" loading="lazy" />
+                <img class="footer__logo-mobile" src="img/logo3v.png" alt="Ai4G" loading="lazy" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer__links">
+          <a href="/oferta.html" class="footer__link"> Договор оферты </a>
+          <a href="/oplata.html" class="footer__link"> Правила оплаты и возврата </a>
+          <a href="/requisites.html" class="footer__link"> Реквизиты </a>
+        </div>
+      </footer>
+
+      <div class="scrollUp">
+        <img src="img/arrow-up-dark.svg" alt="scrollUp" />
+      </div>
+    </div>
+    <script src="js/main.js"></script>
+    <script src="js/patterns-test.js"></script>
+  </body>
+</html>

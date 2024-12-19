@@ -143,20 +143,24 @@
 
 /* ----------------------------------- */
 .quiz-patterns {
-  padding: 100px 0;
+  padding: 80px 0;
   margin: 20px 0 0 0;
   background: #fff;
+}
+.quiz-patterns__container {
+  max-width: 1200px;
 }
 
 .quiz-patterns__block {
   max-width: 800px;
-  margin: 30px auto;
+  margin: 20px auto;
   background: #fff;
   color: #150931;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
+
 .quiz-patterns__contant {
   min-height: 300px;
   display: flex;
@@ -165,11 +169,10 @@
 }
 
 .quiz-patterns__title {
-  margin: 0 0 30px;
+  margin: 0 0 20px 0;
 }
 
 .quiz-patterns__subtitle {
-  margin: 0 0 20px;
   color: #150931;
   text-align: center;
   font-weight: 500;
@@ -243,6 +246,10 @@ input[type="radio"]:checked + .radio-label:before {
 .button-container {
   text-align: right;
 }
+.quiz-patterns__navigation {
+  display: flex;
+  justify-content: space-between;
+}
 
 .quiz-patterns__button {
   display: flex;
@@ -263,7 +270,7 @@ input[type="radio"]:checked + .radio-label:before {
   margin: 15px 0px 0px 0px;
 }
 
-.quiz-patterns__button :active {
+.quiz-patterns__button:active {
   transform: translateY(1px);
 }
 
@@ -287,9 +294,6 @@ input[type="radio"]:checked + .radio-label:before {
   justify-content: space-between;
 }
 .result__content {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
   font-size: 18px;
   line-height: 140%;
   margin: 0px 0px 20px 0px;
@@ -297,6 +301,36 @@ input[type="radio"]:checked + .radio-label:before {
 
 .result__content span {
   font-weight: 500;
+}
+
+.result__content h3 {
+  margin: 0 0 20px 0;
+  color: #3b82f6;
+  font-weight: 600;
+  font-size: 24px;
+  text-align: center;
+}
+.result__content h4 {
+  margin: 0 0 10px 0;
+  color: #150931;
+  font-weight: 500;
+  font-size: 20px;
+  text-align: center;
+}
+.result__content ul {
+  margin: 0 0 15px 0;
+}
+.result__content ul li {
+  position: relative;
+  padding-left: 15px;
+  margin: 0 0 0 10px;
+}
+.result__content ul li::before {
+  position: absolute;
+  content: "-";
+  font-size: 16px;
+  left: 0;
+  top: 0;
 }
 /* .error-message------------- */
 .error-message {
@@ -331,4 +365,147 @@ input[type="radio"]:checked + .radio-label:before {
   .option {
     font-size: 16px;
   }
+}
+
+.pattern-scales {
+  margin-bottom: 20px;
+}
+
+.pattern-scale {
+  display: flex;
+  align-items: center;
+  margin: 5px 0;
+}
+
+.scale-bar-container {
+  background-color: #e0e0e0;
+  border-radius: 5px;
+  height: 20px;
+  margin: 5px 0;
+  width: 100%;
+}
+
+.scale-bar-title {
+  font-weight: 500;
+}
+
+.category-block {
+  margin-bottom: 40px;
+  /*   padding: 15px; */
+  /* border: 1px solid #6ee7b7;
+  border-radius: 8px; */
+}
+
+.subcategory-content {
+  display: grid;
+  gap: 5px;
+}
+.subcategory-block:not(:last-child) {
+  margin-bottom: 40px;
+}
+
+.subcategory-title {
+  font-weight: bold;
+  margin: 0px 0px 20px 0px;
+  text-align: center;
+}
+
+.scale-bar-container {
+  background-color: #fff;
+  border-radius: 5px;
+  border: 1px solid #00a74d59;
+  overflow: hidden;
+  height: 15px;
+  width: 100%;
+}
+.scale-bar {
+  height: 100%;
+  background-color: #00a74d59;
+  border-radius: 5px;
+  text-align: right; /* Выравнивание текста по правому краю */
+  transition: width 0.2s ease;
+  height: 100%;
+}
+/* .pattern-result {
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 0px 0px 10px 0px;
+} */
+.pattern-result {
+  padding: 5px 10px;
+}
+
+.scale-container {
+  position: relative;
+  width: 100%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+.scale-labels {
+  position: absolute;
+  bottom: -20px; /* Под надписью */
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #555;
+  gap: 10px;
+}
+.indicator {
+  opacity: 0; /* По умолчанию скрыт */
+  position: absolute;
+  top: -10px;
+  width: 20px;
+  height: 10px;
+  background-color: #ff008a;
+  border-radius: 8px;
+  z-index: 2;
+}
+
+.active-indicator {
+  opacity: 1; /* Если активный, то видим */
+}
+
+.indicator:not(.active-indicator) {
+  opacity: 0; /* скрыт для неактивного индикатора */
+}
+.subcategory-wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 40px;
+}
+.analytics-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.analytics-block {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.analytics-block p {
+  text-transform: uppercase;
+  font-family: "PT Sans";
+  font-size: 18px;
+}
+.scale-line {
+  top: 29px;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background-color: #e0e0e0;
+  border-radius: 8px;
+  position: absolute;
+}
+.scale-labels-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

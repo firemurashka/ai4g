@@ -121,7 +121,10 @@
                   <!-- Вопросы будут динамически вставлены здесь -->
                 </div>
                 <div id="error-message" class="error-message" style="display: none">Пожалуйста, выберите вариант ответа!</div>
-                <button class="quiz-patterns__button" id="next-button" onclick="nextQuestion()">Далее</button>
+                <div class="quiz-patterns__navigation">
+                  <button class="quiz-patterns__button" id="next-button" onclick="previousQuestion()">Назад</button>
+                  <button class="quiz-patterns__button" id="next-button" onclick="nextQuestion()">Далее</button>
+                </div>
               </div>
 
               <div id="result-container" class="result__contain" style="display: none">
@@ -131,6 +134,16 @@
                 <button class="quiz-patterns__button quiz-patterns__button_result" onclick="resetQuiz()">Пройти опрос снова</button>
               </div>
             </div>
+            <!-- тестовая кнопка - удалить -->
+            <div id="quiz-controls">
+              <button class="quiz-patterns__button quiz-patterns__button_test" id="fill-test-answers">Заполнить тестовые ответы</button>
+            </div>
+            <style>
+              .quiz-patterns__button_test {
+                margin: 20px auto;
+              }
+            </style>
+            <!-- тестовая кнопка - удалить -->
           </div>
         </section>
       </main>

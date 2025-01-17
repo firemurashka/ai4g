@@ -22,184 +22,145 @@ function scrollUp() {
 
 scrollUp();
 
-/* ====questions======================================= */
+/* ==================================================== */
+let questionsWithPatterns = []; // Глобальный массив для вопросов
+let categories = []; // Глобальный объект для категорий
+let currentQuestionIndex = 0; // Индекс текущего вопроса
+let answers = []; // Массив для сохранения ответов пользователя
+let patterns = []; // Массив для сохранения паттернов
 
-const questionsWithPatterns = [
-  {
-    question: "Какое слово в паре <span>'привязанность - рассудочность'</span> тебе больше нравится по смыслу?",
-    options: ["Привязанность", "Расcудочность"],
-    patterns: ["Коллективизм", "Индивидуализм"],
-  },
-  {
-    question: "Какое слово в паре <span>'факты - идеи'</span> тебе больше нравится по смыслу?",
-    options: ["Факты", "Идеи"],
-    patterns: ["Аналитичное мышление", "Системное мышление"],
-  },
-  {
-    question: "Какое слово в паре <span>'убедительный - трогательный'</span> тебе больше всего нравится по смыслу?",
-    options: ["Убедительный", "Трогательный"],
-    patterns: ["Нейтральность", "Эмоциональность"],
-  },
-  {
-    question: "Какое слово в паре <span>'предписанный - незапланированный'</span> тебе больше нравится по смыслу?",
-    options: ["Предписанный", "Незапланированный"],
-    patterns: ["Рефлексивность", "Импульсивность"],
-  },
-  {
-    question: "Какое слово в паре <span>'теория - факт'</span> тебе больше нравится по смыслу?",
-    options: ["Теория", "Факт"],
-    patterns: ["Системное мышление", "Аналитичное мышление"],
-  },
-  {
-    question: "Какое слово в паре <span>'спокойный - оживлённый'</span> тебе больше нравится по смыслу?",
-    options: ["Спокойный", "Оживленный"],
-    patterns: ["Рефлексивность", "Импульсивность"],
-  },
-  {
-    question: "Какое слово в паре <span>'писать - говорить'</span> тебе больше нравится по смыслу?",
-    options: ["Писать", "Говорить"],
-    patterns: ["Низкий контекст", "Высокий контекст"],
-  },
-  {
-    question: "Какое слово в паре <span>'мечтательный - практичный'</span> тебе больше нравится по смыслу?",
-    options: ["Мечтательный", "Практичный"],
-    patterns: ["Системное мышление", "Аналитичное мышление"],
-  },
-  {
-    question: "Какое слово в паре <span>'порыв - решение'</span> тебе больше нравится по смыслу?",
-    options: ["Порыв", "Решение"],
-    patterns: ["Импульсивность", "Рефлексивность"],
-  },
-  {
-    question: "Какое слово в паре <span>'производить - творить'</span> тебе больше нравится по смыслу?",
-    options: ["Производить", "Творить"],
-    patterns: ["Делать", "Быть"],
-  },
-  {
-    question: "Какое слово в паре <span>'благоразумный - очаровательный'</span> тебе больше нравится по смыслу?",
-    options: ["Благоразумный", "Очаровательный"],
-    patterns: ["Формальность", "Неформальность"],
-  },
+async function loadQuestions() {
+  try {
+    const response = await fetch("patterns_data.json");
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+    const data = await response.json();
 
-  {
-    question: "Какое слово в паре  <span>'решительный - преданный'</span> тебе больше нравится по смыслу?",
-    options: ["Решительный", "Преданный"],
-    patterns: ["Контроль", "Смирение"],
-  },
+    // Загружаем данные
+    questionsWithPatterns = data.questionsWithPatterns || [];
+    categories = data.categories || [];
 
-  {
-    question: "Какое слово в паре <span>'постоянный - изменяющийся'</span> тебе больше нравится по смыслу?",
-    options: ["Постоянный", "Изменяющийся"],
-    patterns: ["Стабильность", "Изменения"],
-  },
-  {
-    question: "Какое слово в паре <span>'конкретный - абстрактный'</span> тебе больше нравится по смыслу?",
-    options: ["Конкретный", "Абстрактный"],
-    patterns: ["Аналитичное мышление", "Системное мышление"],
-  },
-  {
-    question: "Какое слово в паре <span>'стремительный - тщательный'</span> тебе больше нравится по смыслу?",
-    options: ["Стремительный", "Тщательный"],
-    patterns: ["Импульсивность", "Рефлексивность"],
-  },
-  {
-    question: "Какое слово в паре <span>'мягкий - твердый'</span> тебе больше нравится по смыслу?",
-    options: ["Мягкий", "Твердый"],
-    patterns: ["Сотрудничество", "Конкуренция"],
-  },
-  {
-    question: "Какое слово в паре <span>'фундамент - шпиль'</span> тебе больше нравится по смыслу?",
-    options: ["Фундамент", "Шпиль"],
-    patterns: ["Индивидуализм", "Коллективизм"],
-  },
-  {
-    question: "Какое слово в паре <span>'прощать - терпеть'</span> тебе больше нравится по смыслу?",
-    options: ["Прощать", "Терпеть"],
-    patterns: ["Гармония", "Смирение"],
-  },
-  {
-    question: "Какое слово в паре <span>'интуиция - опыт'</span> тебе больше нравится по смыслу?",
-    options: ["Интуиция", "Опыт"],
-    patterns: ["Индуктивное мышление", "Дедуктивное мышление"],
-  },
-  {
-    question: "Какое слово в паре <span>'кто - что'</span> тебе больше нравится по смыслу?",
-    options: ["Кто", "Что"],
-    patterns: ["Быть", "Делать"],
-  },
-  {
-    question: "Какое слово в паре <span>'похвала - критика'</span> тебе больше нравится по смыслу?",
-    options: ["Похвала", "Критика"],
-    patterns: ["Непрямая коммуникация", "Прямая коммуникация"],
-  },
-  {
-    question: "Какое слово в паре <span>'осторожный - доверчивый'</span> тебе больше нравится по смыслу?",
-    options: ["Осторожный", "Доверчивый"],
-    patterns: ["Защищать границы", "Делиться ресурсами"],
-  },
-  {
-    question: "Какое слово в паре <span>'целое - детали'</span> тебе больше нравится по смыслу?",
-    options: ["Целое", "Детали"],
-    patterns: ["Индуктивное мышление", "Дедуктивное мышление"],
-  },
+    if (questionsWithPatterns.length === 0) {
+      console.error("Нет доступных вопросов.");
+      return;
+    }
 
-  {
-    question: "Какое слово в паре <span>'понимать - управлять'</span> тебе больше нравится по смыслу?",
-    options: ["Понимать", "Управлять"],
-    patterns: ["Гармония", "Контроль"],
-  },
-  {
-    question: "Какое слово в паре <span>'Доктор Ватсон - Шерлок Холмс'</span> тебе больше нравится по смыслу?",
-    options: ["Доктор Ватсон", "Шерлок Холмс"],
-    patterns: ["Индуктивное мышление", "Дедуктивное мышление"],
-  },
-  {
-    question: "Во время разговора, вы скорее склонны...",
-    options: ["Говорить быстро", "Отвечать с задержкой"],
-    patterns: ["Импульсивность", "Рефлексивность"],
-  },
-];
+    if (!Array.isArray(categories)) {
+      console.error("Категории не являются массивом.");
+    }
 
-// Измените массив questions на questionsWithPatterns в следующих функциях
-let currentQuestionIndex = 0;
-const answers = [];
-const patterns = [];
+    // Отображаем первый вопрос
+    showQuestion();
+  } catch (error) {
+    console.error("Ошибка при загрузке JSON:", error);
+  }
+}
 
-const patternCategories = {
-  "Паттерны мышления": [],
-  "Паттерны коммуникации": [],
-  "Паттерны поведения": [],
-  "Паттерны организации времени": [],
-};
-
-// Функция для отображения вопроса
+// Функция для отображения текущего вопроса
 function showQuestion() {
+  // Проверяем, есть ли вопросы
+  if (!questionsWithPatterns.length) {
+    console.error("Нет доступных вопросов.");
+    return;
+  }
+
+  // Получаем элементы интерфейса
   const questionContainer = document.getElementById("question-container");
   const questionCounter = document.getElementById("question-counter");
+  const errorMessage = document.getElementById("error-message");
+
+  // Скрываем сообщение об ошибке
+  errorMessage.style.display = "none";
+
+  // Получаем текущий вопрос
   const question = questionsWithPatterns[currentQuestionIndex];
 
   // Получаем текущий выбранный ответ (если он есть)
   const currentAnswer = answers[currentQuestionIndex];
 
-  // Отображаем вопрос и варианты ответа
+  // Обновляем содержимое контейнера вопроса
   questionContainer.innerHTML = `
-	  <div class="question">${question.question}</div>
-	  ${question.options
+    <div class="question">${question.question}</div>
+    ${question.options
       .map(
         (option) => `
-			<label class="option">
-			  <input type="radio" name="answer" value="${option}" ${currentAnswer === option ? "checked" : ""}>
-			  <span class="radio-label">${option}</span>
-			</label>
-		 `
+      <label class="option">
+        <input type="radio" name="answer" value="${option}" ${currentAnswer === option ? "checked" : ""}>
+        <span class="radio-label">${option}</span>
+      </label>
+     `
       )
       .join("")}
-	`;
+  `;
 
-  questionCounter.innerHTML = `${currentQuestionIndex + 1} из ${questionsWithPatterns.length}`;
+  // Обновляем счётчик вопросов
+  questionCounter.innerHTML = `Вопрос ${currentQuestionIndex + 1} из ${questionsWithPatterns.length}`;
 }
 
-// Функция для отображения результатов
+//Следующий вопрос
+function nextQuestion() {
+  const selectedOption = document.querySelector('input[name="answer"]:checked'); // Получаем выбранный вариант
+  const errorMessage = document.getElementById("error-message"); // Сообщение об ошибке
+
+  if (selectedOption) {
+    // Сохраняем ответ пользователя
+    answers[currentQuestionIndex] = selectedOption.value; // Обновляем массив ответов, сохраняя по индексу
+
+    // Сохраняем соответствующий паттерн
+    const question = questionsWithPatterns[currentQuestionIndex];
+    const selectedIndex = question.options.indexOf(selectedOption.value); // Получаем индекс выбранного варианта
+    const pattern = question.patterns[selectedIndex]; // Паттерн, соответствующий выбранному индексу
+    patterns[currentQuestionIndex] = pattern; // Обновляем массив паттернов
+
+    // Убираем сообщение об ошибке (если было отображено раньше)
+    errorMessage.style.display = "none";
+
+    // Переход к следующему вопросу
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questionsWithPatterns.length) {
+      showQuestion(); // Показываем следующий вопрос
+    } else {
+      // Если это последний вопрос, показываем результаты
+      showResults();
+      showResultTable();
+      showReferenceTable();
+    }
+  } else {
+    // Если ответ не выбран, показываем сообщение об ошибке
+    errorMessage.style.display = "block"; // Отображаем сообщение об ошибке
+  }
+}
+
+//Предыдущий вопрос
+function previousQuestion() {
+  if (currentQuestionIndex > 0) {
+    currentQuestionIndex--; // Возвращаемся на один вопрос назад
+
+    // Убираем сообщение об ошибке (если оно было)
+    const errorMessage = document.getElementById("error-message");
+    errorMessage.style.display = "none";
+
+    showQuestion(); // Показываем предыдущий вопрос
+  }
+}
+
+// Функция для сброса опроса
+function resetQuiz() {
+  currentQuestionIndex = 0; // Сбрасываем индекс текущего вопроса
+  answers = []; // Очищаем массив пользовательских ответов
+  patterns = []; // Очищаем массив паттернов
+
+  document.getElementById("question-counter").style.display = "block";
+  document.querySelector(".quiz-patterns__subtitle").innerText = "Выберите слово по смыслу";
+  document.getElementById("result-container").style.display = "none";
+  document.getElementById("result-table-container").style.display = "none";
+  document.getElementById("reference-table-container").style.display = "none";
+  document.getElementById("quiz-content").style.display = "flex";
+  const quizPatternsBlock = document.querySelector(".quiz-patterns__block");
+  quizPatternsBlock.style.maxWidth = "800px";
+  showQuestion(); // Показываем первый вопрос
+}
+
+// Отображение результатов
 function showResults() {
   if (!patterns || patterns.length === 0) {
     alert("Вы не завершили тест. Пожалуйста, ответьте на все вопросы.");
@@ -214,348 +175,461 @@ function showResults() {
   const questionCounter = document.getElementById("question-counter");
   const quizPatternsBlock = document.querySelector(".quiz-patterns__block");
 
-  // Скрываем блок с вопросами и счетчик
+  // Скрываем блок с вопросами и счётчик для отображения результатов
   quizContent.style.display = "none";
   questionCounter.style.display = "none";
   subtitle.textContent = "Результаты теста";
   quizPatternsBlock.style.maxWidth = "1200px";
 
-  let results = "";
+  let results = ""; // Для финального HTML результата
+  const resultsData = {}; // Для хранения итоговых данных
 
-  // Определяем категории, включая паттерны и их наличие
-  const categories = {
-    "Паттерны мышления": [
-      {
-        title: "Дедуктивное мышление / Индуктивное мышление",
-        patterns: ["Дедуктивное мышление", "Индуктивное мышление"],
-      },
-      {
-        title: "Аналитичное мышление / Системное мышление",
-        patterns: ["Аналитичное мышление", "Системное мышление"],
-      },
-      {
-        title: "Полезависимость / Поленезависимость",
-        patterns: ["Полезависимость", "Поленезависимость"],
-      },
-      {
-        title: "Рефлексивность / Импульсивность",
-        patterns: ["Рефлексивность", "Импульсивность"],
-      },
-    ],
-
-    "Паттерны организации времени": [
-      {
-        title: "Дефицит времени / Изобилие времени",
-        patterns: ["Дефицит времени", "Изобилие времени"],
-      },
-      {
-        title: "Монохронность / Полихронность",
-        patterns: ["Монохронность", "Полихронность"],
-      },
-      {
-        title: "Прошлое / Настоящее / Будущее ",
-        patterns: ["Прошлое", "Настоящее", "Будущее"],
-      },
-      {
-        title: "Краткосрочная стратегия / Долгосрочная стратегия",
-        patterns: ["Краткосрочная стратегия", "Долгосрочная стратегия"],
-      },
-    ],
-
-    "Паттерны поведения": [
-      {
-        title: "Контроль / Гармония / Смирение",
-        patterns: ["Контроль", "Гармония", "Смирение"],
-      },
-      {
-        title: "Защищать границы / Делиться ресурсами",
-        patterns: ["Защищать границы", "Делиться ресурсами"],
-      },
-      {
-        title: "Быть / Делать",
-        patterns: ["Быть", "Делать"],
-      },
-      {
-        title: "Индивидуализм / Коллективизм",
-        patterns: ["Индивидуализм", "Коллективизм"],
-      },
-      {
-        title: "Стабильность / Изменения",
-        patterns: ["Стабильность", "Изменения"],
-      },
-      {
-        title: "Конкуренция / Сотрудничество",
-        patterns: ["Конкуренция", "Сотрудничество"],
-      },
-    ],
-
-    "Паттерны коммуникации": [
-      {
-        title: "Высокий контекст / Низкий контекст",
-        patterns: ["Высокий контекст", "Низкий контекст"],
-      },
-
-      {
-        title: "Прямая коммуникация / Непрямая коммуникация",
-        patterns: ["Прямая коммуникация", "Непрямая коммуникация"],
-      },
-
-      {
-        title: "Эмоциональность / Нейтральность",
-        patterns: ["Эмоциональность", "Нейтральность"],
-      },
-      {
-        title: "Формальность / Неформальность",
-        patterns: ["Формальность", "Неформальность"],
-      },
-    ],
-  };
-
-  // Подсчёт ответов на основе patterns
+  // Создаем объект для подсчета количества паттернов
   const counts = patterns.reduce((acc, pattern) => {
     acc[pattern] = (acc[pattern] || 0) + 1;
     return acc;
   }, {});
 
-  // Функция для получения доминирующего паттерна
-  function getDominantPattern(patterns) {
-    const totalResponses = patterns.reduce((total, pattern) => total + (counts[pattern] || 0), 0);
-
-    if (totalResponses === 0) return { pattern: null, percentage: 0, totalResponses };
-
-    let dominantPattern = null;
-    let highestCount = 0;
-
-    patterns.forEach((pattern) => {
-      const count = counts[pattern] || 0;
-      if (count > highestCount) {
-        highestCount = count;
-        dominantPattern = pattern;
-      }
-    });
-
-    const percentage = Math.round((highestCount / totalResponses) * 100);
-    return {
-      pattern: dominantPattern,
-      percentage,
-      totalResponses,
-    };
+  // Если нет категорий, показываем сообщение об ошибке
+  if (!categories || categories.length === 0) {
+    console.error("Категории отсутствуют или системе не удалось их загрузить.");
+    resultContent.innerHTML = "<p>Категории данных отсутствуют. Проверьте данные или перезагрузите страницу.</p>";
+    resultContainer.style.display = "flex";
+    return;
   }
 
-  // Обрабатываем каждую категорию
-  for (const category in categories) {
-    let subcategoryResults = "";
+  // Массив для соотношения категорий и классов
+  const categoryClassMap = {
+    "Паттерны мышления": "category-block__mind",
+    "Паттерны поведения": "category-block__man",
+    "Паттерны коммуникации": "category-block__hands",
+    "Паттерны организации времени": "category-block__clock",
+  };
 
-    categories[category].forEach(({ title, patterns }) => {
-      const totalResponses = patterns.reduce((total, pattern) => total + (counts[pattern] || 0), 0);
+  // Обходим каждую категорию
+  categories.forEach((category) => {
+    const categoryTitle = category.title?.ru || category.title?.en || "Неизвестная категория";
+    let subcategoryResults = ""; // Сюда добавляем все подкатегории этой категории
 
-      if (totalResponses > 0) {
-        const dominant = getDominantPattern(patterns);
-        const percentages = patterns.map((pattern) => Math.round(((counts[pattern] || 0) / totalResponses) * 100));
+    // Пропускаем категорию, если в ней нет подкатегорий
+    if (!category.subcategories || category.subcategories.length === 0) {
+      return;
+    }
 
-        // Определяем уровень на основе заданных условий
-        let statusText = "";
-        const isThreePatterns = patterns.length === 3;
-        const allEqual = percentages.every((p) => p === percentages[0]);
+    // Динамически выбираем дополнительный класс из заранее заданного объекта
+    const additionalClass = categoryClassMap[categoryTitle] || "";
 
-        if (dominant.percentage > 80) {
-          statusText = `ЯВНО ${dominant.pattern}`;
-        } else if (dominant.percentage >= 60 && dominant.percentage <= 80) {
-          statusText = `УМЕРЕННО ${dominant.pattern}`;
-        } else if (isThreePatterns) {
-          if (allEqual) {
-            statusText = "НЕЙТРАЛЬНО";
-          }
-        }
+    // Инициализируем массив для текущей категории в resultsData
+    resultsData[categoryTitle] = [];
 
-        // Создание блока аналитики
-        const analyticsBlock = `
-			<div class="analytics-block">
-			  <p>${statusText || "НЕЙТРАЛЬНО"}</p>
-			  <div class="scale-container">
-				 <div class="scale-line"></div>
-				 <div class="scale-labels">
-					<div class="scale-labels-item">
-					  <div class="indicator" style="opacity: ${percentages[0] > 80 ? 1 : 0};"></div>
-					  <span>ЯВНО</span>
+    // Обходим каждую подкатегорию
+    category.subcategories.forEach((subcategory) => {
+      const subcategoryTitle = subcategory.title?.ru || subcategory.title?.en || "Неизвестная подкатегория";
+
+      // Пропускаем подкатегории без паттернов
+      if (!subcategory.patterns || subcategory.patterns.length === 0) {
+        return;
+      }
+
+      // Формируем список паттернов в подкатегории
+      const patternsInSubcategory = subcategory.patterns.map((pattern) => pattern.pattern?.ru || pattern.pattern?.en || "Без названия");
+
+      // Подсчитываем общее количество ответов для этой подкатегории
+      const totalResponses = patternsInSubcategory.reduce((total, pattern) => total + (counts[pattern] || 0), 0);
+
+      // Если в подкатегории нет ответов, пропускаем её
+      if (totalResponses === 0) {
+        return;
+      }
+
+      // Вычисляем доминантный паттерн
+      const dominant = patternsInSubcategory.reduce(
+        (current, pattern) => (counts[pattern] > (counts[current] || 0) ? pattern : current),
+        patternsInSubcategory[0]
+      );
+
+      const dominantPercentage = Math.round((counts[dominant] / totalResponses) * 100);
+      const statusText = dominantPercentage <= 40 ? `УМЕРЕННО ${dominant}` : dominantPercentage <= 60 ? `НЕЙТРАЛЬНО` : `ЯВНО ${dominant}`;
+
+      // Сохраняем данные подкатегории в resultsData для отчёта
+      resultsData[categoryTitle].push({
+        subcategory: subcategoryTitle,
+        dominantPattern: dominant,
+        percentage: dominantPercentage,
+        responses: patternsInSubcategory.map((pattern) => ({
+          pattern,
+          count: counts[pattern] || 0,
+          percentage: Math.round(((counts[pattern] || 0) / totalResponses) * 100),
+        })),
+      });
+
+      // Формируем HTML этого блока
+      let patternResults = `<div class="subcategory-content">`;
+
+      patternsInSubcategory.forEach((pattern) => {
+        const patternPercentage = Math.round(((counts[pattern] || 0) / totalResponses) * 100);
+        // Найти описание для текущего паттерна
+        const currentPatternData = subcategory.patterns.find((p) => (p.pattern.ru || p.pattern.en) === pattern);
+
+        const patternDescription = currentPatternData?.description.ru || "Описание отсутствует";
+
+        patternResults += `
+			<div class="pattern-result">
+				<div class="pattern-result__label">
+					<div class="scale-bar-title-wrapper">
+						<p class="scale-bar-title">${pattern}</p>
+						<div class="info-tooltiptest-wrapper">
+							<div class="info-icon">i</div>
+							<div class="tooltiptest">
+								${patternDescription}
+							</div>
+						</div>
 					</div>
-					<div class="scale-labels-item">
-					  <div class="indicator" style="opacity: ${percentages[0] >= 60 && percentages[0] <= 80 ? 1 : 0};"></div>
-					  <span>УМЕРЕННО</span>
-					</div>
-					<div class="scale-labels-item">
-					  <div class="indicator" style="opacity: ${percentages[0] >= 40 && percentages[0] < 60 ? 1 : 0};"></div>
-					  <span>НЕЙТРАЛЬНО</span>
-					</div>
-					<div class="scale-labels-item">
-					  <div class="indicator" style="opacity: ${percentages[0] >= 20 && percentages[0] < 40 ? 1 : 0};"></div>
-					  <span>УМЕРЕННО</span>
-					</div>
-					<div class="scale-labels-item">
-					  <div class="indicator" style="opacity: ${percentages[0] < 20 ? 1 : 0};"></div>
-					  <span>ЯВНО</span>
-					</div>
-				 </div>
-			  </div>
+					<p>${patternPercentage}%</p>
+				</div>
+				<div class="scale-bar-container">
+					<div class="scale-bar" style="width: ${patternPercentage}%;"></div>
+				</div>
 			</div>`;
+      });
 
-        // Собираем блок результатов для паттернов
-        let patternResults = `<div class="subcategory-content">`;
-        patterns.forEach((pattern) => {
-          const count = counts[pattern] || 0;
-          const percentage = Math.round((count / totalResponses) * 100);
-          patternResults += `
-			  <div class="pattern-result">
-				 <p class="scale-bar-title">${pattern}</p>
-				 <div class="scale-bar-container">
-					<div class="scale-bar" style="width: ${percentage}%;"></div>
+      patternResults += `</div>`;
+
+      const analyticsBlock = `
+			  <div class="analytics-block">
+				 <p>${statusText}</p>
+				 <div class="scale-container">
+					<div class="scale-line"></div>
+					<div class="scale-labels">
+					  <div class="scale-labels-item">
+						 <div class="indicator" style="opacity: ${dominantPercentage <= 40 ? 1 : 0};"></div>
+						 <span>УМЕРЕННО</span>
+					  </div>
+					  <div class="scale-labels-item">
+						 <div class="indicator" style="opacity: ${dominantPercentage > 40 && dominantPercentage <= 60 ? 1 : 0};"></div>
+						 <span>НЕЙТРАЛЬНО</span>
+					  </div>
+					  <div class="scale-labels-item">
+						 <div class="indicator" style="opacity: ${dominantPercentage > 60 ? 1 : 0};"></div>
+						 <span>ЯВНО</span>
+					  </div>
+					</div>
 				 </div>
-				 <p>${percentage}%</p>
 			  </div>`;
-        });
-        patternResults += `</div>`;
 
-        // Объединение аналитики и результатов в единую подкатегорию
-        subcategoryResults += `
+      subcategoryResults += `
 			<div class="subcategory-block">
-			  <div class="subcategory-title">${title}</div>
+			  <div class="subcategory-title">${subcategoryTitle}</div>
 			  <div class="subcategory-wrapper">
 				 <div class="analytics-wrapper">${analyticsBlock}</div>
 				 <div class="results-wrapper">${patternResults}</div>
 			  </div>
 			</div>`;
+    });
+
+    // Если подкатегории содержат данные, добавляем их в категорию
+    if (subcategoryResults) {
+      results += `
+			<div class="category-block ${additionalClass}">
+			  <h3 class="category-label">${categoryTitle}</h3>
+			  ${subcategoryResults}
+			</div>`;
+    }
+  });
+
+  // Если результат пустой, значит ничего не сгенерировалось
+  if (results.trim() === "") {
+    results = "<p>Не найдено данных для отображения результатов.</p>";
+  }
+
+  // Вставляем HTML результатов
+  resultContent.innerHTML = results;
+
+  // Вызываем функцию для инициализации тултипов
+  initializeTooltips();
+
+  // Делаем контейнер видимым
+  resultContainer.style.display = "flex";
+  animateOnScroll();
+
+  // Возвращаем JSON для отчётов (например, для PDF)
+  return resultsData;
+}
+function initializeTooltips() {
+	// Проверяем, является ли устройство сенсорным
+	const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+	// Добавляем обработчики на все элементы c `.info-tooltiptest-wrapper`
+	document.querySelectorAll(".info-tooltiptest-wrapper").forEach((tooltipWrapper) => {
+	  console.log("Добавляем обработчик для:", tooltipWrapper); // Для отладки
+	  const tooltip = tooltipWrapper.querySelector(".tooltiptest");
+	  const infoIcon = tooltipWrapper.querySelector(".info-icon");
+
+	  // Проверяем наличие тултипа и иконки
+	  if (tooltip && infoIcon) {
+		 if (isTouchDevice) {
+			// === ОБРАБОТЧИКИ ДЛЯ СЕНСОРНЫХ УСТРОЙСТВ ===
+			tooltipWrapper.addEventListener("click", (event) => {
+			  console.log("Клик на info-icon (мобильные)");
+
+			  // Скрываем все другие тултипы перед открытием текущего
+			  document.querySelectorAll(".tooltiptest").forEach((otherTooltip) => {
+				 if (otherTooltip !== tooltip) {
+					otherTooltip.style.visibility = "hidden";
+					otherTooltip.style.opacity = "0";
+				 }
+			  });
+
+			  // Переключаем состояние текущего тултипа
+			  const isVisible = tooltip.style.visibility === "visible";
+			  if (!isVisible) {
+				 tooltip.style.visibility = "visible";
+				 tooltip.style.opacity = "1";
+			  } else {
+				 tooltip.style.visibility = "hidden";
+				 tooltip.style.opacity = "0";
+			  }
+
+			  // Остановить всплытие события
+			  event.stopPropagation();
+			});
+		 } else {
+			// === ОБРАБОТЧИКИ ДЛЯ ПК — НАВЕДЕНИЕ ===
+			infoIcon.addEventListener("mouseenter", () => {
+			  console.log("Наведение на info-icon");
+			  tooltip.style.visibility = "visible";
+			  tooltip.style.opacity = "1";
+			});
+
+			infoIcon.addEventListener("mouseleave", () => {
+			  console.log("Уход курсора с info-icon");
+			  tooltip.style.visibility = "hidden";
+			  tooltip.style.opacity = "0";
+			});
+		 }
+	  }
+	});
+
+	// === ОБРАБОТЧИК ГЛОБАЛЬНОГО КЛИКА ===
+	document.addEventListener("click", (event) => {
+	  console.log("Клик вне тултипа: скрываем все тултипы");
+
+	  // Проверяем, клик попал ли внутрь `.info-tooltiptest-wrapper`
+	  const isInside = event.target.closest(".info-tooltiptest-wrapper");
+	  if (!isInside) {
+		 // Если клик не попал в тултип или обертку, скрываем все тултипы
+		 document.querySelectorAll(".tooltiptest").forEach((tooltip) => {
+			tooltip.style.visibility = "hidden";
+			tooltip.style.opacity = "0";
+		 });
+	  }
+	});
+ }
+
+
+// Загрузка вопросов при старте
+loadQuestions();
+
+function showResultTable() {
+  if (!answers || answers.length === 0) {
+    alert("Вы не завершили тест. Пожалуйста, ответьте на все вопросы.");
+    resetQuiz();
+    return;
+  }
+
+  const resultTableContainer = document.getElementById("result-table-container");
+  let tableResults = `<h2>Таблица с результатами</h2><div class="result-table-content">`;
+
+  tableResults += `
+	  <table>
+		 <thead>
+			<tr>
+			  <th>№</th>
+			  <th>Вопрос</th>
+			  <th>Ваш ответ</th>
+			  <th>Расшифровка ответа</th>
+			</tr>
+		 </thead>
+		 <tbody>`;
+
+  answers.forEach((selectedAnswer, index) => {
+    const question = questionsWithPatterns[index];
+    if (!question) return;
+
+    const selectedIndex = question.options.indexOf(selectedAnswer);
+    const decodedAnswer = selectedIndex !== -1 ? question.patterns[selectedIndex] : "Нет расшифровки";
+
+    tableResults += `
+		 <tr>
+			<td>${index + 1}</td>
+			<td>${question.question}</td>
+			<td>${selectedAnswer || "Не выбрано"}</td>
+			<td>${decodedAnswer || "Не выбрано"}</td>
+		 </tr>`;
+  });
+
+  tableResults += `</tbody></table></div>`;
+
+  resultTableContainer.innerHTML = tableResults;
+  resultTableContainer.style.display = "block";
+}
+function showReferenceTable() {
+  const referenceTableContainer = document.getElementById("reference-table-container"); // Контейнер для справки
+  let referenceTableResults = ""; // Хранение результирующего HTML
+
+  // Заголовок для справочной таблицы
+  referenceTableResults += `<h2>Справочная таблица вопросов</h2>`;
+  referenceTableResults += `<div class="reference-table-content">`;
+
+  // Проверка: данные категорий существуют
+  if (!Array.isArray(categories) || categories.length === 0) {
+    referenceTableResults += `<p>Категории не найдены.</p>`;
+    referenceTableContainer.innerHTML = referenceTableResults;
+    referenceTableContainer.style.display = "block";
+    return;
+  }
+
+  // Обход категорий
+  categories.forEach((category) => {
+    const categoryTitle = category.title.ru || category.title.en; // Получаем название категории (на русском или английском)
+
+    // Генерируем заголовок категории перед таблицей
+    referenceTableResults += `<h3>Категория: ${categoryTitle}</h3>`; // Название текущей категории
+
+    if (!Array.isArray(category.subcategories) || category.subcategories.length === 0) {
+      referenceTableResults += `<p>Нет подкатегорий для этой категории.</p>`;
+      return;
+    }
+
+    // Начало таблицы для текущей категории
+    referenceTableResults += `<table>
+			  <thead>
+				 <tr>
+					 <th>Вопрос</th>
+					 <th>Вариант ответа</th>
+					 <th>Расшифровка ответа</th>
+					 <th>№</th> <!-- Столбец для номера вопроса -->
+				 </tr>
+			  </thead>
+			  <tbody>`;
+
+    // Обход подкатегорий
+    category.subcategories.forEach((subcategory) => {
+      const subcategoryTitle = subcategory.title.ru || subcategory.title.en;
+
+      const questionDetails = {}; // Для хранения вопросов и их вариантов
+
+      // Обход паттернов подкатегории
+      subcategory.patterns.forEach((pattern) => {
+        questionsWithPatterns.forEach((question, questionIndex) => {
+          const patternIndex = question.patterns.indexOf(pattern.pattern.ru || pattern.pattern.en);
+          if (patternIndex !== -1) {
+            if (!questionDetails[question.question]) {
+              questionDetails[question.question] = [];
+            }
+            questionDetails[question.question].push({
+              answer: question.options[patternIndex],
+              explanation: question.patterns[patternIndex],
+              number: questionIndex + 1,
+            });
+          }
+        });
+      });
+
+      // Если в подкатегории есть вопросы
+      if (Object.keys(questionDetails).length > 0) {
+        // Выводим заголовок текущей подкатегории
+        referenceTableResults += `
+			  <tr>
+				 <th colspan="4" class="reference__subtitlecategory">${subcategoryTitle}</th>
+			  </tr>`;
+
+        // Печать вопросов и вариантов для подкатегории
+        Object.entries(questionDetails).forEach(([questionText, variants]) => {
+          const firstVariant = variants[0];
+          const countVariants = variants.length;
+
+          // Добавляем строку с первым вариантом ответа (и объединение ячеек через rowspan)
+          referenceTableResults += `
+					  <tr>
+						 <td class="question-cell" rowspan="${countVariants}">${questionText}</td> <!-- Добавлен class="question-cell" -->
+						 <td>${firstVariant.answer}</td> <!-- Первый вариант ответа -->
+						 <td>${firstVariant.explanation}</td> <!-- Расшифровка первого варианта -->
+						 <td class="question-cell-number"  rowspan="${countVariants}">${firstVariant.number}</td> <!-- Номер первого вопроса с rowspan -->
+					  </tr>`;
+
+          // Добавляем остальные строки для других вариантов
+          for (let i = 1; i < variants.length; i++) {
+            const variant = variants[i];
+            referenceTableResults += `
+						<tr>
+							<td>${variant.answer}</td>
+							<td>${variant.explanation}</td>
+						</tr>`;
+          }
+        });
+      } else {
+        // Если для подкатегории нет вопросов
+        referenceTableResults += `
+			  <tr>
+				 <td colspan="4" class="no-questions">Нет вопросов для этой подкатегории</td>
+			  </tr>`;
       }
     });
 
-    // Добавляем результаты категории, если есть заполненные паттерны
-    if (subcategoryResults) {
-      results += `<div class="category-block"><h3>${category}</h3>${subcategoryResults}</div>`;
-    }
-  }
-
-  // Вставляем результаты на страницу
-  resultContent.innerHTML = results;
-  resultContainer.style.display = "flex";
-}
-
-function nextQuestion() {
-  const selectedOption = document.querySelector('input[name="answer"]:checked');
-  const errorMessage = document.getElementById("error-message"); // Получаем элемент сообщения об ошибке
-
-  if (selectedOption) {
-    // Сохраняем выбранный ответ
-    answers.push(selectedOption.value);
-
-    const question = questionsWithPatterns[currentQuestionIndex];
-    const selectedIndex = question.options.indexOf(selectedOption.value);
-    const pattern = question.patterns[selectedIndex];
-    // Сохраняем паттерн
-    patterns.push(pattern);
-
-    currentQuestionIndex++;
-    errorMessage.style.display = "none";
-
-    if (currentQuestionIndex < questionsWithPatterns.length) {
-      showQuestion();
-    } else {
-      showResults();
-    }
-  } else {
-    // Показать сообщение об ошибке
-    errorMessage.style.display = "block"; // Отображаем сообщение
-  }
-}
-
-function previousQuestion() {
-  if (currentQuestionIndex > 0) {
-    currentQuestionIndex--;
-    showQuestion();
-  }
-}
-
-// Функция для сброса опроса
-function resetQuiz() {
-  currentQuestionIndex = 0;
-  answers.length = 0;
-  patterns.length = 0; // Очищаем массив паттернов
-  document.getElementById("error-message").style.display = "none"; // Скрываем сообщение
-  showQuestion();
-  document.getElementById("result-container").style.display = "none";
-  document.getElementById("question-counter").style.display = "block";
-  document.querySelector(".quiz-patterns__subtitle").textContent = "Выберите слово по смыслу";
-  document.getElementById("quiz-content").style.display = "flex";
-  const quizPatternsBlock = document.querySelector(".quiz-patterns__block");
-  quizPatternsBlock.style.maxWidth = "800px";
-}
-
-const patternCategoryMap = {
-  "Паттерны мышления": ["Дедуктивное мышление", "Индуктивное мышление", "Аналитичное мышление", "Системное мышление", "Рефлексивность", "Импульсивность"],
-  "Паттерны коммуникации": [
-    "Высокий контекст",
-    "Низкий контекст",
-    "Прямая коммуникация",
-    "Непрямая коммуникация",
-    "Эмоциональность",
-    "Нейтральность",
-    "Формальность",
-    "Неформальность",
-  ],
-  "Паттерны поведения": [
-    "Контроль",
-    "Гармония",
-    "Смирение",
-    "Защищать границы",
-    "Делиться ресурсами",
-    "Быть",
-    "Делать",
-    "Индивидуализм",
-    "Коллективизм",
-    "Стабильность",
-    "Изменения",
-    "Конкуренция",
-    "Сотрудничество",
-  ],
-  "Паттерны организации времени": [
-    "Дефицит времени",
-    "Изобилие времени",
-    "Монохронность",
-    "Полихронность",
-    "Прошлое",
-    "Настоящее",
-    "Будущее",
-    "Краткосрочная стратегия",
-    "Долгосрочная стратегия",
-  ],
-};
-
-// Используем уже определённую функцию categorizePatterns
-function categorizePatterns(results) {
-  // Очищаем категории
-  for (const category in patternCategories) {
-    patternCategories[category] = [];
-  }
-
-  results.forEach((pattern) => {
-    for (const [category, patterns] of Object.entries(patternCategoryMap)) {
-      if (patterns.includes(pattern) && !patternCategories[category].includes(pattern)) {
-        patternCategories[category].push(pattern);
-      }
-    }
+    // Закрыть таблицу для текущей категории
+    referenceTableResults += `
+			  </tbody>
+			</table>`;
   });
+
+  // Закрываем общий контейнер для справочной таблицы
+  referenceTableResults += `</div>`;
+  referenceTableContainer.innerHTML = referenceTableResults;
+  referenceTableContainer.style.display = "block"; // Показываем итоговый контейнер
 }
 
-// Инициализация
-document.addEventListener("DOMContentLoaded", () => {
-  showQuestion();
-});
+//Функция анимации
+function animateOnScroll() {
+  // Находим все элементы для анимации
+  const animBlocks = document.querySelectorAll(".subcategory-wrapper, .category-label, .subcategory-title");
 
-/* ===================================== */
-document.addEventListener("DOMContentLoaded", () => {
-  showQuestion();
+  // Проверяем, найдены ли элементы на странице
+  if (animBlocks.length === 0) {
+    console.warn("No elements found to animate!");
+    return;
+  }
 
-  // Добавляем обработчик для тестовой кнопки
-  document.getElementById("fill-test-answers").addEventListener("click", fillTestAnswers);
-});
+  // Опции для наблюдателя
+  const observerOptions = {
+    root: null, // Наблюдение в пределах viewport (области просмотра)
+    rootMargin: "0px", // Без отступов
+    threshold: 0.2, // Запустить при 10% видимости элемента
+  };
+
+  // Функция срабатывания для отдельных элементов
+  const observerCallback = (entries, observer) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        console.log(`Element ${entry.target} is visible.`);
+        // Добавляем класс, чтобы запускать анимацию
+        entry.target.classList.add("_anim-active");
+        // Убираем элемент из наблюдения
+        observer.unobserve(entry.target);
+      } else {
+        console.log(`Element ${entry.target} is NOT visible.`);
+      }
+    });
+  };
+
+  // Создаем наблюдатель
+  const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+  // Отслеживаем каждый блок
+  animBlocks.forEach((block) => observer.observe(block));
+}
+
+// Тест - заполняется
 function fillTestAnswers() {
   // Очистка массивов ответов и паттернов
   answers.length = 0; // Или answers = [];
@@ -574,4 +648,222 @@ function fillTestAnswers() {
   // Устанавливаем индекс на конец вопросов
   currentQuestionIndex = questionsWithPatterns.length;
   showResults(); // Показываем результаты
+  showResultTable();
+  showReferenceTable();
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  showQuestion();
+
+  // Добавляем обработчик для тестовой кнопки
+  document.getElementById("fill-test-answers").addEventListener("click", fillTestAnswers);
+});
+
+/* Скачивание ПДФ ===================================== */
+// Функция для загрузки файла patterns_data.json
+async function loadPatterns() {
+	try {
+	  const response = await fetch("patterns_data.json");
+	  if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+	  const data = await response.json();
+
+	  // Возвращаем список категорий
+	  return data.categories || [];
+	} catch (error) {
+	  console.error("Ошибка загрузки patterns_data.json:", error);
+	  return []; // Возвращаем пустой массив, если произошла ошибка
+	}
+ }
+
+ // Функция для генерации PDF
+ function generatePDF(resultsData, patternsData) {
+	const defaultStyles = {
+	  pdfTitle: {
+		 fontSize: 22,
+		 bold: true,
+		 alignment: "center",
+		 margin: [0, 0, 0, 10],
+	  },
+	  descriptionText: {
+		 fontSize: 12,
+		 alignment: "justify",
+		 margin: [0, 0, 0, 20],
+	  },
+	  categoryHeader: {
+		 fontSize: 16,
+		 bold: true,
+		 margin: [0, 10, 0, 5],
+	  },
+	  subCategoryHeader: {
+		 fontSize: 14,
+		 italics: true,
+		 margin: [5, 5, 0, 5],
+	  },
+	  noQuestions: {
+		 fontSize: 12,
+		 italics: true,
+		 color: "#ff0000",
+		 margin: [0, 5, 0, 15],
+	  },
+	  tableHeader: {
+		 bold: true,
+		 fontSize: 12,
+		 fillColor: "#f2f2f2",
+	  },
+	  tableCell: {
+		 fontSize: 10,
+		 alignment: "center",
+	  },
+	};
+
+	// Функция обогащения тестовых данных из JSON с паттернами
+	const enrichData = (patternsData, resultsData) => {
+	  const enrichedData = {};
+
+	  // Перебираем категории из patternsData
+	  patternsData.forEach((category) => {
+		 const categoryTitle = category.title.ru; // Название категории на русском
+		 enrichedData[categoryTitle] = [];
+
+		 // Перебираем подкатегории внутри категории
+		 category.subcategories.forEach((subcategory) => {
+			const subcategoryTitle = subcategory.title.ru;
+
+			// Находим подкатегорию в результатах теста
+			const testResults = resultsData[categoryTitle]?.find(
+			  (resultSubcategory) => resultSubcategory.subcategory === subcategoryTitle
+			);
+
+			// Сохраняем обогащённые данные
+			enrichedData[categoryTitle].push({
+			  subcategory: subcategoryTitle,
+			  responses: testResults?.responses || [], // Результаты (если есть, иначе пустой массив)
+			  patterns: subcategory.patterns.map((pattern) => ({
+				 title: pattern.pattern.ru,
+				 description: pattern.description.ru,
+			  })), // Паттерны из patterns_data.json
+			});
+		 });
+	  });
+
+	  return enrichedData;
+	};
+
+	// Обогащение данных
+	const enrichedResults = enrichData(patternsData, resultsData);
+
+	// Генерация контента для PDF
+	const generateContent = (results) => {
+	  const content = [];
+
+	  // Заголовок PDF
+	  content.push({
+		 text: "Результаты теста",
+		 style: "pdfTitle",
+	  });
+
+	  // Добавление описания
+	  content.push({
+		 text: "Все категории, подкатегории и паттерны, независимо от наличия ответов в результате теста.",
+		 style: "descriptionText",
+	  });
+
+	  // Итерация по категориям
+	  for (const category in results) {
+		 content.push({
+			text: category,
+			style: "categoryHeader",
+		 });
+
+		 results[category].forEach((subcategory) => {
+			content.push({
+			  text: subcategory.subcategory,
+			  style: "subCategoryHeader",
+			});
+
+			// Если нет ответов в подкатегории
+			if (subcategory.responses.length === 0) {
+			  content.push({
+				 text: "Нет ответов для этой подкатегории.",
+				 style: "noQuestions",
+			  });
+			} else {
+			  // Генерация таблицы для подкатегории
+			  const tableBody = [
+				 [
+					{ text: "Паттерн", style: "tableHeader" },
+					{ text: "Количество", style: "tableHeader" },
+					{ text: "Процент", style: "tableHeader" },
+				 ],
+			  ];
+
+			  subcategory.responses.forEach((response) => {
+				 tableBody.push([
+					{ text: response.pattern, style: "tableCell" },
+					{ text: response.count, style: "tableCell" },
+					{ text: `${response.percentage}%`, style: "tableCell" },
+				 ]);
+			  });
+
+			  content.push({
+				 table: {
+					headerRows: 1,
+					widths: ["*", "auto", "auto"],
+					body: tableBody,
+				 },
+				 layout: "lightHorizontalLines",
+				 margin: [0, 5, 0, 15],
+			  });
+			}
+
+			// Описание паттернов
+			content.push({
+			  text: "Описание паттернов:",
+			  style: "descriptionText",
+			  margin: [0, 10, 0, 5],
+			});
+
+			subcategory.patterns.forEach((pattern) => {
+			  content.push({
+				 text: `• ${pattern.title}: ${pattern.description}`,
+				 style: "descriptionText",
+				 margin: [0, 0, 0, 5],
+			  });
+			});
+		 });
+	  }
+
+	  return content;
+	};
+
+	// Определение структуры PDF
+	const docDefinition = {
+	  content: generateContent(enrichedResults),
+	  styles: defaultStyles,
+	};
+
+	// Генерация PDF
+	pdfMake.createPdf(docDefinition).download("test_results.pdf");
+ }
+
+ // Обработчик загрузки и генерации PDF
+ document.getElementById("download-pdf").addEventListener("click", async () => {
+	// Загружаем результаты теста
+	const resultsData = showResults();
+
+	// Загружаем patterns_data.json
+	const patternsData = await loadPatterns();
+
+	if (!patternsData || patternsData.length === 0) {
+	  alert("Ошибка: данных о паттернах не найдено!");
+	  return;
+	}
+
+	if (!resultsData) {
+	  alert("Ошибка: результаты теста не найдены!");
+	  return;
+	}
+
+	// Генерация PDF
+	generatePDF(resultsData, patternsData);
+ });

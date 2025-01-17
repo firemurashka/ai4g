@@ -152,13 +152,19 @@
 }
 
 .quiz-patterns__block {
+  margin: 0 auto;
   max-width: 800px;
-  margin: 20px auto;
   background: #fff;
   color: #150931;
   padding: 20px;
-  border-radius: 8px;
+  border-radius: 16px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  margin-bottom: 60px;
+  @media (max-width: 768px) {
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
 }
 
 .quiz-patterns__contant {
@@ -179,13 +185,15 @@
   font-size: 20px;
   line-height: 30px;
   opacity: 0.8;
+  margin: 0px 0px 20px 0px;
 }
 
 .question {
   margin-bottom: 30px;
-  font-weight: 500;
+  font-weight: 400;
   font-size: 22px;
-  line-height: 130%;
+  line-height: 150%;
+  text-align: center;
 }
 
 .question span {
@@ -239,8 +247,8 @@ input[type="radio"] {
 }
 
 input[type="radio"]:checked + .radio-label:before {
-  border: 1px solid #06ea6f;
-  background: #06ea6f;
+  border: 1px solid #0060ff;
+  background: #3b82f6;
 }
 
 .button-container {
@@ -255,21 +263,23 @@ input[type="radio"]:checked + .radio-label:before {
   display: flex;
   align-self: flex-end;
   align-items: center;
-  background: #06ea6f;
-  border-radius: 37px;
+  background: #007bff;
+  border-radius: 8px;
   position: relative;
   z-index: 10;
   transition: all 0.3s ease;
   font-size: 16px;
-  font-weight: 400;
+  font-weight: 500;
   padding: 10px 20px;
   border: none;
-  color: #150931;
+  color: #fff;
   cursor: pointer;
   font-family: "Montserrat", sans-serif;
-  margin: 15px 0px 0px 0px;
 }
 
+.quiz-patterns__button:hover {
+  background: #006adc;
+}
 .quiz-patterns__button:active {
   transform: translateY(1px);
 }
@@ -280,9 +290,9 @@ input[type="radio"]:checked + .radio-label:before {
 
 .question-counter {
   text-align: right;
-  font-size: 18px;
-  margin: 0 0 20px 0;
-  color: #150931;
+  font-size: 16px;
+  margin: 0 0 10px 0;
+  color: #a6a6a6;
 }
 
 /* --------------------- */
@@ -303,20 +313,86 @@ input[type="radio"]:checked + .radio-label:before {
   font-weight: 500;
 }
 
-.result__content h3 {
-  margin: 0 0 20px 0;
-  color: #3b82f6;
-  font-weight: 600;
-  font-size: 24px;
-  text-align: center;
-}
-.result__content h4 {
-  margin: 0 0 10px 0;
-  color: #150931;
-  font-weight: 500;
+.category-label {
   font-size: 20px;
-  text-align: center;
+  font-weight: 600;
+  margin-bottom: 30px;
+  position: relative;
+  padding-left: 35px;
+  @media (max-width: 768px) {
+    margin-bottom: 20px;
+  }
 }
+.category-label::before {
+  position: absolute;
+  content: "";
+  left: 0;
+  top: -3px;
+  height: 25px;
+  width: 25px;
+}
+
+.category-block__clock .indicator {
+  background-color: #02cc6b;
+}
+.category-block__hands .indicator {
+  background-color: #cc6b02;
+}
+.category-block__man .indicator {
+  background-color: #6b02cc;
+}
+.category-block__mind .indicator {
+  background-color: #cc026b;
+}
+.category-block__clock .category-label {
+  color: #02cc6b;
+}
+.category-block__hands .category-label {
+  color: #cc6b02;
+}
+.category-block__man .category-label {
+  color: #6b02cc;
+}
+.category-block__mind .category-label {
+  color: #cc026b;
+}
+.category-block__clock .scale-bar {
+  background-color: #aceecf;
+}
+.category-block__hands .scale-bar {
+  background-color: #eecfac;
+}
+.category-block__man .scale-bar {
+  background-color: #cfacee;
+}
+.category-block__mind .scale-bar {
+  background-color: #eeaccf;
+}
+.category-block__clock .scale-bar-container {
+  background-color: #e9faf3;
+}
+.category-block__hands .scale-bar-container {
+  background-color: #f8ecdd;
+}
+.category-block__man .scale-bar-container {
+  background-color: #ecddf8;
+}
+.category-block__mind .scale-bar-container {
+  background-color: #f8ddec;
+}
+.category-block__clock .category-label::before {
+  background: url(../img/test-patterns/clock.svg) 0 0 / 100% 100% no-repeat;
+}
+.category-block__hands .category-label::before {
+  background: url(../img/test-patterns/hands.svg) 0 0 / 100% 100% no-repeat;
+}
+.category-block__man .category-label::before {
+  background: url(../img/test-patterns/man.svg) 0 0 / 100% 100% no-repeat;
+}
+.category-block__mind .category-label::before {
+  background: url(../img/test-patterns/mind.svg) 0 0 / 100% 100% no-repeat;
+}
+
 .result__content ul {
   margin: 0 0 15px 0;
 }
@@ -377,74 +453,51 @@ input[type="radio"]:checked + .radio-label:before {
   margin: 5px 0;
 }
 
-.scale-bar-container {
-  background-color: #e0e0e0;
-  border-radius: 5px;
-  height: 20px;
-  margin: 5px 0;
-  width: 100%;
-}
-
-.scale-bar-title {
-  font-weight: 500;
-}
-
 .category-block {
-  margin-bottom: 40px;
-  /*   padding: 15px; */
-  /* border: 1px solid #6ee7b7;
-  border-radius: 8px; */
+  margin-bottom: 30px;
+  padding: 30px;
+  border: 1px solid #dde3e8;
+  background: #ffffff;
+  border-radius: 5px;
+  @media (max-width: 768px) {
+    padding: 15px;
+  }
 }
 
 .subcategory-content {
   display: grid;
-  gap: 5px;
+  gap: 20px;
 }
 .subcategory-block:not(:last-child) {
-  margin-bottom: 40px;
+  margin-bottom: 60px;
 }
 
 .subcategory-title {
-  font-weight: bold;
-  margin: 0px 0px 20px 0px;
-  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 30px;
+  line-height: 130%;
 }
 
 .scale-bar-container {
-  background-color: #fff;
+  position: relative;
   border-radius: 5px;
-  border: 1px solid #00a74d59;
+  height: 8px;
   overflow: hidden;
-  height: 15px;
-  width: 100%;
+  background-color: #e9faf3;
 }
 .scale-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
   height: 100%;
-  background-color: #00a74d59;
   border-radius: 5px;
-  text-align: right; /* Выравнивание текста по правому краю */
-  transition: width 0.2s ease;
-  height: 100%;
-}
-/* .pattern-result {
-  background-color: #f0f0f0;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  padding: 10px;
-  margin: 0px 0px 10px 0px;
-} */
-.pattern-result {
-  padding: 5px 10px;
+  transition: width 0.3s ease;
 }
 
 .scale-container {
   position: relative;
-  width: 100%;
   height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 20px;
 }
 .scale-labels {
   position: absolute;
@@ -462,7 +515,6 @@ input[type="radio"]:checked + .radio-label:before {
   top: -10px;
   width: 20px;
   height: 10px;
-  background-color: #ff008a;
   border-radius: 8px;
   z-index: 2;
 }
@@ -476,14 +528,16 @@ input[type="radio"]:checked + .radio-label:before {
 }
 .subcategory-wrapper {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 40px;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 }
 .analytics-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
 }
 .analytics-block {
   width: 100%;
@@ -509,3 +563,262 @@ input[type="radio"]:checked + .radio-label:before {
   flex-direction: column;
   align-items: center;
 }
+/* Исходное состояние элемента (скрыт) */
+.subcategory-wrapper {
+  opacity: 0;
+  transform: translateY(20px); /* Сдвиг вниз */
+  transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
+}
+
+/* Активное состояние (будет применяться через класс) */
+.subcategory-wrapper._anim-active {
+  opacity: 1;
+  transform: translateY(0); /* Возвращаемся на место */
+}
+
+.subcategory-title {
+  opacity: 0; /* Скрыт по умолчанию */
+  transform: translateY(20px); /* Сдвинут вниз */
+  transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
+}
+
+.subcategory-title._anim-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+.category-label {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
+}
+
+.category-label._anim-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Таблицы теста-=================================== */
+#result-table-container {
+  margin: 0px 0px 60px 0px;
+}
+#result-table-container table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+  margin-bottom: 30px;
+  table-layout: auto;
+}
+#result-table-container h2 {
+  color: #150931;
+  text-align: center;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 30px;
+  opacity: 0.8;
+  margin-bottom: 20px;
+}
+
+.result-table-content {
+  background: #fff;
+  color: #150931;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  line-height: 140%;
+  font-size: 14px;
+}
+.result-table-content br {
+  display: none;
+}
+
+#reference-table-container {
+  margin: 0px 0px 60px 0px;
+}
+.reference-table-content {
+  background: #fff;
+  color: #150931;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  line-height: 140%;
+  font-size: 14px;
+}
+#reference-table-container h2 {
+  color: #150931;
+  text-align: center;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 30px;
+  opacity: 0.8;
+  margin-bottom: 20px;
+}
+#reference-table-container h3 {
+  font-size: 24px;
+  line-height: 140%;
+  font-weight: 500;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #007bff;
+  padding-bottom: 10px;
+  color: #150931;
+}
+
+#reference-table-container table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+  margin-bottom: 30px;
+  table-layout: auto;
+}
+
+th {
+  background-color: #007bff;
+  color: white;
+  padding: 10px;
+  text-align: left;
+}
+
+td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  color: #444;
+  word-wrap: break-word;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+td[rowspan] {
+  vertical-align: top;
+}
+
+table {
+  margin-bottom: 20px;
+}
+
+.reference__subtitlecategory {
+  background-color: #f4f4f5;
+  color: #000;
+  font-weight: 600;
+  border: 1px solid #ddd;
+  padding: 10px;
+  color: #444;
+  word-wrap: break-word;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+td[rowspan] {
+  vertical-align: top;
+}
+
+td.question-cell[rowspan] {
+  vertical-align: middle;
+}
+.question-cell span {
+  font-weight: 500;
+}
+.question-cell br {
+display: none;
+}
+td.question-cell-number[rowspan] {
+  vertical-align: middle;
+  text-align: center;
+}
+.question-cell-number span {
+  font-weight: 500;
+}
+
+.pattern-result__label {
+  font-size: 16px;
+  font-weight: 400;
+  margin-bottom: 10px;
+  line-height: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Стили для подсказки ==================================================*/
+.scale-bar-title-wrapper {
+  display: inline-block;
+  position: relative;
+  padding-right: 30px;
+}
+
+.scale-bar-title {
+  font-weight: 500;
+  line-height: 1;
+}
+
+.info-icon {
+	position: absolute;
+	top: -5px;
+	right: 5px;
+	display: flex
+;
+	justify-content: center;
+	align-items: center;
+	width: 18px;
+	height: 18px;
+	border-radius: 50%;
+	background-color: rgb(210, 210, 210);
+	color: white;
+	font-size: 14px;
+	font-weight: 500;
+	cursor: pointer;
+	flex-shrink: 0;
+	font-style: italic;
+	line-height: 1;
+	font-family: Robor;
+}/* Базовые стили тултипа */
+.tooltiptest {
+	visibility: hidden;
+	opacity: 0;
+	position: absolute;
+	left: calc(100% + 10px); /* По умолчанию сдвиг вправо */
+	top: 50%;
+	transform: translateY(-50%);
+	background-color: rgba(0, 0, 0, 0.9);
+	color: white;
+	padding: 8px;
+	border-radius: 5px;
+	font-size: 12px;
+	text-align: center;
+	z-index: 1000;
+	line-height: 1.5;
+	transition: opacity 0.3s ease;
+	min-width: 260px;	box-sizing: border-box;    width: auto; /* Настраиваем ширину по содержимому */
+
+ }
+
+ .tooltiptest:after {
+	content: "";
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	left: -6px; /* Для стрелки справа */
+	border-width: 6px;
+	border-style: solid;
+	border-color: transparent rgba(0, 0, 0, 0.9) transparent transparent;
+ }
+
+ /* Активное состояние тултипа */
+ .tooltiptest.visible {
+	visibility: visible;
+	opacity: 1;
+ }
+
+ /* Адаптивное поведение на мобильных устройствах */
+ @media (max-width: 768px) {
+	.tooltiptest {
+	  left: 10px; /* Смещаем тултип в доступную область */
+	  right: 10px; /* Удерживаем тултип в пределах экрана */
+	  top: calc(100% + 10px); /* Перемещаем тултип ниже элемента */
+	  transform: none; /* Сбрасываем вертикальное выравнивание для мобильных устройств */
+	}
+
+	.tooltiptest:after {
+	  top: -6px; /* Размещаем стрелку наверху тултипа */
+	  left: 20px; /* Указываем отступ для стрелки */
+	  transform: none;
+	  border-color: rgba(0, 0, 0, 0.9) transparent transparent transparent; /* Меняем стрелку наверх */
+	}
+ }

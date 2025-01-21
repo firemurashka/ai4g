@@ -357,154 +357,161 @@ function showResults() {
 }
 
 function initializeTooltips() {
-	// Проверяем, является ли устройство сенсорным
-	const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  // Проверяем, является ли устройство сенсорным
+  const isTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints > 0;
 
-	// Добавляем обработчики на все элементы c `.info-tooltiptest-wrapper`
-	document.querySelectorAll(".info-tooltiptest-wrapper").forEach((tooltipWrapper) => {
-	  console.log("Добавляем обработчик для:", tooltipWrapper); // Для отладки
-	  const tooltip = tooltipWrapper.querySelector(".tooltiptest");
-	  const infoIcon = tooltipWrapper.querySelector(".info-icon");
+  // Добавляем обработчики на все элементы c `.info-tooltiptest-wrapper`
+  document.querySelectorAll(".info-tooltiptest-wrapper").forEach((tooltipWrapper) => {
+    console.log("Добавляем обработчик для:", tooltipWrapper); // Для отладки
+    const tooltip = tooltipWrapper.querySelector(".tooltiptest");
+    const infoIcon = tooltipWrapper.querySelector(".info-icon");
 
-	  // Проверяем наличие тултипа и иконки
-	  if (tooltip && infoIcon) {
-		 if (isTouchDevice) {
-			// === ОБРАБОТЧИКИ ДЛЯ СЕНСОРНЫХ УСТРОЙСТВ ===
-			tooltipWrapper.addEventListener("click", (event) => {
-			  console.log("Клик на info-icon (мобильные)");
+    // Проверяем наличие тултипа и иконки
+    if (tooltip && infoIcon) {
+      if (isTouchDevice) {
+        // === ОБРАБОТЧИКИ ДЛЯ СЕНСОРНЫХ УСТРОЙСТВ ===
+        tooltipWrapper.addEventListener("click", (event) => {
+          console.log("Клик на info-icon (мобильные)");
 
-			  // Скрываем все другие тултипы перед открытием текущего
-			  document.querySelectorAll(".tooltiptest").forEach((otherTooltip) => {
-				 if (otherTooltip !== tooltip) {
-					otherTooltip.style.visibility = "hidden";
-					otherTooltip.style.opacity = "0";
-				 }
-			  });
+          // Скрываем все другие тултипы перед открытием текущего
+          document.querySelectorAll(".tooltiptest").forEach((otherTooltip) => {
+            if (otherTooltip !== tooltip) {
+              otherTooltip.style.visibility = "hidden";
+              otherTooltip.style.opacity = "0";
+            }
+          });
 
-			  // Переключаем состояние текущего тултипа
-			  const isVisible = tooltip.style.visibility === "visible";
-			  if (!isVisible) {
-				 tooltip.style.visibility = "visible";
-				 tooltip.style.opacity = "1";
-			  } else {
-				 tooltip.style.visibility = "hidden";
-				 tooltip.style.opacity = "0";
-			  }
+          // Переключаем состояние текущего тултипа
+          const isVisible = tooltip.style.visibility === "visible";
+          if (!isVisible) {
+            tooltip.style.visibility = "visible";
+            tooltip.style.opacity = "1";
+          } else {
+            tooltip.style.visibility = "hidden";
+            tooltip.style.opacity = "0";
+          }
 
-			  // Остановить всплытие события
-			  event.stopPropagation();
-			});
-		 } else {
-			// === ОБРАБОТЧИКИ ДЛЯ ПК — НАВЕДЕНИЕ ===
-			infoIcon.addEventListener("mouseenter", () => {
-			  console.log("Наведение на info-icon");
-			  tooltip.style.visibility = "visible";
-			  tooltip.style.opacity = "1";
-			});
+          // Остановить всплытие события
+          event.stopPropagation();
+        });
+      } else {
+        // === ОБРАБОТЧИКИ ДЛЯ ПК — НАВЕДЕНИЕ ===
+        infoIcon.addEventListener("mouseenter", () => {
+          console.log("Наведение на info-icon");
+          tooltip.style.visibility = "visible";
+          tooltip.style.opacity = "1";
+        });
 
-			infoIcon.addEventListener("mouseleave", () => {
-			  console.log("Уход курсора с info-icon");
-			  tooltip.style.visibility = "hidden";
-			  tooltip.style.opacity = "0";
-			});
-		 }
-	  }
-	});
+        infoIcon.addEventListener("mouseleave", () => {
+          console.log("Уход курсора с info-icon");
+          tooltip.style.visibility = "hidden";
+          tooltip.style.opacity = "0";
+        });
+      }
+    }
+  });
 
-	// === ОБРАБОТЧИК ГЛОБАЛЬНОГО КЛИКА ===
-	document.addEventListener("click", (event) => {
-	  console.log("Клик вне тултипа: скрываем все тултипы");
+  // === ОБРАБОТЧИК ГЛОБАЛЬНОГО КЛИКА ===
+  document.addEventListener("click", (event) => {
+    console.log("Клик вне тултипа: скрываем все тултипы");
 
-	  // Проверяем, клик попал ли внутрь `.info-tooltiptest-wrapper`
-	  const isInside = event.target.closest(".info-tooltiptest-wrapper");
-	  if (!isInside) {
-		 // Если клик не попал в тултип или обертку, скрываем все тултипы
-		 document.querySelectorAll(".tooltiptest").forEach((tooltip) => {
-			tooltip.style.visibility = "hidden";
-			tooltip.style.opacity = "0";
-		 });
-	  }
-	});
- }
-
+    // Проверяем, клик попал ли внутрь `.info-tooltiptest-wrapper`
+    const isInside = event.target.closest(".info-tooltiptest-wrapper");
+    if (!isInside) {
+      // Если клик не попал в тултип или обертку, скрываем все тултипы
+      document.querySelectorAll(".tooltiptest").forEach((tooltip) => {
+        tooltip.style.visibility = "hidden";
+        tooltip.style.opacity = "0";
+      });
+    }
+  });
+}
 
 // Загрузка вопросов при старте
 loadQuestions();
 
 function showResultTable() {
-  if (!answers || answers.length === 0) {
-    alert("Вы не завершили тест. Пожалуйста, ответьте на все вопросы.");
-    resetQuiz();
-    return;
-  }
+	if (!answers || answers.length === 0) {
+	  alert("Вы не завершили тест. Пожалуйста, ответьте на все вопросы.");
+	  resetQuiz();
+	  return;
+	}
 
-  const resultTableContainer = document.getElementById("result-table-container");
-  let tableResults = `<h2>Таблица с результатами</h2><div class="result-table-content">`;
+	const resultTableContainer = document.getElementById("result-table-container");
+	let tableResults = `<h2>Таблица с результатами</h2><div class="result-table-content">`;
 
-  tableResults += `
+	tableResults += `
 	  <table>
 		 <thead>
 			<tr>
 			  <th>№</th>
 			  <th>Вопрос</th>
-			  <th>Ваш ответ</th>
-			  <th>Расшифровка ответа</th>
+			  <th>Вариант ответа 1</th>
+			  <th>Расшифровка 1</th>
+			  <th>Вариант ответа 2</th>
+			  <th>Расшифровка 2</th>
 			</tr>
 		 </thead>
 		 <tbody>`;
 
-  answers.forEach((selectedAnswer, index) => {
-    const question = questionsWithPatterns[index];
-    if (!question) return;
+	questionsWithPatterns.forEach((question, index) => {
+	  if (!question) return;
 
-    const selectedIndex = question.options.indexOf(selectedAnswer);
-    const decodedAnswer = selectedIndex !== -1 ? question.patterns[selectedIndex] : "Нет расшифровки";
+	  // Обработка вопроса, вариантов и расшифровки
+	  const option1 = question.options[0] || "Нет данных";
+	  const pattern1 = question.patterns[0] || "Нет данных";
+	  const option2 = question.options[1] || "Нет данных";
+	  const pattern2 = question.patterns[1] || "Нет данных";
 
-    tableResults += `
+	  // Добавляем строку с вопросом и его деталями
+	  tableResults += `
 		 <tr>
 			<td>${index + 1}</td>
 			<td>${question.question}</td>
-			<td>${selectedAnswer || "Не выбрано"}</td>
-			<td>${decodedAnswer || "Не выбрано"}</td>
+			<td>${option1}</td>
+			<td>${pattern1}</td>
+			<td>${option2}</td>
+			<td>${pattern2}</td>
 		 </tr>`;
-  });
+	});
 
-  tableResults += `</tbody></table></div>`;
+	tableResults += `</tbody></table></div>`;
 
-  resultTableContainer.innerHTML = tableResults;
-  resultTableContainer.style.display = "block";
-}
+	resultTableContainer.innerHTML = tableResults;
+	resultTableContainer.style.display = "block";
+ }
+
 
 function showReferenceTable() {
-	const referenceTableContainer = document.getElementById("reference-table-container"); // Контейнер для справки
-	let referenceTableResults = ""; // Хранение результирующего HTML
+  const referenceTableContainer = document.getElementById("reference-table-container"); // Контейнер для справки
+  let referenceTableResults = ""; // Хранение результирующего HTML
 
-	// Заголовок для справочной таблицы
-	referenceTableResults += `<h2>Справочная таблица вопросов</h2>`;
-	referenceTableResults += `<div class="reference-table-content">`;
+  // Заголовок для справочной таблицы
+  referenceTableResults += `<h2>Справочная таблица вопросов</h2>`;
+  referenceTableResults += `<div class="reference-table-content">`;
 
-	// Проверка: данные категорий существуют
-	if (!Array.isArray(categories) || categories.length === 0) {
-	  referenceTableResults += `<p>Категории не найдены.</p>`;
-	  referenceTableContainer.innerHTML = referenceTableResults;
-	  referenceTableContainer.style.display = "block";
-	  return;
-	}
+  // Проверка: данные категорий существуют
+  if (!Array.isArray(categories) || categories.length === 0) {
+    referenceTableResults += `<p>Категории не найдены.</p>`;
+    referenceTableContainer.innerHTML = referenceTableResults;
+    referenceTableContainer.style.display = "block";
+    return;
+  }
 
-	// Обход категорий
-	categories.forEach((category) => {
-	  const categoryTitle = category.title.ru || category.title.en; // Получаем название категории (на русском или английском)
+  // Обход категорий
+  categories.forEach((category) => {
+    const categoryTitle = category.title.ru || category.title.en; // Получаем название категории (на русском или английском)
 
-	  // Генерируем заголовок категории перед таблицей
-	  referenceTableResults += `<h3>${categoryTitle}</h3>`;
+    // Генерируем заголовок категории перед таблицей
+    referenceTableResults += `<h3>${categoryTitle}</h3>`;
 
-	  if (!Array.isArray(category.subcategories) || category.subcategories.length === 0) {
-		 referenceTableResults += `<p>Нет подкатегорий для этой категории.</p>`;
-		 return;
-	  }
+    if (!Array.isArray(category.subcategories) || category.subcategories.length === 0) {
+      referenceTableResults += `<p>Нет подкатегорий для этой категории.</p>`;
+      return;
+    }
 
-	  // Начало таблицы для текущей категории
-	  referenceTableResults += `<table>
+    // Начало таблицы для текущей категории
+    referenceTableResults += `<table>
 				<thead>
 				  <tr>
 					  <th>Вопрос</th>
@@ -515,44 +522,44 @@ function showReferenceTable() {
 				</thead>
 				<tbody>`;
 
-	  // Обход подкатегорий
-	  category.subcategories.forEach((subcategory) => {
-		 const subcategoryTitle = subcategory.title.ru || subcategory.title.en;
+    // Обход подкатегорий
+    category.subcategories.forEach((subcategory) => {
+      const subcategoryTitle = subcategory.title.ru || subcategory.title.en;
 
-		 const questionDetails = {}; // Для хранения вопросов и их вариантов
+      const questionDetails = {}; // Для хранения вопросов и их вариантов
 
-		 // Обход паттернов подкатегории
-		 subcategory.patterns.forEach((pattern) => {
-			questionsWithPatterns.forEach((question, questionIndex) => {
-			  const patternIndex = question.patterns.indexOf(pattern.pattern.ru || pattern.pattern.en);
-			  if (patternIndex !== -1) {
-				 if (!questionDetails[question.question]) {
-					questionDetails[question.question] = [];
-				 }
-				 questionDetails[question.question].push({
-					answer: question.options[patternIndex],
-					explanation: question.patterns[patternIndex],
-					number: questionIndex + 1,
-				 });
-			  }
-			});
-		 });
+      // Обход паттернов подкатегории
+      subcategory.patterns.forEach((pattern) => {
+        questionsWithPatterns.forEach((question, questionIndex) => {
+          const patternIndex = question.patterns.indexOf(pattern.pattern.ru || pattern.pattern.en);
+          if (patternIndex !== -1) {
+            if (!questionDetails[question.question]) {
+              questionDetails[question.question] = [];
+            }
+            questionDetails[question.question].push({
+              answer: question.options[patternIndex],
+              explanation: question.patterns[patternIndex],
+              number: questionIndex + 1,
+            });
+          }
+        });
+      });
 
-		 // Заголовок текущей подкатегории (добавляется всегда, вне зависимости от наличия вопросов)
-		 referenceTableResults += `
+      // Заголовок текущей подкатегории (добавляется всегда, вне зависимости от наличия вопросов)
+      referenceTableResults += `
 			<tr>
 			  <th colspan="4" class="reference__subtitlecategory">${subcategoryTitle}</th>
 			</tr>`;
 
-		 // Если в подкатегории есть вопросы
-		 if (Object.keys(questionDetails).length > 0) {
-			// Печать вопросов и вариантов для подкатегории
-			Object.entries(questionDetails).forEach(([questionText, variants]) => {
-			  const firstVariant = variants[0];
-			  const countVariants = variants.length;
+      // Если в подкатегории есть вопросы
+      if (Object.keys(questionDetails).length > 0) {
+        // Печать вопросов и вариантов для подкатегории
+        Object.entries(questionDetails).forEach(([questionText, variants]) => {
+          const firstVariant = variants[0];
+          const countVariants = variants.length;
 
-			  // Добавляем строку с первым вариантом ответа (и объединение ячеек через rowspan)
-			  referenceTableResults += `
+          // Добавляем строку с первым вариантом ответа (и объединение ячеек через rowspan)
+          referenceTableResults += `
 						<tr>
 						  <td class="question-cell" rowspan="${countVariants}">${questionText}</td>
 						  <td>${firstVariant.answer}</td>
@@ -560,37 +567,36 @@ function showReferenceTable() {
 						  <td class="question-cell-number" rowspan="${countVariants}">${firstVariant.number}</td>
 						</tr>`;
 
-			  // Добавляем остальные строки для других вариантов
-			  for (let i = 1; i < variants.length; i++) {
-				 const variant = variants[i];
-				 referenceTableResults += `
+          // Добавляем остальные строки для других вариантов
+          for (let i = 1; i < variants.length; i++) {
+            const variant = variants[i];
+            referenceTableResults += `
 						 <tr>
 							 <td>${variant.answer}</td>
 							 <td>${variant.explanation}</td>
 						 </tr>`;
-			  }
-			});
-		 } else {
-			// Если для подкатегории нет вопросов
-			referenceTableResults += `
+          }
+        });
+      } else {
+        // Если для подкатегории нет вопросов
+        referenceTableResults += `
 			<tr>
 			  <td colspan="4" class="no-questions">Нет вопросов для этой подкатегории</td>
 			</tr>`;
-		 }
-	  });
+      }
+    });
 
-	  // Закрыть таблицу для текущей категории
-	  referenceTableResults += `
+    // Закрыть таблицу для текущей категории
+    referenceTableResults += `
 				</tbody>
 			 </table>`;
-	});
+  });
 
-	// Закрываем общий контейнер для справочной таблицы
-	referenceTableResults += `</div>`;
-	referenceTableContainer.innerHTML = referenceTableResults;
-	referenceTableContainer.style.display = "block"; // Показываем итоговый контейнер
- }
-
+  // Закрываем общий контейнер для справочной таблицы
+  referenceTableResults += `</div>`;
+  referenceTableContainer.innerHTML = referenceTableResults;
+  referenceTableContainer.style.display = "block"; // Показываем итоговый контейнер
+}
 
 //Функция анимации
 function animateOnScroll() {
@@ -665,224 +671,221 @@ document.addEventListener("DOMContentLoaded", () => {
 /* Скачивание ПДФ ===================================== */
 // Функция для загрузки файла patterns_data.json
 async function loadPatterns() {
-	try {
-	  const response = await fetch("patterns_data.json");
-	  if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-	  const data = await response.json();
+  try {
+    const response = await fetch("patterns_data.json");
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+    const data = await response.json();
 
-	  // Возвращаем список категорий
-	  return data.categories || [];
-	} catch (error) {
-	  console.error("Ошибка загрузки patterns_data.json:", error);
-	  return []; // Возвращаем пустой массив, если произошла ошибка
-	}
- }
+    // Возвращаем список категорий
+    return data.categories || [];
+  } catch (error) {
+    console.error("Ошибка загрузки patterns_data.json:", error);
+    return []; // Возвращаем пустой массив, если произошла ошибка
+  }
+}
 
- // Функция для генерации PDF
+// Функция для генерации PDF
 // Функция для генерации PDF
 function generatePDF(resultsData, patternsData, customStyles = {}) {
-	// Базовые стили
-	const defaultStyles = {
-	  pdfTitle: {
-		 fontSize: 22,
-		 bold: true,
-		 alignment: "center",
-		 margin: [0, 0, 0, 10],
-	  },
-	  descriptionText: {
-		 fontSize: 12,
-		 alignment: "justify",
-		 margin: [0, 0, 0, 20],
-	  },
-	  categoryHeader: {
-		 fontSize: 16,
-		 bold: true,
-		 margin: [0, 10, 0, 5],
-	  },
-	  subCategoryHeader: {
-		 fontSize: 14,
-		 italics: true,
-		 margin: [5, 5, 0, 5],
-	  },
-	  noQuestions: {
-		 fontSize: 12,
-		 italics: true,
-		 color: "#ff0000",
-		 margin: [0, 5, 0, 15],
-	  },
-	  tableHeader: {
-		 bold: true,
-		 fontSize: 12,
-		 fillColor: "#f2f2f2",
-	  },
-	  tableCell: {
-		 fontSize: 10,
-		 alignment: "center",
-	  },
-	};
+  // Базовые стили
+  const defaultStyles = {
+    pdfTitle: {
+      fontSize: 22,
+      bold: true,
+      alignment: "center",
+      margin: [0, 0, 0, 10],
+    },
+    descriptionText: {
+      fontSize: 12,
+      alignment: "justify",
+      margin: [0, 0, 0, 20],
+    },
+    categoryHeader: {
+      fontSize: 16,
+      bold: true,
+      margin: [0, 10, 0, 5],
+    },
+    subCategoryHeader: {
+      fontSize: 14,
+      italics: true,
+      margin: [5, 5, 0, 5],
+    },
+    noQuestions: {
+      fontSize: 12,
+      italics: true,
+      color: "#ff0000",
+      margin: [0, 5, 0, 15],
+    },
+    tableHeader: {
+      bold: true,
+      fontSize: 12,
+      fillColor: "#f2f2f2",
+    },
+    tableCell: {
+      fontSize: 10,
+      alignment: "center",
+    },
+  };
 
-	// Слияние пользовательских и стандартных стилей
-	const styles = { ...defaultStyles, ...customStyles };
+  // Слияние пользовательских и стандартных стилей
+  const styles = { ...defaultStyles, ...customStyles };
 
-	// Функция обогащения данных
-	const enrichData = (patternsData, resultsData) => {
-	  const enrichedData = {};
+  // Функция обогащения данных
+  const enrichData = (patternsData, resultsData) => {
+    const enrichedData = {};
 
-	  patternsData.forEach((category) => {
-		 const categoryTitle = category.title.ru;
-		 enrichedData[categoryTitle] = [];
+    patternsData.forEach((category) => {
+      const categoryTitle = category.title.ru;
+      enrichedData[categoryTitle] = [];
 
-		 category.subcategories.forEach((subcategory) => {
-			const subcategoryTitle = subcategory.title.ru;
+      category.subcategories.forEach((subcategory) => {
+        const subcategoryTitle = subcategory.title.ru;
 
-			const testResults = resultsData[categoryTitle]?.find(
-			  (resultSubcategory) => resultSubcategory.subcategory === subcategoryTitle
-			);
+        const testResults = resultsData[categoryTitle]?.find((resultSubcategory) => resultSubcategory.subcategory === subcategoryTitle);
 
-			enrichedData[categoryTitle].push({
-			  subcategory: subcategoryTitle,
-			  responses: testResults?.responses || [],
-			  patterns: subcategory.patterns.map((pattern) => ({
-				 title: pattern.pattern.ru,
-				 description: pattern.description.ru,
-			  })),
-			});
-		 });
-	  });
+        enrichedData[categoryTitle].push({
+          subcategory: subcategoryTitle,
+          responses: testResults?.responses || [],
+          patterns: subcategory.patterns.map((pattern) => ({
+            title: pattern.pattern.ru,
+            description: pattern.description.ru,
+          })),
+        });
+      });
+    });
 
-	  return enrichedData;
-	};
+    return enrichedData;
+  };
 
-	// Обогащение данных
-	const enrichedResults = enrichData(patternsData, resultsData);
+  // Обогащение данных
+  const enrichedResults = enrichData(patternsData, resultsData);
 
-	// Генерация контента для PDF
-	const generateContent = (results) => {
-		const content = [];
+  // Генерация контента для PDF
+  const generateContent = (results) => {
+    const content = [];
 
-		// Заголовок PDF
-		content.push({
-		  text: "Результаты теста",
-		  style: "pdfTitle", // Заголовок теста
-		});
+    // Заголовок PDF
+    content.push({
+      text: "Результаты теста",
+      style: "pdfTitle", // Заголовок теста
+    });
 
-		// Описание теста
-		content.push({
-		  text: "Описание всех категорий, подкатегорий и их паттернов:",
-		  style: "descriptionText",
-		});
+    // Описание теста
+    content.push({
+      text: "Описание всех категорий, подкатегорий и их паттернов:",
+      style: "descriptionText",
+    });
 
-		// Итерация по категориям и подкатегориям
-		let isFirstCategory = true; // Флаг для добавления разрыва страницы начиная со второй категории
-		for (const category in results) {
-		  // Добавляем разрыв страницы, если это не первая категория
-		  if (!isFirstCategory) {
-			 content.push({
-				text: "",
-				pageBreak: "before", // Разрыв страницы
-			 });
-		  }
+    // Итерация по категориям и подкатегориям
+    let isFirstCategory = true; // Флаг для добавления разрыва страницы начиная со второй категории
+    for (const category in results) {
+      // Добавляем разрыв страницы, если это не первая категория
+      if (!isFirstCategory) {
+        content.push({
+          text: "",
+          pageBreak: "before", // Разрыв страницы
+        });
+      }
 
-		  isFirstCategory = false; // После первой категории ставим флаг в false
+      isFirstCategory = false; // После первой категории ставим флаг в false
 
-		  // Добавление заголовка категории
-		  content.push({
-			 text: category,
-			 style: "categoryHeader", // Применение стиля категории
-		  });
+      // Добавление заголовка категории
+      content.push({
+        text: category,
+        style: "categoryHeader", // Применение стиля категории
+      });
 
-		  results[category].forEach((subcategory) => {
-			 // Заголовок подкатегории
-			 content.push({
-				text: subcategory.subcategory,
-				style: "subCategoryHeader", // Применение стиля подкатегории
-			 });
+      results[category].forEach((subcategory) => {
+        // Заголовок подкатегории
+        content.push({
+          text: subcategory.subcategory,
+          style: "subCategoryHeader", // Применение стиля подкатегории
+        });
 
-			 // Если нет результатов, выводим сообщение
-			 if (subcategory.responses.length === 0) {
-				content.push({
-				  text: "Нет ответов для этой подкатегории.",
-				  style: "noQuestions",
-				});
-			 } else {
-				// Находим паттерн с максимальным процентом (преобладающий)
-				const dominantResponse = subcategory.responses.reduce((max, current) => {
-				  return current.percentage > max.percentage ? current : max;
-				}, subcategory.responses[0]);
+        // Если нет результатов, выводим сообщение
+        if (subcategory.responses.length === 0) {
+          content.push({
+            text: "Нет ответов для этой подкатегории.",
+            style: "noQuestions",
+          });
+        } else {
+          // Находим паттерн с максимальным процентом (преобладающий)
+          const dominantResponse = subcategory.responses.reduce((max, current) => {
+            return current.percentage > max.percentage ? current : max;
+          }, subcategory.responses[0]);
 
-				// Преобладающий паттерн
-				if (dominantResponse) {
-				  content.push({
-					 text: `Преобладающий паттерн: ${dominantResponse.pattern} (${dominantResponse.percentage}%)`,
-					 style: "dominantPattern", // Применение стиля для выделения преобладающего паттерна
-					 margin: [0, 5, 0, 10],
-				  });
-				}
+          // Преобладающий паттерн
+          if (dominantResponse) {
+            content.push({
+              text: `Преобладающий паттерн: ${dominantResponse.pattern} (${dominantResponse.percentage}%)`,
+              style: "dominantPattern", // Применение стиля для выделения преобладающего паттерна
+              margin: [0, 5, 0, 10],
+            });
+          }
 
-				// Перечисление остальных паттернов
-				subcategory.responses.forEach((response) => {
-				  content.push({
-					 text: `${response.pattern}: ${response.percentage}%`,
-					 style: "tableCell", // Стиль для перечисления паттернов
-					 margin: [0, 3, 0, 3], // Отступы для каждого элемента
-				  });
-				});
-			 }
+          // Перечисление остальных паттернов
+          subcategory.responses.forEach((response) => {
+            content.push({
+              text: `${response.pattern}: ${response.percentage}%`,
+              style: "tableCell", // Стиль для перечисления паттернов
+              margin: [0, 3, 0, 3], // Отступы для каждого элемента
+            });
+          });
+        }
 
-			 // Описание паттернов
-			 content.push({
-				text: "Описание паттернов:",
-				margin: [0, 5, 0, 10],
-			 });
+        // Описание паттернов
+        content.push({
+          text: "Описание паттернов:",
+          margin: [0, 5, 0, 10],
+        });
 
-			 subcategory.patterns.forEach((pattern) => {
-				content.push({
-				  text: `• ${pattern.title}: ${pattern.description}`,
-				  style: "tableCell", // Применение стиля для описания паттерна
-				  margin: [0, 2, 0, 5],
-				});
-			 });
-		  });
-		}
+        subcategory.patterns.forEach((pattern) => {
+          content.push({
+            text: `• ${pattern.title}: ${pattern.description}`,
+            style: "tableCell", // Применение стиля для описания паттерна
+            margin: [0, 2, 0, 5],
+          });
+        });
+      });
+    }
 
-		return content;
-	 };
+    return content;
+  };
 
+  // Определение структуры PDF
+  const docDefinition = {
+    content: generateContent(enrichedResults),
+    styles: styles, // Применение стилей
+  };
 
-	// Определение структуры PDF
-	const docDefinition = {
-	  content: generateContent(enrichedResults),
-	  styles: styles, // Применение стилей
-	};
+  // Генерация PDF
+  pdfMake.createPdf(docDefinition).download("results.pdf");
+}
 
-	// Генерация PDF
-	pdfMake.createPdf(docDefinition).download("results.pdf");
- }
+// Обработчик для кнопки генерации PDF
+document.getElementById("download-pdf").addEventListener("click", async () => {
+  const resultsData = showResults();
+  const patternsData = await loadPatterns();
 
- // Обработчик для кнопки генерации PDF
- document.getElementById("download-pdf").addEventListener("click", async () => {
-	const resultsData = showResults();
-	const patternsData = await loadPatterns();
+  const customStyles = {
+    categoryHeader: {
+      fontSize: 20,
+      bold: true,
+      color: "#007BFF", // Синий цвет заголовка
+      margin: [0, 15, 0, 5],
+    },
+    subCategoryHeader: {
+      fontSize: 16,
+      italics: true,
+      color: "#000", // Оранжевый цвет подзаголовка
+      margin: [0, 10, 0, 5],
+    },
+    dominantPattern: {
+      fontSize: 14,
+      color: "#333", // Зеленый цвет для паттернов
+      margin: [0, 8, 0, 12],
+    },
+  };
 
-	const customStyles = {
-	  categoryHeader: {
-		 fontSize: 20,
-		 bold: true,
-		 color: "#007BFF", // Синий цвет заголовка
-		 margin: [0, 15, 0, 5],
-	  },
-	  subCategoryHeader: {
-		 fontSize: 16,
-		 italics: true,
-		 color: "#000", // Оранжевый цвет подзаголовка
-		 margin: [0, 10, 0, 5],
-	  },
-	  dominantPattern: {
-		 fontSize: 14,
-		 color: "#333", // Зеленый цвет для паттернов
-		 margin: [0, 8, 0, 12],
-	  },
-	};
-
-	generatePDF(resultsData, patternsData, customStyles);
- });
+  generatePDF(resultsData, patternsData, customStyles);
+});

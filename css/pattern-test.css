@@ -210,7 +210,8 @@
   border-radius: 16px;
   cursor: pointer;
   user-select: none;
-  transition: background 0.15s ease-in-out;
+  border: 1px solid rgb(245, 245, 245);
+  transition: all 0.1s ease 0s;
 }
 /* Убираем рамку фокуса */
 .option:hover,
@@ -250,7 +251,11 @@ input[type="radio"]:checked + .radio-label:before {
   border: 1px solid #0060ff;
   background: #3b82f6;
 }
-
+/* Добавляем стиль для .option, если внутри input[type="radio"]:checked */
+.option:has(input[type="radio"]:checked) {
+  border: 1px solid #0060ff; /* Меняем границу, если радио выбрано */
+  transition: all 0.3s ease 0s;
+}
 .button-container {
   text-align: right;
 }
@@ -717,7 +722,7 @@ td.question-cell[rowspan] {
   font-weight: 500;
 }
 .question-cell br {
-display: none;
+  display: none;
 }
 td.question-cell-number[rowspan] {
   vertical-align: middle;
@@ -749,76 +754,76 @@ td.question-cell-number[rowspan] {
 }
 
 .info-icon {
-	position: absolute;
-	top: -5px;
-	right: 5px;
-	display: flex
-;
-	justify-content: center;
-	align-items: center;
-	width: 18px;
-	height: 18px;
-	border-radius: 50%;
-	background-color: rgb(210, 210, 210);
-	color: white;
-	font-size: 14px;
-	font-weight: 500;
-	cursor: pointer;
-	flex-shrink: 0;
-	font-style: italic;
-	line-height: 1;
-	font-family: Robor;
-}/* Базовые стили тултипа */
+  position: absolute;
+  top: -5px;
+  right: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: rgb(210, 210, 210);
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  flex-shrink: 0;
+  font-style: italic;
+  line-height: 1;
+  font-family: Robor;
+} /* Базовые стили тултипа */
 .tooltiptest {
-	visibility: hidden;
-	opacity: 0;
-	position: absolute;
-	left: calc(100% + 10px); /* По умолчанию сдвиг вправо */
-	top: 50%;
-	transform: translateY(-50%);
-	background-color: rgba(0, 0, 0, 0.9);
-	color: white;
-	padding: 8px;
-	border-radius: 5px;
-	font-size: 12px;
-	text-align: center;
-	z-index: 1000;
-	line-height: 1.5;
-	transition: opacity 0.3s ease;
-	min-width: 260px;	box-sizing: border-box;    width: auto; /* Настраиваем ширину по содержимому */
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  left: calc(100% + 10px); /* По умолчанию сдвиг вправо */
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 8px;
+  border-radius: 5px;
+  font-size: 12px;
+  text-align: center;
+  z-index: 1000;
+  line-height: 1.5;
+  transition: opacity 0.3s ease;
+  min-width: 260px;
+  box-sizing: border-box;
+  width: auto; /* Настраиваем ширину по содержимому */
+}
 
- }
+.tooltiptest:after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: -6px; /* Для стрелки справа */
+  border-width: 6px;
+  border-style: solid;
+  border-color: transparent rgba(0, 0, 0, 0.9) transparent transparent;
+}
 
- .tooltiptest:after {
-	content: "";
-	position: absolute;
-	top: 50%;
-	transform: translateY(-50%);
-	left: -6px; /* Для стрелки справа */
-	border-width: 6px;
-	border-style: solid;
-	border-color: transparent rgba(0, 0, 0, 0.9) transparent transparent;
- }
+/* Активное состояние тултипа */
+.tooltiptest.visible {
+  visibility: visible;
+  opacity: 1;
+}
 
- /* Активное состояние тултипа */
- .tooltiptest.visible {
-	visibility: visible;
-	opacity: 1;
- }
+/* Адаптивное поведение на мобильных устройствах */
+@media (max-width: 768px) {
+  .tooltiptest {
+    left: 10px; /* Смещаем тултип в доступную область */
+    right: 10px; /* Удерживаем тултип в пределах экрана */
+    top: calc(100% + 10px); /* Перемещаем тултип ниже элемента */
+    transform: none; /* Сбрасываем вертикальное выравнивание для мобильных устройств */
+  }
 
- /* Адаптивное поведение на мобильных устройствах */
- @media (max-width: 768px) {
-	.tooltiptest {
-	  left: 10px; /* Смещаем тултип в доступную область */
-	  right: 10px; /* Удерживаем тултип в пределах экрана */
-	  top: calc(100% + 10px); /* Перемещаем тултип ниже элемента */
-	  transform: none; /* Сбрасываем вертикальное выравнивание для мобильных устройств */
-	}
-
-	.tooltiptest:after {
-	  top: -6px; /* Размещаем стрелку наверху тултипа */
-	  left: 20px; /* Указываем отступ для стрелки */
-	  transform: none;
-	  border-color: rgba(0, 0, 0, 0.9) transparent transparent transparent; /* Меняем стрелку наверх */
-	}
- }
+  .tooltiptest:after {
+    top: -6px; /* Размещаем стрелку наверху тултипа */
+    left: 20px; /* Указываем отступ для стрелки */
+    transform: none;
+    border-color: rgba(0, 0, 0, 0.9) transparent transparent transparent; /* Меняем стрелку наверх */
+  }
+}

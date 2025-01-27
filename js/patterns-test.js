@@ -242,80 +242,98 @@ function showResults() {
         return;
       }
 
-      // Вычисляем доминантный паттерн
-      const dominant = patternsInSubcategory.reduce(
-        (current, pattern) => (counts[pattern] > (counts[current] || 0) ? pattern : current),
-        patternsInSubcategory[0]
-      );
+      // Определяем проценты для каждого паттерна
+      const responses = patternsInSubcategory.map((pattern) => ({
+        pattern,
+        count: counts[pattern] || 0,
+        percentage: Math.round(((counts[pattern] || 0) / totalResponses) * 100),
+      }));
 
-      const dominantPercentage = Math.round((counts[dominant] / totalResponses) * 100);
-      const statusText = dominantPercentage <= 40 ? `УМЕРЕННО ${dominant}` : dominantPercentage <= 60 ? `НЕЙТРАЛЬНО` : `ЯВНО ${dominant}`;
+      // Сортируем их по процентам для более удобного анализа
+      responses.sort((a, b) => b.percentage - a.percentage);
+
+      // Максимальный процент
+      const maxPercentage = responses[0].percentage;
+
+      // Выбираем паттерны с максимальным процентом
+      const dominantResponses = responses.filter((r) => r.percentage === maxPercentage);
+
+      // Логика для определения статуса
+      let dominant = dominantResponses.map((r) => r.pattern).join(", ");
+      let statusText = "";
+
+      if (dominantResponses.length === patternsInSubcategory.length) {
+        // Все паттерны имеют одинаковые проценты (например, три по 33%)
+        statusText = `НЕЙТРАЛЬНО`;
+        dominant = "НЕЙТРАЛЬНЫЕ";
+      } else if (dominantResponses.length > 1) {
+        // Два паттерна с одинаковым высоким процентом
+        statusText = `НЕЙТРАЛЬНО`;
+      } else {
+        // Один доминантный паттерн
+        statusText = maxPercentage <= 40 ? `УМЕРЕННО ${dominant}` : maxPercentage <= 60 ? `НЕЙТРАЛЬНО` : `ЯВНО ${dominant}`;
+      }
 
       // Сохраняем данные подкатегории в resultsData для отчёта
       resultsData[categoryTitle].push({
         subcategory: subcategoryTitle,
         dominantPattern: dominant,
-        percentage: dominantPercentage,
-        responses: patternsInSubcategory.map((pattern) => ({
-          pattern,
-          count: counts[pattern] || 0,
-          percentage: Math.round(((counts[pattern] || 0) / totalResponses) * 100),
-        })),
+        percentage: maxPercentage,
+        responses,
       });
 
       // Формируем HTML этого блока
       let patternResults = `<div class="subcategory-content">`;
 
-      patternsInSubcategory.forEach((pattern) => {
-        const patternPercentage = Math.round(((counts[pattern] || 0) / totalResponses) * 100);
+      responses.forEach(({ pattern, percentage }) => {
         // Найти описание для текущего паттерна
         const currentPatternData = subcategory.patterns.find((p) => (p.pattern.ru || p.pattern.en) === pattern);
 
         const patternDescription = currentPatternData?.description.ru || "Описание отсутствует";
 
         patternResults += `
-			<div class="pattern-result">
-				<div class="pattern-result__label">
+			  <div class="pattern-result">
+				 <div class="pattern-result__label">
 					<div class="scale-bar-title-wrapper">
-						<p class="scale-bar-title">${pattern}</p>
-						<div class="info-tooltiptest-wrapper">
-							<div class="info-icon">i</div>
-							<div class="tooltiptest">
-								${patternDescription}
-							</div>
-						</div>
+					  <p class="scale-bar-title">${pattern}</p>
+					  <div class="info-tooltiptest-wrapper">
+						 <div class="info-icon">i</div>
+						 <div class="tooltiptest">
+							${patternDescription}
+						 </div>
+					  </div>
 					</div>
-					<p>${patternPercentage}%</p>
-				</div>
-				<div class="scale-bar-container">
-					<div class="scale-bar" style="width: ${patternPercentage}%;"></div>
-				</div>
-			</div>`;
+					<p>${percentage}%</p>
+				 </div>
+				 <div class="scale-bar-container">
+					<div class="scale-bar" style="width: ${percentage}%;"></div>
+				 </div>
+			  </div>`;
       });
 
       patternResults += `</div>`;
 
       const analyticsBlock = `
-			  <div class="analytics-block">
-				 <p>${statusText}</p>
-				 <div class="scale-container">
-					<div class="scale-line"></div>
-					<div class="scale-labels">
-					  <div class="scale-labels-item">
-						 <div class="indicator" style="opacity: ${dominantPercentage <= 40 ? 1 : 0};"></div>
-						 <span>УМЕРЕННО</span>
-					  </div>
-					  <div class="scale-labels-item">
-						 <div class="indicator" style="opacity: ${dominantPercentage > 40 && dominantPercentage <= 60 ? 1 : 0};"></div>
-						 <span>НЕЙТРАЛЬНО</span>
-					  </div>
-					  <div class="scale-labels-item">
-						 <div class="indicator" style="opacity: ${dominantPercentage > 60 ? 1 : 0};"></div>
-						 <span>ЯВНО</span>
-					  </div>
+			<div class="analytics-block">
+			  <p  class="scale-status">${statusText}</p>
+			  <div class="scale-container">
+				 <div class="scale-line"></div>
+				 <div class="scale-labels">
+					<div class="scale-labels-item">
+					  <div class="indicator" style="opacity: ${maxPercentage <= 40 ? 1 : 0};"></div>
+					  <span>УМЕРЕННО</span>
+					</div>
+					<div class="scale-labels-item">
+					  <div class="indicator" style="opacity: ${maxPercentage > 40 && maxPercentage <= 60 ? 1 : 0};"></div>
+					  <span>НЕЙТРАЛЬНО</span>
+					</div>
+					<div class="scale-labels-item">
+					  <div class="indicator" style="opacity: ${maxPercentage > 60 ? 1 : 0};"></div>
+					  <span>ЯВНО</span>
 					</div>
 				 </div>
-			  </div>`;
+			  </div>
+			</div>`;
 
       subcategoryResults += `
 			<div class="subcategory-block">
@@ -430,17 +448,18 @@ function initializeTooltips() {
 // Загрузка вопросов при старте
 loadQuestions();
 
+/* Таблица с результатами */
 function showResultTable() {
-	if (!answers || answers.length === 0) {
-	  alert("Вы не завершили тест. Пожалуйста, ответьте на все вопросы.");
-	  resetQuiz();
-	  return;
-	}
+  if (!answers || answers.length === 0) {
+    alert("Вы не завершили тест. Пожалуйста, ответьте на все вопросы.");
+    resetQuiz();
+    return;
+  }
 
-	const resultTableContainer = document.getElementById("result-table-container");
-	let tableResults = `<h2>Таблица с результатами</h2><div class="result-table-content">`;
+  const resultTableContainer = document.getElementById("result-table-container");
+  let tableResults = `<h2>Таблица с результатами</h2><div class="result-table-content">`;
 
-	tableResults += `
+  tableResults += `
 	  <table>
 		 <thead>
 			<tr>
@@ -454,17 +473,17 @@ function showResultTable() {
 		 </thead>
 		 <tbody>`;
 
-	questionsWithPatterns.forEach((question, index) => {
-	  if (!question) return;
+  questionsWithPatterns.forEach((question, index) => {
+    if (!question) return;
 
-	  // Обработка вопроса, вариантов и расшифровки
-	  const option1 = question.options[0] || "Нет данных";
-	  const pattern1 = question.patterns[0] || "Нет данных";
-	  const option2 = question.options[1] || "Нет данных";
-	  const pattern2 = question.patterns[1] || "Нет данных";
+    // Обработка вопроса, вариантов и расшифровки
+    const option1 = question.options[0] || "Нет данных";
+    const pattern1 = question.patterns[0] || "Нет данных";
+    const option2 = question.options[1] || "Нет данных";
+    const pattern2 = question.patterns[1] || "Нет данных";
 
-	  // Добавляем строку с вопросом и его деталями
-	  tableResults += `
+    // Добавляем строку с вопросом и его деталями
+    tableResults += `
 		 <tr>
 			<td>${index + 1}</td>
 			<td>${question.question}</td>
@@ -473,14 +492,13 @@ function showResultTable() {
 			<td>${option2}</td>
 			<td>${pattern2}</td>
 		 </tr>`;
-	});
+  });
 
-	tableResults += `</tbody></table></div>`;
+  tableResults += `</tbody></table></div>`;
 
-	resultTableContainer.innerHTML = tableResults;
-	resultTableContainer.style.display = "block";
- }
-
+  resultTableContainer.innerHTML = tableResults;
+  resultTableContainer.style.display = "block";
+}
 
 function showReferenceTable() {
   const referenceTableContainer = document.getElementById("reference-table-container"); // Контейнер для справки
@@ -685,7 +703,6 @@ async function loadPatterns() {
 }
 
 // Функция для генерации PDF
-// Функция для генерации PDF
 function generatePDF(resultsData, patternsData, customStyles = {}) {
   // Базовые стили
   const defaultStyles = {
@@ -696,8 +713,8 @@ function generatePDF(resultsData, patternsData, customStyles = {}) {
       margin: [0, 0, 0, 10],
     },
     descriptionText: {
-      fontSize: 12,
-      alignment: "justify",
+      fontSize: 14,
+      alignment: "center",
       margin: [0, 0, 0, 20],
     },
     categoryHeader: {
@@ -707,23 +724,23 @@ function generatePDF(resultsData, patternsData, customStyles = {}) {
     },
     subCategoryHeader: {
       fontSize: 14,
-      italics: true,
       margin: [5, 5, 0, 5],
     },
     noQuestions: {
-      fontSize: 12,
+      fontSize: 14,
       italics: true,
       color: "#ff0000",
       margin: [0, 5, 0, 15],
     },
     tableHeader: {
       bold: true,
-      fontSize: 12,
+      fontSize: 14,
       fillColor: "#f2f2f2",
+      margin: [0, 5, 0, 15],
     },
     tableCell: {
-      fontSize: 10,
-      alignment: "center",
+      fontSize: 12,
+      alignment: "left",
     },
   };
 
@@ -766,13 +783,13 @@ function generatePDF(resultsData, patternsData, customStyles = {}) {
 
     // Заголовок PDF
     content.push({
-      text: "Результаты теста",
+      text: "Результат теста",
       style: "pdfTitle", // Заголовок теста
     });
 
     // Описание теста
     content.push({
-      text: "Описание всех категорий, подкатегорий и их паттернов:",
+      text: "Описание всех категорий, подкатегорий и их паттернов",
       style: "descriptionText",
     });
 
@@ -802,33 +819,52 @@ function generatePDF(resultsData, patternsData, customStyles = {}) {
           style: "subCategoryHeader", // Применение стиля подкатегории
         });
 
-        // Если нет результатов, выводим сообщение
         if (subcategory.responses.length === 0) {
           content.push({
             text: "Нет ответов для этой подкатегории.",
             style: "noQuestions",
           });
         } else {
-          // Находим паттерн с максимальным процентом (преобладающий)
-          const dominantResponse = subcategory.responses.reduce((max, current) => {
-            return current.percentage > max.percentage ? current : max;
-          }, subcategory.responses[0]);
+          // Находим максимальный процент
+          const maxPercentage = Math.max(...subcategory.responses.map((res) => res.percentage));
+          const dominantResponses = subcategory.responses.filter((res) => res.percentage === maxPercentage);
 
-          // Преобладающий паттерн
-          if (dominantResponse) {
+          // Проверяем случаи для "НЕЙТРАЛЬНО"
+          if (dominantResponses.length > 1) {
+            // Проверяем, все ли паттерны имеют одинаковый процент
+            const allEqual = subcategory.responses.every((res) => res.percentage === maxPercentage);
+
+            if (allEqual) {
+              // Если все паттерны равны (например, 3 по 33%), выводим "НЕЙТРАЛЬНО"
+              content.push({
+                text: "НЕЙТРАЛЬНО",
+                style: "dominantPattern",
+                margin: [0, 10, 0, 10],
+              });
+            } else {
+              // Если несколько доминирующих паттернов с одинаковым процентом
+              content.push({
+                text: "НЕЙТРАЛЬНО",
+                style: "dominantPattern",
+                margin: [0, 10, 0, 10],
+              });
+            }
+          } else {
+            // Если только один доминирующий паттерн
+            const dominantResponse = dominantResponses[0];
             content.push({
-              text: `Преобладающий паттерн: ${dominantResponse.pattern} (${dominantResponse.percentage}%)`,
-              style: "dominantPattern", // Применение стиля для выделения преобладающего паттерна
-              margin: [0, 5, 0, 10],
+              text: `${dominantResponse.pattern} (${dominantResponse.percentage}%)`,
+              style: "dominantPattern",
+              margin: [0, 10, 0, 10],
             });
           }
 
-          // Перечисление остальных паттернов
+          // Добавляем все остальные паттерны с указанием процентов
           subcategory.responses.forEach((response) => {
             content.push({
               text: `${response.pattern}: ${response.percentage}%`,
-              style: "tableCell", // Стиль для перечисления паттернов
-              margin: [0, 3, 0, 3], // Отступы для каждого элемента
+              style: "tableCell",
+              margin: [0, 3, 0, 3],
             });
           });
         }
@@ -836,14 +872,22 @@ function generatePDF(resultsData, patternsData, customStyles = {}) {
         // Описание паттернов
         content.push({
           text: "Описание паттернов:",
-          margin: [0, 5, 0, 10],
+          style: "depictionPatterns",
+          margin: [0, 10, 0, 10],
         });
 
         subcategory.patterns.forEach((pattern) => {
           content.push({
-            text: `• ${pattern.title}: ${pattern.description}`,
-            style: "tableCell", // Применение стиля для описания паттерна
-            margin: [0, 2, 0, 5],
+            text: [
+              {
+                text: `${pattern.title}`,
+                decoration: "underline", // Подчеркиваем название паттерна
+                bold: true, // Дополнительно жирное выделение
+              },
+              { text: `: ${pattern.description}` }, // Добавление описания без подчеркивания
+            ],
+            style: "tableCell", // Общий стиль
+            margin: [0, 2, 0, 5], // Отступы между элементами
           });
         });
       });
@@ -859,33 +903,65 @@ function generatePDF(resultsData, patternsData, customStyles = {}) {
   };
 
   // Генерация PDF
-  pdfMake.createPdf(docDefinition).download("results.pdf");
+  pdfMake.createPdf(docDefinition).download("Результат теста.pdf");
 }
 
 // Обработчик для кнопки генерации PDF
 document.getElementById("download-pdf").addEventListener("click", async () => {
-  const resultsData = showResults();
-  const patternsData = await loadPatterns();
+	// Показываем пользователю прелоадер
+	toggleLoader(true, "Подождите, идет генерация PDF...");
 
-  const customStyles = {
-    categoryHeader: {
-      fontSize: 20,
-      bold: true,
-      color: "#007BFF", // Синий цвет заголовка
-      margin: [0, 15, 0, 5],
-    },
-    subCategoryHeader: {
-      fontSize: 16,
-      italics: true,
-      color: "#000", // Оранжевый цвет подзаголовка
-      margin: [0, 10, 0, 5],
-    },
-    dominantPattern: {
-      fontSize: 14,
-      color: "#333", // Зеленый цвет для паттернов
-      margin: [0, 8, 0, 12],
-    },
-  };
+	try {
+	  // Получаем данные для PDF
+	  const resultsData = showResults();
+	  const patternsData = await loadPatterns();
 
-  generatePDF(resultsData, patternsData, customStyles);
-});
+	  const customStyles = {
+		 categoryHeader: {
+			fontSize: 20,
+			bold: true,
+			color: "#007BFF", // Синий цвет заголовка
+			margin: [0, 15, 0, 5],
+		 },
+		 subCategoryHeader: {
+			fontSize: 16,
+			bold: true,
+			color: "#000", // Черный цвет подзаголовка
+			margin: [0, 10, 0, 5],
+		 },
+		 dominantPattern: {
+			fontSize: 12,
+			color: "#ff008a", // Розовый для доминирующего паттерна
+			margin: [0, 10, 0, 10],
+		 },
+		 depictionPatterns: {
+			bold: true,
+		 },
+	  };
+
+	  // Генерация PDF
+	  generatePDF(resultsData, patternsData, customStyles);
+
+	} catch (error) {
+	  console.error("Ошибка при создании PDF:", error);
+
+	  // Уведомление об ошибке
+	  alert("Произошла ошибка при создании PDF. Пожалуйста, попробуйте снова.");
+	} finally {
+	  // Скрываем прелоадер независимо от результатов
+	  toggleLoader(false);
+	}
+ });
+
+// Показываем/скрываем прелоадер
+function toggleLoader(show, message = "Подождите, идет генерация...") {
+  const loaderOverlay = document.getElementById("loader-overlay");
+  const loaderText = document.getElementById("loader-text");
+
+  if (show) {
+    loaderText.textContent = message; // Устанавливаем сообщение
+    loaderOverlay.style.display = "flex"; // Показываем прелоадер
+  } else {
+    loaderOverlay.style.display = "none"; // Скрываем прелоадер
+  }
+}

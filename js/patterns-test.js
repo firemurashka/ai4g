@@ -121,8 +121,6 @@ function nextQuestion() {
     } else {
       // Если это последний вопрос, показываем результаты
       showResults();
-      showResultTable();
-      showReferenceTable();
     }
   } else {
     // Если ответ не выбран, показываем сообщение об ошибке
@@ -150,14 +148,16 @@ function resetQuiz() {
   patterns = []; // Очищаем массив паттернов
 
   document.getElementById("question-counter").style.display = "block";
-  document.querySelector(".quiz-patterns__subtitle").innerText = "Выберите слово по смыслу";
   document.getElementById("result-container").style.display = "none";
-  document.getElementById("result-table-container").style.display = "none";
-  document.getElementById("reference-table-container").style.display = "none";
   document.getElementById("quiz-content").style.display = "flex";
   const quizPatternsBlock = document.querySelector(".quiz-patterns__block");
   quizPatternsBlock.style.maxWidth = "800px";
   showQuestion(); // Показываем первый вопрос
+  const subtitle = document.querySelector(".quiz-patterns__subtitle");
+  subtitle.style.display = "none";
+
+  // Прокрутка страницы вверх
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 // Отображение результатов
@@ -449,7 +449,7 @@ function initializeTooltips() {
 loadQuestions();
 
 /* Таблица с результатами */
-function showResultTable() {
+/* function showResultTable() {
   if (!answers || answers.length === 0) {
     alert("Вы не завершили тест. Пожалуйста, ответьте на все вопросы.");
     resetQuiz();
@@ -498,9 +498,9 @@ function showResultTable() {
 
   resultTableContainer.innerHTML = tableResults;
   resultTableContainer.style.display = "block";
-}
+} */
 
-function showReferenceTable() {
+/* function showReferenceTable() {
   const referenceTableContainer = document.getElementById("reference-table-container"); // Контейнер для справки
   let referenceTableResults = ""; // Хранение результирующего HTML
 
@@ -614,7 +614,7 @@ function showReferenceTable() {
   referenceTableResults += `</div>`;
   referenceTableContainer.innerHTML = referenceTableResults;
   referenceTableContainer.style.display = "block"; // Показываем итоговый контейнер
-}
+} */
 
 //Функция анимации
 function animateOnScroll() {
@@ -657,7 +657,7 @@ function animateOnScroll() {
 }
 
 // Тест - заполняется
-function fillTestAnswers() {
+/* function fillTestAnswers() {
   // Очистка массивов ответов и паттернов
   answers.length = 0; // Или answers = [];
   patterns.length = 0; // Или patterns = [];
@@ -675,15 +675,13 @@ function fillTestAnswers() {
   // Устанавливаем индекс на конец вопросов
   currentQuestionIndex = questionsWithPatterns.length;
   showResults(); // Показываем результаты
-  showResultTable();
-  showReferenceTable();
-}
+} */
 
 document.addEventListener("DOMContentLoaded", () => {
   showQuestion();
 
   // Добавляем обработчик для тестовой кнопки
-  document.getElementById("fill-test-answers").addEventListener("click", fillTestAnswers);
+/*   document.getElementById("fill-test-answers").addEventListener("click", fillTestAnswers); */
 });
 
 /* Скачивание ПДФ ===================================== */
@@ -908,50 +906,49 @@ function generatePDF(resultsData, patternsData, customStyles = {}) {
 
 // Обработчик для кнопки генерации PDF
 document.getElementById("download-pdf").addEventListener("click", async () => {
-	// Показываем пользователю прелоадер
-	toggleLoader(true, "Подождите, идет генерация PDF...");
+  // Показываем пользователю прелоадер
+  toggleLoader(true, "Подождите, идет генерация PDF...");
 
-	try {
-	  // Получаем данные для PDF
-	  const resultsData = showResults();
-	  const patternsData = await loadPatterns();
+  try {
+    // Получаем данные для PDF
+    const resultsData = showResults();
+    const patternsData = await loadPatterns();
 
-	  const customStyles = {
-		 categoryHeader: {
-			fontSize: 20,
-			bold: true,
-			color: "#007BFF", // Синий цвет заголовка
-			margin: [0, 15, 0, 5],
-		 },
-		 subCategoryHeader: {
-			fontSize: 16,
-			bold: true,
-			color: "#000", // Черный цвет подзаголовка
-			margin: [0, 10, 0, 5],
-		 },
-		 dominantPattern: {
-			fontSize: 12,
-			color: "#ff008a", // Розовый для доминирующего паттерна
-			margin: [0, 10, 0, 10],
-		 },
-		 depictionPatterns: {
-			bold: true,
-		 },
-	  };
+    const customStyles = {
+      categoryHeader: {
+        fontSize: 20,
+        bold: true,
+        color: "#007BFF", // Синий цвет заголовка
+        margin: [0, 15, 0, 5],
+      },
+      subCategoryHeader: {
+        fontSize: 16,
+        bold: true,
+        color: "#000", // Черный цвет подзаголовка
+        margin: [0, 10, 0, 5],
+      },
+      dominantPattern: {
+        fontSize: 12,
+        color: "#ff008a", // Розовый для доминирующего паттерна
+        margin: [0, 10, 0, 10],
+      },
+      depictionPatterns: {
+        bold: true,
+      },
+    };
 
-	  // Генерация PDF
-	  generatePDF(resultsData, patternsData, customStyles);
+    // Генерация PDF
+    generatePDF(resultsData, patternsData, customStyles);
+  } catch (error) {
+    console.error("Ошибка при создании PDF:", error);
 
-	} catch (error) {
-	  console.error("Ошибка при создании PDF:", error);
-
-	  // Уведомление об ошибке
-	  alert("Произошла ошибка при создании PDF. Пожалуйста, попробуйте снова.");
-	} finally {
-	  // Скрываем прелоадер независимо от результатов
-	  toggleLoader(false);
-	}
- });
+    // Уведомление об ошибке
+    alert("Произошла ошибка при создании PDF. Пожалуйста, попробуйте снова.");
+  } finally {
+    // Скрываем прелоадер независимо от результатов
+    toggleLoader(false);
+  }
+});
 
 // Показываем/скрываем прелоадер
 function toggleLoader(show, message = "Подождите, идет генерация...") {

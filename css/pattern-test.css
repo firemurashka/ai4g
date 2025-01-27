@@ -319,11 +319,12 @@ input[type="radio"]:checked + .radio-label:before {
 }
 
 .category-label {
-  font-size: 20px;
-  font-weight: 600;
   margin-bottom: 30px;
   position: relative;
   padding-left: 35px;
+  font-weight: 900;
+  font-size: 29px;
+  line-height: 140%;
   @media (max-width: 768px) {
     margin-bottom: 20px;
   }
@@ -332,7 +333,7 @@ input[type="radio"]:checked + .radio-label:before {
   position: absolute;
   content: "";
   left: 0;
-  top: -3px;
+  top: 8px;
   height: 25px;
   width: 25px;
 }
@@ -348,6 +349,18 @@ input[type="radio"]:checked + .radio-label:before {
 }
 .category-block__mind .indicator {
   background-color: #cc026b;
+}
+.category-block__clock .subcategory-title {
+  color: #498568;
+}
+.category-block__hands .subcategory-title {
+  color: #856849;
+}
+.category-block__man .subcategory-title {
+  color: #684985;
+}
+.category-block__mind .subcategory-title {
+  color: #854968;
 }
 .category-block__clock .category-label {
   color: #02cc6b;
@@ -478,10 +491,24 @@ input[type="radio"]:checked + .radio-label:before {
 }
 
 .subcategory-title {
-  font-size: 16px;
-  font-weight: 600;
+  text-transform: uppercase;
+  font-family: "PT Sans";
+  font-size: 18px;
   margin-bottom: 30px;
+  font-weight: 600;
+}
+
+.scale-status {
+  font-size: 12px;
+  font-weight: 600;
   line-height: 130%;
+  color: #767676;
+  display: inline-block;
+  border: 1px solid #767676;
+  padding: 5px 10px;
+  border-radius: 24px;
+  text-transform: uppercase;
+  align-self: flex-start;
 }
 
 .scale-bar-container {
@@ -549,11 +576,7 @@ input[type="radio"]:checked + .radio-label:before {
   display: flex;
   flex-direction: column;
 }
-.analytics-block p {
-  text-transform: uppercase;
-  font-family: "PT Sans";
-  font-size: 18px;
-}
+
 .scale-line {
   top: 29px;
   left: 0;
@@ -827,3 +850,45 @@ td.question-cell-number[rowspan] {
     border-color: rgba(0, 0, 0, 0.9) transparent transparent transparent; /* Меняем стрелку наверх */
   }
 }
+/* CSS */
+#loader-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.75);
+	z-index: 9999;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+ }
+
+ #loader {
+	text-align: center;
+	color: #fff;
+ }
+
+ .spinner {
+	border: 5px solid rgba(255, 255, 255, 0.3);
+	border-top: 5px solid #fff;
+	border-radius: 50%;
+	width: 50px;
+	height: 50px;
+	animation: spin 1s linear infinite;
+	margin: 0 auto 10px;
+ }
+
+ @keyframes spin {
+	0% {
+	  transform: rotate(0deg);
+	}
+	100% {
+	  transform: rotate(360deg);
+	}
+ }
+
+ #loader-text {
+	font-size: 16px;
+	margin-top: 10px;
+ }

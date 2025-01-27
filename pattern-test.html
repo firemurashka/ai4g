@@ -138,18 +138,21 @@
                       <!-- Здесь будут выводиться результаты -->
                     </div>
 
-
-
-
 						  <div class="quiz-patterns__navigation">
 							<button class="quiz-patterns__button quiz-patterns__button_result" onclick="resetQuiz()">Пройти опрос снова</button>
-							<button class="quiz-patterns__button" id="download-pdf">Скачать PDF</button>
+							<div id="loader-overlay" style="display: none;">
+								<div id="loader">
+								  <div class="spinner"></div>
+								  <p id="loader-text">Подождите, идет генерация PDF...</p>
+								</div>
+							 </div>
+							 <button class="quiz-patterns__button" id="download-pdf">Скачать PDF</button>
 						 </div>
 
                   </div>
                 </div>
-                <div id="result-table-container" style="display: none"></div>
-                <div id="reference-table-container" style="display: none"></div>
+               <!--  <div id="result-table-container" style="display: none"></div>
+                <div id="reference-table-container" style="display: none"></div> -->
                 <!-- тестовая кнопка - удалить -->
                 <div id="quiz-controls">
                   <button class="quiz-patterns__button quiz-patterns__button_test" id="fill-test-answers">Заполнить тестовые ответы</button>

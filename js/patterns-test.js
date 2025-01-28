@@ -30,54 +30,55 @@ let answers = []; // Массив для сохранения ответов п�
 let patterns = []; // Массив для сохранения паттернов
 
 async function loadQuestions() {
-	try {
-	  // Включаем заглушку (если раскомментировать, то можно использовать)
-	   toggleLoader(true);
+  try {
+    // Включаем заглушку (если раскомментировать, то можно использовать)
+    toggleLoaderTest(true);
 
-	  if ("scrollRestoration" in history) {
-		 history.scrollRestoration = "manual";
-	  }
+    if ("scrollRestoration" in history) {
+      history.scrollRestoration = "manual";
+    }
 
-	  // Запрашиваем JSON-данные
-	  const response = await fetch("patterns_data.json");
-	  if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-	  const data = await response.json();
+    // Запрашиваем JSON-данные
+    const response = await fetch("patterns_data.json");
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+    const data = await response.json();
 
-	  // Обрабатываем данные
-	  questionsWithPatterns = data.questionsWithPatterns || [];
-	  categories = data.categories || [];
+    // Обрабатываем данные
+    questionsWithPatterns = data.questionsWithPatterns || [];
+    categories = data.categories || [];
 
-	  if (questionsWithPatterns.length === 0) {
-		 return; // Если вопросы отсутствуют
-	  }
+    if (questionsWithPatterns.length === 0) {
+      return; // Если вопросы отсутствуют
+    }
 
-	  if (!Array.isArray(categories)) {
-		 return; // Если категории не массив
-	  }
+    if (!Array.isArray(categories)) {
+      return; // Если категории не массив
+    }
 
-	  // Прокрутка страницы вверх
-	  window.scrollTo({ top: 0, behavior: "smooth" });
+    // Прокрутка страницы вверх
+    window.scrollTo({ top: 0, behavior: "smooth" });
 
-	  // Показ следующего вопроса (или дополнительная логика)
-	  showQuestion();
-	} catch (error) {
-	  // Здесь отключаем все обработчики ошибок в консоли
-	} finally {
-	/*   toggleLoader(false); */ // Выключаем заглушку
-	}
- }
+    // Показ следующего вопроса (или дополнительная логика)
+    showQuestion();
+  } catch (error) {
+    // Здесь отключаем все обработчики ошибок в консоли
+  } finally {
+    toggleLoaderTest(false); // Выключаем заглушку
+  }
+}
 
-/*  function toggleLoader(show) {
-	const loader = document.getElementById("loader-test");
-	if (loader) {
-	  console.log(`Перед изменением display: ${loader.style.display}`); // Проверка текущего display
-	  loader.style.display = show ? "block" : "none"; // Изменение display
-	  console.log(`Изменённый display: ${loader.style.display}`);      // Проверка после изменения
-	  console.log(`Loader is now ${show ? "visible" : "hidden"}`);     // Лог для отладки
-	} else {
-	  console.error("Элемент с ID 'loader-test' не найден в DOM.");
-	}
- } */
+function toggleLoaderTest(show) {
+  const loader = document.getElementById("loader-test");
+  if (loader) {
+    console.log(`Перед изменением display: ${loader.style.display}`); // Проверка текущего display
+    loader.style.display = show ? "block" : "none"; // Изменение display
+    console.log(`Изменённый display: ${loader.style.display}`); // Проверка после изменения
+    console.log(`Loader is now ${show ? "visible" : "hidden"}`); // Лог для отладки
+  } else {
+    console.error("Элемент с ID 'loader-test' не найден в DOM.");
+  }
+}
+
 // Функция для отображения текущего вопроса
 function showQuestion() {
   // Проверяем, есть ли вопросы

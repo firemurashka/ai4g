@@ -423,8 +423,6 @@ input[type="radio"]:checked + .radio-label:before {
 }
 .category-block__man .scale-bar-container {
   background-color: #ecddf8;
-  background-color: #353535;
-
 }
 .category-block__mind .scale-bar-container {
   background-color: #f8ddec;

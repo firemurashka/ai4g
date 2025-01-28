@@ -463,6 +463,14 @@ input[type="radio"]:checked + .radio-label:before {
   text-align: center;
   line-height: 130%;
 }
+.error-message-fio {
+  color: red;
+  font-size: 16px;
+  text-align: center;
+  line-height: 130%;
+  position: relative;
+  top: -10px;
+}
 
 @media (max-width: 600px) {
   .quiz-patterns {
@@ -919,26 +927,78 @@ td.question-cell-number[rowspan] {
   margin-top: 10px;
 }
 #loader-test {
-	display: none;
-	text-align: center;
-	padding: 20px;
- }
+  display: none;
+  text-align: center;
+  padding: 20px;
+}
 
- #loader-test span {
-	display: inline-block;
-	width: 40px;
-	height: 40px;
-	border: 4px solid #ccc;
-	border-top-color: #007bff;
-	border-radius: 50%;
-	animation: spin 1s ease infinite;
- }
+#loader-test span {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border: 4px solid #ccc;
+  border-top-color: #007bff;
+  border-radius: 50%;
+  animation: spin 1s ease infinite;
+}
 
- @keyframes spin {
-	0% {
-	  transform: rotate(0deg);
-	}
-	100% {
-	  transform: rotate(360deg);
-	}
- }
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* форма данных */
+.quiz-patterns__form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  margin-bottom: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 50px 0;
+}
+.quiz-patterns__input {
+  padding: 18px;
+  font-size: 16px;
+  width: 80%;
+  border: 1px solid #3b82f6;
+  border-radius: 8px;
+  line-height: 140%;
+}
+.quiz-patterns__input:focus {
+  outline: none;
+}
+
+.quiz-patterns__button_form {
+  align-self: center;
+}
+.quiz-patterns__form-title {
+  color: #000;
+  font-size: 20px;
+  font-weight: 600;
+  text-align: center;
+  line-height: 130%;
+}
+.quiz-patterns__fio-display {
+  font-size: 18px;
+  font-weight: 500;
+  color: #3b82f6;
+  margin-bottom: 10px;
+  text-align: center;
+}
+.test-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.test-info__item {
+  font-weight: 500;
+}
+.test-info__item span {
+  font-weight: 400;
+}

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <title>Тест по Паттернам - Проверьте свои знания и развивайтесь с Ai4G</title>
+    <title>Тест Тест паттернов - Проверьте свои знания и развивайтесь с Ai4G</title>
     <meta
       name="description"
       content="Проверьте свои знания о паттернах и узнайте, как они влияют на наше поведение и принятие решений. Углубите понимание психологических механизмов и откройте новые горизонты.🔹 Присоединяйтесь к тестированию на Ai4G!"
@@ -112,10 +112,25 @@
       <main>
         <section class="quiz-patterns" id="top">
           <div class="quiz-patterns__container">
-            <h1 class="quiz-patterns__title title">Тест по Паттернам</h1>
+            <h1 class="quiz-patterns__title title">Тест паттернов</h1>
             <h2 class="quiz-patterns__subtitle"></h2>
 
-            <div class="quiz-patterns__block">
+            <!-- Блок ввода ФИО -->
+            <div class="quiz-patterns__form" id="fio-form">
+              <h2 class="quiz-patterns__form-title">Введите Ваши данные, для прохождения теста:</h2>
+              <input type="text" id="fullName" placeholder="Введите ФИО" class="quiz-patterns__input" required />
+              <div id="error-message-fio" class="error-message-fio" style="display: none">Пожалуйста, введите ФИО!</div>
+              <button id="start-test-button" class="quiz-patterns__button quiz-patterns__button_form">Начать тест</button>
+            </div>
+
+            <!-- Блок с тестом -->
+            <div class="quiz-patterns__block" id="test-block" style="display: none">
+              <div class="test-info">
+                <div id="fio-display"  class="test-info__item"></div>
+                <div id="time-display" class="test-info__item"></div>
+              </div>
+
+              <!-- Отображение ФИО над вопросами -->
               <div id="question-counter" class="question-counter">
                 <!-- Счетчик вопроса будет динамически вставлен здесь -->
               </div>
@@ -154,7 +169,7 @@
             <!--       <div id="result-table-container" style="display: none"></div>
             <div id="reference-table-container" style="display: none"></div> -->
             <!-- тестовая кнопка - удалить -->
-            <!--     <div id="quiz-controls">
+            <!--    <div id="quiz-controls">
               <button class="quiz-patterns__button quiz-patterns__button_test" id="fill-test-answers">Заполнить тестовые ответы</button>
             </div> -->
             <style>

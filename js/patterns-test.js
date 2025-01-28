@@ -29,51 +29,126 @@ let currentQuestionIndex = 0; // Индекс текущего вопроса
 let answers = []; // Массив для сохранения ответов пользователя
 let patterns = []; // Массив для сохранения паттернов
 
+// Глобальная переменная для хранения имени пользователя
+let userFullName = "";
+
+// Функция обработки кнопки "Начать тест"
+function handleStartTestButton() {
+  // Получаем элементы формы и тестового блока
+  const fioForm = document.getElementById("fio-form"); // Контейнер формы с ФИО
+  const testBlock = document.getElementById("test-block"); // Блок с тестом
+  const fullNameInput = document.getElementById("fullName"); // Поле ввода ФИО
+
+  // Элементы для вывода информации
+  const fioDisplay = document.getElementById("fio-display"); // Элемент для отображения ФИО
+  const timeDisplay = document.getElementById("time-display"); // Элемент для отображения времени
+  const errorMessage = document.getElementById("error-message-fio"); // Сообщение об ошибке
+
+  // Получаем значение из поля ввода и удаляем лишние пробелы
+  const fullName = fullNameInput.value.trim();
+
+  // Проверяем ввод ФИО (не менее 3 символов)
+  if (!fullName || fullName.length < 3) {
+    // Выводим сообщение об ошибке
+    errorMessage.style.display = "block";
+    errorMessage.textContent = "Пожалуйста, введите корректное ФИО (не менее 3 символов)!";
+    return; // Прекращаем выполнение функции, если ввод некорректен
+  }
+
+  // Если проверка пройдена успешно, скрываем сообщение об ошибке
+  errorMessage.style.display = "none";
+
+  // Сохраняем введённое ФИО в глобальную переменную
+  userFullName = fullName;
+
+  // Отображаем введённое ФИО перед блоком теста, оборачивая его в <span>
+  fioDisplay.innerHTML = `ФИО: <span>${userFullName}</span>`;
+
+  // Получаем текущую дату
+  const now = new Date();
+
+  // Форматируем дату (например, в формате: "28 января 2025")
+  const formattedDate = now.toLocaleString("ru-RU", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+
+  // Отображаем текущую дату, оборачивая её в <span>
+  timeDisplay.innerHTML = `Дата: <span>${formattedDate}</span>`;
+
+  // Скрываем форму ввода ФИО
+  fioForm.style.display = "none";
+
+  // Показываем блок с тестом
+  testBlock.style.display = "block";
+
+  // Запускаем загрузку вопросов
+  loadQuestions();
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const startTestButton = document.getElementById("start-test-button"); // Кнопка "Начать тест"
+
+  // Подключаем обработчик клика к кнопке "Начать тест"
+  startTestButton.addEventListener("click", handleStartTestButton);
+});
+
+// Функция загрузки вопросов
 async function loadQuestions() {
   try {
-    // Включаем заглушку (если раскомментировать, то можно использовать)
-    toggleLoaderTest(true);
+    toggleLoaderTest(true); // Включаем лоадер
 
-    if ("scrollRestoration" in history) {
-      history.scrollRestoration = "manual";
-    }
-
-    // Запрашиваем JSON-данные
     const response = await fetch("patterns_data.json");
-    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+    if (!response.ok) throw new Error(`Ошибка HTTP: статус ${response.status}`);
     const data = await response.json();
 
-    // Обрабатываем данные
+    // Заполняем глобальные переменные вопросами и категориями
     questionsWithPatterns = data.questionsWithPatterns || [];
     categories = data.categories || [];
 
-    if (questionsWithPatterns.length === 0) {
-      return; // Если вопросы отсутствуют
+    // Проверка наличия данных
+    if (questionsWithPatterns.length === 0 || !Array.isArray(categories)) {
+      throw new Error("Данные тестов не найдены.");
     }
 
-    if (!Array.isArray(categories)) {
-      return; // Если категории не массив
-    }
-
-    // Прокрутка страницы вверх
+    // Прокрутка вверх страницы
     window.scrollTo({ top: 0, behavior: "smooth" });
 
-    // Показ следующего вопроса (или дополнительная логика)
+    // Показываем первый вопрос
     showQuestion();
   } catch (error) {
-    // Здесь отключаем все обработчики ошибок в консоли
+    console.error("Ошибка при загрузке вопросов:", error);
   } finally {
-    toggleLoaderTest(false); // Выключаем заглушку
+    toggleLoaderTest(false); // Выключаем лоадер
   }
 }
+
+// Тестовая кнопка заполнения
+/* function fillTestAnswers() {
+  // Очистка массивов ответов и паттернов
+  answers.length = 0; // Или answers = [];
+  patterns.length = 0; // Или patterns = [];
+
+  // Проверка на наличие вопросов
+  for (let i = 0; i < questionsWithPatterns.length; i++) {
+    if (questionsWithPatterns[i].options.length > 0) {
+      answers.push(questionsWithPatterns[i].options[0]); // Выбираем первый вариант
+    }
+    if (questionsWithPatterns[i].patterns.length > 0) {
+      patterns.push(questionsWithPatterns[i].patterns[0]); // Соответствующий паттерн
+    }
+  }
+
+  // Устанавливаем индекс на конец вопросов
+  currentQuestionIndex = questionsWithPatterns.length;
+  showResults(); // Показываем результаты
+} */
 
 function toggleLoaderTest(show) {
   const loader = document.getElementById("loader-test");
   if (loader) {
-    console.log(`Перед изменением display: ${loader.style.display}`); // Проверка текущего display
     loader.style.display = show ? "block" : "none"; // Изменение display
-    console.log(`Изменённый display: ${loader.style.display}`); // Проверка после изменения
-    console.log(`Loader is now ${show ? "visible" : "hidden"}`); // Лог для отладки
   } else {
     console.error("Элемент с ID 'loader-test' не найден в DOM.");
   }
@@ -677,37 +752,6 @@ function animateOnScroll() {
   animBlocks.forEach((block) => observer.observe(block));
 }
 
-// Тест - заполняется
-/* function fillTestAnswers() {
-  // Очистка массивов ответов и паттернов
-  answers.length = 0; // Или answers = [];
-  patterns.length = 0; // Или patterns = [];
-
-  // Проверка на наличие вопросов
-  for (let i = 0; i < questionsWithPatterns.length; i++) {
-    if (questionsWithPatterns[i].options.length > 0) {
-      answers.push(questionsWithPatterns[i].options[0]); // Выбираем первый вариант
-    }
-    if (questionsWithPatterns[i].patterns.length > 0) {
-      patterns.push(questionsWithPatterns[i].patterns[0]); // Соответствующий паттерн
-    }
-  }
-
-  // Устанавливаем индекс на конец вопросов
-  currentQuestionIndex = questionsWithPatterns.length;
-  showResults(); // Показываем результаты
-} */
-
-document.addEventListener("DOMContentLoaded", () => {
-  showQuestion();
-
-  // Загрузка вопросов при старте
-  loadQuestions();
-
-  // Добавляем обработчик для тестовой кнопки
-  /*  document.getElementById("fill-test-answers").addEventListener("click", fillTestAnswers); */
-});
-
 /* Скачивание ПДФ ===================================== */
 // Функция для загрузки файла patterns_data.json
 async function loadPatterns() {
@@ -737,7 +781,7 @@ function generatePDF(resultsData, patternsData, customStyles = {}) {
     descriptionText: {
       fontSize: 14,
       alignment: "center",
-      margin: [0, 0, 0, 20],
+      margin: [0, 0, 0, 10],
     },
     categoryHeader: {
       fontSize: 16,
@@ -762,6 +806,11 @@ function generatePDF(resultsData, patternsData, customStyles = {}) {
     },
     tableCell: {
       fontSize: 12,
+      alignment: "left",
+    },
+    clientInfo: {
+      fontSize: 12,
+      bold: false,
       alignment: "left",
     },
   };
@@ -800,8 +849,24 @@ function generatePDF(resultsData, patternsData, customStyles = {}) {
   const enrichedResults = enrichData(patternsData, resultsData);
 
   // Генерация контента для PDF
-  const generateContent = (results) => {
+  const generateContent = (results, userFullName, testDate) => {
     const content = [];
+    // Добавляем информацию о клиенте (ФИО слева, дата справа)
+    content.push({
+      columns: [
+        {
+          text: `ФИО: ${userFullName}`, // Имя пользователя слева
+          style: "clientInfo",
+          alignment: "left",
+        },
+        {
+          text: `Дата: ${testDate}`, // Дата справа
+          style: "clientInfo",
+          alignment: "right",
+        },
+      ],
+      margin: [0, 0, 0, 20], // Отступ снизу
+    });
 
     // Заголовок PDF
     content.push({
@@ -982,10 +1047,17 @@ function generatePDF(resultsData, patternsData, customStyles = {}) {
 
     return content;
   };
+  // Получаем текущую дату в формате "28 января 2025"
+  const now = new Date();
+  const testDate = now.toLocaleString("ru-RU", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
 
   // Определение структуры PDF
   const docDefinition = {
-    content: generateContent(enrichedResults),
+    content: generateContent(enrichedResults, userFullName, testDate), // Передаём FIO и дату
     styles: styles, // Применение стилей
   };
 

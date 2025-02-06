@@ -161,6 +161,8 @@ function toggleLoaderTest(show) {
   }
 }
 
+/* ======================================== */
+
 // Функция для перемешивания массива (алгоритм Фишера-Йетса)
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
@@ -169,36 +171,46 @@ function shuffleArray(array) {
   }
   return array;
 }
-
-// Рандомизируем вопросы и их ответы
+// Функция для рандомизации вопросов и их ответов
 function randomizeQuestionsAndAnswers() {
-  // Убедитесь, что questionsWithPatterns инициализирован
-  if (!Array.isArray(questionsWithPatterns)) {
-    console.error("questionsWithPatterns не инициализирован или не является массивом.");
-    return;
-  }
+	if (!Array.isArray(questionsWithPatterns)) {
+	  console.error("questionsWithPatterns не инициализирован или не является массивом.");
+	  return;
+	}
 
-  // Перемешиваем массив вопросов
-  questionsWithPatterns = shuffleArray(questionsWithPatterns.slice());
 
-  // Перемешиваем варианты ответов каждого вопроса
-  questionsWithPatterns = questionsWithPatterns.map((question) => {
-    return {
-      ...question,
-      options: shuffleArray(question.options.slice()), // Перемешиваем копию опций
-    };
-  });
+	// Перемешиваем массив вопросов
+	const shuffledQuestions = shuffleArray(questionsWithPatterns.slice());
 
-  console.log(questionsWithPatterns);
-}
+	// Перемешиваем варианты ответов и соответствующие им паттерны каждого вопроса
+	questionsWithPatterns = shuffledQuestions.map((question) => {
+	  // Создаем массив пар [option, pattern]
+	  const pairedOptions = question.options.map((option, index) => ({
+		 option,
+		 pattern: question.patterns[index],
+	  }));
 
-// Функция для отображения текущего вопроса
+	  // Перемешиваем пары
+	  const shuffledPairs = shuffleArray(pairedOptions.slice());
+
+	  // Возвращаем новый объект с перемешанными options и patterns
+	  return {
+		 question: question.question,
+		 options: shuffledPairs.map((pair) => pair.option), // Извлекаем перемешанные options
+		 patterns: shuffledPairs.map((pair) => pair.pattern), // Извлекаем перемешанные patterns
+	  };
+	});
+
+ }
+
+
+/* ======================================== */
+//Показать вопрос
 function showQuestion() {
   // Если массив вопросов ещё не перемешан, перемешиваем их вместе с вариантами
   if (currentQuestionIndex === 0) {
     randomizeQuestionsAndAnswers();
   }
-
   // Проверяем, есть ли вопросы
   if (!questionsWithPatterns.length) {
     console.error("Нет доступных вопросов.");
@@ -510,6 +522,7 @@ function showResults() {
   // Возвращаем JSON для отчётов (например, для PDF)
   return resultsData;
 }
+
 /* Всплывающий текст описания паттернов */
 function initializeTooltips() {
   const isTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints > 0;
@@ -750,13 +763,10 @@ function animateOnScroll() {
   const observerCallback = (entries, observer) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        console.log(`Element ${entry.target} is visible.`);
         // Добавляем класс, чтобы запускать анимацию
         entry.target.classList.add("_anim-active");
         // Убираем элемент из наблюдения
         observer.unobserve(entry.target);
-      } else {
-        console.log(`Element ${entry.target} is NOT visible.`);
       }
     });
   };

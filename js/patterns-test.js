@@ -94,12 +94,33 @@ document.addEventListener("DOMContentLoaded", () => {
   startTestButton.addEventListener("click", handleStartTestButton);
 });
 
-document.addEventListener("DOMContentLoaded", () => {
+/* document.addEventListener("DOMContentLoaded", () => {
   const startFillButton = document.getElementById("fill-test-answers"); // Кнопка "Начать тест"
 
   // Подключаем обработчик клика к кнопке "Начать тест"
   startFillButton.addEventListener("click", fillTestAnswers);
 });
+ */
+// Тестовая кнопка заполнения
+/* function fillTestAnswers() {
+	// Очистка массивов ответов и паттернов
+	answers.length = 0; // Или answers = [];
+	patterns.length = 0; // Или patterns = [];
+
+	// Проверка на наличие вопросов
+	for (let i = 0; i < questionsWithPatterns.length; i++) {
+	  if (questionsWithPatterns[i].options.length > 0) {
+		 answers.push(questionsWithPatterns[i].options[0]); // Выбираем первый вариант
+	  }
+	  if (questionsWithPatterns[i].patterns.length > 0) {
+		 patterns.push(questionsWithPatterns[i].patterns[0]); // Соответствующий паттерн
+	  }
+	}
+
+	// Устанавливаем индекс на конец вопросов
+	currentQuestionIndex = questionsWithPatterns.length;
+	showResults(); // Показываем результаты
+ } */
 
 // Функция загрузки вопросов
 async function loadQuestions() {
@@ -131,26 +152,6 @@ async function loadQuestions() {
   }
 }
 
-// Тестовая кнопка заполнения
-function fillTestAnswers() {
-  // Очистка массивов ответов и паттернов
-  answers.length = 0; // Или answers = [];
-  patterns.length = 0; // Или patterns = [];
-
-  // Проверка на наличие вопросов
-  for (let i = 0; i < questionsWithPatterns.length; i++) {
-    if (questionsWithPatterns[i].options.length > 0) {
-      answers.push(questionsWithPatterns[i].options[0]); // Выбираем первый вариант
-    }
-    if (questionsWithPatterns[i].patterns.length > 0) {
-      patterns.push(questionsWithPatterns[i].patterns[0]); // Соответствующий паттерн
-    }
-  }
-
-  // Устанавливаем индекс на конец вопросов
-  currentQuestionIndex = questionsWithPatterns.length;
-  showResults(); // Показываем результаты
-}
 
 function toggleLoaderTest(show) {
   const loader = document.getElementById("loader-test");

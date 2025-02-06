@@ -163,14 +163,14 @@
                 <div id="error-message" class="error-message" style="display: none">Пожалуйста, выберите вариант ответа!</div>
                 <div class="quiz-patterns__navigation">
                   <button class="quiz-patterns__button quiz-patterns__button_prev" id="next-button" onclick="previousQuestion()">Назад</button>
-                  <button class="quiz-patterns__button" id="next-button" onclick="nextQuestion()">Далее</button>
+                  <button class="quiz-patterns__button quiz-patterns__button_next" id="next-button" onclick="nextQuestion()">Далее</button>
                 </div>
               </div>
 
               <div id="result-container" class="result__contain" style="display: none">
                 <h2 class="quiz-patterns__subtitle">Результаты теста</h2>
 
-                <div class="quiz-patterns__navigation">
+                <div class="quiz-patterns__navigation-result">
                   <button class="quiz-patterns__button quiz-patterns__button_result" onclick="resetQuiz()">Пройти опрос снова</button>
                   <div id="loader-overlay" style="display: none">
                     <div id="loader">

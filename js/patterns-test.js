@@ -94,6 +94,13 @@ document.addEventListener("DOMContentLoaded", () => {
   startTestButton.addEventListener("click", handleStartTestButton);
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+  const startFillButton = document.getElementById("fill-test-answers"); // Кнопка "Начать тест"
+
+  // Подключаем обработчик клика к кнопке "Начать тест"
+  startFillButton.addEventListener("click", fillTestAnswers);
+});
+
 // Функция загрузки вопросов
 async function loadQuestions() {
   try {
@@ -125,7 +132,7 @@ async function loadQuestions() {
 }
 
 // Тестовая кнопка заполнения
-/* function fillTestAnswers() {
+function fillTestAnswers() {
   // Очистка массивов ответов и паттернов
   answers.length = 0; // Или answers = [];
   patterns.length = 0; // Или patterns = [];
@@ -143,7 +150,7 @@ async function loadQuestions() {
   // Устанавливаем индекс на конец вопросов
   currentQuestionIndex = questionsWithPatterns.length;
   showResults(); // Показываем результаты
-} */
+}
 
 function toggleLoaderTest(show) {
   const loader = document.getElementById("loader-test");
@@ -154,8 +161,44 @@ function toggleLoaderTest(show) {
   }
 }
 
+// Функция для перемешивания массива (алгоритм Фишера-Йетса)
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]]; // меняем местами элементы
+  }
+  return array;
+}
+
+// Рандомизируем вопросы и их ответы
+function randomizeQuestionsAndAnswers() {
+  // Убедитесь, что questionsWithPatterns инициализирован
+  if (!Array.isArray(questionsWithPatterns)) {
+    console.error("questionsWithPatterns не инициализирован или не является массивом.");
+    return;
+  }
+
+  // Перемешиваем массив вопросов
+  questionsWithPatterns = shuffleArray(questionsWithPatterns.slice());
+
+  // Перемешиваем варианты ответов каждого вопроса
+  questionsWithPatterns = questionsWithPatterns.map((question) => {
+    return {
+      ...question,
+      options: shuffleArray(question.options.slice()), // Перемешиваем копию опций
+    };
+  });
+
+  console.log(questionsWithPatterns);
+}
+
 // Функция для отображения текущего вопроса
 function showQuestion() {
+  // Если массив вопросов ещё не перемешан, перемешиваем их вместе с вариантами
+  if (currentQuestionIndex === 0) {
+    randomizeQuestionsAndAnswers();
+  }
+
   // Проверяем, есть ли вопросы
   if (!questionsWithPatterns.length) {
     console.error("Нет доступных вопросов.");
@@ -178,18 +221,18 @@ function showQuestion() {
 
   // Обновляем содержимое контейнера вопроса
   questionContainer.innerHTML = `
-		<div class="question">${question.question}</div>
-		${question.options
+	  <div class="question">${question.question}</div>
+	  ${question.options
       .map(
         (option) => `
-		  <label class="option">
-			 <input type="radio" name="answer" value="${option}" ${currentAnswer === option ? "checked" : ""}>
-			 <span class="radio-label">${option}</span>
-		  </label>
+		 <label class="option">
+			<input type="radio" name="answer" value="${option}" ${currentAnswer === option ? "checked" : ""}>
+			<span class="radio-label">${option}</span>
+		 </label>
 		 `
       )
       .join("")}
-	 `;
+	`;
 
   // Обновляем счётчик вопросов
   questionCounter.innerHTML = `Вопрос ${currentQuestionIndex + 1} из ${questionsWithPatterns.length}`;
@@ -252,8 +295,6 @@ function resetQuiz() {
   const quizPatternsBlock = document.querySelector(".quiz-patterns__block");
   quizPatternsBlock.style.maxWidth = "800px";
   showQuestion(); // Показываем первый вопрос
-  const subtitle = document.querySelector(".quiz-patterns__subtitle");
-  subtitle.style.display = "none";
 
   // Прокрутка страницы вверх
   window.scrollTo({ top: 0, behavior: "smooth" });
@@ -270,14 +311,12 @@ function showResults() {
   const resultContainer = document.getElementById("result-container");
   const quizContent = document.getElementById("quiz-content");
   const resultContent = document.getElementById("result-content");
-  const subtitle = document.querySelector(".quiz-patterns__subtitle");
   const questionCounter = document.getElementById("question-counter");
   const quizPatternsBlock = document.querySelector(".quiz-patterns__block");
 
   // Скрываем блок с вопросами и счётчик для отображения результатов
   quizContent.style.display = "none";
   questionCounter.style.display = "none";
-  subtitle.textContent = "Результаты теста";
   quizPatternsBlock.style.maxWidth = "1200px";
 
   let results = ""; // Для финального HTML результата
@@ -391,23 +430,23 @@ function showResults() {
         const patternDescription = currentPatternData?.description.ru || "Описание отсутствует";
 
         patternResults += `
-				 <div class="pattern-result">
-					<div class="pattern-result__label">
-					  <div class="scale-bar-title-wrapper">
-						 <p class="scale-bar-title">${pattern}</p>
-						 <div class="info-tooltiptest-wrapper">
-							<div class="info-icon">i</div>
-							<div class="tooltiptest">
-							  ${patternDescription}
-							</div>
-						 </div>
-					  </div>
-					  <p>${percentage}%</p>
-					</div>
-					<div class="scale-bar-container">
-					  <div class="scale-bar" style="width: ${percentage}%;"></div>
-					</div>
-				 </div>`;
+  <div class="pattern-result">
+    <div class="pattern-result__label">
+      <div class="scale-bar-title-wrapper">
+        <p class="scale-bar-title">${pattern}</p>
+        <div class="info-icon">
+          <span>i</span>
+          <div class="tooltiptest hidden">
+            ${patternDescription}
+          </div>
+        </div>
+      </div>
+      <p>${percentage}%</p>
+    </div>
+    <div class="scale-bar-container">
+      <div class="scale-bar" style="width: ${percentage}%;"></div>
+    </div>
+  </div>`;
       });
 
       patternResults += `</div>`;
@@ -461,86 +500,63 @@ function showResults() {
 
   // Вставляем HTML результатов
   resultContent.innerHTML = results;
-
-  // Вызываем функцию для инициализации тултипов
-  initializeTooltips();
+  // Создаем Blob с текстом
+  const blob = new Blob([results], { type: "text/plain" });
 
   // Делаем контейнер видимым
   resultContainer.style.display = "flex";
   animateOnScroll();
-
+  initializeTooltips();
   // Возвращаем JSON для отчётов (например, для PDF)
   return resultsData;
 }
 /* Всплывающий текст описания паттернов */
 function initializeTooltips() {
-  // Проверяем, является ли устройство сенсорным
   const isTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints > 0;
 
-  // Добавляем обработчики на все элементы c `.info-tooltiptest-wrapper`
-  document.querySelectorAll(".info-tooltiptest-wrapper").forEach((tooltipWrapper) => {
-    console.log("Добавляем обработчик для:", tooltipWrapper); // Для отладки
-    const tooltip = tooltipWrapper.querySelector(".tooltiptest");
-    const infoIcon = tooltipWrapper.querySelector(".info-icon");
+  document.querySelectorAll(".info-icon").forEach((infoIcon) => {
+    const tooltip = infoIcon.querySelector(".tooltiptest");
 
-    // Проверяем наличие тултипа и иконки
-    if (tooltip && infoIcon) {
+    if (tooltip) {
+      const showTooltip = () => {
+        tooltip.classList.remove("hidden");
+        tooltip.classList.add("visible");
+      };
+
+      const hideTooltip = () => {
+        tooltip.classList.remove("visible");
+        tooltip.classList.add("hidden");
+      };
+
       if (isTouchDevice) {
-        // === ОБРАБОТЧИКИ ДЛЯ СЕНСОРНЫХ УСТРОЙСТВ ===
-        tooltipWrapper.addEventListener("click", (event) => {
-          console.log("Клик на info-icon (мобильные)");
-
-          // Скрываем все другие тултипы перед открытием текущего
-          document.querySelectorAll(".tooltiptest").forEach((otherTooltip) => {
-            if (otherTooltip !== tooltip) {
-              otherTooltip.style.visibility = "hidden";
-              otherTooltip.style.opacity = "0";
-            }
-          });
-
-          // Переключаем состояние текущего тултипа
-          const isVisible = tooltip.style.visibility === "visible";
-          if (!isVisible) {
-            tooltip.style.visibility = "visible";
-            tooltip.style.opacity = "1";
+        infoIcon.addEventListener("click", (event) => {
+          if (tooltip.classList.contains("visible")) {
+            hideTooltip(); // Закрыть тултип, если он уже открыт
           } else {
-            tooltip.style.visibility = "hidden";
-            tooltip.style.opacity = "0";
+            // Закрывает другие тултипы
+            document.querySelectorAll(".tooltiptest.visible").forEach((t) => {
+              t.classList.remove("visible");
+              t.classList.add("hidden");
+            });
+            showTooltip(); // Показать текущий тултип
           }
-
-          // Остановить всплытие события
-          event.stopPropagation();
+          event.stopPropagation(); // Предотвращает действие события на родителе
         });
       } else {
-        // === ОБРАБОТЧИКИ ДЛЯ ПК — НАВЕДЕНИЕ ===
-        infoIcon.addEventListener("mouseenter", () => {
-          console.log("Наведение на info-icon");
-          tooltip.style.visibility = "visible";
-          tooltip.style.opacity = "1";
-        });
-
-        infoIcon.addEventListener("mouseleave", () => {
-          console.log("Уход курсора с info-icon");
-          tooltip.style.visibility = "hidden";
-          tooltip.style.opacity = "0";
-        });
+        infoIcon.addEventListener("mouseenter", showTooltip);
+        infoIcon.addEventListener("mouseleave", hideTooltip);
       }
     }
   });
 
-  // === ОБРАБОТЧИК ГЛОБАЛЬНОГО КЛИКА ===
   document.addEventListener("click", (event) => {
-    console.log("Клик вне тултипа: скрываем все тултипы");
-
-    // Проверяем, клик попал ли внутрь `.info-tooltiptest-wrapper`
-    const isInside = event.target.closest(".info-tooltiptest-wrapper");
-    if (!isInside) {
-      // Если клик не попал в тултип или обертку, скрываем все тултипы
-      document.querySelectorAll(".tooltiptest").forEach((tooltip) => {
-        tooltip.style.visibility = "hidden";
-        tooltip.style.opacity = "0";
-      });
-    }
+    // Проверяем, был ли клик в пределах тултипа
+    document.querySelectorAll(".tooltiptest.visible").forEach((tooltip) => {
+      if (!tooltip.contains(event.target) && !tooltip.previousElementSibling.contains(event.target)) {
+        tooltip.classList.remove("visible");
+        tooltip.classList.add("hidden");
+      }
+    });
   });
 }
 

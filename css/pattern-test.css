@@ -160,7 +160,7 @@
   border-radius: 16px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   margin-bottom: 60px;
-  @media (max-width: 600px) {
+  @media (max-width: 450px) {
     padding: 0;
     border-radius: 0;
     box-shadow: none;
@@ -168,10 +168,11 @@
 }
 
 .quiz-patterns__contant {
-  min-height: 300px;
+  min-height: 270px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  gap: 20px;
 }
 
 .quiz-patterns__title {
@@ -188,10 +189,99 @@
   margin: 0px 0px 20px 0px;
 }
 
+.quiz-patterns__description {
+  color: #000;
+  margin: 0 auto;
+  max-width: 800px;
+  font-size: 18px;
+  line-height: 130%;
+  box-shadow: 0 2px 9px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.quiz-patterns__description p {
+  font-weight: 500;
+}
+
+.quiz-patterns__description p:not(:last-child) {
+  margin: 0 0 10px 0;
+}
+
+.quiz-patterns__description ul {
+  margin: 0 0 20px 0;
+}
+
+.quiz-patterns__description ul li {
+  position: relative;
+  padding-left: 15px;
+  margin-left: 5px;
+}
+
+.quiz-patterns__description ul li:not(:last-child) {
+  margin-bottom: 5px;
+}
+
+.quiz-patterns__description ul li::before {
+  position: absolute;
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  left: 0;
+  top: 7px;
+  background-color: #000;
+  border-radius: 50%;
+}
+
+.quiz-patterns__description ol {
+  padding-left: 20px;
+  counter-reset: none;
+  margin: 0 0 10px 0;
+}
+
+.quiz-patterns__description ol li {
+  margin-left: 5px;
+  list-style: decimal;
+  color: inherit;
+  text-align: left;
+}
+.quiz-patterns__description ol li:not(:last-child) {
+  margin-bottom: 5px;
+}
+
+.quiz-patterns__description ol li::marker {
+  font-weight: bold;
+  font-size: 16px;
+}
+.quiz-patterns__instruction {
+  color: #ff008a;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+.quiz-patterns__instruction span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: #fff;
+  border: 1px solid #ff008a;
+  color: #ff008a;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  flex-shrink: 0;
+  font-style: italic;
+  line-height: 1;
+  font-family: Robor;
+}
 .question {
   margin-bottom: 30px;
   font-weight: 400;
-  font-size: 22px;
+  font-size: 20px;
   line-height: 150%;
   text-align: center;
   @media (max-width: 768px) {
@@ -209,26 +299,33 @@
 }
 .option {
   display: block;
-  margin: 15px 0;
   padding: 20px 16px;
-  font-size: 18px;
-  font-weight: 400;
-  line-height: 24px;
-  background: rgb(245, 245, 245);
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 120%;
+  box-shadow: 0 2px 9px rgba(0, 0, 0, 0.1);
   border-radius: 16px;
   cursor: pointer;
   user-select: none;
-  border: 1px solid rgb(245, 245, 245);
-  transition: all 0.1s ease 0s;
+  color: #000;
+  transition: all 0.3s ease 0s;
+  @media (max-width: 600px) {
+    font-size: 20px;
+  }
+}
+.option:not(:last-child) {
+  margin: 0px 0px 15px 0px;
 }
 /* Убираем рамку фокуса */
 .option:hover,
 .option:focus {
   background: rgb(235, 235, 235);
   outline: none; /* Убираем любую оформляющую рамку вокруг */
+  box-shadow: none;
 }
 .option:hover {
   background: rgb(235, 235, 235);
+  box-shadow: none;
 }
 .radio-label {
   position: relative;
@@ -260,14 +357,15 @@ input[type="radio"]:focus {
 
 input[type="radio"]:checked + .radio-label:before {
   border: 1px solid #0060ff;
-  background: #3b82f6;
+  background: #fff;
   outline: none;
 }
 
 /* Добавляем стиль для .option, если внутри input[type="radio"]:checked */
 .option:has(input[type="radio"]:checked) {
-  border: 1px solid #0060ff; /* Меняем границу, если радио выбрано */
+  background: #0060ff;
   transition: all 0.3s ease 0s;
+  color: #fff;
 }
 
 .button-container {
@@ -276,13 +374,19 @@ input[type="radio"]:checked + .radio-label:before {
 .quiz-patterns__navigation {
   display: flex;
   justify-content: space-between;
+  margin: 0px 0px 20px 0px;
+  @media (max-width: 460px) {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    gap: 10px;
+  }
 }
 
 .quiz-patterns__button {
   display: flex;
   align-self: flex-end;
   align-items: center;
-  background: #007bff;
+  background: #0060ff;
   border-radius: 8px;
   position: relative;
   z-index: 10;
@@ -294,10 +398,17 @@ input[type="radio"]:checked + .radio-label:before {
   color: #fff;
   cursor: pointer;
   font-family: "Montserrat", sans-serif;
+  height: 40px;
+  justify-content: center;
+  @media (max-width: 460px) {
+    align-self: flex-start;
+    width: 100%;
+    text-align: center;
+  }
 }
 
 .quiz-patterns__button:hover {
-  background: #006adc;
+  background: #0149bd;
 }
 .quiz-patterns__button:active {
   transform: translateY(1px);
@@ -305,12 +416,29 @@ input[type="radio"]:checked + .radio-label:before {
 
 .quiz-patterns__button_result {
   align-self: flex-start;
+  border: 1px solid #0060ff;
+  background-color: #fff;
+  color: #0060ff;
 }
-
+.quiz-patterns__button_result:hover {
+  border: 1px solid #0149bd;
+  background-color: #0149bd;
+  color: #fff;
+}
+.quiz-patterns__button_prev {
+  border: 1px solid #0060ff;
+  background-color: #fff;
+  color: #0060ff;
+}
+.quiz-patterns__button_prev:hover {
+  border: 1px solid #0149bd;
+  background-color: #0149bd;
+  color: #fff;
+}
 .question-counter {
   text-align: right;
   font-size: 16px;
-  margin: 0 0 10px 0;
+  margin: 0 0 20px 0;
   color: #a6a6a6;
   @media (max-width: 600px) {
     font-size: 16px;
@@ -353,6 +481,10 @@ input[type="radio"]:checked + .radio-label:before {
     margin-bottom: 20px;
     font-weight: 600;
     font-size: 20px;
+  }
+  @media (max-width: 380px) {
+    margin-bottom: 15px;
+    font-size: 18px;
   }
 }
 .category-label::before {
@@ -459,7 +591,6 @@ input[type="radio"]:checked + .radio-label:before {
 .error-message {
   color: red;
   font-size: 16px;
-  margin: 0 0 10px 0;
   text-align: center;
   line-height: 130%;
 }
@@ -483,9 +614,6 @@ input[type="radio"]:checked + .radio-label:before {
   .quiz-patterns__title {
     margin: 0 0 20px;
   }
-  .quiz-patterns__block {
-    margin: 20px 0 0 0;
-  }
 }
 
 .pattern-scales {
@@ -506,6 +634,9 @@ input[type="radio"]:checked + .radio-label:before {
   border-radius: 5px;
   @media (max-width: 768px) {
     padding: 15px;
+  }
+  @media (max-width: 390px) {
+    padding: 10px;
   }
 }
 
@@ -530,6 +661,9 @@ input[type="radio"]:checked + .radio-label:before {
     font-size: 16px;
     margin-bottom: 20px;
   }
+  @media (max-width: 380px) {
+    font-size: 16px;
+  }
 }
 
 .scale-status {
@@ -543,6 +677,7 @@ input[type="radio"]:checked + .radio-label:before {
   border-radius: 24px;
   text-transform: uppercase;
   align-self: flex-start;
+  background: #e4e4e457;
 }
 
 .scale-bar-container {
@@ -799,21 +934,25 @@ td.question-cell-number[rowspan] {
 }
 
 /* Стили для подсказки ==================================================*/
+/* Общий стиль контейнера заголовка и иконки */
 .scale-bar-title-wrapper {
-  display: inline-block;
-  position: relative;
-  padding-right: 30px;
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Увеличенный промежуток между элементами */
+  position: relative; /* Поддержка абсолютного позиционирования тултипа */
 }
 
+/* Заголовок, отображающий название */
 .scale-bar-title {
-  font-weight: 500;
-  line-height: 1;
+  font-weight: 600; /* Более жирный шрифт для выделения */
+  line-height: 1.5; /* Увеличена высота строки для лучшей читаемости */
+  color: #333; /* Темный цвет текста */
 }
 
+/* Стиль иконки информации */
 .info-icon {
-  position: absolute;
-  top: -5px;
-  right: 5px;
+}
+.info-icon span {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -825,65 +964,40 @@ td.question-cell-number[rowspan] {
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
-  flex-shrink: 0;
   font-style: italic;
   line-height: 1;
   font-family: Robor;
-} /* Базовые стили тултипа */
+}
+
+/* Стиль тултипа */
 .tooltiptest {
-  visibility: hidden;
-  opacity: 0;
+  display: none;
   position: absolute;
-  left: calc(100% + 10px); /* По умолчанию сдвиг вправо */
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: rgba(0, 0, 0, 0.9);
+  left: 0;
+  bottom: 30px;
+  background-color: #575757;
   color: white;
-  padding: 8px;
-  border-radius: 5px;
-  font-size: 12px;
-  text-align: center;
-  z-index: 1000;
-  line-height: 1.5;
-  transition: opacity 0.3s ease;
-  min-width: 260px;
-  box-sizing: border-box;
-  width: auto; /* Настраиваем ширину по содержимому */
+  padding: 12px 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgb(0 0 0 / 20%);
+  z-index: 2000;
+  width: 300px;
+  font-size: 14px;
+  line-height: 140%;
 }
 
-.tooltiptest:after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  left: -6px; /* Для стрелки справа */
-  border-width: 6px;
-  border-style: solid;
-  border-color: transparent rgba(0, 0, 0, 0.9) transparent transparent;
-}
-
-/* Активное состояние тултипа */
 .tooltiptest.visible {
-  visibility: visible;
-  opacity: 1;
+  display: block; /* Показать тултип */
 }
 
-/* Адаптивное поведение на мобильных устройствах */
+/* Поведение для мобильных устройств */
 @media (max-width: 768px) {
   .tooltiptest {
-    left: 10px; /* Смещаем тултип в доступную область */
-    right: 10px; /* Удерживаем тултип в пределах экрана */
-    top: calc(100% + 10px); /* Перемещаем тултип ниже элемента */
-    transform: none; /* Сбрасываем вертикальное выравнивание для мобильных устройств */
-  }
-
-  .tooltiptest:after {
-    top: -6px; /* Размещаем стрелку наверху тултипа */
-    left: 20px; /* Указываем отступ для стрелки */
-    transform: none;
-    border-color: rgba(0, 0, 0, 0.9) transparent transparent transparent; /* Меняем стрелку наверх */
+    padding: 10px 10px;
+    width: 280px;
   }
 }
+
 /* CSS */
 #loader-overlay {
   position: fixed;
@@ -960,13 +1074,14 @@ td.question-cell-number[rowspan] {
   margin-bottom: 20px;
   max-width: 800px;
   margin: 0 auto;
-  padding: 50px 0;
+  padding: 15px 0 30px 0;
 }
 .quiz-patterns__input {
   padding: 18px;
   font-size: 16px;
-  width: 80%;
-  border: 1px solid #3b82f6;
+  max-width: 800px;
+  width: 100%;
+  box-shadow: 0 2px 9px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   line-height: 140%;
 }
@@ -987,7 +1102,7 @@ td.question-cell-number[rowspan] {
 .quiz-patterns__fio-display {
   font-size: 18px;
   font-weight: 500;
-  color: #3b82f6;
+  color: #0386ff;
   margin-bottom: 10px;
   text-align: center;
 }
@@ -995,9 +1110,23 @@ td.question-cell-number[rowspan] {
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
+  color: #000;
+  max-width: 800px;
+  margin: 0 auto;
+  padding-bottom: 20px;
+  @media (max-width: 600px) {
+    flex-direction: column;
+    gap: 10px;
+    padding-bottom: 30px;
+  }
 }
 .test-info__item {
   font-weight: 500;
+  font-size: 16px;
+  line-height: 140%;
+  @media (max-width: 600px) {
+    font-size: 14px;
+  }
 }
 .test-info__item span {
   font-weight: 400;

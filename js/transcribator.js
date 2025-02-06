@@ -407,40 +407,46 @@ $(document).ready((function () {
 	}
 }));
 
-function formValidationPay() {
-	const validation = new window.JustValidate(".modal-pay__form");
-	const paymentMethods = document.querySelectorAll('input[name="payment_method"]');
-	validation.addField('input[name="payment_method"]', [{
-		rule: "required",
-		value: true,
-		errorMessage: "Выберите метод оплаты"
-	}]).onSuccess((event => {
-		let formData = new FormData(event.target);
-		let xhr = new XMLHttpRequest;
-		xhr.onreadystatechange = function () {
-			if (4 === xhr.readyState && 200 === xhr.status) console.log("оплата отправлена");
-		};
-		$.fancybox.close();
-		$.fancybox.open({
-			src: "#file-sent",
-			type: "inline"
-		});
-		xhr.open("POST", "pay.php", true);
-		xhr.send(formData);
-		event.target.reset();
-	}));
-	function btnValidationPay() {
-		const btn = document.querySelector(".modal-pay__btn");
-		paymentMethods.forEach((method => {
-			method.addEventListener("change", checkSelected);
-		}));
-		function checkSelected() {
-			const selectedMethod = document.querySelector('input[name="payment_method"]:checked');
-			btn.classList.toggle("active", !!selectedMethod);
-		}
-		checkSelected();
-	}
-	btnValidationPay();
-}
-formValidationPay();
 
+/* Анимация */
+function initAnimations({
+	animSelector = "._anim-items",
+	// Селектор анимируемых элементов (по умолчанию "._anim-items")
+	observerOptions = {
+		root: null,
+		rootMargin: "0px",
+		threshold: 0.3,
+		// Процент пересечения, при котором начинается анимация
+	},
+	animDuration = 1.5
+	// Продолжительность анимации в секундах
+} = {}) {
+	const animItems = document.querySelectorAll(animSelector);
+
+	if (animItems.length > 0) {
+		const animCallback = (entries, observer) => {
+			entries.forEach(entry => {
+				if (entry.isIntersecting) {
+					entry.target.style.transition = `opacity ${animDuration}s ease, transform ${animDuration}s ease`;
+					entry.target.classList.add("_active");
+					if (!entry.target.classList.contains("_anim-no-hide")) {
+						observer.unobserve(entry.target); // Убираем дальнейшее наблюдение
+					}
+				} else {
+					if (!entry.target.classList.contains("_anim-no-hide")) {
+						entry.target.classList.remove("_active");
+					}
+				}
+			});
+		};
+
+		// Создаем наблюдатель для отслеживания элементов
+		const observer = new IntersectionObserver(animCallback, observerOptions);
+
+		// Наблюдаем за каждым элементом
+		animItems.forEach(animItem => {
+			observer.observe(animItem);
+		});
+	}
+}
+initAnimations();

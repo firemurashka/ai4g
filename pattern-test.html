@@ -113,7 +113,6 @@
         <section class="quiz-patterns" id="top">
           <div class="quiz-patterns__container">
             <h1 class="quiz-patterns__title title">Тест паттернов</h1>
-            <h2 class="quiz-patterns__subtitle"></h2>
 
             <!-- Блок ввода ФИО -->
             <div class="quiz-patterns__form" id="fio-form">
@@ -121,15 +120,34 @@
               <input type="text" id="fullName" placeholder="Введите ФИО" class="quiz-patterns__input" required />
               <div id="error-message-fio" class="error-message-fio" style="display: none">Пожалуйста, введите ФИО!</div>
               <button id="start-test-button" class="quiz-patterns__button quiz-patterns__button_form">Начать тест</button>
+              <div class="quiz-patterns__description">
+                <p class="quiz-patterns__instruction">
+                  <span>i</span>
+                  Инструкция!
+                </p>
+                <p>Этот тест поможет выявить 4 категории ваших паттернов:</p>
+                <ul>
+                  <li>Паттерны организации времени</li>
+                  <li>Паттерны поведения</li>
+                  <li>Паттерны коммуникации</li>
+                  <li>Паттерны мышления</li>
+                </ul>
+                <p>Просто следуйте инструкциям:</p>
+                <ol>
+                  <li>Прохождение теста займет 3 минуты.</li>
+                  <li>На каждом вопросе вам будет предложено несколько слов.</li>
+                  <li>Выбирайте то слово, которое вам нравится больше всего. Отвечайте быстро, не задумываясь, доверьтесь своему первому импульсу.</li>
+                  <li>После завершения теста результаты помогут определить ваши уникальные паттерны для дальнейшего анализа.</li>
+                </ol>
+                <p>Следуйте этим шагам, чтобы тестирование прошло максимально эффективно.</p>
+              </div>
             </div>
-
+            <div class="test-info">
+              <div id="fio-display" class="test-info__item"></div>
+              <div id="time-display" class="test-info__item"></div>
+            </div>
             <!-- Блок с тестом -->
             <div class="quiz-patterns__block" id="test-block" style="display: none">
-              <div class="test-info">
-                <div id="fio-display"  class="test-info__item"></div>
-                <div id="time-display" class="test-info__item"></div>
-              </div>
-
               <!-- Отображение ФИО над вопросами -->
               <div id="question-counter" class="question-counter">
                 <!-- Счетчик вопроса будет динамически вставлен здесь -->
@@ -144,15 +162,13 @@
                 </div>
                 <div id="error-message" class="error-message" style="display: none">Пожалуйста, выберите вариант ответа!</div>
                 <div class="quiz-patterns__navigation">
-                  <button class="quiz-patterns__button" id="next-button" onclick="previousQuestion()">Назад</button>
+                  <button class="quiz-patterns__button quiz-patterns__button_prev" id="next-button" onclick="previousQuestion()">Назад</button>
                   <button class="quiz-patterns__button" id="next-button" onclick="nextQuestion()">Далее</button>
                 </div>
               </div>
 
               <div id="result-container" class="result__contain" style="display: none">
-                <div class="result__content" id="result-content">
-                  <!-- Здесь будут выводиться результаты -->
-                </div>
+                <h2 class="quiz-patterns__subtitle">Результаты теста</h2>
 
                 <div class="quiz-patterns__navigation">
                   <button class="quiz-patterns__button quiz-patterns__button_result" onclick="resetQuiz()">Пройти опрос снова</button>
@@ -164,14 +180,18 @@
                   </div>
                   <button class="quiz-patterns__button" id="download-pdf">Скачать PDF</button>
                 </div>
+
+                <div class="result__content" id="result-content">
+                  <!-- Здесь будут выводиться результаты -->
+                </div>
               </div>
             </div>
             <!--       <div id="result-table-container" style="display: none"></div>
             <div id="reference-table-container" style="display: none"></div> -->
             <!-- тестовая кнопка - удалить -->
-            <!--    <div id="quiz-controls">
+            <div id="quiz-controls">
               <button class="quiz-patterns__button quiz-patterns__button_test" id="fill-test-answers">Заполнить тестовые ответы</button>
-            </div> -->
+            </div>
             <style>
               .quiz-patterns__button_test {
                 margin: 20px auto;

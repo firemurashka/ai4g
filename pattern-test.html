@@ -142,16 +142,18 @@
                 <p>Следуйте этим шагам, чтобы тестирование прошло максимально эффективно.</p>
               </div>
             </div>
-            <div class="test-info">
-              <div id="fio-display" class="test-info__item"></div>
-              <div id="time-display" class="test-info__item"></div>
-            </div>
+
             <!-- Блок с тестом -->
             <div class="quiz-patterns__block" id="test-block" style="display: none">
               <!-- Отображение ФИО над вопросами -->
-              <div id="question-counter" class="question-counter">
-                <!-- Счетчик вопроса будет динамически вставлен здесь -->
+
+              <div class="test-info">
+                <div id="fio-display" class="test-info__item"></div>
+                <div id="time-display" class="test-info__item"></div>
               </div>
+              <!-- Счетчик вопроса будет динамически вставлен здесь -->
+
+              <div id="question-counter" class="question-counter"></div>
               <div class="quiz-patterns__contant" id="quiz-content">
                 <div id="loader-test">
                   <span></span>
@@ -189,7 +191,7 @@
             <!--       <div id="result-table-container" style="display: none"></div>
             <div id="reference-table-container" style="display: none"></div> -->
             <!-- тестовая кнопка - удалить -->
-          <!--   <div id="quiz-controls">
+            <!--   <div id="quiz-controls">
               <button class="quiz-patterns__button quiz-patterns__button_test" id="fill-test-answers">Заполнить тестовые ответы</button>
             </div>
             <style>

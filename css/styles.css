@@ -21,7 +21,7 @@ body {
 body {
   color: #150931;
   line-height: 1;
-  font-family: "Gotham Pro";
+  font-family: "Montserrat";
   font-size: 1.125rem;
   -ms-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
@@ -33,7 +33,7 @@ body {
 input,
 button,
 textarea {
-  font-family: "Gotham Pro";
+  font-family: "Montserrat";
   font-size: inherit;
 }
 
@@ -5489,17 +5489,7 @@ input:-webkit-autofill:focus {
   opacity: 1;
 }
 
-/* Начальное состояние анимируемых элементов (скрытые) */
-._anim-items {
-  opacity: 0;
-  transform: translateY(100px);
-}
 
-/* Устанавливаем конечное состояние */
-._anim-items._active {
-  opacity: 1;
-  transform: translateY(0);
-}
 
 .serf-session__decor-img {
   opacity: 0;
@@ -7387,3 +7377,23 @@ input:-webkit-autofill:focus {
   background-color: #fff;
   border-radius: 50%;
 }
+
+/* Анимация----------------------------------------- */
+/* Начальное состояние анимируемых элементов (по умолчанию видимы) */
+._anim-items {
+	opacity: 1; /* Установлено наличие видимости */
+	transform: translateY(0); /* Элементы находятся на своем нормальном месте */
+ }
+
+ /* Устанавливаем стиль, который скрывает элемент */
+ ._anim-items._hidden {
+	opacity: 0;
+	transform: translateY(100px); /* Сдвигаем элемент вниз */
+ }
+
+ /* Устанавливаем конечное состояние */
+ ._anim-items._active {
+	opacity: 1;
+	transform: translateY(0);
+ }
+ /*----------------------------------------- */

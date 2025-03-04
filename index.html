@@ -17,6 +17,9 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=PT+Sans:ital,wght@0,400;0,700;1,400&display=swap"
       rel="stylesheet"
     />
+    <link href="https://fonts.googleapis.com/css?family=PT+Serif:regular,italic,700,700italic&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans:regular,italic,700,700italic&display=swap" rel="stylesheet" />
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
@@ -582,10 +585,8 @@
                 </div>
               </div>
             </div>
-
             <div class="swiper-button-prev"></div>
             <div class="swiper-button-next"></div>
-
             <div class="swiper-arrows">
               <div class="swiper-button-prev"></div>
               <div class="swiper-button-next"></div>
@@ -631,10 +632,23 @@
           <h2 class="products__title">Продуктовая линейка</h2>
           <br />
           <div class="products__content">
-            <!-- Коучинговая сессия -->
+            <!-- Тест паттернов -->
             <div class="products__item">
               <div class="products__block">
                 <div class="products__num">1.</div>
+                <h3 class="products__subtitle">Тест паттернов</h3>
+              </div>
+              <div class="products__text">
+                Пройдите тест паттернов. Вы узнаете, как реагировать, какие чувства и мысли у вас возникают, и как это влияет на ваши результаты. А ещё вы
+                откроете для себя новые возможности!
+              </div>
+              <a class="products__link" href="/pattern-test.html">Подробнее</a>
+            </div>
+
+            <!-- Коучинговая сессия -->
+            <div class="products__item">
+              <div class="products__block">
+                <div class="products__num">2.</div>
                 <h3 class="products__subtitle">Коучинговая сессия</h3>
               </div>
               <div class="products__text">
@@ -647,7 +661,7 @@
             <!-- Карьерная консультация -->
             <div class="products__item">
               <div class="products__block">
-                <div class="products__num">2.</div>
+                <div class="products__num">3.</div>
                 <h3 class="products__subtitle">Карьерная консультация</h3>
               </div>
               <div class="products__text">
@@ -660,7 +674,7 @@
             <!-- Serf-сессия -->
             <div class="products__item">
               <div class="products__block">
-                <div class="products__num">3.</div>
+                <div class="products__num">4.</div>
                 <h3 class="products__subtitle">Serf-сессия определения паттернов</h3>
               </div>
               <div class="products__text">
@@ -673,7 +687,7 @@
             <!-- Стратегия "Новый год" -->
             <div class="products__item">
               <div class="products__block">
-                <div class="products__num">4.</div>
+                <div class="products__num">5.</div>
                 <h3 class="products__subtitle">Стратегия "Новый год"</h3>
               </div>
               <div class="products__text">
@@ -686,7 +700,7 @@
             <!-- Транскрибатор "Аллегро" -->
             <div class="products__item">
               <div class="products__block">
-                <div class="products__num">5.</div>
+                <div class="products__num">6.</div>
                 <h3 class="products__subtitle">Транскрибатор "Аллегро"</h3>
               </div>
               <div class="products__text">
@@ -713,7 +727,7 @@
     </main>
 
     <!-- Попап -->
-    <div class="popup-overlay" id="popup">
+    <!--     <div class="popup-overlay" id="popup">
       <div class="popup-overlay__content">
         <div class="popup-overlay__close" id="popup-close">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -918,7 +932,7 @@
           padding: 30px 15px;
         }
       }
-    </style>
+    </style> -->
 
     <footer class="footer">
       <div class="footer__super-wrapper">
@@ -977,6 +991,7 @@
           <input class="modal-request__phone modal-request__email" data-validate-field="email" name="email" type="email" placeholder="Электронная почта" />
         </div>
         <input type="hidden" name="page_title" value="Запись на serf-сессию с главной страницы" />
+        <input type="text" name="hidden_field" style="display: none" />
 
         <div class="modal-request__choice">
           <div class="modal-request__left">Предпочтительный способ связи:</div>

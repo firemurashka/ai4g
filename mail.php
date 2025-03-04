@@ -1,150 +1,71 @@
 <?php
-// Файлы phpmailer
-require 'phpmailer/PHPMailer.php';
-require 'phpmailer/SMTP.php';
-require 'phpmailer/Exception.php';
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
-function generateRandomString($length = 10) {
-    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    $charactersLength = strlen($characters);
-    $randomString = '';
-    for ($i = 0; $i < $length; $i++) {
-        $randomString .= $characters[rand(0, $charactersLength - 1)];
-    }
-    return $randomString;
+require 'PHPMailer/src/Exception.php';
+require 'PHPMailer/src/PHPMailer.php';
+require 'PHPMailer/src/SMTP.php';
+
+session_start();
+
+// Проверка на Honeypot
+if (!empty($_POST['hidden_field'])) {
+    die('Спам-бот обнаружен!');
 }
 
-function httpPost($url, $data)
-{
-    $curl = curl_init($url);
-    curl_setopt($curl, CURLOPT_POST, true);
-    curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($data));
-    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    $response = curl_exec($curl);
-    curl_close($curl);
-    return $response;
+// Проверка времени заполнения формы
+$current_time = time();
+$time_limit = 5; // Минимум 5 секунд для заполнения формы
+if (isset($_SESSION['last_submit_time']) && $current_time - $_SESSION['last_submit_time'] < $time_limit) {
+    die('Форма заполнена слишком быстро.');
 }
+$_SESSION['last_submit_time'] = $current_time;
 
-$user_login = generateRandomString();
-$user_password = generateRandomString();
-
-/* $title = "Заявка на serf-сессию"; */
-$title = isset($_POST['page_title']) ? $_POST['page_title'] : "Заявка с неизвестной страницы";
-
-//$file = $_FILES['file'];
-$body = "";
-$c = true;
-// Формирование самого письма
-// $title = "Заголовок письма";
-foreach ( $_POST as $key => $value ) {
-  if ( $value != "" && $key != "project_name" && $key != "admin_email" && $key != "form_subject" ) {
-    $body .= "
-    " . ( ($c = !$c) ? '<tr>':'<tr style="background-color: #f8f8f8;">' ) . "
-      <td style='padding: 10px; border: #e9e9e9 1px solid;'><b>$key</b></td>
-      <td style='padding: 10px; border: #e9e9e9 1px solid;'>$value</td>
-    </tr>
-    ";
-  }
+// Ограничение по IP
+$ip = $_SERVER['REMOTE_ADDR'];
+$_SESSION['ip_attempts'][$ip] = $_SESSION['ip_attempts'][$ip] ?? 0;
+if ($_SESSION['ip_attempts'][$ip] > 5) {
+    die('Слишком много запросов с вашего IP.');
 }
+$_SESSION['ip_attempts'][$ip]++;
 
-$body = "<table style='width: 100%;'>$body</table>";
-
-$client_body = "
-<tr>
-  <td style='padding: 10px; border: #e9e9e9 1px solid;'><b>Ваш логин для входа:</b></td>
-  <td style='padding: 10px; border: #e9e9e9 1px solid;'>$user_login</td>
-</tr>
-<tr>
-  <td style='padding: 10px; border: #e9e9e9 1px solid;'><b>Ваш пароль:</b></td>
-  <td style='padding: 10px; border: #e9e9e9 1px solid;'>$user_password</td>
-</tr>
-";
-
+// Проверка полей формы
+if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+    die('Некорректный email.');
+}
+if (!preg_match('/^[а-яА-ЯёЁa-zA-Z ]+$/u', $_POST['Имя'])) {
+    die('Имя содержит недопустимые символы.');
+}
 
 // Настройки PHPMailer
-$mail = new PHPMailer\PHPMailer\PHPMailer();
+$mail = new PHPMailer(true);
 
 try {
-  $mail->isSMTP();
-  $mail->CharSet = "UTF-8";
-  $mail->SMTPAuth   = true;
+    // Серверные настройки
+    $mail->isSMTP();
+    $mail->Host = 'smtp.example.com'; // SMTP сервер
+    $mail->SMTPAuth = true;
+    $mail->Username = 'your_email@example.com'; // SMTP логин
+    $mail->Password = 'your_password'; // SMTP пароль
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+    $mail->Port = 587;
 
-  // Настройки вашей почты
-  $mail->Host       = 'mail.ai4g.ru'; // SMTP сервера вашей почты
-  $mail->Username   = 'no-reply@ai4g.ru'; // Логин на почте
-  $mail->Password   = 'SYp-9H7-XmV-USj'; // Пароль на почте
-  $mail->SMTPSecure = 'ssl';
-  $mail->Port       = 465;
-  $mail->SMTPOptions = array(
-        'ssl' => array(
-            'verify_peer' => false,
-            'verify_peer_name' => false,
-            'allow_self_signed' => true
-        )
-    );
+    // Получатели
+    $mail->setFrom('your_email@example.com', 'Ваше имя');
+    $mail->addAddress('recipient@example.com', 'Получатель');
 
-  $mail->setFrom('no-reply@ai4g.ru', 'Заявка с сайта'); // Адрес самой почты и имя отправителя
+    // Содержимое письма
+    $mail->isHTML(true);
+    $mail->Subject = 'Новое сообщение с сайта';
+    $mail->Body = "<p><strong>Имя:</strong> " . htmlspecialchars($_POST['Имя']) . "</p>" .
+                  "<p><strong>Телефон:</strong> " . htmlspecialchars($_POST['Телефон']) . "</p>" .
+                  "<p><strong>Email:</strong> " . htmlspecialchars($_POST['email']) . "</p>";
 
-  // Получатель письма
-  $mail->addAddress('info@ai4g.ru');
-
-  // Прикрипление файлов к письму
-  //if (!empty($file['name'][0])) {
-  //  for ($ct = 0; $ct < count($file['tmp_name']); $ct++) {
-  //    $uploadfile = tempnam(sys_get_temp_dir(), sha1($file['name'][$ct]));
-  //    $filename = $file['name'][$ct];
-  //    if (move_uploaded_file($file['tmp_name'][$ct], $uploadfile)) {
-  //        $mail->addAttachment($uploadfile, $filename);
-  //        $rfile[] = "Файл $filename прикреплён";
-  //    } else {
-  //        $rfile[] = "Не удалось прикрепить файл $filename";
-  //   }
-  // }
-  // }
-
-  // Отправка сообщения
-  $mail->isHTML(true);
-  $mail->Subject = $title;
-  $mail->Body = $body;
-
-  $mail->send();
-
+    // Отправка письма
+    $mail->send();
+    echo 'Сообщение успешно отправлено!';
 } catch (Exception $e) {
-  $status = "Сообщение не было отправлено. Причина ошибки: {$mail->ErrorInfo}";
+    echo "Ошибка при отправке сообщения: {$mail->ErrorInfo}";
 }
 
-$mail = new PHPMailer\PHPMailer\PHPMailer();
-httpPost("https://ai4g.ru/autoregister", array('name' => $_POST['Имя'], 'nickname' => $user_login, 'phone' => $_POST['Телефон'], 'email' => $_POST['email'], 'birthdate' => "2023-04-04", 'pass' => $user_password, 'checkpass' => $user_password));
-
-try {
-  $mail->isSMTP();
-  $mail->CharSet = "UTF-8";
-  $mail->SMTPAuth   = true;
-
-  // Настройки вашей почты
-  $mail->Host       = 'mail.ai4g.ru'; // SMTP сервера вашей почты
-  $mail->Username   = 'no-reply@ai4g.ru'; // Логин на почте
-  $mail->Password   = 'SYp-9H7-XmV-USj'; // Пароль на почте
-  $mail->SMTPSecure = 'ssl';
-  $mail->Port       = 465;
-  $mail->SMTPOptions = array(
-        'ssl' => array(
-            'verify_peer' => false,
-            'verify_peer_name' => false,
-            'allow_self_signed' => true
-        )
-    );
-
-  $mail->setFrom('no-reply@ai4g.ru', 'AI4G');
-
-  $mail->addAddress($_POST['email']);
-
-  $mail->isHTML(true);
-  $mail->Subject = "Ваши данные для входа в личный кабинет AI4G";
-  $mail->Body = $client_body;
-
-  $mail->send();
-
-} catch (Exception $e) {
-  $status = "Сообщение не было отправлено. Причина ошибки: {$mail->ErrorInfo}";
-}
+?>

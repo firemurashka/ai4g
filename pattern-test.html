@@ -122,135 +122,257 @@
 
       <main>
         <section class="quiz-patterns" id="top">
-          <div class="quiz-patterns__container">
-            <h1 class="quiz-patterns__title title">Тест паттернов</h1>
+          <!-- 1. Первая страница============================================== -->
+          <div class="start-page" id="start-page">
+            <!-- Блок призыва-------------------------------------------->
 
-            <!-- Блок ввода ФИО -->
-            <div class="quiz-patterns__form" id="fio-form">
-              <h2 class="quiz-patterns__form-title">Введите Ваши данные, для прохождения теста:</h2>
-              <input type="text" id="fullName" placeholder="Введите ФИО" class="quiz-patterns__input" required />
-              <div id="error-message-fio" class="error-message-fio" style="display: none">Пожалуйста, введите ФИО!</div>
-              <button id="start-test-button" class="quiz-patterns__button quiz-patterns__button_form">Пройти тест</button>
-              <div class="quiz-patterns__description">
-                <p>Тест направлен на определение паттернов:</p>
-                <ul>
-                  <li><span>организации времени</span> (способность человека управлять своими временными ресурсами и планировать свою деятельность);</li>
-                  <li><span>поведения</span> (способность реагирования или действования человека в различных ситуациях);</li>
-                  <li><span>коммуникации</span> (способы взаимодействия и обмена информацией между людьми);</li>
-                  <li><span>мышления</span> (способность обработки информации, решения задач и принятия решений).</li>
-                </ul>
+            <!-- offer-test  -->
+            <section class="offer-test">
+              <div class="offer-test__container">
+                <div class="offer-test__body">
+                  <div class="offer-test__content">
+                    <div class="offer-test__overhead overhead _anim-items _anim-no-hide">Определение ваших паттернов</div>
+                    <h1 class="offer-test__title _anim-items _anim-no-hide">Тест Паттернов</h1>
 
-                <p class="quiz-patterns__instruction">
-                  <span>i</span>
-                  Инструкция!
-                </p>
-                <ol>
-                  <li>Прохождение теста займет не более 5 минут.</li>
-                  <li>Каждый вопрос сопровождается вариантами ответов, из которых необходимо выбрать один.</li>
-                  <li>Отвечайте быстро, не задумываясь, доверьтесь своей первой реакции.</li>
-                  <li>После завершения теста результаты можно сохранить в формате PDF.</li>
-                </ol>
-                <p>
-                  Ваши паттерны в дальнейшем можно использовать для прогнозирования вашего поведения, разработки индивидуальной траектории развития, анализа
-                  профессионального сценария.
-                </p>
+                    <div class="offer-test__subtitle _anim-items _anim-no-hide">Раскройте секреты своих <span>П</span>аттернов</div>
+
+                    <div class="offer-test__text _anim-items _anim-no-hide">
+                      Ваши паттерны – это ключ к пониманию ваших реакций и решений. Раскрывая эти паттерны, вы сможете получить ценные знания о себе и улучшить
+                      свои отношения с другими.
+                    </div>
+
+                    <div class="offer-test__text _anim-items _anim-no-hide">
+                      Наш Тест Паттернов поможет вам выявить ваши доминирующие паттерны и использовать эти знания для личностного роста. Погрузитесь в
+                      самоанализ и преобразите свое поведение!
+                    </div>
+                    <div class="offer-test__bottom _anim-items _anim-no-hide">
+                      <!-- ссылка на форму теста -->
+                      <a href="#button-hipe-test" class="offer-test__button patterns-button">Пройти тест </a>
+                      <div class="offer-test__clarification">Попробуй прямо сейчас</div>
+                    </div>
+                  </div>
+                  <img class="offer-test__image _anim-items _anim-no-hide" src="img/test-patterns/puzzle.png" alt="" />
+                </div>
+              </div>
+            </section>
+
+            <!-- Какие паттерны определяет тест-------------------->
+            <div class="patterns-description">
+              <div class="patterns-description__container">
+                <h2 class="patterns-description__title">Цель теста</h2>
+                <div class="patterns-description__subtitle">Тест направлен на определение паттернов:</div>
+                <div class="patterns-description__content">
+                  <!-- Время -->
+                  <div class="patterns-description__item">
+                    <img src="/img/test-patterns/clock.svg" alt="" />
+                    <div class="patterns-description__item-title">организации времени</div>
+                    <div class="patterns-description__item-text">
+                      способность человека управлять своими временными ресурсами и планировать свою деятельность
+                    </div>
+                  </div>
+
+                  <!-- Поведение -->
+                  <div class="patterns-description__item">
+                    <img src="/img/test-patterns/man.svg" alt="" />
+                    <div class="patterns-description__item-title">поведения</div>
+                    <div class="patterns-description__item-text">способность реагирования или действования человека в различных ситуациях</div>
+                  </div>
+
+                  <!-- Коммуникация -->
+                  <div class="patterns-description__item">
+                    <img src="/img/test-patterns/hands.svg" alt="" />
+                    <div class="patterns-description__item-title">коммуникации</div>
+                    <div class="patterns-description__item-text">способы взаимодействия и обмена информацией между людьми</div>
+                  </div>
+
+                  <!-- Мышление -->
+                  <div class="patterns-description__item">
+                    <img src="/img/test-patterns/mind.svg" alt="" />
+                    <div class="patterns-description__item-title">мышления</div>
+                    <div class="patterns-description__item-text">способность обработки информации, решения задач и принятия решений.</div>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <!-- Блок с тестом -->
-            <div class="quiz-patterns__block" id="test-block" style="display: none">
-              <!-- Отображение ФИО над вопросами -->
+            <!-- Инструкция -------------------------------------->
+            <div class="instruction-test" id="instruction-test">
+              <div class="instruction-test__container">
+                <div class="instruction-test__body">
+                  <h2 class="instruction-test__title _anim-items _anim-no-hide">Инструкция</h2>
 
-              <div class="test-info">
-                <div id="fio-display" class="test-info__item"></div>
-                <div id="time-display" class="test-info__item"></div>
+                  <div class="instruction-test__content">
+                    <div class="instruction-test__item _anim-items _anim-no-hide">
+                      <div class="instruction-test__number-item">1.</div>
+                      <div class="instruction-test__title-item">
+                        <div class="instruction-test__label">Время</div>
+                        <div class="instruction-test__text-item">Прохождение теста займет не более 5 минут.</div>
+                      </div>
+                    </div>
+
+                    <div class="instruction-test__item _anim-items _anim-no-hide">
+                      <div class="instruction-test__number-item">2.</div>
+                      <div class="instruction-test__title-item">
+                        <div class="instruction-test__label">Вопросы</div>
+                        <div class="instruction-test__text-item">Каждый вопрос сопровождается вариантами ответов, из которых необходимо выбрать один.</div>
+                      </div>
+                    </div>
+
+                    <div class="instruction-test__item _anim-items _anim-no-hide">
+                      <div class="instruction-test__number-item">3.</div>
+                      <div class="instruction-test__title-item">
+                        <div class="instruction-test__label">Ответы</div>
+                        <div class="instruction-test__text-item">Отвечайте быстро, не задумываясь, доверьтесь своей первой реакции.</div>
+                      </div>
+                    </div>
+
+                    <div class="instruction-test__item _anim-items _anim-no-hide">
+                      <div class="instruction-test__number-item">4.</div>
+                      <div class="instruction-test__title-item">
+                        <div class="instruction-test__label">Результаты</div>
+                        <div class="instruction-test__text-item">После завершения теста результаты можно сохранить в формате PDF.</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="instruction-test__text">
+                    Ваши паттерны в дальнейшем можно использовать для прогнозирования вашего поведения, разработки индивидуальной траектории развития, анализа
+                    профессионального сценария.
+                  </div>
+                </div>
               </div>
-              <!-- Счетчик вопроса будет динамически вставлен здесь -->
+            </div>
 
-              <div id="question-counter" class="question-counter"></div>
-              <div class="quiz-patterns__contant" id="quiz-content">
-                <div id="loader-test">
-                  <span></span>
-                  <div>Загрузка вопросов...</div>
-                </div>
-                <div id="question-container">
-                  <!-- Вопросы будут динамически вставлены здесь -->
-                </div>
-                <div id="error-message" class="error-message" style="display: none">Пожалуйста, выберите вариант ответа!</div>
-                <div class="quiz-patterns__navigation">
-                  <button class="quiz-patterns__button quiz-patterns__button_prev" id="next-button" onclick="previousQuestion()">Назад</button>
-                  <button class="quiz-patterns__button quiz-patterns__button_next" id="next-button" onclick="nextQuestion()">Далее</button>
+            <!-- Блок Форма с тестом------------------------------------->
+            <div id="button-hipe-test"></div>
+
+            <div class="form-start" id="button-test">
+              <div class="form-start__container">
+                <div class="form-start__body">
+                  <h2 class="form-start__title">Тест Паттернов</h2>
+                  <h2 class="form-start__subtitle">Введите Ваши данные для прохождения теста:</h2>
+
+                  <div class="form-start__form">
+                    <!--Имя -->
+                    <input type="text" id="fullName" placeholder="Введите ФИО" class="form-start__input" required />
+                    <!-- Телефон -->
+                    <input type="phone" id="phone" placeholder="Введите ваш номер телефона" class="form-start__input" required />
+
+                    <div id="error-message-start" class="form-start__error" style="display: none">Пожалуйста, введите ФИО!</div>
+                  </div>
+
+                  <button id="start-test-button" class="patterns-button form-start__button">Пройти тест</button>
                 </div>
               </div>
+            </div>
+          </div>
 
-              <div id="result-container" class="result__contain" style="display: none">
-                <h2 class="quiz-patterns__subtitle">Спасибо за ваше участие в тестировании!</h2>
+          <!-- 2. Вопросы теста ============================================---->
 
-                <div class="quiz-patterns__share-title">Поделиться ссылкой на тестирование:</div>
-                <div class="quiz-patterns__share-block">
-                  <!-- vk -->
-            <!--       <a
-                    target="_blank"
-                    href="https://vk.com/share.php?url=https://ai4g.ru/pattern-test.html&title=Участвую%20в%20исследовании!&description=Пройдите%20тест%20паттернов%20и%20узнайте,%20как%20они%20влияют%20на%20наше%20поведение%20и%20принятие%20решений.&image=https://ai4g.ru/img/logo-social.jpg"
-                    class="quiz-patterns__button quiz-patterns__button_white"
-                    >VK</a
-                  > -->
-
-                  <!-- Telegram -->
-                  <a
-                    target="_blank"
-                    href="https://t.me/share/url?url=https://ai4g.ru/pattern-test.html&text=Пройдите%20тест%20паттернов!%20Вы%20узнаете,%20как%20реагировать,%20какие%20чувства%20и%20мысли%20у%20вас%20возникают,%20и%20как%20это%20влияет%20на%20ваши%20результаты.%20А%20ещё%20вы%20откроете%20для%20себя%20новые%20возможности!"
-                    class="quiz-patterns__button quiz-patterns__button_white"
-                  >
-                    Telegram
-                  </a>
-
-                  <!-- WhatsApp -->
-                  <a
-                    target="_blank"
-                    href="https://api.whatsapp.com/send?text=Пройдите%20тест%20паттернов.%20Вы%20узнаете,%20как%20реагировать,%20какие%20чувства%20и%20мысли%20у%20вас%20возникают,%20и%20как%20это%20влияет%20на%20ваши%20результаты.%20А%20ещё%20вы%20откроете%20для%20себя%20новые%20возможности!%20Ссылка:%20https://ai4g.ru/pattern-test.html"
-                    class="quiz-patterns__button quiz-patterns__button_white"
-                  >
-                    WhatsApp
-                  </a>
-
-                  <!-- Копирование ссылки -->
-                  <!--    <div class="quiz-patterns__button_copy-link">
-                    <a href="https://ai4g.ru/pattern-test.html" class="quiz-patterns__button quiz-patterns__button_white" id="copy-link">Копировать ссылку</a>
-                    <div id="notification">Ссылка скопирована!</div>
-                  </div> -->
+          <div class="question-block" id="test-block" style="display: none">
+            <div class="question-block__container">
+              <div class="question-block__content">
+                <!-- Отображение ФИО над вопросами -->
+                <div class="question-block__info test-info">
+                  <div id="fio-display" class="test-info__item"></div>
+                  <div id="time-display" class="test-info__item"></div>
                 </div>
 
-                <div class="quiz-patterns__navigation-result">
-                  <!--   <button class="quiz-patterns__button quiz-patterns__button_white" onclick="resetQuiz()">Пройти опрос снова</button> -->
+                <!-- Счетчик вопроса будет динамически вставлен здесь -->
+                <div id="question-counter" class="question-counter"></div>
+
+                <!-- Блок для вопросов -->
+                <div class="quiz-patterns__contant" id="quiz-content">
+                  <div id="loader-test">
+                    <span></span>
+                    <div>Загрузка вопросов...</div>
+                  </div>
+                  <div id="question-container">
+                    <!-- Вопросы будут динамически вставлены здесь -->
+                  </div>
+
+                  <div id="error-message" class="error-message" style="display: none">Пожалуйста, выберите вариант ответа!</div>
+
+                  <!-- Кнопки -->
+                  <div class="quiz-patterns__navigation">
+                    <button class="patterns-button quiz-patterns__button_prev" id="next-button" onclick="previousQuestion()">Назад</button>
+                    <button class="patterns-button quiz-patterns__button_next" id="next-button" onclick="nextQuestion()">Далее</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Всплывающее окно ============================================-->
+
+          <!-- Результаты теста ============================================-->
+          <!-- Блок с тестом -->
+
+          <div class="result__contain" id="result-container" style="display: none">
+            <!-- Верхний блок -->
+            <div class="result__top top-result">
+              <div class="top-result__container">
+                <h2 class="top-result__subtitle">Спасибо за ваше участие в тестировании!</h2>
+
+                <!-- download -->
+                <div class="quiz-patterns__download download">
+                  <!-- spinner -->
                   <div id="loader-overlay" style="display: none">
                     <div id="loader">
                       <div class="spinner"></div>
                       <p id="loader-text">Подождите, идет генерация PDF...</p>
                     </div>
                   </div>
-                  <div class="quiz-patterns__navigation-title">Скачать ваш отчет в формате pdf</div>
 
-                  <button class="quiz-patterns__button" id="download-pdf">Скачать отчет</button>
+                  <div class="download__title">Скачать ваш отчет в формате pdf</div>
+
+                  <button class="patterns-button patterns-button_download" id="download-pdf">Скачать отчет</button>
                 </div>
-                <h2 class="quiz-patterns__subtitle">Результаты вашего тестирования</h2>
-                <div class="result__content" id="result-content">
-                  <!-- Здесь будут выводиться результаты -->
+
+                <div class="quiz-patterns__share share">
+                  <div class="share__title">Поделиться ссылкой на тестирование:</div>
+                  <div class="share__block">
+                    <!-- Telegram -->
+                    <a
+                      target="_blank"
+                      href="https://t.me/share/url?url=https://ai4g.ru/pattern-test.html&text=Пройдите%20тест%20паттернов!%20Вы%20узнаете,%20как%20реагировать,%20какие%20чувства%20и%20мысли%20у%20вас%20возникают,%20и%20как%20это%20влияет%20на%20ваши%20результаты.%20А%20ещё%20вы%20откроете%20для%20себя%20новые%20возможности!"
+                      class="patterns-button quiz-patterns__button_white"
+                    >
+                      Telegram
+                    </a>
+
+                    <!-- WhatsApp -->
+                    <a
+                      target="_blank"
+                      href="https://api.whatsapp.com/send?text=Пройдите%20тест%20паттернов.%20Вы%20узнаете,%20как%20реагировать,%20какие%20чувства%20и%20мысли%20у%20вас%20возникают,%20и%20как%20это%20влияет%20на%20ваши%20результаты.%20А%20ещё%20вы%20откроете%20для%20себя%20новые%20возможности!%20Ссылка:%20https://ai4g.ru/pattern-test.html"
+                      class="patterns-button quiz-patterns__button_white"
+                    >
+                      WhatsApp
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <!-- тестовая кнопка - удалить -->
-        <div id="quiz-controls">
-              <button class="quiz-patterns__button quiz-patterns__button_test" id="fill-test-answers">Заполнить тестовые ответы</button>
+            <h2 class="quiz-patterns__subtitle">Результаты вашего тестирования</h2>
+
+            <!-- Гистограмма -->
+            <div class="result__histogram" id="result-histogram"></div>
+            <!-- Результаты по категориям -->
+            <div class="result__content" id="result-content">
+              <!-- Здесь будут выводиться результаты -->
             </div>
-            <style>
-              .quiz-patterns__button_test {
-                margin: 20px auto;
-              }
-            </style>
-            <!-- тестовая кнопка - удалить -->
           </div>
+          <!-- тестовая кнопка - удалить========================================= -->
+          <div id="quiz-controls">
+            <button class="patterns-button quiz-patterns__button_test" id="fill-test-answers">Заполнить тестовые ответы</button>
+          </div>
+          <style>
+            .quiz-patterns__button_test {
+              margin: 20px auto;
+            }
+          </style>
+
+          <!-- тестовая кнопка - удалить -->
         </section>
       </main>
 

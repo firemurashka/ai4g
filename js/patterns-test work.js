@@ -231,18 +231,18 @@ function showQuestion() {
 
   // Обновляем содержимое контейнера вопроса
   questionContainer.innerHTML = `
-		<div class="question">${question.question}</div>
-		${question.options
+	  <div class="question">${question.question}</div>
+	  ${question.options
       .map(
         (option) => `
-		  <label class="option">
-			 <input type="radio" name="answer" value="${option}" ${currentAnswer === option ? "checked" : ""}>
-			 <span class="radio-label">${option}</span>
-		  </label>
-		  `
+		 <label class="option">
+			<input type="radio" name="answer" value="${option}" ${currentAnswer === option ? "checked" : ""}>
+			<span class="radio-label">${option}</span>
+		 </label>
+		 `
       )
       .join("")}
-	 `;
+	`;
 
   // Обновляем счётчик вопросов
   questionCounter.innerHTML = `Вопрос ${currentQuestionIndex + 1} из ${questionsWithPatterns.length}`;
@@ -326,6 +326,7 @@ function showResults() {
 
   //Результаты теста
   const resultContent = document.getElementById("result-content");
+
 
   let results = ""; // Для финального HTML результата
   const resultsData = {}; // Для хранения итоговых данных
@@ -438,66 +439,66 @@ function showResults() {
         const patternDescription = currentPatternData?.description.ru || "Описание отсутствует";
 
         patternResults += `
-	<div class="pattern-result">
-	  <div class="pattern-result__label">
-		 <div class="scale-bar-title-wrapper">
-			<p class="scale-bar-title">${pattern}</p>
-			<div class="info-icon">
-			  <span>i</span>
-			  <div class="tooltiptest hidden">
-				 ${patternDescription}
-			  </div>
-			</div>
-		 </div>
-		 <p>${percentage}%</p>
-	  </div>
-	  <div class="scale-bar-container">
-		 <div class="scale-bar" style="width: ${percentage}%;"></div>
-	  </div>
-	</div>`;
+  <div class="pattern-result">
+    <div class="pattern-result__label">
+      <div class="scale-bar-title-wrapper">
+        <p class="scale-bar-title">${pattern}</p>
+        <div class="info-icon">
+          <span>i</span>
+          <div class="tooltiptest hidden">
+            ${patternDescription}
+          </div>
+        </div>
+      </div>
+      <p>${percentage}%</p>
+    </div>
+    <div class="scale-bar-container">
+      <div class="scale-bar" style="width: ${percentage}%;"></div>
+    </div>
+  </div>`;
       });
 
       patternResults += `</div>`;
 
       const analyticsBlock = `
-				<div class="analytics-block">
-				  <p  class="scale-status">${statusText}</p>
-				  <div class="scale-container">
-					 <div class="scale-line"></div>
-					 <div class="scale-labels">
-						<div class="scale-labels-item">
-						  <div class="indicator" style="opacity: ${maxPercentage <= 40 ? 1 : 0};"></div>
-						  <span>УМЕРЕННО</span>
-						</div>
-						<div class="scale-labels-item">
-						  <div class="indicator" style="opacity: ${maxPercentage > 40 && maxPercentage <= 60 ? 1 : 0};"></div>
-						  <span>НЕЙТРАЛЬНО</span>
-						</div>
-						<div class="scale-labels-item">
-						  <div class="indicator" style="opacity: ${maxPercentage > 60 ? 1 : 0};"></div>
-						  <span>ЯВНО</span>
-						</div>
-					 </div>
-				  </div>
-				</div>`;
+			  <div class="analytics-block">
+				 <p  class="scale-status">${statusText}</p>
+				 <div class="scale-container">
+					<div class="scale-line"></div>
+					<div class="scale-labels">
+					  <div class="scale-labels-item">
+						 <div class="indicator" style="opacity: ${maxPercentage <= 40 ? 1 : 0};"></div>
+						 <span>УМЕРЕННО</span>
+					  </div>
+					  <div class="scale-labels-item">
+						 <div class="indicator" style="opacity: ${maxPercentage > 40 && maxPercentage <= 60 ? 1 : 0};"></div>
+						 <span>НЕЙТРАЛЬНО</span>
+					  </div>
+					  <div class="scale-labels-item">
+						 <div class="indicator" style="opacity: ${maxPercentage > 60 ? 1 : 0};"></div>
+						 <span>ЯВНО</span>
+					  </div>
+					</div>
+				 </div>
+			  </div>`;
 
       subcategoryResults += `
-				<div class="subcategory-block">
-				  <div class="subcategory-title">${subcategoryTitle}</div>
-				  <div class="subcategory-wrapper">
-					 <div class="analytics-wrapper">${analyticsBlock}</div>
-					 <div class="results-wrapper">${patternResults}</div>
-				  </div>
-				</div>`;
+			  <div class="subcategory-block">
+				 <div class="subcategory-title">${subcategoryTitle}</div>
+				 <div class="subcategory-wrapper">
+					<div class="analytics-wrapper">${analyticsBlock}</div>
+					<div class="results-wrapper">${patternResults}</div>
+				 </div>
+			  </div>`;
     });
 
     // Если подкатегории содержат данные, добавляем их в категорию
     if (subcategoryResults) {
       results += `
-				<div class="category-block ${additionalClass}">
-				  <h3 class="category-label">${categoryTitle}</h3>
-				  ${subcategoryResults}
-				</div>`;
+			  <div class="category-block ${additionalClass}">
+				 <h3 class="category-label">${categoryTitle}</h3>
+				 ${subcategoryResults}
+			  </div>`;
     }
   });
 
@@ -608,32 +609,32 @@ function animateOnScroll() {
 
 /* =====Кнопка копировать=============================================== */
 /* function copyToClipboard(link) {
-	const tempInput = document.createElement("input"); // Создаем временный элемент input
-	tempInput.value = link; // Устанавливаем значение в ссылку
-	document.body.appendChild(tempInput); // Добавляем элемент в документ
-	tempInput.select(); // Выбираем текст
-	document.execCommand("copy"); // Копируем в буфер обмена
-	document.body.removeChild(tempInput); // Удаляем временный элемент
+  const tempInput = document.createElement("input"); // Создаем временный элемент input
+  tempInput.value = link; // Устанавливаем значение в ссылку
+  document.body.appendChild(tempInput); // Добавляем элемент в документ
+  tempInput.select(); // Выбираем текст
+  document.execCommand("copy"); // Копируем в буфер обмена
+  document.body.removeChild(tempInput); // Удаляем временный элемент
 
-	showNotification(); // Показать уведомление
- }
+  showNotification(); // Показать уведомление
+}
 
- function showNotification() {
-	const notification = document.getElementById("notification");
-	notification.style.display = "block"; // Показываем уведомление
+function showNotification() {
+  const notification = document.getElementById("notification");
+  notification.style.display = "block"; // Показываем уведомление
 
-	// Автоматически скрываем уведомление через 3 секунды
-	setTimeout(() => {
-	  notification.style.display = "none";
-	}, 3000);
- }
+  // Автоматически скрываем уведомление через 3 секунды
+  setTimeout(() => {
+    notification.style.display = "none";
+  }, 3000);
+}
 
- document.getElementById("copy-link").addEventListener("click", function (event) {
-	event.preventDefault(); // Предотвращаем переход по ссылке
-	const link = "https://ai4g.ru/pattern-test.html"; // Ссылка для копирования
-	copyToClipboard(link); // Вызываем функцию для копирования
- });
-  */
+document.getElementById("copy-link").addEventListener("click", function (event) {
+  event.preventDefault(); // Предотвращаем переход по ссылке
+  const link = "https://ai4g.ru/pattern-test.html"; // Ссылка для копирования
+  copyToClipboard(link); // Вызываем функцию для копирования
+});
+ */
 
 /* Скачивание ПДФ =========================================== */
 // Функция для загрузки файла patterns_data.json
@@ -1100,7 +1101,6 @@ function generatePDF(resultsData, patternsData) {
 
     return { columns };
   };
-
   // Явно проявленные паттерны
   const generateDominantPatternsContent = (dominantPatterns, enrichedData) => {
     const content = [
@@ -1131,6 +1131,7 @@ function generatePDF(resultsData, patternsData) {
           if (subcategory) {
             const pattern = subcategory.patterns.find((pattern) => pattern.title === patternLabel);
             abbreviation = pattern?.abbreviation;
+            console.log("Аббревиатура:", abbreviation);
           }
         }
 
@@ -1171,7 +1172,7 @@ function generatePDF(resultsData, patternsData) {
                     color: color,
                     r: 5,
                     /*  lineColor: percentage === 100 ? "red" : undefined, // Обводка красным для 100%
-							lineWidth: percentage === 100 ? 2 : undefined, // Ширина линии для обводки */
+                    lineWidth: percentage === 100 ? 2 : undefined, // Ширина линии для обводки */
                   },
                 ],
                 margin: [0, -100, 0, 0],

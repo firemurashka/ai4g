@@ -161,9 +161,7 @@ function toggleLoaderTest(show) {
     console.error("Элемент с ID 'loader-test' не найден в DOM.");
   }
 }
-
 /* ======================================== */
-
 // Функция для перемешивания массива (алгоритм Фишера-Йетса)
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
@@ -231,18 +229,18 @@ function showQuestion() {
 
   // Обновляем содержимое контейнера вопроса
   questionContainer.innerHTML = `
-		<div class="question">${question.question}</div>
-		${question.options
+	  <div class="question">${question.question}</div>
+	  ${question.options
       .map(
         (option) => `
-		  <label class="option">
-			 <input type="radio" name="answer" value="${option}" ${currentAnswer === option ? "checked" : ""}>
-			 <span class="radio-label">${option}</span>
-		  </label>
-		  `
+		 <label class="option">
+			<input type="radio" name="answer" value="${option}" ${currentAnswer === option ? "checked" : ""}>
+			<span class="radio-label">${option}</span>
+		 </label>
+		 `
       )
       .join("")}
-	 `;
+	`;
 
   // Обновляем счётчик вопросов
   questionCounter.innerHTML = `Вопрос ${currentQuestionIndex + 1} из ${questionsWithPatterns.length}`;
@@ -308,218 +306,55 @@ function resetQuiz() {
   // Прокрутка страницы вверх
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
-
-// Отображение результатов
+// showResults ================================================
 function showResults() {
-  if (!patterns || patterns.length === 0) {
-    alert("Вы не завершили тест. Пожалуйста, ответьте на все вопросы.");
-    resetQuiz();
-    return;
-  }
-  //Вопросы теста
-  const testBlock = document.getElementById("test-block");
-  // Скрываем блок с вопросами и счётчик для отображения результатов
-  testBlock.style.display = "none";
+  try {
+    // Проверяем, завершил ли пользователь тест
+    if (!patterns || patterns.length === 0) {
+      showError("Вы не завершили тест. Пожалуйста, ответьте на все вопросы.");
+      resetQuiz(); // Сбрасываем тест
+      return; // Выходим из функции
+    }
 
-  //Блок для результатов
-  const resultContainer = document.getElementById("result-container");
+    // Скрываем блок с тестом
+    const testBlock = document.getElementById("test-block");
+    testBlock.style.display = "none";
 
-  //Результаты теста
-  const resultContent = document.getElementById("result-content");
+    // Подготавливаем контейнер для результатов
+    const resultContainer = document.getElementById("result-container");
+    const resultContent = document.getElementById("result-content");
+    resultContent.innerHTML = ""; // Очищаем предыдущие результаты
 
-  let results = ""; // Для финального HTML результата
-  const resultsData = {}; // Для хранения итоговых данных
+    // Подсчитываем количество выбранных паттернов
+    const patternCounts = calculatePatternCounts(patterns);
+    // Обрабатываем категории и подкатегории для получения результатов
+    const resultsData = processCategories(categories, patternCounts, "ru");
 
-  // Создаем объект для подсчета количества паттернов
-  const counts = patterns.reduce((acc, pattern) => {
-    acc[pattern] = (acc[pattern] || 0) + 1;
-    return acc;
-  }, {});
+    // Генерируем HTML-код для отображения всех категорий
+    const results = renderAllCategories(resultsData);
 
-  // Если нет категорий, показываем сообщение об ошибке
-  if (!categories || categories.length === 0) {
-    console.error("Категории отсутствуют или системе не удалось их загрузить.");
-    resultContent.innerHTML = "<p>Категории данных отсутствуют. Проверьте данные или перезагрузите страницу.</p>";
+    // Вставляем сгенерированный HTML-код в контейнер результатов
+    resultContent.innerHTML = results;
+
+    // Создаем Blob с результатами
+    const blob = new Blob([results], { type: "text/plain" });
+
+    // Делаем контейнер с результатами видимым
     resultContainer.style.display = "flex";
-    return;
+
+    // Инициализируем взаимодействие с тултипами
+    initializeTooltips();
+
+    // Запускаем анимацию при прокрутке
+    animateOnScroll();
+  } catch (error) {
+    // Обработка ошибок
+    console.error("Results rendering error:", error);
+    showError("Произошла ошибка при формировании результатов. Пожалуйста, попробуйте ещё раз.");
   }
-
-  // Массив для соотношения категорий и классов
-  const categoryClassMap = {
-    "Паттерны мышления": "category-block__mind",
-    "Паттерны поведения": "category-block__man",
-    "Паттерны коммуникации": "category-block__hands",
-    "Паттерны организации времени": "category-block__clock",
-  };
-
-  // Обходим каждую категорию
-  categories.forEach((category) => {
-    const categoryTitle = category.title?.ru || category.title?.en || "Неизвестная категория";
-    let subcategoryResults = ""; // Сюда добавляем все подкатегории этой категории
-
-    // Пропускаем категорию, если в ней нет подкатегорий
-    if (!category.subcategories || category.subcategories.length === 0) {
-      return;
-    }
-
-    // Динамически выбираем дополнительный класс из заранее заданного объекта
-    const additionalClass = categoryClassMap[categoryTitle] || "";
-
-    // Инициализируем массив для текущей категории в resultsData
-    resultsData[categoryTitle] = [];
-
-    // Обходим каждую подкатегорию
-    category.subcategories.forEach((subcategory) => {
-      const subcategoryTitle = subcategory.title?.ru || subcategory.title?.en || "Неизвестная подкатегория";
-
-      // Пропускаем подкатегории без паттернов
-      if (!subcategory.patterns || subcategory.patterns.length === 0) {
-        return;
-      }
-
-      // Формируем список паттернов в подкатегории
-      const patternsInSubcategory = subcategory.patterns.map((pattern) => pattern.pattern?.ru || pattern.pattern?.en || "Без названия");
-
-      // Подсчитываем общее количество ответов для этой подкатегории
-      const totalResponses = patternsInSubcategory.reduce((total, pattern) => total + (counts[pattern] || 0), 0);
-
-      // Если в подкатегории нет ответов, пропускаем её
-      if (totalResponses === 0) {
-        return;
-      }
-
-      // Определяем проценты для каждого паттерна
-      const responses = patternsInSubcategory.map((pattern) => ({
-        pattern,
-        count: counts[pattern] || 0,
-        percentage: Math.round(((counts[pattern] || 0) / totalResponses) * 100),
-      }));
-
-      // Сортируем их по процентам для более удобного анализа
-      responses.sort((a, b) => b.percentage - a.percentage);
-
-      // Максимальный процент
-      const maxPercentage = responses[0].percentage;
-
-      // Выбираем паттерны с максимальным процентом
-      const dominantResponses = responses.filter((r) => r.percentage === maxPercentage);
-
-      // Логика для определения статуса
-      let dominant = dominantResponses.map((r) => r.pattern).join(", ");
-      let statusText = "";
-
-      if (dominantResponses.length === patternsInSubcategory.length) {
-        // Все паттерны имеют одинаковые проценты (например, три по 33%)
-        statusText = `НЕЙТРАЛЬНО`;
-        dominant = "НЕЙТРАЛЬНЫЕ";
-      } else if (dominantResponses.length > 1) {
-        // Два паттерна с одинаковым высоким процентом
-        statusText = `НЕЙТРАЛЬНО`;
-      } else {
-        // Один доминантный паттерн
-        statusText = maxPercentage <= 40 ? `УМЕРЕННО ${dominant}` : maxPercentage <= 60 ? `НЕЙТРАЛЬНО` : `ЯВНО ${dominant}`;
-      }
-
-      // Сохраняем данные подкатегории в resultsData для отчёта
-      resultsData[categoryTitle].push({
-        subcategory: subcategoryTitle,
-        dominantPattern: dominant,
-        percentage: maxPercentage,
-        responses,
-      });
-
-      // Формируем HTML этого блока
-      let patternResults = `<div class="subcategory-content">`;
-
-      responses.forEach(({ pattern, percentage }) => {
-        // Найти описание для текущего паттерна
-        const currentPatternData = subcategory.patterns.find((p) => (p.pattern.ru || p.pattern.en) === pattern);
-
-        const patternDescription = currentPatternData?.description.ru || "Описание отсутствует";
-
-        patternResults += `
-	<div class="pattern-result">
-	  <div class="pattern-result__label">
-		 <div class="scale-bar-title-wrapper">
-			<p class="scale-bar-title">${pattern}</p>
-			<div class="info-icon">
-			  <span>i</span>
-			  <div class="tooltiptest hidden">
-				 ${patternDescription}
-			  </div>
-			</div>
-		 </div>
-		 <p>${percentage}%</p>
-	  </div>
-	  <div class="scale-bar-container">
-		 <div class="scale-bar" style="width: ${percentage}%;"></div>
-	  </div>
-	</div>`;
-      });
-
-      patternResults += `</div>`;
-
-      const analyticsBlock = `
-				<div class="analytics-block">
-				  <p  class="scale-status">${statusText}</p>
-				  <div class="scale-container">
-					 <div class="scale-line"></div>
-					 <div class="scale-labels">
-						<div class="scale-labels-item">
-						  <div class="indicator" style="opacity: ${maxPercentage <= 40 ? 1 : 0};"></div>
-						  <span>УМЕРЕННО</span>
-						</div>
-						<div class="scale-labels-item">
-						  <div class="indicator" style="opacity: ${maxPercentage > 40 && maxPercentage <= 60 ? 1 : 0};"></div>
-						  <span>НЕЙТРАЛЬНО</span>
-						</div>
-						<div class="scale-labels-item">
-						  <div class="indicator" style="opacity: ${maxPercentage > 60 ? 1 : 0};"></div>
-						  <span>ЯВНО</span>
-						</div>
-					 </div>
-				  </div>
-				</div>`;
-
-      subcategoryResults += `
-				<div class="subcategory-block">
-				  <div class="subcategory-title">${subcategoryTitle}</div>
-				  <div class="subcategory-wrapper">
-					 <div class="analytics-wrapper">${analyticsBlock}</div>
-					 <div class="results-wrapper">${patternResults}</div>
-				  </div>
-				</div>`;
-    });
-
-    // Если подкатегории содержат данные, добавляем их в категорию
-    if (subcategoryResults) {
-      results += `
-				<div class="category-block ${additionalClass}">
-				  <h3 class="category-label">${categoryTitle}</h3>
-				  ${subcategoryResults}
-				</div>`;
-    }
-  });
-
-  // Если результат пустой, значит ничего не сгенерировалось
-  if (results.trim() === "") {
-    results = "<p>Не найдено данных для отображения результатов.</p>";
-  }
-
-  // Вставляем HTML результатов
-  resultContent.innerHTML = results;
-  // Создаем Blob с текстом
-  const blob = new Blob([results], { type: "text/plain" });
-
-  // Делаем контейнер видимым
-  resultContainer.style.display = "flex";
-  animateOnScroll();
-  initializeTooltips();
-  // Возвращаем JSON для отчётов (например, для PDF)
-  return resultsData;
 }
 
-/* Всплывающий текст описания паттернов */
+//Всплывающий текст описания паттернов----------------------
 function initializeTooltips() {
   const isTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints > 0;
 
@@ -569,6 +404,241 @@ function initializeTooltips() {
   });
 }
 
+// Отрисовка тултипа
+function renderTooltip(description) {
+  if (!description) return ""; // Если описание отсутствует, возвращаем пустую строку
+
+  return `
+		  <div class="info-icon">
+			 <span>i</span> <!-- Иконка помощи -->
+			 <div class="tooltiptest hidden">
+				${description} <!-- Текст описания -->
+			 </div>
+		  </div>`;
+}
+// Отрисовка отдельного паттерна--------------------------
+function renderPattern(pattern) {
+  return `
+		  <div class="pattern-result">
+			 <div class="pattern-result__label">
+				<div class="scale-bar-title-wrapper">
+				  <p class="scale-bar-title">${pattern.pattern}</p> <!-- Название паттерна -->
+				  ${renderTooltip(pattern.description)} <!-- Всплывающее описание -->
+				</div>
+				<p>${pattern.percentage}%</p> <!-- Процент ответа -->
+			 </div>
+			 <div class="scale-bar-container">
+				<div class="scale-bar" style="width: ${pattern.percentage}%;"></div> <!-- Полоска прогресса -->
+			 </div>
+		  </div>`;
+}
+/* =============================================================== */
+// Подсчитываем количество каждого паттерна
+function calculatePatternCounts(patterns) {
+  return patterns.reduce((acc, pattern) => {
+    acc[pattern] = (acc[pattern] || 0) + 1; // Увеличиваем счетчик для каждого паттерна
+    return acc;
+  }, {});
+}
+
+// Обрабатываем все категории и получаем данные для отображения
+function processCategories(categories, patternCounts, lang) {
+  if (!categories || !Array.isArray(categories)) return []; // Возвращаем пустой массив при отсутствии категорий
+
+  return categories
+    .map((category) => {
+      const title = getLocalizedText(category.title, lang);
+      const className = getCategoryClassName(category);
+      const subcategories = processSubcategories(category.subcategories, patternCounts, lang);
+      return {
+        title,
+        className,
+        subcategories,
+      };
+    })
+    .filter((category) => category.subcategories.length > 0); // Фильтруем категории без подкатегорий
+}
+
+// Обрабатываем подкатегории внутри категории
+function processSubcategories(subcategories, patternCounts, lang) {
+  if (!subcategories || !Array.isArray(subcategories)) return []; // Проверка на корректность
+
+  return (subcategories || [])
+    .map((subcategory) => {
+      const patternsData = getSubcategoryPatterns(subcategory, patternCounts, lang); // Получаем данные о паттернах подкатегории
+      if (patternsData.totalResponses === 0) return null; // Пропускаем подкатегорию без ответов
+
+      return {
+        title: getLocalizedText(subcategory.title, lang), // Получаем локализованное название подкатегории
+        patterns: patternsData.responses, // Паттерны подкатегории
+        status: calculateStatus(patternsData.responses), // Рассчитываем статус подкатегории
+      };
+    })
+    .filter(Boolean); // Удаляем null значения
+}
+
+// Получаем паттерны и статистику для подкатегорий
+function getSubcategoryPatterns(subcategory, patternCounts, lang) {
+  const patterns = (subcategory.patterns || []).map((p) => ({
+    pattern: getLocalizedText(p.pattern, lang), // Локализуем название паттерна
+    count: patternCounts[getLocalizedText(p.pattern, lang)] || 0, // Получаем количество ответов на паттерн
+    description: getLocalizedText(p.description, lang), // Локализуем описание паттерна
+  }));
+
+  const totalResponses = patterns.reduce((sum, p) => sum + p.count, 0); // Считаем общее количество ответов
+
+  const responses = patterns
+    .map((p) => ({
+      ...p,
+      percentage: totalResponses > 0 ? Math.round((p.count / totalResponses) * 100) : 0, // Рассчитываем процент
+    }))
+    .sort((a, b) => b.percentage - a.percentage); // Сортируем по проценту
+
+  return { responses, totalResponses }; // Возвращаем данные о паттернах
+}
+
+// ================== Расчет статуса ================== //
+function calculateStatus(responses) {
+  const maxPercentage = Math.max(...responses.map((r) => r.percentage)); // Находим максимальный процент
+  const dominantResponses = responses.filter((r) => r.percentage === maxPercentage); // Находим доминирующие ответы
+
+  // Если все паттерны имеют одинаковый процент
+  if (dominantResponses.length === responses.length) {
+    return { type: "neutral", labels: [] }; // Возвращаем нейтральный статус
+  }
+
+  const labels = dominantResponses.map((r) => r.pattern); // Получаем названия доминирующих паттернов
+
+  // Определяем тип статуса в зависимости от максимального процента
+  if (maxPercentage <= 40) return { type: "moderate", labels };
+  if (maxPercentage <= 60) return { type: "neutral", labels };
+  return { type: "strong", labels };
+}
+
+// ==renderAllCategories=========== Отрисовка ================== //
+function renderAllCategories(categoriesData) {
+  return categoriesData
+    .map(
+      (category) => `
+			<div class="category-block ${category.className}"> <!-- Блок категории -->
+			  <h3 class="category-label">${category.title}</h3>
+			  ${renderSubcategories(category.subcategories)} <!-- Подкатегории -->
+			</div>
+		 `
+    )
+    .join("");
+  // Объединяем все категории в одну строку HTML
+}
+// Отрисовка подкатегорий============================
+function renderSubcategories(subcategories) {
+  return subcategories
+    .map(
+      (subcategory) => `
+		 <div class="subcategory-block"> <!-- Блок подкатегории -->
+			<div class="subcategory-title">${subcategory.title}</div>
+			<div class="subcategory-wrapper">
+			  ${renderAnalyticsBlock(subcategory.status)} <!-- Блок аналитики -->
+			  ${renderPatternsBlock(subcategory.patterns)} <!-- Блок паттернов -->
+			</div>
+		 </div>
+	  `
+    )
+    .join(""); // Объединяем все подкатегории в одну строку HTML
+}
+
+// Отрисовка блока аналитики============================
+function renderAnalyticsBlock(status) {
+  return `
+		 <div class="analytics-wrapper">
+			<div class="analytics-block">
+			  <p class="scale-status">${formatStatusText(status)}</p> <!-- Форматируем текст статуса -->
+			  ${renderScaleIndicator(status)} <!-- Индикатор статуса -->
+			</div>
+		 </div>`;
+}
+
+// Отрисовка блока паттернов
+function renderPatternsBlock(patterns) {
+  return `
+		 <div class="results-wrapper">
+			<div class="subcategory-content">
+			  ${patterns.map(renderPattern).join("")} <!-- Генерируем блоки для каждого паттерна -->
+			</div>
+		 </div>`;
+}
+
+// ================== Вспомогательные функции ================== //
+function getLocalizedText(textObj, lang) {
+  return textObj?.[lang] || textObj?.en || ""; // Возвращаем текст на нужном языке
+}
+
+function getCategoryClassName(category) {
+  // Карта классов для категорий
+  const classMap = {
+    thinking_patterns: "category-block__mind",
+    behavior_patterns: "category-block__man", // Проверяем этот ключ
+    communication_patterns: "category-block__hands",
+    time_management_patterns: "category-block__clock",
+  };
+
+  // 1. Проверка по ID категории
+  if (category?.id && classMap[category.id]) {
+    return classMap[category.id]; // Возвращаем соответствующий класс
+  }
+
+  // 2. Проверка по английскому названию
+  const englishKey = category?.title?.en
+    ?.toLowerCase()
+    .replace(/patterns?/g, "") // Удаляем "pattern" или "patterns"
+    .trim()
+    .replace(/\s+/g, "_"); // Заменяем пробелы на нижние подчеркивания
+
+  return classMap[englishKey] || ""; // Возвращаем класс или пустую строку
+}
+
+// Форматирование текста статуса для отображения
+function formatStatusText(status) {
+  const labels = status.labels.join(", "); // Объединяем названия паттернов
+  switch (status.type) {
+    case "moderate":
+      return `УМЕРЕННО ${labels}`; // Если статус умеренный
+    case "strong":
+      return `ЯВНО ${labels}`; // Если статус явный
+    default:
+      return "НЕЙТРАЛЬНО"; // По умолчанию нейтрально
+  }
+}
+
+// Отрисовка индикатора статуса
+function renderScaleIndicator(status) {
+  const positionMap = {
+    moderate: 0,
+    neutral: 50,
+    strong: 100,
+  };
+
+  const position = positionMap[status.type] || 50; // Установка позиции индикатора
+
+  return `
+		 <div class="scale-container">
+			<div class="scale-line"></div>
+			<div class="scale-labels">
+			  <div class="scale-labels-item">
+				 <div class="indicator" style="left: ${position}%;"></div> <!-- Индикатор статуса -->
+			  </div>
+			</div>
+		 </div>`;
+}
+
+// Функция для отображения сообщения об ошибке
+function showError(message) {
+  const errorContainer = document.createElement("div"); // Создаем контейнер для сообщения об ошибке
+  errorContainer.className = "error-message"; // Устанавливаем класс для стилизации
+  errorContainer.textContent = message; // Устанавливаем текст сообщения
+  document.body.appendChild(errorContainer); // Добавляем контейнер на страницу
+  setTimeout(() => errorContainer.remove(), 5000); // Удаляем сообщение через 5 секунд
+}
+
 //Функция анимации
 function animateOnScroll() {
   // Находим все элементы для анимации
@@ -605,35 +675,6 @@ function animateOnScroll() {
   // Отслеживаем каждый блок
   animBlocks.forEach((block) => observer.observe(block));
 }
-
-/* =====Кнопка копировать=============================================== */
-/* function copyToClipboard(link) {
-	const tempInput = document.createElement("input"); // Создаем временный элемент input
-	tempInput.value = link; // Устанавливаем значение в ссылку
-	document.body.appendChild(tempInput); // Добавляем элемент в документ
-	tempInput.select(); // Выбираем текст
-	document.execCommand("copy"); // Копируем в буфер обмена
-	document.body.removeChild(tempInput); // Удаляем временный элемент
-
-	showNotification(); // Показать уведомление
- }
-
- function showNotification() {
-	const notification = document.getElementById("notification");
-	notification.style.display = "block"; // Показываем уведомление
-
-	// Автоматически скрываем уведомление через 3 секунды
-	setTimeout(() => {
-	  notification.style.display = "none";
-	}, 3000);
- }
-
- document.getElementById("copy-link").addEventListener("click", function (event) {
-	event.preventDefault(); // Предотвращаем переход по ссылке
-	const link = "https://ai4g.ru/pattern-test.html"; // Ссылка для копирования
-	copyToClipboard(link); // Вызываем функцию для копирования
- });
-  */
 
 /* Скачивание ПДФ =========================================== */
 // Функция для загрузки файла patterns_data.json
@@ -788,40 +829,84 @@ function generatePDF(resultsData, patternsData) {
   };
 
   const styles = { ...defaultStyles };
+// Функция обогащения данных
+const enrichData = (patternsData = [], resultsData = {}) => {
+	const enrichedData = {};
 
-  // Функция обогащения данных
-  const enrichData = (patternsData, resultsData) => {
-    const enrichedData = {};
+	// Проверка входных данных
+	if (!Array.isArray(patternsData)) {
+	  console.error("Invalid patternsData format");
+	  return enrichedData;
+	}
 
-    patternsData.forEach((category) => {
-      const categoryTitle = category.title.ru;
-      enrichedData[categoryTitle] = {
-        color: category.color, // Добавляем цвет категории
-        subcategories: [],
-      };
+	if (typeof resultsData !== "object" || resultsData === null) {
+	  console.error("Invalid resultsData format");
+	  return enrichedData;
+	}
 
-      category.subcategories.forEach((subcategory) => {
-        const subcategoryTitle = subcategory.title.ru;
-        const testResults = resultsData[categoryTitle]?.find((resultSubcategory) => resultSubcategory.subcategory === subcategoryTitle);
+	patternsData.forEach((category) => {
+	  const categoryId = category.id; // Используем ID для идентификации
 
-        enrichedData[categoryTitle].subcategories.push({
-          subcategory: subcategoryTitle,
-          responses: testResults?.responses || [],
-          patterns: subcategory.patterns.map((pattern) => ({
-            title: pattern.pattern.ru,
-            description: pattern.description.ru,
-            abbreviation: pattern.pattern.abbreviation,
-          })),
-        });
-      });
-    });
+	  // Проверка наличия ID
+	  if (!categoryId) {
+		 console.warn("Категория без ID:", category);
+		 return;
+	  }
 
-    return enrichedData;
-  };
+	  // Проверка наличия результатов для текущей категории
+	  if (!resultsData.hasOwnProperty(categoryId)) {
+		 console.warn(`Нет результатов для категории ${categoryId} (${category.title.ru})`);
+		 return;
+	  }
+
+	  // Создаем структуру только для категорий с данными
+	  enrichedData[categoryId] = {
+		 color: category.color,
+		 title: category.title.ru,
+		 subcategories: [],
+	  };
+
+	  // Обрабатываем только существующие подкатегории
+	  const resultSubcategories = resultsData[categoryId];
+	  if (!Array.isArray(resultSubcategories)) {
+		 console.error(`Ошибка: ожидается массив подкатегорий для категории ${categoryId}`);
+		 return;
+	  }
+
+	  resultSubcategories.forEach((resultSubcategory) => {
+		 // Найти подкатегорию по названию (на русском)
+		 const subcategory = category.subcategories.find((sub) => sub.title.ru === resultSubcategory.subcategory);
+
+		 console.log("Processing subcategory:", subcategory); // Отладочная информация
+
+		 if (!subcategory) {
+			console.warn(`Подкатегория не найдена: ${resultSubcategory.subcategory}`);
+			return;
+		 }
+
+		 // Формируем полные данные
+		 enrichedData[categoryId].subcategories.push({
+			subcategory: subcategory.title.ru,  // Используем title подкатегории
+			dominant: resultSubcategory.dominantPattern,
+			percentage: resultSubcategory.percentage,
+			patterns: subcategory.patterns.map((pattern) => ({
+			  title: pattern.pattern.ru,
+			  description: pattern.description?.ru || "",
+			  abbreviation: pattern.abbreviation || "",
+			})),
+		 });
+	  });
+	});
+
+	return enrichedData;
+ };
+
 
   const enrichedResults = enrichData(patternsData, resultsData);
+
   const generateContent = (results, userFullName, testDate) => {
     const content = [];
+
     const patternsDescriptions = [];
     const dominantPatterns = [];
 
@@ -918,187 +1003,134 @@ function generatePDF(resultsData, patternsData) {
       }
     }
 
-    // Секция вывода описаний паттернов
-    const patternCategories = {};
+    // Добавляем описания паттернов
+    content.push(...generatePatternDescriptions(results));
 
-    // Группируем данные по категориям и подкатегориям
-    for (const category in results) {
-      const categoryData = results[category];
-      if (categoryData && Array.isArray(categoryData.subcategories)) {
-        categoryData.subcategories.forEach((subcategory) => {
-          const patterns = subcategory.patterns || [];
-          if (patterns.length > 0) {
-            patternCategories[category] = patternCategories[category] || [];
-            patternCategories[category].push({
-              subcategoryTitle: subcategory.subcategory || "",
-              patterns: patterns.map((pattern) => ({
-                title: pattern.title || "Без названия",
-                description: pattern.description || "Нет описания паттерна",
-              })),
-            });
-          }
-        });
-      }
-    }
-    // Выводим содержимое
-    for (const category in patternCategories) {
-      // Добавляем заголовок для категории
-      content.push({
-        text: `${category}`,
-        style: "descriptionPatternTitle",
+    // Возвращаем документ
+    return content;
+  };
+
+  // Паттерны по подкатегориям
+  const generateSubcategoriesContent = (subcategories, patternsDescriptions, categoryColor) => {
+    const subcategoriesContent = [];
+
+    subcategories.forEach((subcategory) => {
+      const pctData = [];
+
+      // Добавляем заголовок подкатегории
+      pctData.push({
+        text: subcategory.subcategory,
+        style: "subCategoryHeader",
+        color: categoryColor,
+        margin: [0, 0, 0, 10],
       });
 
-      // Для каждой подкатегории в данной категории
-      patternCategories[category].forEach(({ subcategoryTitle, patterns }) => {
-        // Проверяем, есть ли подкатегория
-        if (subcategoryTitle) {
-          // Добавляем заголовок подкатегории, если есть название
-          content.push({
-            text: subcategoryTitle, // Заголовок подкатегории
-            style: "descriptionPatternSubtitle", // Стилизация заголовка подкатегории
-            margin: [0, 5, 0, 5],
-          });
-        } else {
-          console.log("Заголовок подкатегории отсутствует."); // Лог для отладки
-        }
+      // Добавляем доминирующий паттерн
+      const dominanceResponse = getDominanceResponse({
+        responses: subcategory.responses.map((r) => ({
+          pattern: r.pattern,
+          percentage: r.percentage,
+        })),
+      });
 
-        // Для каждого паттерна в подкатегории
-        patterns.forEach((pattern) => {
-          // Блок паттерна
+      pctData.push({
+        text: `${dominanceResponse.status} ${dominanceResponse.pattern?.ru || ""}`,
+        style: "dominantPattern",
+        margin: [0, 0, 0, 15],
+      });
+
+      // Добавляем прогресс-бары для каждого паттерна
+      subcategory.responses.forEach((response) => {
+        const percentage = Math.round(response.percentage) || 0;
+
+        // Блок с прогресс-баром
+        pctData.push({
+          stack: [
+            {
+              text: `${response.pattern.ru}: ${percentage}%`,
+              style: "percentageCell",
+            },
+            {
+              canvas: [
+                {
+                  type: "rect",
+                  x: 0,
+                  y: 5,
+                  w: 200,
+                  h: 10,
+                  color: "#eeeeee",
+                  r: 5,
+                },
+                {
+                  type: "rect",
+                  x: 0,
+                  y: 5,
+                  w: (percentage / 100) * 200,
+                  h: 10,
+                  color: categoryColor,
+                  r: 5,
+                },
+              ],
+              margin: [0, 5, 0, 15],
+            },
+          ],
+        });
+      });
+
+      subcategoriesContent.push({
+        data: pctData,
+      });
+    });
+
+    // Распределение по колонкам
+    const columns = [[], []];
+    subcategoriesContent.forEach((item, index) => {
+      columns[index % 2].push(...item.data);
+    });
+
+    return { columns };
+  };
+
+  // Обновленная секция с описаниями паттернов
+  const generatePatternDescriptions = (results) => {
+    const content = [];
+
+    for (const categoryId in results) {
+      const category = results[categoryId];
+
+      content.push({
+        text: category.title,
+        style: "descriptionPatternTitle",
+        pageBreak: "before",
+      });
+
+      category.subcategories.forEach((subcategory) => {
+        content.push({
+          text: subcategory.subcategory,
+          style: "descriptionPatternSubtitle",
+          margin: [0, 15, 0, 10],
+        });
+
+        subcategory.patterns.forEach((pattern) => {
           content.push({
             stack: [
               {
                 text: pattern.title,
-                style: "patternTitle",
+                style: "descriptionPatternSubtitle",
+                bold: false,
               },
               {
                 text: pattern.description,
                 style: "descriptionPattern",
               },
             ],
-            margin: [0, 0, 0, 5],
-            border: [false, false, false, true],
-            borderColor: "#e0e0e0",
-            borderWidth: 1,
+            margin: [0, 0, 0, 15],
           });
         });
       });
     }
 
-    // Возвращаем документ
     return content;
-  };
-
-  // Функция для генерации контента подкатегорий и паттернов
-  const generateSubcategoriesContent = (subcategories, patternsDescriptions, categoryColor) => {
-    const subcategoriesContent = [];
-
-    // Проверяем, является ли subcategories массивом перед итерацией
-    if (!Array.isArray(subcategories)) {
-      console.error("Expected subcategories to be an array, but got:", subcategories);
-      return { columns: [[], []] }; // Возврат пустых колонок в случае ошибки
-    }
-
-    subcategories.forEach((subcategory) => {
-      const pctData = []; // Массив для паттернов подкатегории
-
-      if (subcategory.responses.length === 0) {
-        pctData.push({
-          text: "Нет ответов для этой подкатегории.",
-          style: "noQuestions",
-        });
-      } else {
-        const dominanceResponse = getDominanceResponse(subcategory);
-        pctData.push({
-          text: `${dominanceResponse.status} ${dominanceResponse.pattern}`,
-          style: "dominantPattern",
-        });
-
-        // Добавляем паттерны с указанием процентов
-        subcategory.responses.forEach((response) => {
-          pctData.push({
-            text: `${response.pattern}: ${response.percentage}%`,
-            style: "percentageCell",
-          });
-
-          // Добавляем фоновую линейку для 100%
-          pctData.push({
-            canvas: [
-              {
-                type: "rect",
-                x: 0,
-                y: 0,
-                w: 200, // Ширина 100%
-                h: 8,
-                color: "#e0e0e0", // Светлый цвет фона для 100%
-                r: 5,
-              },
-            ],
-            margin: [0, 2, 0, 5],
-          });
-
-          // Добавляем динамическую линейку для текущего процента
-          pctData.push({
-            canvas: [
-              {
-                type: "rect",
-                x: 0,
-                y: 0,
-                w: (response.percentage / 100) * 200, // Ширина в зависимости от процента
-                h: 8,
-                color: categoryColor, // Темный цвет для текущего процента
-                r: 5,
-              },
-            ],
-            margin: [0, -13, 0, 5],
-          });
-
-          // Добавляем отступ после линейки
-          pctData.push({
-            text: "", // Пустой текст для создания отступа
-            margin: [0, 0, 0, 10], // Отступ сверху и снизу
-          });
-        });
-      }
-
-      // Добавляем информацию по подкатегории в массив с цветом категории
-      subcategoriesContent.push({
-        title: subcategory.subcategory, // Оставляем только текст заголовка
-        data: pctData,
-      });
-
-      // Собираем описания паттернов
-      subcategory.patterns.forEach((pattern) => {
-        patternsDescriptions.push({
-          title: pattern.title,
-          description: pattern.description,
-        });
-      });
-
-      // Добавляем дополнительный отступ после последнего паттерна
-      pctData.push({
-        text: "", // Пустой текст для создания отступа
-        margin: [0, 0, 0, 25], // Отступ сверху для разделения подкатегорий
-      });
-    });
-
-    // Создаем две пустые колонки
-    const columns = [[], []];
-
-    // Распределяем подкатегории между колонками
-    subcategoriesContent.forEach((subcat, index) => {
-      const columnIndex = index % 2; // 0 для первой колонки, 1 для второй
-      columns[columnIndex].push(
-        {
-          text: subcat.title,
-          color: categoryColor, // Использование цвета заголовка
-          style: "subCategoryHeader",
-        },
-        ...subcat.data
-      );
-    });
-
-    return { columns };
   };
 
   // Явно проявленные паттерны
@@ -1117,10 +1149,10 @@ function generatePDF(resultsData, patternsData) {
       const patternLabel = typeof item.pattern === "string" ? item.pattern : item.pattern.ru;
       const percentage = item.percentage;
 
-      console.log("Обрабатываем паттерн:", patternLabel, "с процентом:", percentage);
-
+      // Check if the pattern's percentage is sufficient
       if (percentage > 74) {
         let abbreviation = "";
+        // Find category and subcategory
         const category = Object.values(enrichedData).find((cat) =>
           cat.subcategories.some((subcat) => subcat.patterns.some((pattern) => pattern.title === patternLabel))
         );
@@ -1143,7 +1175,7 @@ function generatePDF(resultsData, patternsData) {
         const pctData = [
           {
             text: `${percentage}%`,
-            style: percentage === 100 ? "percentageTextRed" : "percentageText", // Красный текст для 100%
+            style: percentage === 100 ? "percentageTextRed" : "percentageText",
           },
           {
             stack: [
@@ -1170,8 +1202,6 @@ function generatePDF(resultsData, patternsData) {
                     h: percentage,
                     color: color,
                     r: 5,
-                    /*  lineColor: percentage === 100 ? "red" : undefined, // Обводка красным для 100%
-							lineWidth: percentage === 100 ? 2 : undefined, // Ширина линии для обводки */
                   },
                 ],
                 margin: [0, -100, 0, 0],

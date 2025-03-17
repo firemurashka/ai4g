@@ -21,7 +21,7 @@ function scrollUp() {
 }
 scrollUp();
 
-/* ==================================================== */
+/* ====================================================================================== */
 let questionsWithPatterns = []; // Глобальный массив для вопросов
 let categories = []; // Глобальный объект для категорий
 let currentQuestionIndex = 0; // Индекс текущего вопроса
@@ -30,8 +30,35 @@ let patterns = []; // Массив для сохранения паттерно�
 
 // Глобальная переменная для хранения имени пользователя
 let userFullName = "";
+let userPhone = "";
 
-// Функция обработки кнопки "Начать тест"
+// Массив для соотношения категорий и классов
+const categoryClassMap = {
+  "Паттерны мышления": "category-block__mind",
+  "Паттерны поведения": "category-block__man",
+  "Паттерны коммуникации": "category-block__hands",
+  "Паттерны организации времени": "category-block__clock",
+};
+
+//Дата---------------------------------------------------------------------------------
+// Получаем текущую дату
+const now = new Date();
+
+// Определяем параметры для форматирования даты
+const options = {
+  year: "numeric",
+  month: "2-digit", // Двузначный месяц
+  day: "2-digit", // Двузначный день
+};
+
+// Получаем дату в нужном формате
+const testDate = now
+  .toLocaleDateString("ru-RU", options)
+  .split("/") // Разбиваем строку по символу "/"
+  .reverse() // Переворачиваем массив
+  .join("."); // Соединяем элементы массива точками, получая формат ДД.ММ.ГГГГ
+
+// Функция обработки кнопки "Начать тест"------------------------------------------------------
 function handleStartTestButton() {
   // Получаем элементы формы и тестового блока
   const startPage = document.getElementById("start-page"); // Контейнер формы с ФИО
@@ -86,6 +113,7 @@ function handleStartTestButton() {
   loadQuestions();
 }
 
+//Кнопка "Начать тест"-------------------------------------------------------------
 document.addEventListener("DOMContentLoaded", () => {
   const startTestButton = document.getElementById("start-test-button"); // Кнопка "Начать тест"
 
@@ -93,39 +121,11 @@ document.addEventListener("DOMContentLoaded", () => {
   startTestButton.addEventListener("click", handleStartTestButton);
 });
 
-/* тест============================================================================ */
-document.addEventListener("DOMContentLoaded", () => {
-  const startFillButton = document.getElementById("fill-test-answers"); // Кнопка "Начать тест"
-
-  // Подключаем обработчик клика к кнопке "Начать тест"
-  startFillButton.addEventListener("click", fillTestAnswers);
-});
-
-// Тестовая кнопка заполнения
-function fillTestAnswers() {
-  // Очистка массивов ответов и паттернов
-  answers.length = 0; // Или answers = [];
-  patterns.length = 0; // Или patterns = [];
-
-  // Проверка на наличие вопросов
-  for (let i = 0; i < questionsWithPatterns.length; i++) {
-    if (questionsWithPatterns[i].options.length > 0) {
-      answers.push(questionsWithPatterns[i].options[0]); // Выбираем первый вариант
-    }
-    if (questionsWithPatterns[i].patterns.length > 0) {
-      patterns.push(questionsWithPatterns[i].patterns[0]); // Соответствующий паттерн
-    }
-  }
-
-  // Устанавливаем индекс на конец вопросов
-  currentQuestionIndex = questionsWithPatterns.length;
-  showResults(); // Показываем результаты
-}
-/* тест============================================================================ */
-
-// Функция загрузки вопросов
+//ВОПРОСЫ============================================================================
+// Функция загрузки вопросов----------------------------------------------------------
 async function loadQuestions() {
   try {
+    console.log("Загрузка вопросов..."); // Лог начала загрузки
     toggleLoaderTest(true); // Включаем лоадер
 
     const response = await fetch("patterns_data.json");
@@ -136,9 +136,54 @@ async function loadQuestions() {
     questionsWithPatterns = data.questionsWithPatterns || [];
     categories = data.categories || [];
 
+    console.log("Загруженные данные:", data); // Лог загруженных данных
+
     // Проверка наличия данных
     if (questionsWithPatterns.length === 0 || !Array.isArray(categories)) {
       throw new Error("Данные тестов не найдены.");
+    }
+
+    // Создаем массив histogramData
+    const histogramData = [];
+
+    // Заполняем histogramData из загруженных данных
+    console.log("Категории для обработки:", categories); // Лог категорий перед обработкой
+    categories.forEach((category) => {
+      const categoryTitle = category.title?.ru || category.title?.en || "Неизвестная категория";
+      console.log(`Обрабатываем категорию: ${categoryTitle}`);
+
+      if (!category.subcategories || !Array.isArray(category.subcategories)) {
+        console.warn(`У категории "${categoryTitle}" нет подкатегорий.`);
+        return; // Пропускаем эту категорию
+      }
+
+      category.subcategories.forEach((subcategory) => {
+        if (!subcategory.patterns || !Array.isArray(subcategory.patterns)) {
+          console.warn(`У подкатегории нет паттернов.`);
+          return; // Пропускаем, если паттернов нет
+        }
+
+        subcategory.patterns.forEach((pattern) => {
+          const percentage = Math.random() * 100; // Генерация случайного процента
+          histogramData.push({
+            pattern: pattern.pattern.ru || pattern.pattern.en || "Неизвестный паттерн",
+            percentage: percentage,
+            category: categoryTitle,
+          });
+          console.log(`Добавляем в histogramData: ${pattern.pattern.ru || pattern.pattern.en}, процент: ${percentage}, категория: ${categoryTitle}`);
+        });
+      });
+    });
+
+    console.log("Данные для гистограммы:", histogramData); // Лог данных для гистограммы
+
+    // Если histogramData пустой
+    if (histogramData.length === 0) {
+      console.error("Нет данных для отображения гистограммы.");
+      histogramContainer.innerHTML = "<p>Нет явно проявленных паттернов.</p>";
+    } else {
+      // Генерируем гистограмму с полученными данными
+      generateHistogram(histogramData);
     }
 
     // Прокрутка вверх страницы
@@ -161,10 +206,7 @@ function toggleLoaderTest(show) {
     console.error("Элемент с ID 'loader-test' не найден в DOM.");
   }
 }
-
-/* ======================================== */
-
-// Функция для перемешивания массива (алгоритм Фишера-Йетса)
+// Функция для перемешивания массива -------------------------------------------------
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -172,7 +214,7 @@ function shuffleArray(array) {
   }
   return array;
 }
-// Функция для рандомизации вопросов и их ответов
+// Функция для рандомизации вопросов и их ответов------------------------------------
 function randomizeQuestionsAndAnswers() {
   if (!Array.isArray(questionsWithPatterns)) {
     console.error("questionsWithPatterns не инициализирован или не является массивом.");
@@ -201,9 +243,7 @@ function randomizeQuestionsAndAnswers() {
     };
   });
 }
-
-/* ======================================== */
-//Показать вопрос
+//Показать вопрос--------------------------------------------------------------------
 function showQuestion() {
   // Если массив вопросов ещё не перемешан, перемешиваем их вместе с вариантами
   if (currentQuestionIndex === 0) {
@@ -247,8 +287,7 @@ function showQuestion() {
   // Обновляем счётчик вопросов
   questionCounter.innerHTML = `Вопрос ${currentQuestionIndex + 1} из ${questionsWithPatterns.length}`;
 }
-
-//Следующий вопрос
+//Следующий вопрос-------------------------------------------------------------------
 function nextQuestion() {
   const selectedOption = document.querySelector('input[name="answer"]:checked'); // Получаем выбранный вариант
   const errorMessage = document.getElementById("error-message"); // Сообщение об ошибке
@@ -279,8 +318,7 @@ function nextQuestion() {
     errorMessage.style.display = "block"; // Отображаем сообщение об ошибке
   }
 }
-
-//Предыдущий вопрос
+//Предыдущий вопрос-------------------------------------------------------------------
 function previousQuestion() {
   if (currentQuestionIndex > 0) {
     currentQuestionIndex--; // Возвращаемся на один вопрос назад
@@ -292,8 +330,7 @@ function previousQuestion() {
     showQuestion(); // Показываем предыдущий вопрос
   }
 }
-
-// Функция для сброса опроса
+// Функция для сброса опроса---------------------------------------------------------
 function resetQuiz() {
   currentQuestionIndex = 0; // Сбрасываем индекс текущего вопроса
   answers = []; // Очищаем массив пользовательских ответов
@@ -309,22 +346,23 @@ function resetQuiz() {
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-// Отображение результатов
+//РЕЗУЛЬТАТЫ==================================================================
+// showResults-----------------------------------------------------------------------
 function showResults() {
   if (!patterns || patterns.length === 0) {
     alert("Вы не завершили тест. Пожалуйста, ответьте на все вопросы.");
     resetQuiz();
     return;
   }
-  //Вопросы теста
+  // Вопросы теста
   const testBlock = document.getElementById("test-block");
   // Скрываем блок с вопросами и счётчик для отображения результатов
   testBlock.style.display = "none";
 
-  //Блок для результатов
+  // Блок для результатов
   const resultContainer = document.getElementById("result-container");
 
-  //Результаты теста
+  // Результаты теста
   const resultContent = document.getElementById("result-content");
 
   let results = ""; // Для финального HTML результата
@@ -344,14 +382,8 @@ function showResults() {
     return;
   }
 
-  // Массив для соотношения категорий и классов
-  const categoryClassMap = {
-    "Паттерны мышления": "category-block__mind",
-    "Паттерны поведения": "category-block__man",
-    "Паттерны коммуникации": "category-block__hands",
-    "Паттерны организации времени": "category-block__clock",
-  };
-
+  // NEW: Create histogram data
+  let histogramData = [];
   // Обходим каждую категорию
   categories.forEach((category) => {
     const categoryTitle = category.title?.ru || category.title?.en || "Неизвестная категория";
@@ -417,7 +449,7 @@ function showResults() {
         statusText = `НЕЙТРАЛЬНО`;
       } else {
         // Один доминантный паттерн
-        statusText = maxPercentage <= 40 ? `УМЕРЕННО ${dominant}` : maxPercentage <= 60 ? `НЕЙТРАЛЬНО` : `ЯВНО ${dominant}`;
+        statusText = maxPercentage <= 40 ? `УМЕРЕННО ${dominant}` : maxPercentage <= 74 ? `НЕЙТРАЛЬНО` : `ЯВНО ${dominant}`;
       }
 
       // Сохраняем данные подкатегории в resultsData для отчёта
@@ -427,7 +459,12 @@ function showResults() {
         percentage: maxPercentage,
         responses,
       });
-
+      // Сохраняем явные паттерны для отображения в гистограмме
+      responses.forEach(({ pattern, percentage }) => {
+        if (percentage >= 75) {
+          histogramData.push({ pattern, percentage, category: categoryTitle }); // Сохраняем категорию
+        }
+      });
       // Формируем HTML этого блока
       let patternResults = `<div class="subcategory-content">`;
 
@@ -438,23 +475,23 @@ function showResults() {
         const patternDescription = currentPatternData?.description.ru || "Описание отсутствует";
 
         patternResults += `
-	<div class="pattern-result">
-	  <div class="pattern-result__label">
-		 <div class="scale-bar-title-wrapper">
-			<p class="scale-bar-title">${pattern}</p>
-			<div class="info-icon">
-			  <span>i</span>
-			  <div class="tooltiptest hidden">
-				 ${patternDescription}
-			  </div>
-			</div>
-		 </div>
-		 <p>${percentage}%</p>
-	  </div>
-	  <div class="scale-bar-container">
-		 <div class="scale-bar" style="width: ${percentage}%;"></div>
-	  </div>
-	</div>`;
+			 <div class="pattern-result">
+				<div class="pattern-result__label">
+					<div class="scale-bar-title-wrapper">
+					 <p class="scale-bar-title">${pattern}</p>
+					 <div class="info-icon">
+						<span>i</span>
+						<div class="tooltiptest hidden">
+							${patternDescription}
+						</div>
+					 </div>
+					</div>
+					<p>${percentage}%</p>
+				</div>
+				<div class="scale-bar-container">
+					<div class="scale-bar" style="width: ${percentage}%;"></div>
+				</div>
+			 </div>`;
       });
 
       patternResults += `</div>`;
@@ -463,8 +500,8 @@ function showResults() {
 				<div class="analytics-block">
 				  <p  class="scale-status">${statusText}</p>
 				  <div class="scale-container">
-					 <div class="scale-line"></div>
-					 <div class="scale-labels">
+					  <div class="scale-line"></div>
+					  <div class="scale-labels">
 						<div class="scale-labels-item">
 						  <div class="indicator" style="opacity: ${maxPercentage <= 40 ? 1 : 0};"></div>
 						  <span>УМЕРЕННО</span>
@@ -474,10 +511,10 @@ function showResults() {
 						  <span>НЕЙТРАЛЬНО</span>
 						</div>
 						<div class="scale-labels-item">
-						  <div class="indicator" style="opacity: ${maxPercentage > 60 ? 1 : 0};"></div>
+						  <div class="indicator" style="opacity: ${maxPercentage > 74 ? 1 : 0};"></div>
 						  <span>ЯВНО</span>
 						</div>
-					 </div>
+					  </div>
 				  </div>
 				</div>`;
 
@@ -485,8 +522,8 @@ function showResults() {
 				<div class="subcategory-block">
 				  <div class="subcategory-title">${subcategoryTitle}</div>
 				  <div class="subcategory-wrapper">
-					 <div class="analytics-wrapper">${analyticsBlock}</div>
-					 <div class="results-wrapper">${patternResults}</div>
+					  <div class="analytics-wrapper">${analyticsBlock}</div>
+					  <div class="results-wrapper">${patternResults}</div>
 				  </div>
 				</div>`;
     });
@@ -515,11 +552,91 @@ function showResults() {
   resultContainer.style.display = "flex";
   animateOnScroll();
   initializeTooltips();
+  // Генерируем гистограмму
+  generateHistogram(histogramData); // Вывод данных в указанный контейнер
   // Возвращаем JSON для отчётов (например, для PDF)
   return resultsData;
 }
 
-/* Всплывающий текст описания паттернов */
+//Гистограмма------------------------------------------------------------------------
+function generateHistogram(histogramData) {
+  const histogramContainer = document.getElementById("histogram");
+  if (!histogramContainer) return;
+
+  histogramContainer.innerHTML = ""; // Очищаем контейнер перед обновлением
+
+  if (histogramData.length > 0) {
+    const columns = document.createElement("div");
+    columns.className = "histogram__columns";
+
+    // Объект для хранения условных обозначений
+    const legendMap = {};
+
+    histogramData.forEach(({ pattern, percentage, category }) => {
+      const column = document.createElement("div");
+      column.className = "histogram__column";
+
+      // Ищем аббревиатуру для текущего паттерна
+      let abbreviation = "Нет данных"; // Значение по умолчанию
+
+      const foundPattern = categories
+        .flatMap((category) =>
+          category.subcategories.flatMap((subcategory) => subcategory.patterns.find((p) => p.pattern.ru === pattern || p.pattern.en === pattern))
+        )
+        .find(Boolean);
+
+      if (foundPattern) {
+        abbreviation = foundPattern.pattern.abbreviation || "Нет аббревиатуры"; // Обработка отсутствия аббревиатуры
+      }
+
+      // Добавляем класс для процентного значения, если оно равно 100%
+      const percentageClass = percentage === 100 ? "maximum" : "";
+
+      // Получаем класс категории из categoryClassMap
+      const categoryClass = categoryClassMap[category] || "default-class";
+
+      console.log("Категория:", category, "Сопоставленный класс:", categoryClass);
+
+      // В зависимости от ширины экрана устанавливаем height или width
+      const isMobile = window.innerWidth < 768;
+
+      column.innerHTML = `
+			<span class="histogram__percentage ${percentageClass}">${percentage}%</span>
+			<div class="histogram__bar-container">
+			  <div class="histogram__bar ${categoryClass}" style="${isMobile ? `width: ${percentage}%; height: 10px;` : `height: ${percentage}%;`}"></div>
+			</div>
+			<span class="histogram__pattern">${abbreviation}</span>
+		 `;
+
+      // Добавляем аббревиатуру и название паттерна в legendMap
+      legendMap[abbreviation] = foundPattern ? foundPattern.pattern.ru : pattern;
+
+      columns.appendChild(column);
+    });
+
+    histogramContainer.appendChild(columns);
+
+    // Создаем блок условных обозначений с заголовком
+    const legendContainer = document.createElement("div");
+    legendContainer.className = "legend";
+    legendContainer.innerHTML = "<h4>Условные обозначения</h4>";
+
+    const legendGrid = document.createElement("div");
+    legendGrid.className = "legend__grid"; // Класс для стилизации сетки
+
+    // Заполняем сетку условными обозначениями
+    Object.entries(legendMap).forEach(([abbreviation, patternName]) => {
+      legendGrid.innerHTML += `<div class="legend__item"><span class="abbreviation">${abbreviation}</span> - ${patternName}</div>`;
+    });
+
+    legendContainer.appendChild(legendGrid);
+    histogramContainer.appendChild(legendContainer); // Добавляем блок с условными обозначениями в контейнер гистограммы
+  } else {
+    histogramContainer.innerHTML = "<p>Нет явно проявленных паттернов.</p>";
+  }
+}
+
+// Всплывающий текст описания паттернов--------------------------------------
 function initializeTooltips() {
   const isTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints > 0;
 
@@ -569,7 +686,7 @@ function initializeTooltips() {
   });
 }
 
-//Функция анимации
+//Функция анимации--------------------------------------------------------------
 function animateOnScroll() {
   // Находим все элементы для анимации
   const animBlocks = document.querySelectorAll(".subcategory-wrapper, .category-label, .subcategory-title");
@@ -606,37 +723,8 @@ function animateOnScroll() {
   animBlocks.forEach((block) => observer.observe(block));
 }
 
-/* =====Кнопка копировать=============================================== */
-/* function copyToClipboard(link) {
-	const tempInput = document.createElement("input"); // Создаем временный элемент input
-	tempInput.value = link; // Устанавливаем значение в ссылку
-	document.body.appendChild(tempInput); // Добавляем элемент в документ
-	tempInput.select(); // Выбираем текст
-	document.execCommand("copy"); // Копируем в буфер обмена
-	document.body.removeChild(tempInput); // Удаляем временный элемент
-
-	showNotification(); // Показать уведомление
- }
-
- function showNotification() {
-	const notification = document.getElementById("notification");
-	notification.style.display = "block"; // Показываем уведомление
-
-	// Автоматически скрываем уведомление через 3 секунды
-	setTimeout(() => {
-	  notification.style.display = "none";
-	}, 3000);
- }
-
- document.getElementById("copy-link").addEventListener("click", function (event) {
-	event.preventDefault(); // Предотвращаем переход по ссылке
-	const link = "https://ai4g.ru/pattern-test.html"; // Ссылка для копирования
-	copyToClipboard(link); // Вызываем функцию для копирования
- });
-  */
-
-/* Скачивание ПДФ =========================================== */
-// Функция для загрузки файла patterns_data.json
+//PDF =======================================================================
+// Функция для загрузки файла patterns_data.json---------------------------------
 async function loadPatterns() {
   try {
     const response = await fetch("patterns_data.json");
@@ -648,66 +736,117 @@ async function loadPatterns() {
   }
 }
 
-// Функция для определения доминирующего паттерна
+// Функция для определения доминирующего паттерна------------------------------
 function getDominanceResponse(subcategory) {
-  const maxPercentage = Math.max(...subcategory.responses.map((res) => res.percentage));
-  const dominantResponses = subcategory.responses.filter((res) => res.percentage === maxPercentage);
+  const responses = subcategory.responses;
+  const maxPercentage = Math.max(...responses.map((res) => res.percentage));
+  const dominantResponses = responses.filter((res) => res.percentage === maxPercentage);
+  const patternCount = responses.length;
 
   let status = "";
   let pattern = null;
 
-  // Явное доминирование
-  if (maxPercentage >= 75) {
-    if (dominantResponses.length === 1) {
+  if (patternCount === 2) {
+    // Логика для двух паттернов
+    if (maxPercentage >= 75) {
       status = "Явно:";
-      pattern = dominantResponses[0].pattern; // Получаем объект паттерна
+      pattern = dominantResponses[0].pattern; // Паттерн с максимальным процентом
+    } else if (maxPercentage === 50) {
+      status = "Нейтрально"; // Обе равны по 50%
     } else {
-      status = "Конфликт явных паттернов";
+      status = "Умеренно:"; // Паттерны не достигли явного доминирования
     }
-  }
-  // Умеренное доминирование
-  else if (maxPercentage >= 50) {
-    status = dominantResponses.length > 1 ? "Нейтрально" : "Умеренно:";
-    pattern = dominantResponses[0]?.pattern;
-  }
-  // Нет доминирования
-  else {
-    status = "Нет доминирования";
+  } else if (patternCount === 3) {
+    // Логика для трех паттернов
+    if (maxPercentage >= 75) {
+      status = "Явно:";
+      pattern = dominantResponses[0].pattern; // Паттерн с максимальным процентом
+    } else if (maxPercentage >= 50) {
+      status = "Умеренно:"; // Паттерны близки друг к другу по значению
+      pattern = dominantResponses[0].pattern; // Паттерн с максимальным процентом
+    } else {
+      status = "Нейтрально"; // Все паттерны имеют низкие значения
+    }
+  } else {
+    status = "Нет паттернов для анализа"; // Обработка случая, если паттернов нет
   }
 
   return {
     status,
-    pattern, // Теперь это объект {ru, en, abbreviation}
+    pattern: pattern || { ru: "Нет паттерна", en: "No pattern", abbreviation: "N/A" }, // Возвращаем объект по умолчанию
     percentage: maxPercentage,
   };
 }
 
-// Функция для генерации PDF
+// Функция для генерации PDF------------------------------------------------
 function generatePDF(resultsData, patternsData) {
+  // Добавление проверок на наличие данных
+  if (!resultsData || resultsData.length === 0) {
+    console.error("Ошибка: resultsData пустой или не определен.");
+    return {}; // Возврат пустого документа
+  }
+
+  if (!patternsData || patternsData.length === 0) {
+    console.error("Ошибка: patternsData пустой или не определен.");
+    return {}; // Возврат пустого документа
+  }
+
   const defaultStyles = {
+    //1 Блок Шапка документа---------------------------------
+    //ФИО, дата
+    clientInfo: {
+      fontSize: 14,
+      bold: false,
+      margin: [0, 0, 0, 5],
+    },
+    //Лого
+    mainLogo: {
+      fontSize: 22,
+      bold: true,
+      color: "#ff008a",
+    },
+    //Главный заголовок
     mainTitle: {
       fontSize: 22,
       bold: true,
-      alignment: "center",
-      margin: [0, 20, 0, 20],
     },
+    //Описание под заголовком
     descriptionText: {
-      fontSize: 14,
-      alignment: "center",
-      margin: [0, 0, 0, 30],
+      fontSize: 16,
     },
-    dominantTitle: {
+    //Описание под заголовком
+    descriptionTextAccent: {
       fontSize: 16,
       bold: true,
+    },
+    //Заголовок список
+    mainListTitle: {
+      fontSize: 16,
       alignment: "center",
+      bold: true,
       margin: [0, 0, 0, 20],
     },
+    //Текст список
+    mainListText: {
+      fontSize: 14,
+      margin: [0, 0, 0, 10],
+    },
+    // 2 Блок "Явно проявленные паттерны"------------------
+    //Заголовок
+    dominantTitle: {
+      fontSize: 18,
+      bold: true,
+      alignment: "center",
+      margin: [0, 0, 0, 40],
+    },
+    //Подзаголовок "Условные обозначения:"
     dominantSubTitle: {
       fontSize: 14,
       bold: true,
       alignment: "left",
       margin: [0, 20, 0, 10],
     },
+    //Условные обозначения текст
     abbreviationLabel: {
       fontSize: 12,
       alignment: "left",
@@ -715,53 +854,87 @@ function generatePDF(resultsData, patternsData) {
       color: "#505050",
       bold: false,
     },
-    categoryHeader: {
-      fontSize: 20,
+    //3 Блок "Паттерны по категориям" -------------------
+    //Заголовок
+    categoryTitle: {
+      fontSize: 18,
       bold: true,
       alignment: "center",
-      margin: [0, 20, 0, 10],
+      margin: [0, 0, 0, 20],
     },
+    //Заголовок категории
+    categoryHeader: {
+      fontSize: 16,
+      bold: true,
+      alignment: "center",
+      margin: [0, 0, 0, 10],
+    },
+    //Описание категории
+    categoryDescription: {
+      fontSize: 14,
+      alignment: "left",
+      color: "#71717a",
+      margin: [0, 5, 0, 20],
+    },
+    //Стиль для заголовка подкатегории
     subCategoryHeader: {
       fontSize: 12,
       bold: true,
       margin: [0, 5, 0, 5],
     },
+    //Статус паттерна
+    dominantPattern: {
+      fontSize: 12,
+      bold: true,
+      color: "#71717a",
+      margin: [0, 10, 0, 15],
+    },
+    //Сообщения о отсутствии ответов
     noQuestions: {
       fontSize: 14,
       italics: true,
       color: "#ff0000",
       margin: [0, 10, 0, 15],
     },
+    //Описание паттернов--------------
+    //Заголовок
+    sectionTitle: {
+      fontSize: 18,
+      bold: true,
+      alignment: "center",
+      margin: [0, 0, 0, 10],
+    },
+    //Заголовок категории
     descriptionPatternTitle: {
       fontSize: 14,
+      color: "#000",
+      bold: true,
+      alignment: "center",
+      margin: [0, 10, 0, 5],
+    },
+    //Заголовок паттерн
+    patternTitle: {
+      fontSize: 12,
       color: "#71717a",
       bold: true,
+      decoration: "underline",
       alignment: "left",
-      margin: [0, 0, 0, 10],
+      margin: [20, 0, 0, 2],
     },
-    descriptionPatternSubtitle: {
-      fontSize: 12,
-      color: "#505050",
-      bold: true,
-      alignment: "left",
-      margin: [0, 0, 0, 10],
-    },
+    //Описание паттерн
     descriptionPattern: {
       fontSize: 12,
       color: "#71717a",
       alignment: "left",
       margin: [0, 2, 0, 5],
     },
+    //----------------------------
     percentageCell: {
       fontSize: 12,
       alignment: "left",
       margin: [0, 3, 0, 3],
     },
-    clientInfo: {
-      fontSize: 12,
-      bold: false,
-      margin: [0, 0, 0, 5],
-    },
+
     percentageText: {
       fontSize: 10,
       color: "#505050",
@@ -773,17 +946,40 @@ function generatePDF(resultsData, patternsData) {
       alignment: "center",
       color: "#505050",
     },
-    dominantPattern: {
-      fontSize: 12,
-      bold: true,
-      color: "#000",
-      margin: [0, 10, 0, 10],
-    },
-    percentageTextRed: {
-      color: "red",
+
+    percentageTextGreen: {
+      color: "#03d666",
       fontSize: 10,
       bold: true,
       margin: [0, 0, 0, 10],
+    },
+    // 5 Блок "Контакты и ссылки"------------------
+    //Заголовок
+    secondTitle: {
+      fontSize: 18,
+      bold: true,
+      alignment: "center",
+    },
+    //Текст
+    secondText: {
+      fontSize: 14,
+      alignment: "left",
+    },
+    //Текст ссылки
+    secondTextLink: {
+      fontSize: 12,
+      alignment: "left",
+    },
+    //Ссылка
+    secondLink: {
+      color: "blue",
+      fontSize: 12,
+      width: "auto",
+    },
+    //Ссылка
+    secondList: {
+      fontSize: 12,
+      margin: [0, 0, 0, 5],
     },
   };
 
@@ -791,67 +987,120 @@ function generatePDF(resultsData, patternsData) {
 
   // Функция обогащения данных
   const enrichData = (patternsData, resultsData) => {
+    // Создаем пустой объект для хранения обогащенных данных
     const enrichedData = {};
 
+    // Итерируем по каждой категории в паттернах
     patternsData.forEach((category) => {
-      const categoryTitle = category.title.ru;
+      const categoryTitle = category.title.ru; // Получаем название категории на русском языке
       enrichedData[categoryTitle] = {
         color: category.color, // Добавляем цвет категории
-        subcategories: [],
+        description: category.description.ru, // Добавляем цвет категории
+        subcategories: [], // Инициализируем массив для подкатегорий
       };
 
+      // Итерируем по каждой подкатегории
       category.subcategories.forEach((subcategory) => {
-        const subcategoryTitle = subcategory.title.ru;
-        const testResults = resultsData[categoryTitle]?.find((resultSubcategory) => resultSubcategory.subcategory === subcategoryTitle);
+        const subcategoryTitle = subcategory.title.ru; // Получаем название подкатегории на русском языке
+        const testResults = resultsData[categoryTitle]?.find((resultSubcategory) => resultSubcategory.subcategory === subcategoryTitle); // Находим результаты для подкатегории
 
+        // Добавляем подкатегорию в обогащенные данные
         enrichedData[categoryTitle].subcategories.push({
           subcategory: subcategoryTitle,
-          responses: testResults?.responses || [],
+          responses: testResults?.responses || [], // Получаем ответы, если они есть
           patterns: subcategory.patterns.map((pattern) => ({
-            title: pattern.pattern.ru,
-            description: pattern.description.ru,
-            abbreviation: pattern.pattern.abbreviation,
+            title: pattern.pattern.ru, // Название паттерна на русском языке
+            description: pattern.description?.ru || "", // Описание паттерна на русском языке (проверка на наличие)
+            abbreviation: pattern.pattern.abbreviation || "", // Аббревиатура паттерна (проверка на наличие)
+            color: pattern.color || "", // Цвет паттерна (если есть)
           })),
         });
       });
     });
 
-    return enrichedData;
+    return enrichedData; // Возвращаем обогащенные данные
   };
 
+  // Вызываем функцию для обогащения данных с переданными паттернами и результатами
   const enrichedResults = enrichData(patternsData, resultsData);
+
+  // Функция генерации содержимого документа
   const generateContent = (results, userFullName, testDate) => {
-    const content = [];
-    const patternsDescriptions = [];
-    const dominantPatterns = [];
+    const content = []; // Инициализируем массив для контента
+    const patternsDescriptions = []; // Создаем массив для описаний паттернов (пока не используется)
+    const dominantPatterns = []; // Массив для хранения доминирующих паттернов
 
     // Добавляем информацию о клиенте (ФИО слева, дата справа)
     content.push({
       columns: [
         {
-          text: `ФИО: ${userFullName}`,
-          style: "clientInfo",
-          alignment: "left",
+          text: `ФИО: ${userFullName}`, // Полное имя клиента
+          style: "clientInfo", // Стиль для информации о клиенте
+          alignment: "left", // Выравнивание влево
         },
         {
-          text: `Дата: ${testDate}`,
+          text: `Дата: ${testDate}`, // Дата теста
           style: "clientInfo",
-          alignment: "right",
+          alignment: "right", // Выравнивание вправо
         },
       ],
-      margin: [0, 20, 0, 20],
+      margin: [0, 20, 0, 20], // Установка отступов
+      relativePosition: { x: 0, y: 20 }, // Сдвигаем блок влево, если необходимо
     });
 
-    // Заголовок "Результат теста"
+    // Заголовок "Тест паттернов"
     content.push({
-      text: "Результат теста",
-      style: "mainTitle",
+      text: [
+        { text: "PT ", style: "mainLogo" },
+        { text: "Тест паттернов", style: "mainTitle" },
+      ],
+      alignment: "center",
+      margin: [0, 100, 0, 20],
     });
 
-    // Описание теста
+    // Паттерн
     content.push({
-      text: "Описание всех категорий, подкатегорий и их паттернов",
-      style: "descriptionText",
+      text: [
+        { text: "Паттерн ", style: "descriptionTextAccent" },
+        { text: "— устойчивая модель реагирования,  предпочтение мыслить, действовать и чувствовать определенным образом", style: "descriptionText" },
+      ],
+      alignment: "center",
+      margin: [0, 0, 0, 30],
+    });
+
+    //Заголовок для блока Паттерны------------------
+    content.push({
+      text: "Зачем нужны паттерны", // Заголовок секции
+      style: "mainListTitle", // Стиль для заголовка секции
+    });
+    content.push({
+      ul: [
+        {
+          text: "Паттерн не бывает «хороший» или «плохой». Паттерн всегда нейтрален.",
+          style: "mainListText",
+        },
+        {
+          text: "Паттерны зависят от контекста и уровня стресса и способны со временем изменяться.",
+          style: "mainListText",
+        },
+        {
+          text: "Паттерн отвечает на вопрос о том, что находится в фокусе внимания, а что отфильтровывается из области осознания.",
+          style: "mainListText",
+        },
+        {
+          text: "Зная свои паттерны, мы осознаем свои привычные способы реагирования.",
+          style: "mainListText",
+        },
+        {
+          text: "Осознание своей структуры паттернов делает доступными новые стратегии как думать, чувствовать, действовать, что в свою очередь создает новые возможности.",
+          style: "mainListText",
+        },
+        {
+          text: "Если вы хотите понять человека, работайте с его паттернами, а не против них.",
+          style: "mainListText",
+        },
+      ],
+      margin: [0, 10, 0, 10], // Установка отступов для списка
     });
 
     // Итерация по категориям для сбора доминирующих паттернов
@@ -859,166 +1108,501 @@ function generatePDF(resultsData, patternsData) {
       const categoryData = results[category];
 
       if (categoryData && Array.isArray(categoryData.subcategories)) {
+        // Проверяем наличие подкатегорий и собираем доминирующие паттерны
         categoryData.subcategories.forEach((subcategory) => {
           if (subcategory.responses.length > 0) {
-            const dominanceResponse = getDominanceResponse(subcategory);
+            // Если есть ответы
+            const dominanceResponse = getDominanceResponse(subcategory); // Получаем доминирующий ответ
+
+            // Выводим статус только, если он не Нейтральный
             if (dominanceResponse.status !== "Нейтрально") {
+              // Записываем паттерн
               dominantPatterns.push({
-                pattern: dominanceResponse.pattern,
-                percentage: dominanceResponse.percentage,
+                pattern: dominanceResponse.pattern, // Сохраняем паттерн
+                percentage: dominanceResponse.percentage, // Процент доминирования
               });
+            } else {
+              console.log(dominanceResponse.status); // Выводим только статус для нейтрального
             }
           }
         });
       } else {
-        console.warn(`Category ${category} is not formatted correctly`, categoryData);
+        console.warn(`Category ${category} is not formatted correctly`, categoryData); // Лог предупреждения о некорректной категории
       }
     }
 
-    // Добавляем новый раздел с доминирующими паттернами, если такие есть
+    // Добавляем разрыв страницы перед началом итерации по категориям
+    content.push({ text: "", pageBreak: "before" });
+
+    // Явно проявленные паттерны------------------
     if (dominantPatterns.length > 0) {
-      const dominantPatternsContent = generateDominantPatternsContent(dominantPatterns, results);
+      const dominantPatternsContent = generateDominantPatternsContent(dominantPatterns, results); // Генерируем содержимое для доминирующих паттернов
       content.push(...dominantPatternsContent);
     }
 
     // Добавляем разрыв страницы перед началом итерации по категориям
     content.push({ text: "", pageBreak: "before" });
 
+    //Заголовок для блока Паттерны------------------
+    content.push({
+      text: "Паттерны", // Заголовок секции
+      style: "categoryTitle", // Стиль для заголовка секции
+    });
+
     // Итерация по категориям для вывода подкатегорий и их описаний в 2 колонки
     for (const category in results) {
       const categoryData = results[category];
 
       content.push({
-        text: category,
-        style: "categoryHeader",
-        color: categoryData.color || "#000",
+        text: category, // Название категории
+        style: "categoryHeader", // Стиль заголовка категории
+        /* color: categoryData.color || "#000", // Цвет заголовка категории */
+      });
+
+      content.push({
+        text: categoryData.description,
+        style: "categoryDescription",
       });
 
       if (categoryData && Array.isArray(categoryData.subcategories)) {
+        // Генерируем содержимое для подкатегорий
         const subcategoriesContent = generateSubcategoriesContent(categoryData.subcategories, patternsDescriptions, categoryData.color);
 
+        // Формируем колонки для PDF
         const pdfColumns = subcategoriesContent.columns.map((columnContent) => ({
-          width: "50%",
+          width: "50%", // Установка ширины колонки
           stack: columnContent,
         }));
 
+        // Если хотя бы одна колонка не пустая, добавляем их в контент
         if (pdfColumns.some((column) => column.stack.length > 0)) {
           content.push({
             columns: pdfColumns,
-            columnGap: 20,
+            columnGap: 20, // Установка промежутка между колонками
           });
         }
 
-        // Удалена логика добавления текста по описанию паттернов
+        // Разрыв страницы после вывода подкатегорий
         if (categoryData.subcategories.length > 0) {
-          content.push({ text: "", pageBreak: "after" }); // Разрыв страницы
+          content.push({ text: "", pageBreak: "after" }); // Добавление разрыва страницы
         }
       } else {
-        console.warn(`No valid subcategories for category ${category}`, categoryData);
+        console.warn(`No valid subcategories for category ${category}`, categoryData); // Лог предупреждения о пустых подкатегориях
       }
     }
 
-    // Секция вывода описаний паттернов
+    //текст------------------------
+    // Генерация гистограммы------------------------------------------------------------------------
+    function generateHistogram(histogramData) {
+      const histogramContainer = document.getElementById("histogram");
+      if (!histogramContainer) return;
+
+      histogramContainer.innerHTML = ""; // Очищаем контейнер перед обновлением
+      console.log("Генерация гистограммы с данными:", histogramData); // Лог данных для генерации гистограммы
+
+      if (histogramData.length > 0) {
+        const columns = document.createElement("div");
+        columns.className = "histogram__columns";
+
+        // Объект для хранения условных обозначений
+        const legendMap = {};
+
+        histogramData.forEach(({ pattern, percentage, category }) => {
+          console.log(`Обработка паттерна: ${pattern}, процент: ${percentage}, категория: ${category}`); // Лог текущего паттерна
+
+          const column = document.createElement("div");
+          column.className = "histogram__column";
+
+          // Ищем аббревиатуру для текущего паттерна
+          let abbreviation = "Нет данных"; // Значение по умолчанию
+
+          const foundPattern = categories
+            .flatMap((category) =>
+              category.subcategories.flatMap((subcategory) => subcategory.patterns.find((p) => p.pattern.ru === pattern || p.pattern.en === pattern))
+            )
+            .find(Boolean);
+
+          if (foundPattern) {
+            abbreviation = foundPattern.pattern.abbreviation || "Нет аббревиатуры"; // Обработка отсутствия аббревиатуры
+          }
+
+          // Добавляем класс для процентного значения, если оно равно 100%
+          const percentageClass = percentage === 100 ? "maximum" : "";
+
+          // Получаем класс категории из categoryClassMap
+          const categoryClass = categoryClassMap[category] || "default-class";
+
+          console.log("Категория:", category, "Сопоставленный класс:", categoryClass);
+
+          column.innerHTML = `
+			  <span class="histogram__percentage ${percentageClass}">${percentage}%</span>
+			  <div class="histogram__bar-container">
+				 <div class="histogram__bar ${categoryClass}" style="height: ${percentage}%;"></div>
+			  </div>
+			  <span class="histogram__pattern">${abbreviation}</span>
+			`;
+
+          // Добавляем аббревиатуру и название паттерна в legendMap
+          legendMap[abbreviation] = foundPattern ? foundPattern.pattern.ru : pattern;
+
+          columns.appendChild(column);
+        });
+
+        histogramContainer.appendChild(columns);
+
+        // Создаем блок условных обозначений с заголовком
+        const legendContainer = document.createElement("div");
+        legendContainer.className = "legend";
+        legendContainer.innerHTML = "<h4>Условные обозначения</h4>";
+
+        const legendGrid = document.createElement("div");
+        legendGrid.className = "legend__grid"; // Класс для стилизации сетки
+
+        // Заполняем сетку условными обозначениями
+        Object.entries(legendMap).forEach(([abbreviation, patternName]) => {
+          legendGrid.innerHTML += `<div class="legend__item"><span class="abbreviation">${abbreviation}</span> - ${patternName}</div>`;
+        });
+
+        legendContainer.appendChild(legendGrid);
+        histogramContainer.appendChild(legendContainer); // Добавляем блок с условными обозначениями в контейнер гистограммы
+      } else {
+        histogramContainer.innerHTML = "<p>Нет явно проявленных паттернов.</p>";
+      }
+    }
+
+    // showResults-----------------------------------------------------------------------
+    function showResults() {
+      if (!patterns || patterns.length === 0) {
+        alert("Вы не завершили тест. Пожалуйста, ответьте на все вопросы.");
+        resetQuiz();
+        return;
+      }
+      // Вопросы теста
+      const testBlock = document.getElementById("test-block");
+      // Скрываем блок с вопросами и счётчик для отображения результатов
+      testBlock.style.display = "none";
+
+      // Блок для результатов
+      const resultContainer = document.getElementById("result-container");
+
+      // Результаты теста
+      const resultContent = document.getElementById("result-content");
+
+      let results = ""; // Для финального HTML результата
+      const resultsData = {}; // Для хранения итоговых данных
+
+      // Создаем объект для подсчета количества паттернов
+      const counts = patterns.reduce((acc, pattern) => {
+        acc[pattern] = (acc[pattern] || 0) + 1;
+        return acc;
+      }, {});
+
+      // Если нет категорий, показываем сообщение об ошибке
+      if (!categories || categories.length === 0) {
+        console.error("Категории отсутствуют или системе не удалось их загрузить.");
+        resultContent.innerHTML = "<p>Категории данных отсутствуют. Проверьте данные или перезагрузите страницу.</p>";
+        resultContainer.style.display = "flex";
+        return;
+      }
+
+      // NEW: Create histogram data
+      let histogramData = [];
+      // Обходим каждую категорию
+      categories.forEach((category) => {
+        const categoryTitle = category.title?.ru || category.title?.en || "Неизвестная категория";
+        let subcategoryResults = ""; // Сюда добавляем все подкатегории этой категории
+
+        // Пропускаем категорию, если в ней нет подкатегорий
+        if (!category.subcategories || category.subcategories.length === 0) {
+          return;
+        }
+
+        // Динамически выбираем дополнительный класс из заранее заданного объекта
+        const additionalClass = categoryClassMap[categoryTitle] || "";
+
+        // Инициализируем массив для текущей категории в resultsData
+        resultsData[categoryTitle] = [];
+
+        // Обходим каждую подкатегорию
+        category.subcategories.forEach((subcategory) => {
+          const subcategoryTitle = subcategory.title?.ru || subcategory.title?.en || "Неизвестная подкатегория";
+
+          // Пропускаем подкатегории без паттернов
+          if (!subcategory.patterns || subcategory.patterns.length === 0) {
+            return;
+          }
+
+          // Формируем список паттернов в подкатегории
+          const patternsInSubcategory = subcategory.patterns.map((pattern) => pattern.pattern?.ru || pattern.pattern?.en || "Без названия");
+
+          // Подсчитываем общее количество ответов для этой подкатегории
+          const totalResponses = patternsInSubcategory.reduce((total, pattern) => total + (counts[pattern] || 0), 0);
+
+          // Если в подкатегории нет ответов, пропускаем её
+          if (totalResponses === 0) {
+            return;
+          }
+
+          // Определяем проценты для каждого паттерна
+          const responses = patternsInSubcategory.map((pattern) => ({
+            pattern,
+            count: counts[pattern] || 0,
+            percentage: Math.round(((counts[pattern] || 0) / totalResponses) * 100),
+          }));
+
+          // Сортируем их по процентам для более удобного анализа
+          responses.sort((a, b) => b.percentage - a.percentage);
+
+          // Максимальный процент
+          const maxPercentage = responses[0].percentage;
+
+          // Выбираем паттерны с максимальным процентом
+          const dominantResponses = responses.filter((r) => r.percentage === maxPercentage);
+
+          // Логика для определения статуса
+          let dominant = dominantResponses.map((r) => r.pattern).join(", ");
+          let statusText = "";
+
+          if (dominantResponses.length === patternsInSubcategory.length) {
+            // Все паттерны имеют одинаковые проценты (например, три по 33%)
+            statusText = `НЕЙТРАЛЬНО`;
+            dominant = "НЕЙТРАЛЬНЫЕ";
+          } else if (dominantResponses.length > 1) {
+            // Два паттерна с одинаковым высоким процентом
+            statusText = `НЕЙТРАЛЬНО`;
+          } else {
+            // Один доминантный паттерн
+            statusText = maxPercentage <= 40 ? `УМЕРЕННО ${dominant}` : maxPercentage <= 74 ? `НЕЙТРАЛЬНО` : `ЯВНО ${dominant}`;
+          }
+
+          // Сохраняем данные подкатегории в resultsData для отчёта
+          resultsData[categoryTitle].push({
+            subcategory: subcategoryTitle,
+            dominantPattern: dominant,
+            percentage: maxPercentage,
+            responses,
+          });
+          // Сохраняем явные паттерны для отображения в гистограмме
+          responses.forEach(({ pattern, percentage }) => {
+            if (percentage >= 75) {
+              histogramData.push({ pattern, percentage, category: categoryTitle }); // Сохраняем категорию
+            }
+          });
+          // Формируем HTML этого блока
+          let patternResults = `<div class="subcategory-content">`;
+
+          responses.forEach(({ pattern, percentage }) => {
+            // Найти описание для текущего паттерна
+            const currentPatternData = subcategory.patterns.find((p) => (p.pattern.ru || p.pattern.en) === pattern);
+
+            const patternDescription = currentPatternData?.description.ru || "Описание отсутствует";
+
+            patternResults += `
+			  <div class="pattern-result">
+				 <div class="pattern-result__label">
+					 <div class="scale-bar-title-wrapper">
+					  <p class="scale-bar-title">${pattern}</p>
+					  <div class="info-icon">
+						 <span>i</span>
+						 <div class="tooltiptest hidden">
+							 ${patternDescription}
+						 </div>
+					  </div>
+					 </div>
+					 <p>${percentage}%</p>
+				 </div>
+				 <div class="scale-bar-container">
+					 <div class="scale-bar" style="width: ${percentage}%;"></div>
+				 </div>
+			  </div>`;
+          });
+
+          patternResults += `</div>`;
+
+          const analyticsBlock = `
+				 <div class="analytics-block">
+					<p  class="scale-status">${statusText}</p>
+					<div class="scale-container">
+						<div class="scale-line"></div>
+						<div class="scale-labels">
+						 <div class="scale-labels-item">
+							<div class="indicator" style="opacity: ${maxPercentage <= 40 ? 1 : 0};"></div>
+							<span>УМЕРЕННО</span>
+						 </div>
+						 <div class="scale-labels-item">
+							<div class="indicator" style="opacity: ${maxPercentage > 40 && maxPercentage <= 60 ? 1 : 0};"></div>
+							<span>НЕЙТРАЛЬНО</span>
+						 </div>
+						 <div class="scale-labels-item">
+							<div class="indicator" style="opacity: ${maxPercentage > 74 ? 1 : 0};"></div>
+							<span>ЯВНО</span>
+						 </div>
+						</div>
+					</div>
+				 </div>`;
+
+          subcategoryResults += `
+				 <div class="subcategory-block">
+					<div class="subcategory-title">${subcategoryTitle}</div>
+					<div class="subcategory-wrapper">
+						<div class="analytics-wrapper">${analyticsBlock}</div>
+						<div class="results-wrapper">${patternResults}</div>
+					</div>
+				 </div>`;
+        });
+
+        // Если подкатегории содержат данные, добавляем их в категорию
+        if (subcategoryResults) {
+          results += `
+				 <div class="category-block ${additionalClass}">
+					<h3 class="category-label">${categoryTitle}</h3>
+					${subcategoryResults}
+				 </div>`;
+        }
+      });
+
+      // Если результат пустой, значит ничего не сгенерировалось
+      if (results.trim() === "") {
+        results = "<p>Не найдено данных для отображения результатов.</p>";
+      }
+
+      // Вставляем HTML результатов
+      resultContent.innerHTML = results;
+      // Создаем Blob с текстом
+      const blob = new Blob([results], { type: "text/plain" });
+
+      // Делаем контейнер видимым
+      resultContainer.style.display = "flex";
+      animateOnScroll();
+      initializeTooltips();
+      // Генерируем гистограмму
+      generateHistogram(histogramData); // Вывод данных в указанный контейнер
+      // Возвращаем JSON для отчётов (например, для PDF)
+      return resultsData;
+    }
+
+    addContactContent(content);
+
+    // Секция вывода описаний паттернов-------------------
     const patternCategories = {};
+    // Добавляем заголовок секции
+    content.push({
+      text: "Описание явно проявленных паттернов", // Заголовок секции
+      style: "sectionTitle", // Стиль для заголовка секции
+    });
+
+    content.push(createCenteredLine(300, 0));
 
     // Группируем данные по категориям и подкатегориям
     for (const category in results) {
       const categoryData = results[category];
       if (categoryData && Array.isArray(categoryData.subcategories)) {
+        // Флаг для проверки наличия явно выраженных паттернов в категории
+        let hasExplicitPatterns = false;
+
+        // Собираем явно выраженные паттерны в категории
+        const patternsInCategory = [];
+
         categoryData.subcategories.forEach((subcategory) => {
-          const patterns = subcategory.patterns || [];
-          if (patterns.length > 0) {
-            patternCategories[category] = patternCategories[category] || [];
-            patternCategories[category].push({
-              subcategoryTitle: subcategory.subcategory || "",
-              patterns: patterns.map((pattern) => ({
-                title: pattern.title || "Без названия",
-                description: pattern.description || "Нет описания паттерна",
-              })),
+          const patterns = subcategory.patterns || []; // Получаем паттерны, если они есть
+          const explicitPatterns = patterns.filter((pattern) => explicitPatternTitles.includes(pattern.title)); // Фильтруем только явные паттерны
+
+          explicitPatterns.forEach((pattern) => {
+            hasExplicitPatterns = true; // Устанавливаем флаг, если есть явно выраженные паттерны
+            patternsInCategory.push({
+              title: pattern.title || "Без названия", // Название паттерна или "Без названия"
+              description: pattern.description || "Нет описания паттерна", // Описание паттерна или "Нет описания"
             });
-          }
+          });
         });
+
+        // Если есть явно выраженные паттерны, добавляем категорию в результат
+        if (hasExplicitPatterns) {
+          patternCategories[category] = patternsInCategory;
+        }
       }
     }
+
     // Выводим содержимое
     for (const category in patternCategories) {
       // Добавляем заголовок для категории
       content.push({
-        text: `${category}`,
-        style: "descriptionPatternTitle",
+        text: `${category}`, // Название категории
+        style: "descriptionPatternTitle", // Стиль заголовка
       });
 
-      // Для каждой подкатегории в данной категории
-      patternCategories[category].forEach(({ subcategoryTitle, patterns }) => {
-        // Проверяем, есть ли подкатегория
-        if (subcategoryTitle) {
-          // Добавляем заголовок подкатегории, если есть название
-          content.push({
-            text: subcategoryTitle, // Заголовок подкатегории
-            style: "descriptionPatternSubtitle", // Стилизация заголовка подкатегории
-            margin: [0, 5, 0, 5],
-          });
-        } else {
-          console.log("Заголовок подкатегории отсутствует."); // Лог для отладки
-        }
-
-        // Для каждого паттерна в подкатегории
-        patterns.forEach((pattern) => {
-          // Блок паттерна
-          content.push({
-            stack: [
-              {
-                text: pattern.title,
-                style: "patternTitle",
-              },
-              {
-                text: pattern.description,
-                style: "descriptionPattern",
-              },
-            ],
-            margin: [0, 0, 0, 5],
-            border: [false, false, false, true],
-            borderColor: "#e0e0e0",
-            borderWidth: 1,
-          });
+      // Для каждого паттерна в данной категории
+      patternCategories[category].forEach((pattern) => {
+        // Блок паттерна
+        content.push({
+          text: [
+            {
+              text: `${pattern.title}`, // Название паттерна
+              style: "patternTitle", // Стиль для названия паттерна
+            },
+            {
+              text: `: ${pattern.description}`, // Описание паттерна
+              style: "descriptionPattern", // Стиль для описания паттерна
+            },
+          ],
+          margin: [0, 0, 0, 5], // Установка отступов
         });
       });
     }
 
+    content.push({
+      text: [
+        { text: "Ссылка на описание других паттернов: ", style: "secondTextLink" },
+        { text: "https://ai4g.ru/patterns.html", style: "secondLink", link: "https://ai4g.ru/patterns.html" },
+      ],
+      margin: [0, 20, 0, 40], // Установка отступов
+    });
+
+    // Добавляем разрыв
+    /*     content.push({ text: "", pageBreak: "before" }); */
+
     // Возвращаем документ
-    return content;
+    return content; // Возвращаем сгенерированный контент документа
   };
 
-  // Функция для генерации контента подкатегорий и паттернов
+  // Функция для генерации содержимого подкатегорий и их паттернов
   const generateSubcategoriesContent = (subcategories, patternsDescriptions, categoryColor) => {
+    // Инициализируем массив для хранения содержимого подкатегорий
     const subcategoriesContent = [];
 
     // Проверяем, является ли subcategories массивом перед итерацией
     if (!Array.isArray(subcategories)) {
       console.error("Expected subcategories to be an array, but got:", subcategories);
-      return { columns: [[], []] }; // Возврат пустых колонок в случае ошибки
+      return { columns: [[], []] }; // Возвращаем пустые колонки в случае ошибки формата
     }
 
+    // Итерация по каждой подкатегории
     subcategories.forEach((subcategory) => {
-      const pctData = []; // Массив для паттернов подкатегории
+      const pctData = []; // Массив для хранения данных паттернов подкатегории
 
+      // Проверяем наличие ответов у подкатегории
       if (subcategory.responses.length === 0) {
+        // Если ответов нет, добавляем соответствующее сообщение
         pctData.push({
           text: "Нет ответов для этой подкатегории.",
-          style: "noQuestions",
+          style: "noQuestions", // Стиль для сообщения о отсутствии ответов
         });
       } else {
+        // Если есть ответы, получаем доминирующий ответ для подкатегории
         const dominanceResponse = getDominanceResponse(subcategory);
+
+        // Добавляем статус, а название паттерна оставляем пустым, если статус "Нейтрально"
         pctData.push({
-          text: `${dominanceResponse.status} ${dominanceResponse.pattern}`,
-          style: "dominantPattern",
+          text: dominanceResponse.status + (dominanceResponse.status === "Нейтрально" ? "" : ` ${dominanceResponse.pattern}`),
+          style: "dominantPattern", // Стиль для доминирующего паттерна
         });
 
-        // Добавляем паттерны с указанием процентов
+        // Итерация по ответам для формирования данных паттернов
         subcategory.responses.forEach((response) => {
+          // Добавляем текст с паттерном и его процентом
           pctData.push({
             text: `${response.pattern}: ${response.percentage}%`,
-            style: "percentageCell",
+            style: "percentageCell", // Стиль для ячейки с процентом
           });
 
           // Добавляем фоновую линейку для 100%
@@ -1029,12 +1613,12 @@ function generatePDF(resultsData, patternsData) {
                 x: 0,
                 y: 0,
                 w: 200, // Ширина 100%
-                h: 8,
-                color: "#e0e0e0", // Светлый цвет фона для 100%
-                r: 5,
+                h: 8, // Высота линии
+                color: "#e0e0e0", // Светлый цвет фона
+                r: 5, // Радиус скругления углов
               },
             ],
-            margin: [0, 2, 0, 5],
+            margin: [0, 2, 0, 5], // Отступы для линейки
           });
 
           // Добавляем динамическую линейку для текущего процента
@@ -1045,63 +1629,66 @@ function generatePDF(resultsData, patternsData) {
                 x: 0,
                 y: 0,
                 w: (response.percentage / 100) * 200, // Ширина в зависимости от процента
-                h: 8,
-                color: categoryColor, // Темный цвет для текущего процента
-                r: 5,
+                h: 8, // Высота линии
+                color: categoryColor, // Тёмный цвет для текущего процента
+                r: 5, // Радиус скругления углов
               },
             ],
-            margin: [0, -13, 0, 5],
+            margin: [0, -13, 0, 5], // Отступы для динамической линейки
           });
 
-          // Добавляем отступ после линейки
+          // Добавляем пустой текст для создания отступа после линейки
           pctData.push({
-            text: "", // Пустой текст для создания отступа
+            text: "", // Пустой текст
             margin: [0, 0, 0, 10], // Отступ сверху и снизу
           });
         });
       }
 
-      // Добавляем информацию по подкатегории в массив с цветом категории
+      // Добавляем информацию о подкатегории в массив содержимого
       subcategoriesContent.push({
-        title: subcategory.subcategory, // Оставляем только текст заголовка
-        data: pctData,
+        title: subcategory.subcategory, // Заголовок подкатегории
+        data: pctData, // Данные паттернов подкатегории
       });
 
-      // Собираем описания паттернов
+      // Собираем описания паттернов для дальнейшего использования
       subcategory.patterns.forEach((pattern) => {
         patternsDescriptions.push({
-          title: pattern.title,
-          description: pattern.description,
+          title: pattern.title, // Название паттерна
+          description: pattern.description, // Описание паттерна
         });
       });
 
       // Добавляем дополнительный отступ после последнего паттерна
       pctData.push({
-        text: "", // Пустой текст для создания отступа
+        text: "", // Пустой текст для отступа
         margin: [0, 0, 0, 25], // Отступ сверху для разделения подкатегорий
       });
     });
 
-    // Создаем две пустые колонки
+    // Создаем две пустые колонки для распределения подкатегорий
     const columns = [[], []];
 
-    // Распределяем подкатегории между колонками
+    // Распределяем подкатегории между двумя колонками
     subcategoriesContent.forEach((subcat, index) => {
-      const columnIndex = index % 2; // 0 для первой колонки, 1 для второй
+      const columnIndex = index % 2; // Используем четность индекса для выбора колонки (0 или 1)
       columns[columnIndex].push(
         {
-          text: subcat.title,
-          color: categoryColor, // Использование цвета заголовка
-          style: "subCategoryHeader",
+          text: subcat.title, // Название подкатегории
+          style: "subCategoryHeader", // Стиль для заголовка подкатегории
         },
-        ...subcat.data
+        ...subcat.data // Добавляем данные паттернов
       );
     });
 
+    // Возвращаем объект с колонками для дальнейшего использования
     return { columns };
   };
 
   // Явно проявленные паттерны
+  // Массив для хранения явных паттернов
+  let explicitPatternTitles = [];
+
   const generateDominantPatternsContent = (dominantPatterns, enrichedData) => {
     const content = [
       {
@@ -1110,14 +1697,13 @@ function generatePDF(resultsData, patternsData) {
       },
     ];
 
+
     const dominantPatternsColumns = [];
     const abbreviations = [];
 
     dominantPatterns.forEach((item) => {
       const patternLabel = typeof item.pattern === "string" ? item.pattern : item.pattern.ru;
       const percentage = item.percentage;
-
-      console.log("Обрабатываем паттерн:", patternLabel, "с процентом:", percentage);
 
       if (percentage > 74) {
         let abbreviation = "";
@@ -1143,7 +1729,7 @@ function generatePDF(resultsData, patternsData) {
         const pctData = [
           {
             text: `${percentage}%`,
-            style: percentage === 100 ? "percentageTextRed" : "percentageText", // Красный текст для 100%
+            style: percentage === 100 ? "percentageTextGreen" : "percentageText",
           },
           {
             stack: [
@@ -1170,8 +1756,6 @@ function generatePDF(resultsData, patternsData) {
                     h: percentage,
                     color: color,
                     r: 5,
-                    /*  lineColor: percentage === 100 ? "red" : undefined, // Обводка красным для 100%
-							lineWidth: percentage === 100 ? 2 : undefined, // Ширина линии для обводки */
                   },
                 ],
                 margin: [0, -100, 0, 0],
@@ -1189,6 +1773,9 @@ function generatePDF(resultsData, patternsData) {
           stack: pctData,
           margin: [0, 0, 0, 5],
         });
+
+        // Добавляем явный паттерн в массив
+        explicitPatternTitles.push(patternLabel);
       }
     });
 
@@ -1232,93 +1819,271 @@ function generatePDF(resultsData, patternsData) {
     return content;
   };
 
-  // Получаем текущую дату в формате "28 января 2025"
-  const now = new Date();
-  const testDate = now.toLocaleString("ru-RU", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-
   // Определение структуры PDF
   const docDefinition = {
     content: [
-      // Добавляем шапку в контент для первой страницы
+      //Header
       {
         columns: [
+          {
+            text: "www.ai4g.ru",
+            link: "https://ai4g.ru/",
+            color: "#007BFF",
+            fontSize: 14,
+            margin: [0, 10, 0, 0],
+            decoration: "underline",
+            bold: true,
+          },
+          //Логотип
           {
             image:
               "data:image/jpeg;base64,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", // Логотип
             width: 100,
             height: 40,
-            margin: [5, 0, 0, 0],
-          },
-          {
-            text: "www.ai4g.ru",
-            link: "https://ai4g.ru/",
-            color: "black",
-            fontSize: 14,
             alignment: "center",
-            width: "*",
+            margin: [0, 0, 0, 0],
           },
           {
-            text: "Тест паттернов",
+            text: "Пройти тест еще раз",
             link: "https://ai4g.ru/pattern-test.html",
-            color: "black",
+            color: "#007BFF",
             fontSize: 14,
-            width: "auto",
-            margin: [0, 0, 5, 0],
+            margin: [0, 10, 0, 0],
+            decoration: "underline",
+            alignment: "right",
+          },
+        ],
+        margin: [0, 0, 0, 10],
+        relativePosition: { x: 0, y: -20 }, // Сдвигаем блок
+      },
+      //Полоска
+      {
+        canvas: [
+          {
+            type: "rect",
+            x: 0,
+            y: 0,
+            w: 620,
+            h: 2,
+            color: "#ff008a",
           },
         ],
         margin: [0, 0, 0, 0],
+        relativePosition: { x: -60, y: 20 }, // Сдвигаем блок влево, если необходимо
       },
-
       // Контент основного тела
-      generateContent(enrichedResults, userFullName, testDate), // Основной контент
-
-      // Добавление шапки в конце документа
-      {
-        text: "", // Пробел для разрыва
-        pageBreak: "after", // Разрыв страницы перед шапкой внизу
-      },
-      {
-        columns: [
-          {
-            text: "www.ai4g.ru",
-            link: "https://ai4g.ru/",
-            color: "black",
-            fontSize: 14,
-            alignment: "center",
-            width: "*",
-          },
-          {
-            text: "www.ai4g.ru",
-            link: "https://ai4g.ru/",
-            color: "black",
-            fontSize: 14,
-            alignment: "center",
-            width: "*",
-          },
-          {
-            text: "Тест паттернов",
-            link: "https://ai4g.ru/pattern-test.html",
-            color: "black",
-            fontSize: 14,
-            width: "auto",
-            margin: [0, 0, 10, 0],
-          },
-        ],
-        margin: [0, 0, 0, 0], // Дублируем отступы
-      },
+      generateContent(enrichedResults, userFullName, testDate),
     ],
     styles: styles, // Применение стилей
+    footer: (currentPage, pageCount) => {
+      return {
+        text: `Страница ${currentPage} из ${pageCount}`,
+        alignment: "center",
+        margin: [0, 10],
+      };
+    },
   };
 
+  // Формируем название файла
+  /* const fileName = `Паттерны ${userFullName} ${testDate}.pdf`; // Формат: "Паттерны Имя Фамилия ДД.ММ.ГГГГ"
+   */
   // Генерация PDF
-  pdfMake.createPdf(docDefinition).download("Результат теста.pdf");
+  /*   pdfMake.createPdf(docDefinition).download(fileName); // Используем сгенерированное название файла */
+
+  pdfMake.createPdf(docDefinition).open();
+}
+//Полоса под заголовком-----------------------
+const pageWidth = 595; // Ширина страницы A4 в PDFMake
+function createCenteredLine(lineWidth, yPosition) {
+  return {
+    canvas: [
+      {
+        type: "rect",
+        x: (pageWidth - lineWidth) / 2, // Центрируем по x
+        y: yPosition, // Используем переданное значение
+        w: lineWidth,
+        h: 1,
+        color: "#ff008a",
+      },
+    ],
+    margin: [0, 0, 0, 20],
+    relativePosition: { x: -50, y: 0 }, // Позиция относительно блока
+  };
+}
+//Текстовый блок------------------------------------------------
+function addContactContent(content) {
+  // блок Контакты------------------
+  content.push({
+    text: [{ text: "Контакты", style: "secondTitle" }],
+    margin: [0, 0, 0, 5],
+  });
+  content.push(createCenteredLine(300, 0));
+  // Текст
+  content.push({
+    text: [{ text: "По любым возникающим вопросам можно связаться с автором проекта Еленой Семеновой:", style: "secondText" }],
+    margin: [0, 0, 0, 10],
+  });
+
+  content.push({
+    text: [
+      { text: "Телефон Елены Семеновой: ", style: "secondTextLink" },
+      { text: "+7 916 960 1863", style: "secondLink", link: "tel:+79169601863" },
+    ],
+    margin: [0, 0, 0, 5],
+  });
+
+  content.push({
+    text: [
+      { text: "Ник в телеграм: ", style: "secondTextLink" },
+      { text: "@SemenovaElena", style: "secondLink", link: "https://t.me/SemenovaElena" },
+    ],
+    margin: [0, 0, 0, 5],
+  });
+
+  // Email
+  content.push({
+    text: [
+      { text: "Email Елены Семеновой: ", style: "secondTextLink" },
+      { text: "es@ai4g.ru", style: "secondLink", link: "mailto:es@ai4g.ru" },
+    ],
+    margin: [0, 0, 0, 20],
+  });
+
+  // Администратор проекта
+  content.push({
+    text: [{ text: "Администратор проекта:", style: "secondText" }],
+    margin: [0, 0, 0, 10],
+  });
+
+  content.push({
+    text: [
+      { text: "Сергей: ", style: "secondTextLink" },
+      { text: "+7 965 753 6693", style: "secondLink", link: "tel:+79657536693" },
+    ],
+    margin: [0, 0, 0, 20],
+  });
+
+  // Наш сайт
+  content.push({
+    text: [{ text: "Наш сайт:", style: "secondText" }],
+    margin: [0, 0, 0, 10],
+  });
+
+  content.push({
+    text: [
+      { text: "Сайт ", style: "secondTextLink" },
+      { text: "www.ai4g.ru", style: "secondLink", link: "https://ai4g.ru/" },
+    ],
+    margin: [0, 0, 0, 5],
+  });
+
+  content.push({
+    text: [
+      { text: "Email проекта: ", style: "secondTextLink" },
+      { text: "info@ai4g.ru", style: "secondLink", link: "mailto:info@ai4g.ru" },
+    ],
+    margin: [0, 0, 0, 5],
+  });
+
+  content.push({
+    text: [
+      { text: "Канал в телеграм: ", style: "secondTextLink" },
+      { text: "@life_watch", style: "secondLink", link: "https://t.me/life_watch" },
+    ],
+    margin: [0, 0, 0, 5],
+  });
+
+  content.push({
+    text: [
+      { text: "Сайт: ", style: "secondTextLink" },
+      { text: "www.coachsemenova.com", style: "secondLink", link: "https://coachsemenova.com/" },
+    ],
+    margin: [0, 0, 0, 40],
+  });
+
+  // Автор проекта---------------------------
+  content.push({
+    text: [{ text: "Автор проекта", style: "secondTitle" }],
+    margin: [0, 0, 0, 5],
+  });
+  content.push(createCenteredLine(300, 0));
+
+  content.push({
+    text: [{ text: "Елена Семенова", style: "secondText", bold: true }],
+    margin: [0, 0, 0, 10],
+  });
+
+  content.push({
+    ul: [
+      { text: "Коуч, карьерный консультант, эксперт по управлению репутацией.\n", style: "secondList" },
+      {
+        text: "Образование: Окончила университет по специальности биология; РАГС при Президенте РФ по специальностям психология, управление персоналом; АНХ при Правительстве РФ по направлению менеджмент.\n",
+        style: "secondList",
+      },
+      {
+        text: "Прошла профессиональную переподготовку по психодиагностике (Институт Психологии РАН), медицинской психологии (Центр им В.П. Сербского).\n",
+        style: "secondList",
+      },
+      {
+        text: "Более 30 лет экспертизы в области работы с людьми. Опыт работы в ИТ, финансах и промышленности (ЗГД по оргразвитию и персоналу, операционный директор, управляющий директор).\n",
+        style: "secondList",
+      },
+      {
+        text: "Клиенты: собственники компаний, CEO, топ-менеджеры, высшие должностные лица (первые и вторые лица муниципального и гос управления уровня мэров городов, губернаторов, министров и заместителей министров).\n",
+        style: "secondList",
+      },
+      {
+        text: "Компании: Сбербанк, Банк «Открытие», Альфа групп, Газпроммедиагрупп, Север групп, Ренова, Колмар, ПЭК, ПКБ, Первая Линия, Правительство Москвы, Татарстана, Башкирии.\n",
+        style: "secondList",
+      },
+      { text: "Благотворительные фонды: Фонд президентских грантов, Фонд Потанина.\n", style: "secondList" },
+      {
+        text: "Основные места работы: Allianz, Информзащита; Газтехлизинг, Энвижн Груп (группа МТС), Ангара технологии, промышленная группа ПАО Соллерс.\n",
+        style: "secondList",
+      },
+      { text: "Эксперт по оценке и развитию людей, сертифицирована по инструментам Hogan, Gallup и др.\n", style: "secondList" },
+      /* { text: "Сертифицированный коуч и фасилитатор, с 2011 года ассоциированный коуч бизнес-школы Сколково.\n", style: "secondList" },
+		 { text: "Профессор практики в Антверпенской школе бизнеса AMS, содиректор академических программ.\n\n", style: "secondList" }, */
+    ],
+    margin: [10, 0, 0, 40],
+  });
+
+  // Блок Пройти тест повторно------------------
+  content.push({
+    text: [{ text: "Пройти тест повторно", style: "secondTitle" }],
+    margin: [0, 0, 0, 5],
+  });
+
+  // Пример использования функции для добавления нескольких линий
+  content.push(createCenteredLine(300, 0));
+  content.push({
+    text: [
+      { text: "Если у вас возникнет желание пройти тест на паттерны повторно, вы всегда можете сделать это на нашем сайте: ", style: "secondTextLink" },
+      { text: "https://ai4g.ru/pattern-test.html", style: "secondLink", link: "https://ai4g.ru/pattern-test.html" },
+    ],
+    margin: [0, 0, 0, 10],
+  });
+
+  content.push({
+    text: [
+      {
+        text: "Хотя набор ваших паттернов обычно остается стабильным, жизненные обстоятельства и работа над собой могут привести к изменениям в вашем внутреннем состоянии. Эти изменения могут отразиться на ваших результатах в тесте. Мы рекомендуем проводить повторное тестирование не ранее чем через 3 месяца, чтобы отслеживать изменения в ваших паттернах.",
+        style: "secondTextLink",
+      },
+    ],
+    margin: [0, 0, 0, 10],
+  });
+
+  content.push({
+    text: [
+      { text: "Если вы хотите порекомендовать тест своим знакомым, просто поделитесь с ними ссылкой на наш сайт: ", style: "secondTextLink" },
+      { text: "https://ai4g.ru/pattern-test.html", style: "secondLink", link: "https://ai4g.ru/pattern-test.html" },
+    ],
+    margin: [0, 0, 0, 40],
+  });
 }
 
-// Обработчик для кнопки генерации PDF
+// Обработчик для кнопки генерации PDF----------------------------------------
 document.getElementById("download-pdf").addEventListener("click", async () => {
   // Показываем пользователю прелоадер
   toggleLoader(true, "Подождите, идет генерация PDF...");
@@ -1343,7 +2108,7 @@ document.getElementById("download-pdf").addEventListener("click", async () => {
   }
 });
 
-// Показываем/скрываем прелоадер
+// Показываем/скрываем прелоадер-----------------------------------------------------
 function toggleLoader(show, message = "Подождите, идет генерация...") {
   const loaderOverlay = document.getElementById("loader-overlay");
   const loaderText = document.getElementById("loader-text");
@@ -1355,3 +2120,33 @@ function toggleLoader(show, message = "Подождите, идет генера
     loaderOverlay.style.display = "none"; // Скрываем прелоадер
   }
 }
+
+/* Кнопка "Тест"============================================================== */
+document.addEventListener("DOMContentLoaded", () => {
+  const startFillButton = document.getElementById("fill-test-answers"); // Кнопка "Начать тест"
+
+  // Подключаем обработчик клика к кнопке "Начать тест"
+  startFillButton.addEventListener("click", fillTestAnswers);
+});
+
+// Тестовая кнопка заполнения
+function fillTestAnswers() {
+  // Очистка массивов ответов и паттернов
+  answers.length = 0; // Или answers = [];
+  patterns.length = 0; // Или patterns = [];
+
+  // Проверка на наличие вопросов
+  for (let i = 0; i < questionsWithPatterns.length; i++) {
+    if (questionsWithPatterns[i].options.length > 0) {
+      answers.push(questionsWithPatterns[i].options[0]); // Выбираем первый вариант
+    }
+    if (questionsWithPatterns[i].patterns.length > 0) {
+      patterns.push(questionsWithPatterns[i].patterns[0]); // Соответствующий паттерн
+    }
+  }
+
+  // Устанавливаем индекс на конец вопросов
+  currentQuestionIndex = questionsWithPatterns.length;
+  showResults(); // Показываем результаты
+}
+/* тест============================================================================ */

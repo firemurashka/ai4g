@@ -1491,7 +1491,7 @@ function generatePDF(resultsData, patternsData) {
       style: "sectionTitle", // Стиль для заголовка секции
     });
 
-    content.push(createCenteredLine(300, 0));
+    content.push(createCenteredLine(200, 0));
 
     // Группируем данные по категориям и подкатегориям
     for (const category in results) {
@@ -1910,6 +1910,7 @@ function createCenteredLine(lineWidth, yPosition) {
     relativePosition: { x: -50, y: 0 }, // Позиция относительно блока
   };
 }
+
 //Текстовый блок------------------------------------------------
 function addContactContent(content) {
   // блок Контакты------------------
@@ -1917,7 +1918,7 @@ function addContactContent(content) {
     text: [{ text: "Контакты", style: "secondTitle" }],
     margin: [0, 0, 0, 5],
   });
-  content.push(createCenteredLine(300, 0));
+  content.push(createCenteredLine(200, 0));
   // Текст
   content.push({
     text: [{ text: "По любым возникающим вопросам можно связаться с автором проекта Еленой Семеновой:", style: "secondText" }],
@@ -2006,7 +2007,7 @@ function addContactContent(content) {
     text: [{ text: "Автор проекта", style: "secondTitle" }],
     margin: [0, 0, 0, 5],
   });
-  content.push(createCenteredLine(300, 0));
+  content.push(createCenteredLine(200, 0));
 
   content.push({
     text: [{ text: "Елена Семенова", style: "secondText", bold: true }],
@@ -2055,7 +2056,7 @@ function addContactContent(content) {
   });
 
   // Пример использования функции для добавления нескольких линий
-  content.push(createCenteredLine(300, 0));
+  content.push(createCenteredLine(200, 0));
   content.push({
     text: [
       { text: "Если у вас возникнет желание пройти тест на паттерны повторно, вы всегда можете сделать это на нашем сайте: ", style: "secondTextLink" },
@@ -2122,7 +2123,7 @@ function toggleLoader(show, message = "Подождите, идет генера
 }
 
 /* Кнопка "Тест"============================================================== */
-document.addEventListener("DOMContentLoaded", () => {
+/* document.addEventListener("DOMContentLoaded", () => {
   const startFillButton = document.getElementById("fill-test-answers"); // Кнопка "Начать тест"
 
   // Подключаем обработчик клика к кнопке "Начать тест"
@@ -2148,5 +2149,5 @@ function fillTestAnswers() {
   // Устанавливаем индекс на конец вопросов
   currentQuestionIndex = questionsWithPatterns.length;
   showResults(); // Показываем результаты
-}
+} */
 /* тест============================================================================ */

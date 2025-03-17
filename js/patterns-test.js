@@ -837,7 +837,7 @@ function generatePDF(resultsData, patternsData) {
       fontSize: 18,
       bold: true,
       alignment: "center",
-      margin: [0, 0, 0, 40],
+      margin: [0, 0, 0, 5],
     },
     //Подзаголовок "Условные обозначения:"
     dominantSubTitle: {
@@ -860,7 +860,7 @@ function generatePDF(resultsData, patternsData) {
       fontSize: 18,
       bold: true,
       alignment: "center",
-      margin: [0, 0, 0, 20],
+      margin: [0, 0, 0, 5],
     },
     //Заголовок категории
     categoryHeader: {
@@ -980,6 +980,10 @@ function generatePDF(resultsData, patternsData) {
     secondList: {
       fontSize: 12,
       margin: [0, 0, 0, 5],
+    },
+    pages: {
+      fontSize: 10,
+      color: "#505050",
     },
   };
 
@@ -1148,7 +1152,7 @@ function generatePDF(resultsData, patternsData) {
       text: "Паттерны", // Заголовок секции
       style: "categoryTitle", // Стиль для заголовка секции
     });
-
+    content.push(createCenteredLine(200, 0));
     // Итерация по категориям для вывода подкатегорий и их описаний в 2 колонки
     for (const category in results) {
       const categoryData = results[category];
@@ -1192,296 +1196,9 @@ function generatePDF(resultsData, patternsData) {
     }
 
     //текст------------------------
-    // Генерация гистограммы------------------------------------------------------------------------
-    function generateHistogram(histogramData) {
-      const histogramContainer = document.getElementById("histogram");
-      if (!histogramContainer) return;
-
-      histogramContainer.innerHTML = ""; // Очищаем контейнер перед обновлением
-      console.log("Генерация гистограммы с данными:", histogramData); // Лог данных для генерации гистограммы
-
-      if (histogramData.length > 0) {
-        const columns = document.createElement("div");
-        columns.className = "histogram__columns";
-
-        // Объект для хранения условных обозначений
-        const legendMap = {};
-
-        histogramData.forEach(({ pattern, percentage, category }) => {
-          console.log(`Обработка паттерна: ${pattern}, процент: ${percentage}, категория: ${category}`); // Лог текущего паттерна
-
-          const column = document.createElement("div");
-          column.className = "histogram__column";
-
-          // Ищем аббревиатуру для текущего паттерна
-          let abbreviation = "Нет данных"; // Значение по умолчанию
-
-          const foundPattern = categories
-            .flatMap((category) =>
-              category.subcategories.flatMap((subcategory) => subcategory.patterns.find((p) => p.pattern.ru === pattern || p.pattern.en === pattern))
-            )
-            .find(Boolean);
-
-          if (foundPattern) {
-            abbreviation = foundPattern.pattern.abbreviation || "Нет аббревиатуры"; // Обработка отсутствия аббревиатуры
-          }
-
-          // Добавляем класс для процентного значения, если оно равно 100%
-          const percentageClass = percentage === 100 ? "maximum" : "";
-
-          // Получаем класс категории из categoryClassMap
-          const categoryClass = categoryClassMap[category] || "default-class";
-
-          console.log("Категория:", category, "Сопоставленный класс:", categoryClass);
-
-          column.innerHTML = `
-			  <span class="histogram__percentage ${percentageClass}">${percentage}%</span>
-			  <div class="histogram__bar-container">
-				 <div class="histogram__bar ${categoryClass}" style="height: ${percentage}%;"></div>
-			  </div>
-			  <span class="histogram__pattern">${abbreviation}</span>
-			`;
-
-          // Добавляем аббревиатуру и название паттерна в legendMap
-          legendMap[abbreviation] = foundPattern ? foundPattern.pattern.ru : pattern;
-
-          columns.appendChild(column);
-        });
-
-        histogramContainer.appendChild(columns);
-
-        // Создаем блок условных обозначений с заголовком
-        const legendContainer = document.createElement("div");
-        legendContainer.className = "legend";
-        legendContainer.innerHTML = "<h4>Условные обозначения</h4>";
-
-        const legendGrid = document.createElement("div");
-        legendGrid.className = "legend__grid"; // Класс для стилизации сетки
-
-        // Заполняем сетку условными обозначениями
-        Object.entries(legendMap).forEach(([abbreviation, patternName]) => {
-          legendGrid.innerHTML += `<div class="legend__item"><span class="abbreviation">${abbreviation}</span> - ${patternName}</div>`;
-        });
-
-        legendContainer.appendChild(legendGrid);
-        histogramContainer.appendChild(legendContainer); // Добавляем блок с условными обозначениями в контейнер гистограммы
-      } else {
-        histogramContainer.innerHTML = "<p>Нет явно проявленных паттернов.</p>";
-      }
-    }
-
-    // showResults-----------------------------------------------------------------------
-    function showResults() {
-      if (!patterns || patterns.length === 0) {
-        alert("Вы не завершили тест. Пожалуйста, ответьте на все вопросы.");
-        resetQuiz();
-        return;
-      }
-      // Вопросы теста
-      const testBlock = document.getElementById("test-block");
-      // Скрываем блок с вопросами и счётчик для отображения результатов
-      testBlock.style.display = "none";
-
-      // Блок для результатов
-      const resultContainer = document.getElementById("result-container");
-
-      // Результаты теста
-      const resultContent = document.getElementById("result-content");
-
-      let results = ""; // Для финального HTML результата
-      const resultsData = {}; // Для хранения итоговых данных
-
-      // Создаем объект для подсчета количества паттернов
-      const counts = patterns.reduce((acc, pattern) => {
-        acc[pattern] = (acc[pattern] || 0) + 1;
-        return acc;
-      }, {});
-
-      // Если нет категорий, показываем сообщение об ошибке
-      if (!categories || categories.length === 0) {
-        console.error("Категории отсутствуют или системе не удалось их загрузить.");
-        resultContent.innerHTML = "<p>Категории данных отсутствуют. Проверьте данные или перезагрузите страницу.</p>";
-        resultContainer.style.display = "flex";
-        return;
-      }
-
-      // NEW: Create histogram data
-      let histogramData = [];
-      // Обходим каждую категорию
-      categories.forEach((category) => {
-        const categoryTitle = category.title?.ru || category.title?.en || "Неизвестная категория";
-        let subcategoryResults = ""; // Сюда добавляем все подкатегории этой категории
-
-        // Пропускаем категорию, если в ней нет подкатегорий
-        if (!category.subcategories || category.subcategories.length === 0) {
-          return;
-        }
-
-        // Динамически выбираем дополнительный класс из заранее заданного объекта
-        const additionalClass = categoryClassMap[categoryTitle] || "";
-
-        // Инициализируем массив для текущей категории в resultsData
-        resultsData[categoryTitle] = [];
-
-        // Обходим каждую подкатегорию
-        category.subcategories.forEach((subcategory) => {
-          const subcategoryTitle = subcategory.title?.ru || subcategory.title?.en || "Неизвестная подкатегория";
-
-          // Пропускаем подкатегории без паттернов
-          if (!subcategory.patterns || subcategory.patterns.length === 0) {
-            return;
-          }
-
-          // Формируем список паттернов в подкатегории
-          const patternsInSubcategory = subcategory.patterns.map((pattern) => pattern.pattern?.ru || pattern.pattern?.en || "Без названия");
-
-          // Подсчитываем общее количество ответов для этой подкатегории
-          const totalResponses = patternsInSubcategory.reduce((total, pattern) => total + (counts[pattern] || 0), 0);
-
-          // Если в подкатегории нет ответов, пропускаем её
-          if (totalResponses === 0) {
-            return;
-          }
-
-          // Определяем проценты для каждого паттерна
-          const responses = patternsInSubcategory.map((pattern) => ({
-            pattern,
-            count: counts[pattern] || 0,
-            percentage: Math.round(((counts[pattern] || 0) / totalResponses) * 100),
-          }));
-
-          // Сортируем их по процентам для более удобного анализа
-          responses.sort((a, b) => b.percentage - a.percentage);
-
-          // Максимальный процент
-          const maxPercentage = responses[0].percentage;
-
-          // Выбираем паттерны с максимальным процентом
-          const dominantResponses = responses.filter((r) => r.percentage === maxPercentage);
-
-          // Логика для определения статуса
-          let dominant = dominantResponses.map((r) => r.pattern).join(", ");
-          let statusText = "";
-
-          if (dominantResponses.length === patternsInSubcategory.length) {
-            // Все паттерны имеют одинаковые проценты (например, три по 33%)
-            statusText = `НЕЙТРАЛЬНО`;
-            dominant = "НЕЙТРАЛЬНЫЕ";
-          } else if (dominantResponses.length > 1) {
-            // Два паттерна с одинаковым высоким процентом
-            statusText = `НЕЙТРАЛЬНО`;
-          } else {
-            // Один доминантный паттерн
-            statusText = maxPercentage <= 40 ? `УМЕРЕННО ${dominant}` : maxPercentage <= 74 ? `НЕЙТРАЛЬНО` : `ЯВНО ${dominant}`;
-          }
-
-          // Сохраняем данные подкатегории в resultsData для отчёта
-          resultsData[categoryTitle].push({
-            subcategory: subcategoryTitle,
-            dominantPattern: dominant,
-            percentage: maxPercentage,
-            responses,
-          });
-          // Сохраняем явные паттерны для отображения в гистограмме
-          responses.forEach(({ pattern, percentage }) => {
-            if (percentage >= 75) {
-              histogramData.push({ pattern, percentage, category: categoryTitle }); // Сохраняем категорию
-            }
-          });
-          // Формируем HTML этого блока
-          let patternResults = `<div class="subcategory-content">`;
-
-          responses.forEach(({ pattern, percentage }) => {
-            // Найти описание для текущего паттерна
-            const currentPatternData = subcategory.patterns.find((p) => (p.pattern.ru || p.pattern.en) === pattern);
-
-            const patternDescription = currentPatternData?.description.ru || "Описание отсутствует";
-
-            patternResults += `
-			  <div class="pattern-result">
-				 <div class="pattern-result__label">
-					 <div class="scale-bar-title-wrapper">
-					  <p class="scale-bar-title">${pattern}</p>
-					  <div class="info-icon">
-						 <span>i</span>
-						 <div class="tooltiptest hidden">
-							 ${patternDescription}
-						 </div>
-					  </div>
-					 </div>
-					 <p>${percentage}%</p>
-				 </div>
-				 <div class="scale-bar-container">
-					 <div class="scale-bar" style="width: ${percentage}%;"></div>
-				 </div>
-			  </div>`;
-          });
-
-          patternResults += `</div>`;
-
-          const analyticsBlock = `
-				 <div class="analytics-block">
-					<p  class="scale-status">${statusText}</p>
-					<div class="scale-container">
-						<div class="scale-line"></div>
-						<div class="scale-labels">
-						 <div class="scale-labels-item">
-							<div class="indicator" style="opacity: ${maxPercentage <= 40 ? 1 : 0};"></div>
-							<span>УМЕРЕННО</span>
-						 </div>
-						 <div class="scale-labels-item">
-							<div class="indicator" style="opacity: ${maxPercentage > 40 && maxPercentage <= 60 ? 1 : 0};"></div>
-							<span>НЕЙТРАЛЬНО</span>
-						 </div>
-						 <div class="scale-labels-item">
-							<div class="indicator" style="opacity: ${maxPercentage > 74 ? 1 : 0};"></div>
-							<span>ЯВНО</span>
-						 </div>
-						</div>
-					</div>
-				 </div>`;
-
-          subcategoryResults += `
-				 <div class="subcategory-block">
-					<div class="subcategory-title">${subcategoryTitle}</div>
-					<div class="subcategory-wrapper">
-						<div class="analytics-wrapper">${analyticsBlock}</div>
-						<div class="results-wrapper">${patternResults}</div>
-					</div>
-				 </div>`;
-        });
-
-        // Если подкатегории содержат данные, добавляем их в категорию
-        if (subcategoryResults) {
-          results += `
-				 <div class="category-block ${additionalClass}">
-					<h3 class="category-label">${categoryTitle}</h3>
-					${subcategoryResults}
-				 </div>`;
-        }
-      });
-
-      // Если результат пустой, значит ничего не сгенерировалось
-      if (results.trim() === "") {
-        results = "<p>Не найдено данных для отображения результатов.</p>";
-      }
-
-      // Вставляем HTML результатов
-      resultContent.innerHTML = results;
-      // Создаем Blob с текстом
-      const blob = new Blob([results], { type: "text/plain" });
-
-      // Делаем контейнер видимым
-      resultContainer.style.display = "flex";
-      animateOnScroll();
-      initializeTooltips();
-      // Генерируем гистограмму
-      generateHistogram(histogramData); // Вывод данных в указанный контейнер
-      // Возвращаем JSON для отчётов (например, для PDF)
-      return resultsData;
-    }
 
     addContactContent(content);
+    content.push({ text: "", pageBreak: "before" });
 
     // Секция вывода описаний паттернов-------------------
     const patternCategories = {};
@@ -1696,7 +1413,7 @@ function generatePDF(resultsData, patternsData) {
         style: "dominantTitle",
       },
     ];
-
+    content.push(createCenteredLine(300, 0));
 
     const dominantPatternsColumns = [];
     const abbreviations = [];
@@ -1880,6 +1597,7 @@ function generatePDF(resultsData, patternsData) {
         text: `Страница ${currentPage} из ${pageCount}`,
         alignment: "center",
         margin: [0, 10],
+        style: "pages",
       };
     },
   };
@@ -1927,7 +1645,7 @@ function addContactContent(content) {
 
   content.push({
     text: [
-      { text: "Телефон Елены Семеновой: ", style: "secondTextLink" },
+      { text: "Телефон: ", style: "secondTextLink" },
       { text: "+7 916 960 1863", style: "secondLink", link: "tel:+79169601863" },
     ],
     margin: [0, 0, 0, 5],
@@ -1944,12 +1662,15 @@ function addContactContent(content) {
   // Email
   content.push({
     text: [
-      { text: "Email Елены Семеновой: ", style: "secondTextLink" },
+      { text: "Email: ", style: "secondTextLink" },
       { text: "es@ai4g.ru", style: "secondLink", link: "mailto:es@ai4g.ru" },
     ],
+    margin: [0, 0, 0, 5],
+  });
+  content.push({
+    text: [{ text: "www.coachsemenova.com", style: "secondLink", link: "https://coachsemenova.com/" }],
     margin: [0, 0, 0, 20],
   });
-
   // Администратор проекта
   content.push({
     text: [{ text: "Администратор проекта:", style: "secondText" }],
@@ -1958,29 +1679,32 @@ function addContactContent(content) {
 
   content.push({
     text: [
-      { text: "Сергей: ", style: "secondTextLink" },
+      { text: "Сергей Ковальчук : ", style: "secondTextLink" },
       { text: "+7 965 753 6693", style: "secondLink", link: "tel:+79657536693" },
+    ],
+    margin: [0, 0, 0, 5],
+  });
+  content.push({
+    text: [
+      { text: "Ник в телеграм: ", style: "secondTextLink" },
+      { text: "@smkovalchuk", style: "secondLink", link: "https://t.me/smkovalchuk" },
     ],
     margin: [0, 0, 0, 20],
   });
-
   // Наш сайт
   content.push({
-    text: [{ text: "Наш сайт:", style: "secondText" }],
+    text: [{ text: "Наш проект:", style: "secondText" }],
     margin: [0, 0, 0, 10],
   });
 
   content.push({
-    text: [
-      { text: "Сайт ", style: "secondTextLink" },
-      { text: "www.ai4g.ru", style: "secondLink", link: "https://ai4g.ru/" },
-    ],
+    text: [{ text: "www.ai4g.ru", style: "secondLink", link: "https://ai4g.ru/" }],
     margin: [0, 0, 0, 5],
   });
 
   content.push({
     text: [
-      { text: "Email проекта: ", style: "secondTextLink" },
+      { text: "Email: ", style: "secondTextLink" },
       { text: "info@ai4g.ru", style: "secondLink", link: "mailto:info@ai4g.ru" },
     ],
     margin: [0, 0, 0, 5],
@@ -1991,16 +1715,43 @@ function addContactContent(content) {
       { text: "Канал в телеграм: ", style: "secondTextLink" },
       { text: "@life_watch", style: "secondLink", link: "https://t.me/life_watch" },
     ],
+    margin: [0, 0, 0, 35],
+  });
+
+  // Блок Пройти тест повторно------------------
+  content.push({
+    text: [{ text: "Пройти тест повторно", style: "secondTitle" }],
     margin: [0, 0, 0, 5],
+  });
+
+  content.push(createCenteredLine(200, 0));
+  content.push({
+    text: [
+      { text: "Если у вас возникнет желание пройти тест на паттерны повторно, вы всегда можете сделать это на нашем сайте: ", style: "secondTextLink" },
+      { text: "https://ai4g.ru/pattern-test.html", style: "secondLink", link: "https://ai4g.ru/pattern-test.html" },
+    ],
+    margin: [0, 0, 0, 10],
   });
 
   content.push({
     text: [
-      { text: "Сайт: ", style: "secondTextLink" },
-      { text: "www.coachsemenova.com", style: "secondLink", link: "https://coachsemenova.com/" },
+      {
+        text: "Хотя набор ваших паттернов обычно остается стабильным, жизненные обстоятельства и работа над собой могут привести к изменениям в вашем внутреннем состоянии. Эти изменения могут отразиться на ваших результатах в тесте. Мы рекомендуем проводить повторное тестирование не ранее чем через 3 месяца, чтобы отслеживать изменения в ваших паттернах.",
+        style: "secondTextLink",
+      },
     ],
-    margin: [0, 0, 0, 40],
+    margin: [0, 0, 0, 10],
   });
+
+  content.push({
+    text: [
+      { text: "Если вы хотите порекомендовать тест своим знакомым, просто поделитесь с ними ссылкой на наш сайт: ", style: "secondTextLink" },
+      { text: "https://ai4g.ru/pattern-test.html", style: "secondLink", link: "https://ai4g.ru/pattern-test.html" },
+    ],
+    margin: [0, 0, 0, 35],
+  });
+
+  content.push({ text: "", pageBreak: "before" });
 
   // Автор проекта---------------------------
   content.push({
@@ -2046,41 +1797,7 @@ function addContactContent(content) {
       /* { text: "Сертифицированный коуч и фасилитатор, с 2011 года ассоциированный коуч бизнес-школы Сколково.\n", style: "secondList" },
 		 { text: "Профессор практики в Антверпенской школе бизнеса AMS, содиректор академических программ.\n\n", style: "secondList" }, */
     ],
-    margin: [10, 0, 0, 40],
-  });
-
-  // Блок Пройти тест повторно------------------
-  content.push({
-    text: [{ text: "Пройти тест повторно", style: "secondTitle" }],
-    margin: [0, 0, 0, 5],
-  });
-
-  // Пример использования функции для добавления нескольких линий
-  content.push(createCenteredLine(200, 0));
-  content.push({
-    text: [
-      { text: "Если у вас возникнет желание пройти тест на паттерны повторно, вы всегда можете сделать это на нашем сайте: ", style: "secondTextLink" },
-      { text: "https://ai4g.ru/pattern-test.html", style: "secondLink", link: "https://ai4g.ru/pattern-test.html" },
-    ],
-    margin: [0, 0, 0, 10],
-  });
-
-  content.push({
-    text: [
-      {
-        text: "Хотя набор ваших паттернов обычно остается стабильным, жизненные обстоятельства и работа над собой могут привести к изменениям в вашем внутреннем состоянии. Эти изменения могут отразиться на ваших результатах в тесте. Мы рекомендуем проводить повторное тестирование не ранее чем через 3 месяца, чтобы отслеживать изменения в ваших паттернах.",
-        style: "secondTextLink",
-      },
-    ],
-    margin: [0, 0, 0, 10],
-  });
-
-  content.push({
-    text: [
-      { text: "Если вы хотите порекомендовать тест своим знакомым, просто поделитесь с ними ссылкой на наш сайт: ", style: "secondTextLink" },
-      { text: "https://ai4g.ru/pattern-test.html", style: "secondLink", link: "https://ai4g.ru/pattern-test.html" },
-    ],
-    margin: [0, 0, 0, 40],
+    margin: [10, 0, 0, 35],
   });
 }
 

@@ -652,6 +652,9 @@
   font-size: 18px;
   line-height: 140%;
   margin: 0px 0px 40px 0px;
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
 }
 
 .share__list div:nth-child(2n) {
@@ -661,11 +664,6 @@
 .share__block {
   display: flex;
   gap: 20px;
-  @media (max-width: 768px) {
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-  }
 }
 .share__button {
   transition: all 0.3s ease 0s;
@@ -892,7 +890,7 @@ input[type="radio"]:checked + .radio-label:before {
 .top-result {
   color: #150931;
 
-  padding: 100px 0;
+  padding: 100px 0 50px 0;
   background: linear-gradient(180deg, #03065c 0%, rgba(44, 51, 75, 0) 100%);
 }
 .top-result__container {
@@ -929,22 +927,20 @@ input[type="radio"]:checked + .radio-label:before {
 
 /* Результаты------------------------ */
 .quiz-patterns_result {
-  background-color: #fff;
+  background-color: #140934;
   padding: 50px 0;
 }
 
 .quiz-patterns__subtitle {
   text-align: center;
   line-height: 120%;
-  font-size: 24px;
-  font-weight: 700;
+  font-size: 28px;
+  font-weight: 900;
   margin: 0px 0px 40px 0px;
-  color: #150931;
+  color: #fff;
 }
 
 /* ---------------------------------- */
-
-
 
 .quiz-patterns__navigation {
   display: flex;
@@ -959,8 +955,8 @@ input[type="radio"]:checked + .radio-label:before {
 .category-label {
   margin-bottom: 30px;
   position: relative;
-  font-weight: 900;
-  font-size: 29px;
+  font-weight: 700;
+  font-size: 27px;
   line-height: 140%;
   @media (max-width: 768px) {
     margin-bottom: 20px;
@@ -1427,6 +1423,165 @@ td.question-cell-number[rowspan] {
   line-height: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+}
+.pattern-result__label p {
+  color: #000;
+  padding: 0;
+  margin: 0;
+}
+
+/* --histogram------------------------------------------------- */
+.histogram__container {
+  max-width: 1170px;
+  padding: 0 15px;
+}
+.histogram__body {
+  margin-bottom: 30px;
+  padding: 30px;
+  border: 1px solid #dde3e8;
+  background: #ffffff;
+  border-radius: 5px;
+  color: #000;
+}
+.histogram__title {
+  text-align: center;
+  line-height: 120%;
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0px 0px 40px 0px;
+  color: #000;
+}
+
+.histogram__columns {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  height: 300px;
+  padding: 0 40px;
+  margin: 0px 0px 40px 0px;
+}
+.histogram__column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  width: 10px;
+}
+
+.histogram__percentage {
+  color: #140934;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 140%;
+  font-weight: 500;
+}
+
+.histogram__bar-container {
+  flex-grow: 1;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background-color: #e1e1e1;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.histogram__bar {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  transition: height 0.3s ease;
+  border-radius: 4px 4px 0 0;
+}
+
+.histogram__pattern {
+  margin-top: 5px;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  color: #333;
+}
+@media (max-width: 768px) {
+  .histogram__columns {
+    flex-direction: column;
+    height: auto; /* Автоматическая высота для столбцов */
+    width: 100%; /* Ширина на всю доступную ширину */
+  }
+
+  .histogram__column {
+    width: 100%; /* Каждая колонка занимает 100% ширины контейнера */
+    margin-bottom: 10px; /* Отступ между колонками */
+	 flex-direction: row-reverse;
+	 gap: 5px;
+	 display: grid;
+	 grid-template-columns: 1fr 200px 1fr;
+  }
+
+  .histogram__bar-container {
+    height: 10px; /* Высота для горизонтальной полосы */
+    width: 100%; /* Ширина на всю доступную ширину */
+  }
+
+  .histogram__bar {
+    height: 100%; /* Полоса занимает всю высоту контейнера */
+    border-radius: 4px; /* Углы радиус для полосы */
+  }
+
+  .histogram__percentage {
+    margin-bottom: 5px; /* Меньший отступ для удобства */
+  }
+
+  .histogram__pattern {
+    margin-top: 5px; /* Небольшой отступ сверху */
+  }
+}
+
+.legend__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px; /* Промежуток между элементами */
+  margin-top: 10px; /* Отступ сверху */
+  font-size: 16px;
+  line-height: 130%;
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+.legend__item {
+}
+
+.legend h4 {
+  margin-bottom: 10px; /* Отступ снизу заголовка */
+  line-height: 120%;
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0px 0px 20px 0px;
+  color: #000;
+}
+.abbreviation {
+  font-weight: 600;
+}
+.maximum {
+  color: #03d666; /* Цвет текста для 100% */
+  font-weight: bold; /* Сделать жирным */
+}
+.histogram__bar.category-block__mind {
+  background-color: #0386ff;
+}
+
+.histogram__bar.category-block__man {
+  background-color: #06eadc;
+}
+
+.histogram__bar.category-block__hands {
+  background-color: #fa00ff;
+}
+
+.histogram__bar.category-block__clock {
+  background-color: #ff9900;
 }
 
 /* Стили для подсказки ==================================================*/
@@ -1612,22 +1767,3 @@ td.question-cell-number[rowspan] {
   top: -2px;
 }
 /* ===================== */
-.histogram-bar {
-  margin: 10px;
-  width: 100px; /* Ширина полосы */
-  display: inline-block;
-  text-align: center;
-}
-
-.histogram-bar__label {
-  margin-bottom: 5px;
-}
-
-.histogram-bar__value {
-  background-color: #4caf50; /* Цвет полос */
-  width: 100%; /* Полоса займет всю ширину контейнера */
-  transition: height 0.3s ease; /* Плавная анимация для высоты */
-}
-body {
-  background: #fff;
-}

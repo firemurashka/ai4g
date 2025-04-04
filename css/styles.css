@@ -141,7 +141,7 @@ body {
 
 @media (max-width: 61.99875em) {
   [class*="__container"] {
-    padding: 0 1.75rem;
+    padding: 0 15px;
   }
 }
 
@@ -5489,8 +5489,6 @@ input:-webkit-autofill:focus {
   opacity: 1;
 }
 
-
-
 .serf-session__decor-img {
   opacity: 0;
   transform: translateY(-270px);
@@ -7283,12 +7281,12 @@ input:-webkit-autofill:focus {
 }
 
 .capability__links {
-  display: flex;
-  gap: 20px;
-  align-items: flex-end;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 40px;
   @media (max-width: 768px) {
-    flex-direction: column;
-    gap: 10px;
+	grid-template-columns: repeat(1, 1fr);
+	gap: 20px;
   }
 }
 
@@ -7296,7 +7294,6 @@ input:-webkit-autofill:focus {
   text-align: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 
 .capability__text {
@@ -7322,7 +7319,7 @@ input:-webkit-autofill:focus {
   font-weight: 700;
   font-size: 18px;
   line-height: 110%;
-  width: 330px;
+  max-width: 330px;
   height: 60px;
   border: 2px solid #ff018a;
   @media (max-width: 768px) {
@@ -7381,19 +7378,19 @@ input:-webkit-autofill:focus {
 /* Анимация----------------------------------------- */
 /* Начальное состояние анимируемых элементов (по умолчанию видимы) */
 ._anim-items {
-	opacity: 1; /* Установлено наличие видимости */
-	transform: translateY(0); /* Элементы находятся на своем нормальном месте */
- }
+  opacity: 1; /* Установлено наличие видимости */
+  transform: translateY(0); /* Элементы находятся на своем нормальном месте */
+}
 
- /* Устанавливаем стиль, который скрывает элемент */
- ._anim-items._hidden {
-	opacity: 0;
-	transform: translateY(100px); /* Сдвигаем элемент вниз */
- }
+/* Устанавливаем стиль, который скрывает элемент */
+._anim-items._hidden {
+  opacity: 0;
+  transform: translateY(100px); /* Сдвигаем элемент вниз */
+}
 
- /* Устанавливаем конечное состояние */
- ._anim-items._active {
-	opacity: 1;
-	transform: translateY(0);
- }
- /*----------------------------------------- */
+/* Устанавливаем конечное состояние */
+._anim-items._active {
+  opacity: 1;
+  transform: translateY(0);
+}
+/*----------------------------------------- */

@@ -7285,8 +7285,8 @@ input:-webkit-autofill:focus {
   grid-template-columns: repeat(2, 1fr);
   gap: 40px;
   @media (max-width: 768px) {
-	grid-template-columns: repeat(1, 1fr);
-	gap: 20px;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 20px;
   }
 }
 
@@ -7394,3 +7394,127 @@ input:-webkit-autofill:focus {
   transform: translateY(0);
 }
 /*----------------------------------------- */
+
+/*personal----------------*/
+.personal h2 {
+  margin: 40px 0px 10px 0px;
+  line-height: 26px;
+  font-size: 19px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.personal h3 {
+  line-height: 26px;
+  font-size: 17px;
+  font-weight: 700;
+  margin: 0px 0px 10px 0px;
+}
+.personal p {
+  /*  text-indent: 40px; */
+  margin: 0px 0px 15px 0px;
+}
+
+.personal ul {
+  margin: 0px 0px 15px 40px;
+}
+
+.personal li {
+  margin: 0px 0px 10px 0px;
+  position: relative;
+  margin-bottom: 10px;
+  padding-left: 25px;
+}
+
+.personal li::before {
+  content: "";
+  position: absolute;
+  top: 13px;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  background-color: #fff;
+  border-radius: 50%;
+}
+
+.personal span {
+  font-weight: 600;
+}
+.personal a {
+  color: #fff1bd;
+}
+
+.personal__container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 28px;
+}
+
+.personal__title {
+  font-size: 38px;
+  font-weight: 700;
+  line-height: 46px;
+  text-align: center;
+  padding: 170px 0 20px 0;
+  @media (max-width: 980px) {
+    padding: 100px 0 20px 0;
+  }
+}
+
+.personal__text {
+  line-height: 26px;
+  font-size: 17px;
+  margin: 0px 0px 10px 0px;
+}
+
+.personal__text:last-child {
+  margin: 0px 0px 100px 0px;
+}
+
+@media (max-width: 768px) {
+  .personal__container {
+    padding: 0 15px;
+  }
+
+  .personal__title {
+    font-size: 20px;
+    line-height: 27px;
+    text-align: left;
+  }
+
+  .personal h2 {
+    font-size: 16px;
+    line-height: 18px;
+    font-weight: 500;
+    text-align: left;
+    margin: 10px 0px 20px 0px;
+  }
+
+  .personal__text {
+    font-size: 14px;
+    line-height: 160%;
+  }
+
+  .personal h3 {
+    font-size: 14px;
+    line-height: 160%;
+    font-weight: 600;
+    text-align: left;
+    margin: 30px 0px 10px 0px;
+  }
+
+  .personal__text:last-child {
+    margin: 0px 0px 50px 0px;
+  }
+
+  .personal ul {
+    margin: 0px 0px 15px 5px;
+  }
+
+  .personal li {
+    padding-left: 15px;
+  }
+  .personal li::before {
+    top: 8px;
+  }
+}

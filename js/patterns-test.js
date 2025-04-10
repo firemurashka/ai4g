@@ -40,7 +40,7 @@ const categoryClassMap = {
   "Паттерны организации времени": "category-block__clock",
 };
 
-//Дата---------------------------------------------------------------------------------
+//Дата--------------------------------------------------------------------------
 // Получаем текущую дату
 const now = new Date();
 
@@ -58,36 +58,78 @@ const testDate = now
   .reverse() // Переворачиваем массив
   .join("."); // Соединяем элементы массива точками, получая формат ДД.ММ.ГГГГ
 
-// Функция обработки кнопки "Начать тест"------------------------------------------------------
+// Функция валидации формы---------------------------------------
+function validateForm() {
+  const fullNameInput = document.getElementById("fullName"); // Поле ввода ФИО
+  const phoneInput = document.getElementById("phone"); // Поле ввода телефона
+
+  const errorMessageFullname = document.getElementById("error-message-fullname"); // Сообщение об ошибке для ФИО
+  const errorMessagePhone = document.getElementById("error-message-phone"); // Сообщение об ошибке для телефона
+  const errorMessagePolicy = document.getElementById("error-message-policy"); // Сообщение об ошибке для политики
+  const errorMessageConsent = document.getElementById("error-message-consent"); // Сообщение об ошибке для согласия
+
+  const fullName = fullNameInput.value.trim();
+  const phone = phoneInput.value.trim();
+
+  // Очистка ошибок перед каждой проверкой
+  if (errorMessageFullname) errorMessageFullname.style.display = "none";
+  if (errorMessagePhone) errorMessagePhone.style.display = "none";
+  if (errorMessagePolicy) errorMessagePolicy.style.display = "none";
+  if (errorMessageConsent) errorMessageConsent.style.display = "none";
+
+  let formValid = true; // Флаг для отслеживания валидности формы
+
+  // Проверяем ввод ФИО (не менее 3 символов)
+  if (!fullName || fullName.length < 3) {
+    errorMessageFullname.style.display = "block";
+    errorMessageFullname.textContent = "Поле обязательно для заполнения, введите не менее 3 символов";
+    formValid = false; // Валидация не пройдена
+  }
+
+  // Проверяем ввод телефона (примерный формат)
+
+  const phoneRegex = /^\+7\s\(\d{3}\)\s\d{3}-\d{2}-\d{2}$/;
+
+  if (!phone || !phoneRegex.test(phone)) {
+    errorMessagePhone.style.display = "block";
+    errorMessagePhone.textContent = "Поле обязательно для заполнения";
+    formValid = false; // Валидация не пройдена
+  }
+
+  // Проверяем, отмечены ли обязательные чекбоксы
+  const policyRead = document.getElementById("policy-read") ? document.getElementById("policy-read").checked : false;
+  const dataConsent = document.getElementById("data-consent") ? document.getElementById("data-consent").checked : false;
+
+  if (!policyRead) {
+    errorMessagePolicy.style.display = "block";
+    errorMessagePolicy.textContent = "Поле обязательно для заполнения";
+    formValid = false; // Форма не валидна
+  }
+  if (!dataConsent) {
+    errorMessageConsent.style.display = "block";
+    errorMessageConsent.textContent = "Поле обязательно для заполнения";
+    formValid = false; // Форма не валидна
+  }
+
+  return formValid; // Возвращаем состояние валидности формы
+}
+
+// Функция обработки кнопки "Начать тест"---------------------------------------
 function handleStartTestButton() {
   // Получаем элементы формы и тестового блока
   const startPage = document.getElementById("start-page"); // Контейнер формы с ФИО
   const testBlock = document.getElementById("test-block"); // Блок с тестом
-  const fullNameInput = document.getElementById("fullName"); // Поле ввода ФИО
 
-  // Элементы для вывода информации
-  const fioDisplay = document.getElementById("fio-display"); // Элемент для отображения ФИО
-  const timeDisplay = document.getElementById("time-display"); // Элемент для отображения времени
-  const errorMessage = document.getElementById("error-message-start"); // Сообщение об ошибке
-
-  // Получаем значение из поля ввода и удаляем лишние пробелы
-  const fullName = fullNameInput.value.trim();
-
-  // Проверяем ввод ФИО (не менее 3 символов)
-  if (!fullName || fullName.length < 3) {
-    // Выводим сообщение об ошибке
-    errorMessage.style.display = "block";
-    errorMessage.textContent = "Пожалуйста, введите корректное ФИО (не менее 3 символов)!";
-    return; // Прекращаем выполнение функции, если ввод некорректен
+  // Проверяем форму на корректность
+  if (!validateForm()) {
+    return; // Если валидация не пройдена, прекращаем выполнение функции
   }
 
-  // Если проверка пройдена успешно, скрываем сообщение об ошибке
-  errorMessage.style.display = "none";
-
-  // Сохраняем введённое ФИО в глобальную переменную
-  userFullName = fullName;
+  const fullNameInput = document.getElementById("fullName"); // Поле ввода ФИО
+  const userFullName = fullNameInput.value.trim(); // Сохраняем введённое ФИО
 
   // Отображаем введённое ФИО перед блоком теста, оборачивая его в <span>
+  const fioDisplay = document.getElementById("fio-display"); // Элемент для отображения ФИО
   fioDisplay.innerHTML = `ФИО: <span>${userFullName}</span>`;
 
   // Получаем текущую дату
@@ -101,20 +143,42 @@ function handleStartTestButton() {
   });
 
   // Отображаем текущую дату, оборачивая её в <span>
+  const timeDisplay = document.getElementById("time-display"); // Элемент для отображения времени
   timeDisplay.innerHTML = `Дата: <span>${formattedDate}</span>`;
 
-  // Скрываем первый экран
+  // Скрываем первый экран и показываем блок с тестом
   startPage.style.display = "none";
-
-  // Показываем блок с тестом
   testBlock.style.display = "block";
 
   // Запускаем загрузку вопросов
   loadQuestions();
 }
 
+function initPhoneMask() {
+  const phoneInput = document.getElementById("phone");
+  if (phoneInput) {
+    const mask = IMask(phoneInput, {
+      mask: "+7 (000) 000-00-00",
+      lazy: true, // Маска появится только при фокусе
+      placeholderChar: "_",
+      overwrite: true,
+      autofix: true,
+    });
+
+    // Обработчики для управления состоянием
+    phoneInput.addEventListener("focus", () => {
+      if (!phoneInput.value) mask.updateOptions({ placeholder: "+7 (___) ___-__-__" });
+    });
+
+    phoneInput.addEventListener("blur", () => {
+      if (!phoneInput.value) mask.updateOptions({ placeholder: "" });
+    });
+  }
+}
+
 //Кнопка "Начать тест"-------------------------------------------------------------
 document.addEventListener("DOMContentLoaded", () => {
+  initPhoneMask();
   const startTestButton = document.getElementById("start-test-button"); // Кнопка "Начать тест"
 
   // Подключаем обработчик клика к кнопке "Начать тест"
@@ -125,7 +189,7 @@ document.addEventListener("DOMContentLoaded", () => {
 // Функция загрузки вопросов----------------------------------------------------------
 async function loadQuestions() {
   try {
-    console.log("Загрузка вопросов..."); // Лог начала загрузки
+
     toggleLoaderTest(true); // Включаем лоадер
 
     const response = await fetch("patterns_data.json");
@@ -136,7 +200,6 @@ async function loadQuestions() {
     questionsWithPatterns = data.questionsWithPatterns || [];
     categories = data.categories || [];
 
-    console.log("Загруженные данные:", data); // Лог загруженных данных
 
     // Проверка наличия данных
     if (questionsWithPatterns.length === 0 || !Array.isArray(categories)) {
@@ -147,10 +210,8 @@ async function loadQuestions() {
     const histogramData = [];
 
     // Заполняем histogramData из загруженных данных
-    console.log("Категории для обработки:", categories); // Лог категорий перед обработкой
     categories.forEach((category) => {
       const categoryTitle = category.title?.ru || category.title?.en || "Неизвестная категория";
-      console.log(`Обрабатываем категорию: ${categoryTitle}`);
 
       if (!category.subcategories || !Array.isArray(category.subcategories)) {
         console.warn(`У категории "${categoryTitle}" нет подкатегорий.`);
@@ -170,12 +231,10 @@ async function loadQuestions() {
             percentage: percentage,
             category: categoryTitle,
           });
-          console.log(`Добавляем в histogramData: ${pattern.pattern.ru || pattern.pattern.en}, процент: ${percentage}, категория: ${categoryTitle}`);
         });
       });
     });
 
-    console.log("Данные для гистограммы:", histogramData); // Лог данных для гистограммы
 
     // Если histogramData пустой
     if (histogramData.length === 0) {
@@ -318,6 +377,7 @@ function nextQuestion() {
     errorMessage.style.display = "block"; // Отображаем сообщение об ошибке
   }
 }
+
 //Предыдущий вопрос-------------------------------------------------------------------
 function previousQuestion() {
   if (currentQuestionIndex > 0) {
@@ -330,6 +390,7 @@ function previousQuestion() {
     showQuestion(); // Показываем предыдущий вопрос
   }
 }
+
 // Функция для сброса опроса---------------------------------------------------------
 function resetQuiz() {
   currentQuestionIndex = 0; // Сбрасываем индекс текущего вопроса
@@ -595,7 +656,6 @@ function generateHistogram(histogramData) {
       // Получаем класс категории из categoryClassMap
       const categoryClass = categoryClassMap[category] || "default-class";
 
-      console.log("Категория:", category, "Сопоставленный класс:", categoryClass);
 
       // В зависимости от ширины экрана устанавливаем height или width
       const isMobile = window.innerWidth < 768;
@@ -603,7 +663,7 @@ function generateHistogram(histogramData) {
       column.innerHTML = `
 			<span class="histogram__percentage ${percentageClass}">${percentage}%</span>
 			<div class="histogram__bar-container">
-			  <div class="histogram__bar ${categoryClass}" style="${isMobile ? `width: ${percentage}%; height: 10px;` : `height: ${percentage}%;`}"></div>
+			  <div class="histogram__bar ${categoryClass}" style="${isMobile ? `width: ${percentage}%` : `height: ${percentage}%`}"></div>
 			</div>
 			<span class="histogram__pattern">${abbreviation}</span>
 		 `;
@@ -619,7 +679,7 @@ function generateHistogram(histogramData) {
     // Создаем блок условных обозначений с заголовком
     const legendContainer = document.createElement("div");
     legendContainer.className = "legend";
-    legendContainer.innerHTML = "<h4>Условные обозначения</h4>";
+    legendContainer.innerHTML = "<h4>Условные обозначения:</h4>";
 
     const legendGrid = document.createElement("div");
     legendGrid.className = "legend__grid"; // Класс для стилизации сетки
@@ -1840,7 +1900,7 @@ function toggleLoader(show, message = "Подождите, идет генера
 }
 
 /* Кнопка "Тест"============================================================== */
-/* document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {
   const startFillButton = document.getElementById("fill-test-answers"); // Кнопка "Начать тест"
 
   // Подключаем обработчик клика к кнопке "Начать тест"
@@ -1866,5 +1926,5 @@ function fillTestAnswers() {
   // Устанавливаем индекс на конец вопросов
   currentQuestionIndex = questionsWithPatterns.length;
   showResults(); // Показываем результаты
-} */
+}
 /* тест============================================================================ */

@@ -89,7 +89,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/imask/6.4.3/imask.min.js"></script>
     <meta property="og:title" content="Пройдите тест паттернов" />
     <meta
       property="og:description"
@@ -131,19 +131,21 @@
               <div class="offer-test__container">
                 <div class="offer-test__body">
                   <div class="offer-test__content">
-                    <div class="offer-test__overhead overhead _anim-items _anim-no-hide">Определение ваших паттернов</div>
+                    <div class="offer-test__overhead overhead _anim-items _anim-no-hide">Тест на определение паттернов</div>
                     <h1 class="offer-test__title _anim-items _anim-no-hide">Тест Паттернов</h1>
 
-                    <div class="offer-test__subtitle _anim-items _anim-no-hide">Раскройте секреты своих <span>П</span>аттернов</div>
+                    <div class="offer-test__subtitle _anim-items _anim-no-hide">Pattern-Test <span>PT</span></div>
 
                     <div class="offer-test__text _anim-items _anim-no-hide">
-                      Ваши паттерны – это ключ к пониманию ваших реакций и решений. Раскрывая эти паттерны, вы сможете получить ценные знания о себе и улучшить
-                      свои отношения с другими.
+                      Паттерн — устойчивая модель реагирования, предпочтение мыслить, действовать и чувствовать определенным образом. Паттерны зависят от
+                      контекста и уровня стресса и способны со временем изменяться. Паттерн отражает, что находится в фокусе внимания, а что отфильтровывается
+                      из области осознания. Зная свои паттерны, мы осознаем свои привычные способы автоматического реагирования.
                     </div>
 
                     <div class="offer-test__text _anim-items _anim-no-hide">
-                      Наш Тест Паттернов поможет вам выявить ваши доминирующие паттерны и использовать эти знания для личностного роста. Погрузитесь в
-                      самоанализ и преобразите свое поведение!
+                      Узнать профиль ваших паттернов вы можете, пройдя авторский тест паттернов (создатель Е.Н. Семенова, 2024). Результаты теста можно
+                      использовать для прогнозирования вашего поведения, построения отношений, разработки индивидуальной траектории развития, анализа
+                      профессионального (карьерного) сценария, выбора подходящих ролей, прохождения тупиков, разрешения конфликтов.
                     </div>
                     <div class="offer-test__bottom _anim-items _anim-no-hide">
                       <!-- ссылка на форму теста -->
@@ -160,14 +162,14 @@
             <div class="patterns-description">
               <div class="patterns-description__container">
                 <h2 class="patterns-description__title">Цель теста</h2>
-                <div class="patterns-description__subtitle">Тест направлен на определение паттернов:</div>
+                <div class="patterns-description__subtitle">Тест определяет четыре типа паттернов:</div>
                 <div class="patterns-description__content">
                   <!-- Время -->
                   <div class="patterns-description__item">
                     <img src="img/test-patterns/clock.svg" alt="" />
                     <div class="patterns-description__item-title">Организации времени</div>
                     <div class="patterns-description__item-text">
-                      Способность человека управлять своими временными ресурсами и планировать свою деятельность.
+                      способность человека управлять своими временными ресурсами и планировать свою деятельность.
                     </div>
                   </div>
 
@@ -175,23 +177,30 @@
                   <div class="patterns-description__item">
                     <img src="img/test-patterns/man.svg" alt="" />
                     <div class="patterns-description__item-title">Поведения</div>
-                    <div class="patterns-description__item-text">Способность реагирования или действования человека в различных ситуациях.</div>
+                    <div class="patterns-description__item-text">способность реагирования или действования человека в различных ситуациях.</div>
                   </div>
 
                   <!-- Коммуникация -->
                   <div class="patterns-description__item">
                     <img src="img/test-patterns/hands.svg" alt="" />
                     <div class="patterns-description__item-title">Коммуникации</div>
-                    <div class="patterns-description__item-text">Способы взаимодействия и обмена информацией между людьми.</div>
+                    <div class="patterns-description__item-text">способность взаимодействия и обмена информацией между людьми.</div>
                   </div>
 
                   <!-- Мышление -->
                   <div class="patterns-description__item">
                     <img src="img/test-patterns/mind.svg" alt="" />
                     <div class="patterns-description__item-title">Мышления</div>
-                    <div class="patterns-description__item-text">Способность обработки информации, решения задач и принятия решений.</div>
+                    <div class="patterns-description__item-text">способность обработки информации, решения задач и принятия решений.</div>
                   </div>
                 </div>
+
+                <p class="patterns-description__text">
+                  У каждого человека явно проявляется разное количество паттернов, чаще всего 8-10. Если в тесте указано, что паттерн проявлен Нейтрально — это
+                  означает, что данный паттерн может проявляться ситуативно, либо у вас нет осознанного выбора в отношении этой стратегии поведения. Следует
+                  помнить, что явно проявленные паттерны – это не значит хорошо или плохо. Степень проявленности каждого паттерна говорит об индивидуальных
+                  особенностях реагирования человека и в целом об осознанности его поведения.
+                </p>
               </div>
             </div>
 
@@ -205,20 +214,27 @@
                     <div class="instruction-test__item _anim-items _anim-no-hide">
                       <div class="instruction-test__number-item">1.</div>
                       <div class="instruction-test__title-item">
-                        <div class="instruction-test__label">Время</div>
-                        <div class="instruction-test__text-item">Прохождение теста займет не более 5 минут.</div>
+                        <!--   <div class="instruction-test__label">Время</div> -->
+                        <div class="instruction-test__text-item">
+                          Тест состоит из 72 вопросов. Прохождение теста займет не более 5-и минут. Перед прохождением теста убедитесь, что вас никто и ничто не
+                          отвлекает. Не прерывайте выполнение теста.
+                        </div>
                       </div>
                     </div>
 
                     <div class="instruction-test__item _anim-items _anim-no-hide">
                       <div class="instruction-test__number-item">2.</div>
                       <div class="instruction-test__title-item">
-                        <div class="instruction-test__label">Вопросы</div>
-                        <div class="instruction-test__text-item">Каждый вопрос сопровождается вариантами ответов, из которых необходимо выбрать один.</div>
+                        <!--                         <div class="instruction-test__label">Вопросы</div>
+ -->
+                        <div class="instruction-test__text-item">
+                          Вам нужно будет выбрать один вариант из предложенных, на основе вашего предпочтения на момент тестирования. Не ориентируйтесь на ваш
+                          личный опыт, значение слова, вашу оценку. Ориентируйтесь на то, какое слово вам больше нравится.
+                        </div>
                       </div>
                     </div>
 
-                    <div class="instruction-test__item _anim-items _anim-no-hide">
+                    <!--   <div class="instruction-test__item _anim-items _anim-no-hide">
                       <div class="instruction-test__number-item">3.</div>
                       <div class="instruction-test__title-item">
                         <div class="instruction-test__label">Ответы</div>
@@ -232,12 +248,12 @@
                         <div class="instruction-test__label">Результаты</div>
                         <div class="instruction-test__text-item">После завершения теста результаты можно сохранить в формате PDF.</div>
                       </div>
-                    </div>
+                    </div> -->
                   </div>
-                  <div class="instruction-test__text">
+                  <!--      <div class="instruction-test__text">
                     Ваши паттерны в дальнейшем можно использовать для прогнозирования вашего поведения, разработки индивидуальной траектории развития, анализа
                     профессионального сценария.
-                  </div>
+                  </div> -->
                 </div>
               </div>
             </div>
@@ -252,12 +268,50 @@
                   <h2 class="form-start__subtitle">Введите Ваши данные для прохождения теста:</h2>
 
                   <div class="form-start__form">
-                    <!--Имя -->
-                    <input type="text" id="fullName" placeholder="Введите ФИО" class="form-start__input" required />
-                    <!-- Телефон -->
-                    <input type="phone" id="phone" placeholder="Введите ваш номер телефона" class="form-start__input" required />
+                    <!-- Имя -->
+                    <div>
+                      <input type="text" id="fullName" placeholder="Введите Имя и Фамилию" class="form-start__input" required />
+                      <div id="error-message-fullname" class="form-start__error" style="display: none"></div>
+                      <!-- Ошибка для ФИО -->
+                    </div>
 
-                    <div id="error-message-start" class="form-start__error" style="display: none">Пожалуйста, введите ФИО!</div>
+                    <!-- Телефон -->
+                    <div>
+                      <input type="tel" id="phone" placeholder="Введите номер телефона" class="form-start__input" required />
+                      <div id="error-message-phone" class="form-start__error" style="display: none"></div>
+                      <!-- Ошибка для телефона -->
+                    </div>
+
+                    <!-- Блок согласия -->
+                    <div class="form-start__block-check">
+                      <div class="form-start__check">
+                        <input type="checkbox" id="policy-read" />
+                        <label for="policy-read">
+                          <span>*С <a href="personal.html" target="_blank">Политикой обработки персональных данных</a> ознакомлен (-на).</span>
+                        </label>
+                        <div id="error-message-policy" class="form-start__error error-check" style="display: none"></div>
+                        <!-- Ошибка для политики чтения -->
+                      </div>
+
+                      <div class="form-start__check">
+                        <input type="checkbox" id="data-consent" />
+                        <label for="data-consent">
+                          <span
+                            >*Я даю согласие на обработку своих персональных данных в соответствии с
+                            <a href="personal.html" target="_blank">Политикой обработки персональных данных</a>.</span
+                          >
+                        </label>
+                        <div id="error-message-consent" class="form-start__error error-check" style="display: none"></div>
+                        <!-- Ошибка для согласия -->
+                      </div>
+
+                      <div class="form-start__check">
+                        <input type="checkbox" id="marketing-consent" />
+                        <label for="marketing-consent">
+                          <span>Я даю <a href="agreement.html" target="_blank">Согласие на получение информационных и рекламных материалов</a>.</span>
+                        </label>
+                      </div>
+                    </div>
                   </div>
 
                   <button id="start-test-button" class="patterns-button form-start__button">Пройти тест</button>
@@ -419,7 +473,6 @@
                 </div>
               </div>
 
-
               <!-- Результаты по категориям -->
               <div class="result__content" id="result-content">
                 <!-- Здесь будут выводиться результаты -->
@@ -427,14 +480,14 @@
             </div>
           </div>
           <!-- тестовая кнопка - удалить========================================= -->
-        <!--   <div id="quiz-controls">
+            <div id="quiz-controls">
             <button class="patterns-button quiz-patterns__button_test" id="fill-test-answers">Заполнить тестовые ответы</button>
           </div>
           <style>
             .quiz-patterns__button_test {
               margin: 20px auto;
             }
-          </style> -->
+          </style>
 
           <!-- тестовая кнопка - удалить -->
         </section>
@@ -483,6 +536,7 @@
         <img src="img/arrow-up-dark.svg" alt="scrollUp" />
       </div>
     </div>
+
     <script src="js/patterns-test.js"></script>
   </body>
 </html>

@@ -62,18 +62,26 @@ const testDate = now
 function validateForm() {
   const fullNameInput = document.getElementById("fullName"); // Поле ввода ФИО
   const phoneInput = document.getElementById("phone"); // Поле ввода телефона
+  const telegramNicknameInput = document.getElementById("telegram-nickname"); // Поле ввода ника в Telegram
+  const emailInput = document.getElementById("email"); // Поле ввода электронной почты
 
   const errorMessageFullname = document.getElementById("error-message-fullname"); // Сообщение об ошибке для ФИО
   const errorMessagePhone = document.getElementById("error-message-phone"); // Сообщение об ошибке для телефона
+  const errorMessageTelegram = document.getElementById("error-message-telegram"); // Сообщение об ошибке для Telegram
+  const errorMessageEmail = document.getElementById("error-message-email"); // Сообщение об ошибке для электронной почты
   const errorMessagePolicy = document.getElementById("error-message-policy"); // Сообщение об ошибке для политики
   const errorMessageConsent = document.getElementById("error-message-consent"); // Сообщение об ошибке для согласия
 
   const fullName = fullNameInput.value.trim();
   const phone = phoneInput.value.trim();
+  const telegramNickname = telegramNicknameInput.value.trim();
+  const email = emailInput.value.trim();
 
   // Очистка ошибок перед каждой проверкой
   if (errorMessageFullname) errorMessageFullname.style.display = "none";
   if (errorMessagePhone) errorMessagePhone.style.display = "none";
+  if (errorMessageTelegram) errorMessageTelegram.style.display = "none";
+  if (errorMessageEmail) errorMessageEmail.style.display = "none";
   if (errorMessagePolicy) errorMessagePolicy.style.display = "none";
   if (errorMessageConsent) errorMessageConsent.style.display = "none";
 
@@ -87,12 +95,26 @@ function validateForm() {
   }
 
   // Проверяем ввод телефона (примерный формат)
-
   const phoneRegex = /^\+7\s\(\d{3}\)\s\d{3}-\d{2}-\d{2}$/;
 
   if (!phone || !phoneRegex.test(phone)) {
     errorMessagePhone.style.display = "block";
-    errorMessagePhone.textContent = "Поле обязательно для заполнения";
+    errorMessagePhone.textContent = "Поле обязательно для заполнения и должно быть в формате +7 (XXX) XXX-XX-XX";
+    formValid = false; // Валидация не пройдена
+  }
+
+  // Проверяем ввод ника в Telegram (не менее 3 символов)
+  if (!telegramNickname || telegramNickname.length < 3) {
+    errorMessageTelegram.style.display = "block";
+    errorMessageTelegram.textContent = "Поле обязательно для заполнения, введите не менее 3 символов";
+    formValid = false; // Валидация не пройдена
+  }
+
+  // Проверяем ввод электронной почты
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!email || !emailRegex.test(email)) {
+    errorMessageEmail.style.display = "block";
+    errorMessageEmail.textContent = "Поле обязательно для заполнения и должно иметь формат: example@domain.com";
     formValid = false; // Валидация не пройдена
   }
 
@@ -117,7 +139,7 @@ function validateForm() {
 // Функция обработки кнопки "Начать тест"---------------------------------------
 function handleStartTestButton() {
   // Получаем элементы формы и тестового блока
-  const startPage = document.getElementById("start-page"); // Контейнер формы с ФИО
+  const formStart = document.getElementById("form-start"); // Контейнер формы с ФИО
   const testBlock = document.getElementById("test-block"); // Блок с тестом
 
   // Проверяем форму на корректность
@@ -147,12 +169,31 @@ function handleStartTestButton() {
   timeDisplay.innerHTML = `Дата: <span>${formattedDate}</span>`;
 
   // Скрываем первый экран и показываем блок с тестом
-  startPage.style.display = "none";
+  formStart.style.display = "none";
   testBlock.style.display = "block";
 
   // Запускаем загрузку вопросов
   loadQuestions();
 }
+// Обработчик кнопки "Пройти тест"
+document.getElementById("trek-button").addEventListener("click", function () {
+  // Скрываем стартовый блок
+  const startPage = document.getElementById("start-page");
+  startPage.style.display = "none";
+
+  // Показываем форму заполнения
+  const formStart = document.getElementById("form-start");
+  formStart.style.display = "block";
+});
+
+// Кнопка "Начать тест для формы"---------------------------------------------------------
+document.addEventListener("DOMContentLoaded", () => {
+  initPhoneMask();
+  const startTestButton = document.getElementById("start-test-button");
+
+  // Подключаем обработчик клика к кнопке "Начать тест"
+  startTestButton.addEventListener("click", handleStartTestButton);
+});
 
 function initPhoneMask() {
   const phoneInput = document.getElementById("phone");
@@ -176,20 +217,10 @@ function initPhoneMask() {
   }
 }
 
-//Кнопка "Начать тест"-------------------------------------------------------------
-document.addEventListener("DOMContentLoaded", () => {
-  initPhoneMask();
-  const startTestButton = document.getElementById("start-test-button"); // Кнопка "Начать тест"
-
-  // Подключаем обработчик клика к кнопке "Начать тест"
-  startTestButton.addEventListener("click", handleStartTestButton);
-});
-
 //ВОПРОСЫ============================================================================
 // Функция загрузки вопросов----------------------------------------------------------
 async function loadQuestions() {
   try {
-
     toggleLoaderTest(true); // Включаем лоадер
 
     const response = await fetch("patterns_data.json");
@@ -199,7 +230,6 @@ async function loadQuestions() {
     // Заполняем глобальные переменные вопросами и категориями
     questionsWithPatterns = data.questionsWithPatterns || [];
     categories = data.categories || [];
-
 
     // Проверка наличия данных
     if (questionsWithPatterns.length === 0 || !Array.isArray(categories)) {
@@ -234,7 +264,6 @@ async function loadQuestions() {
         });
       });
     });
-
 
     // Если histogramData пустой
     if (histogramData.length === 0) {
@@ -330,22 +359,23 @@ function showQuestion() {
 
   // Обновляем содержимое контейнера вопроса
   questionContainer.innerHTML = `
-		<div class="question">${question.question}</div>
-		${question.options
-      .map(
-        (option) => `
+  <div class="question">${question.question}</div>
+  ${question.options
+    .map(
+      (option) => `
 		  <label class="option">
-			 <input type="radio" name="answer" value="${option}" ${currentAnswer === option ? "checked" : ""}>
-			 <span class="radio-label">${option}</span>
+				<input type="radio" name="answer" value="${option}" ${currentAnswer === option ? "checked" : ""} tabindex="0">
+				<span class="radio-label">${option}</span>
 		  </label>
-		  `
-      )
-      .join("")}
-	 `;
+		`
+    )
+    .join("")}
+`;
 
   // Обновляем счётчик вопросов
   questionCounter.innerHTML = `Вопрос ${currentQuestionIndex + 1} из ${questionsWithPatterns.length}`;
 }
+
 //Следующий вопрос-------------------------------------------------------------------
 function nextQuestion() {
   const selectedOption = document.querySelector('input[name="answer"]:checked'); // Получаем выбранный вариант
@@ -655,7 +685,6 @@ function generateHistogram(histogramData) {
 
       // Получаем класс категории из categoryClassMap
       const categoryClass = categoryClassMap[category] || "default-class";
-
 
       // В зависимости от ширины экрана устанавливаем height или width
       const isMobile = window.innerWidth < 768;
@@ -1668,7 +1697,15 @@ function generatePDF(resultsData, patternsData) {
   // Генерация PDF
   /*   pdfMake.createPdf(docDefinition).download(fileName); // Используем сгенерированное название файла */
 
-  pdfMake.createPdf(docDefinition).open();
+  /* pdfMake.createPdf(docDefinition).open(); */
+
+  pdfMake.createPdf(docDefinition).getBlob((blob) => {
+	const url = URL.createObjectURL(blob);
+	const newWindow = window.open(url, '_blank');
+	if (!newWindow) {
+		 alert('Пожалуйста, разрешите всплывающие окна для этого сайта.');
+	}
+});
 }
 //Полоса под заголовком-----------------------
 const pageWidth = 595; // Ширина страницы A4 в PDFMake

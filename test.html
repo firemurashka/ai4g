@@ -1,0 +1,20 @@
+// initializeTooltipInteractions=====Tool==============================
+function initializeTooltipInteractions() {
+  // Добавляем обработчик событий на иконки помощи
+  document.querySelectorAll(".info-icon").forEach((icon) => {
+    icon.addEventListener("click", (e) => {
+      e.stopPropagation(); // Предотвращаем всплытие события
+      const tooltip = icon.querySelector(".tooltiptest");
+      tooltip.classList.toggle("hidden"); // Переключаем видимость тултипа
+    });
+  });
+
+  // Скрываем тултипы при клике вне их области
+  document.addEventListener("click", (e) => {
+    document.querySelectorAll(".tooltiptest").forEach((tooltip) => {
+      if (!tooltip.classList.contains("hidden")) {
+        tooltip.classList.add("hidden"); // Скрываем тултип
+      }
+    });
+  });
+}

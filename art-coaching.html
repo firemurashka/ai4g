@@ -125,32 +125,53 @@
       </header>
       <main class="page">
         <section class="art" id="top">
-          <div class="art__title-block">
-            <div class="art__container">
-              <div class="art__content">
-                <h1 class="art__title">
-                  Арт-коучинг<span> <br /></span>
-                </h1>
-					 <img src="img/art-coaching/art-item01.svg" alt=""  class="art__coach" />
+          <div class="art__container">
+            <div class="art__content">
+              <div class="art__block">
+                <h1 class="art__title art-title">Арт-коучинг</h1>
+                <h2 class="art__subtitle art-subtitle">
+                  Превратите хаос в стратегию <br />
+                  и раскройте творческий потенциал
+                </h2>
+                <div class="art__text">
+                  Запишитесь на курс из 5 сессий, <br />
+                  где через практики искусства и групповой коучинг вы найдете вдохновение, <br />
+                  примете себя и выйдете из рутины.
+                </div>
+
+                <div class="art__btn-block">
+                  <p>
+                    Присоединяйтесь к нам <br />
+                    и начните свое творческое путешествие:
+                  </p>
+                  <a href="#modal-request" class="art__link art-link link" data-fancybox>Записаться</a>
+                </div>
+              </div>
+              <div class="art__coach">
+                <img src="img/art-coaching/coach.jpg" alt="" />
               </div>
             </div>
           </div>
+        </section>
 
-          <div class="art__text-block">
-            <div class="art__container">
-              <div class="art__subtitle">
-                <p><span>«Мы должны быть воображаемы»</span></p>
-                <p>Перезагрузите мозг и развивайте лидерство через творчество.</p>
-                <p>Программа для художников своей жизни.</p>
+        <section class="art-text">
+          <div class="art-text__container">
+            <div class="art-text__block">
+              <h2 class="art-text__title art-subtitle">
+                Программа для художников <br />
+                своей жизни
+              </h2>
+
+              <div class="art-text__text">
                 <p>Для тех, кто:</p>
               </div>
               <ul class="art__list art-list">
                 <li class="art-list__item">
-                  <img src="img/career-advice/square.png" alt="" class="art-list__img" />
+                  <img src="img/coaching-session/square.png" alt="" class="art-list__img" />
                   <p>Хочет превратить внутренний хаос в персональную стратегию;</p>
                 </li>
                 <li class="art-list__item">
-                  <img src="img/career-advice/square.png" alt="" class="art-list__img" />
+                  <img src="img/coaching-session/square.png" alt="" class="art-list__img" />
 
                   <p>Ищет энергию для роста и развития;</p>
                 </li>
@@ -159,13 +180,6 @@
                   <p>Получает удовольствие от узнавания себя в художественных практиках и групповом коучинге.</p>
                 </li>
               </ul>
-              <div class="art__btn-block">
-                <p class="art__text">
-                  Присоединяйтесь к нам <br />
-                  и начните свое творческое путешествие:
-                </p>
-                <a href="#modal-request" class="art__link link" data-fancybox>Записаться</a>
-              </div>
             </div>
           </div>
         </section>
@@ -173,8 +187,8 @@
         <!-- Программа арт-коучинга -->
         <section class="art-details" id="details">
           <div class="art__container">
-            <h2 class="art-details__title art__title">Программа арт-коучинга</h2>
-            <div class="art__subtitle">
+            <h2 class="art-details__title art-subtitle">Программа арт-коучинга</h2>
+            <div class="art__label art-label">
               <p>Формат занятий:</p>
             </div>
 
@@ -193,21 +207,21 @@
                 </p>
               </li>
             </ul>
-            <div class="art__subtitle">
+            <div class="art__label art-label">
               <p>Методы:</p>
             </div>
 
             <ul class="art-metod__list">
               <li class="art-metod__item">
-               <img src="img/coaching-session/triangle.png" alt="" class="art-metod__img_triangle" />
+                <img src="img/coaching-session/triangle.png" alt="" class="art-metod__img_triangle" />
                 Арт-коучинг
               </li>
               <li class="art-metod__item">
                 <img src="img/coaching-session/triangle.png" alt="" class="art-metod__img_triangle" />
-					 Нейропсихология + современное искусство.
+                Нейропсихология + современное искусство.
               </li>
             </ul>
-            <div class="art__subtitle">
+            <div class="art__label art-label">
               <p>Результаты:</p>
             </div>
 
@@ -226,8 +240,8 @@
             </div>
 
             <div class="art__btn-block">
-              <p class="art__text">Записаться на Арт-коучинг <br />по телефону:</p>
-              <a href="tel:+79267939365" class="art__link link">Записаться</a>
+              <p class="art-results__text">Записаться на Арт-коучинг <br />по телефону:</p>
+              <a href="tel:+79267939365" class="art-link link">Записаться</a>
             </div>
           </div>
         </section>
@@ -235,15 +249,19 @@
         <!-- Ведущие -->
         <section class="art-leading" id="leading">
           <div class="art__container">
-            <h2 class="art-leading__title art__title">Ведущие</h2>
+            <h2 class="art-leading__title art-subtitle">Ведущие</h2>
 
             <div class="art-leading__images">
               <div class="art__image-block lead">
-                <img class="lead__image" src="img/art-coaching/leading01.jpg" alt="" />
+                <div class="lead__image">
+                  <img src="img/art-coaching/leading01.jpg" alt="" />
+                </div>
 
                 <div class="lead__info">
-                  <h4 class="lead__title">Янита Войт</h4>
-                  <p class="lead__label">художник</p>
+                  <div class="lead__top">
+                    <h4 class="lead__title">Янита Войт</h4>
+                    <p class="lead__label">художник</p>
+                  </div>
                   <div class="lead__contacts lead-contacts">
                     <a href="https://t.me/ianitavoit" target="_blank" class="lead-contacts__item">
                       <img src="img/art-coaching/telegram.svg" alt="telegram" loading="lazy" />
@@ -259,10 +277,14 @@
                 </div>
               </div>
               <div class="art__image-block lead">
-                <img class="lead__image" src="img/art-coaching/leading02.jpg" alt="" />
+                <div class="lead__image">
+                  <img class="lead__image" src="img/art-coaching/leading02.jpg" alt="" />
+                </div>
                 <div class="lead__info">
-                  <h4 class="lead__title">Елена Семенова</h4>
-                  <p class="lead__label">коуч</p>
+                  <div class="lead__top">
+                    <h4 class="lead__title">Елена Семенова</h4>
+                    <p class="lead__label">коуч</p>
+                  </div>
                   <div class="lead__contacts lead-contacts">
                     <a href="https://t.me/SemenovaElena" target="_blank" class="lead-contacts__item">
                       <img src="img/art-coaching/telegram.svg" alt="telegram" loading="lazy" />
@@ -282,9 +304,9 @@
         <!-- Расписание и место -->
         <section class="art-schedule" id="schedule">
           <div class="art__container">
-            <h2 class="art-schedule__title art__title">Расписание и место</h2>
+            <h2 class="art-schedule__title art-subtitle">Расписание и место</h2>
 
-            <p class="art__subtitle">Когда? Как пройти?</p>
+            <p class="art__label art-label">Когда? Как пройти?</p>
 
             <ul class="art-schedule__list">
               <li class="art-schedule__item"><strong>Время:</strong> Субботы, 11:00–14:00 (апрель-май).</li>
@@ -294,25 +316,18 @@
           <iframe
             src="https://yandex.ru/map-widget/v1/?um=constructor%3A68571494becdaa6faba23025b0eca5303331ab7265e648ce042b0b318ca6728b&amp;source=constructor"
             width="100%"
-            height="500"
+            height="300"
             frameborder="0"
           ></iframe>
         </section>
 
-        <!-- Стоимость -->
+        <!-- Цена -->
         <section class="art-cost" id="cost">
           <div class="art__container">
-            <h2 class="art-cost__title art__title">Стоимость участия</h2>
+            <h2 class="art-cost__title art-subtitle">Цена участия</h2>
             <div class="art-cost__content">
               <img class="art-cost__decor" src="img/career-advice/decor-career.png" alt="" />
               <div class="art-cost__items">
-                <div class="art-cost__item">
-                  <img src="img/career-advice/cost.png" alt="" class="art-cost__img" />
-                  <div class="art-cost__block">
-                    <div class="art-cost__label">5 сессий:</div>
-                    <div class="art-cost__text">50 000 ₽</div>
-                  </div>
-                </div>
                 <div class="art-cost__item">
                   <img src="img/career-advice/cost.png" alt="" class="art-cost__img" />
                   <div class="art-cost__block">
@@ -320,11 +335,18 @@
                     <div class="art-cost__text">15 000 ₽</div>
                   </div>
                 </div>
+                <div class="art-cost__item">
+                  <img src="img/career-advice/cost.png" alt="" class="art-cost__img" />
+                  <div class="art-cost__block">
+                    <div class="art-cost__label">5 сессий:</div>
+                    <div class="art-cost__text">50 000 ₽</div>
+                  </div>
+                </div>
               </div>
             </div>
 
             <div class="art__btn-block">
-              <a href="#payment" class="art-cost__link art__link link art__link_black" data-fancybox>Оплатить участие</a>
+              <a href="#payment" class="art-cost__link art-link link art-link_black" data-fancybox>Оплатить участие</a>
             </div>
           </div>
         </section>
@@ -434,9 +456,24 @@
       <div class="payment" id="payment">
         <h3 class="payment__title">Оплата коуч-сессии</h3>
         <form class="payment__form" action="https://ai4g.server.paykeeper.ru/create/" enctype="multipart/form-data" method="POST" id="payment-form">
-          <input type="hidden" id="sum" name="sum" value="50000" readonly />
+          <input type="hidden" id="sum" name="sum" value="15000" readonly />
           <input type="hidden" name="orderid" id="orderid" />
           <input type="hidden" name="service_name" value="Арт-коучинг" />
+
+          <!-- Кнопки выбора стоимости -->
+          <div class="payment__choice payment__choice_price">
+            <div class="payment__left">Выберите оплата за:</div>
+            <div class="payment__right">
+              <label class="payment__label">
+                <input class="payment__radio" type="radio" name="payment_option" value="15000" onchange="updatePrice(15000)" required />
+                <span>Одно занятие - 15.000</span>
+              </label>
+              <label class="payment__label">
+                <input class="payment__radio" type="radio" name="payment_option" value="50000" onchange="updatePrice(50000)" />
+                <span>Все занятия - 50.000</span>
+              </label>
+            </div>
+          </div>
 
           <!--Имя  -->
           <input class="payment__name" data-validate-field="name" name="clientid" type="text" placeholder="Имя и Фамилия" required />
@@ -470,7 +507,11 @@
           </a>
         </div>
       </div>
-
+      <script>
+        function updatePrice(value) {
+          document.getElementById("sum").value = value; // Обновляем значение скрытого поля с суммой
+        }
+      </script>
       <!-- popup об успешной оплате -->
       <div class="modal-thanks" id="successful-payment">
         <div class="modal-thanks__logo">

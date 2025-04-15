@@ -1937,7 +1937,7 @@ function toggleLoader(show, message = "Подождите, идет генера
 }
 
 /* Кнопка "Тест"============================================================== */
-document.addEventListener("DOMContentLoaded", () => {
+/* document.addEventListener("DOMContentLoaded", () => {
   const startFillButton = document.getElementById("fill-test-answers"); // Кнопка "Начать тест"
 
   // Подключаем обработчик клика к кнопке "Начать тест"
@@ -1963,5 +1963,5 @@ function fillTestAnswers() {
   // Устанавливаем индекс на конец вопросов
   currentQuestionIndex = questionsWithPatterns.length;
   showResults(); // Показываем результаты
-}
+} */
 /* тест============================================================================ */

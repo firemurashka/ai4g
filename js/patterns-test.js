@@ -103,12 +103,14 @@ function validateForm() {
     formValid = false; // Валидация не пройдена
   }
 
-  // Проверяем ввод ника в Telegram (не менее 3 символов)
-  if (!telegramNickname || telegramNickname.length < 3) {
+
+  // Проверяем ввод ника в Telegram (не обязательно, но если есть, то не менее 3 символов)
+  if (telegramNickname && telegramNickname.length < 3) {
     errorMessageTelegram.style.display = "block";
-    errorMessageTelegram.textContent = "Поле обязательно для заполнения, введите не менее 3 символов";
+    errorMessageTelegram.textContent = "Если вводите ник, он должен содержать не менее 3 символов";
     formValid = false; // Валидация не пройдена
   }
+
 
   // Проверяем ввод электронной почты
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -1700,12 +1702,12 @@ function generatePDF(resultsData, patternsData) {
   /* pdfMake.createPdf(docDefinition).open(); */
 
   pdfMake.createPdf(docDefinition).getBlob((blob) => {
-	const url = URL.createObjectURL(blob);
-	const newWindow = window.open(url, '_blank');
-	if (!newWindow) {
-		 alert('Пожалуйста, разрешите всплывающие окна для этого сайта.');
-	}
-});
+    const url = URL.createObjectURL(blob);
+    const newWindow = window.open(url, "_blank");
+    if (!newWindow) {
+      alert("Пожалуйста, разрешите всплывающие окна для этого сайта.");
+    }
+  });
 }
 //Полоса под заголовком-----------------------
 const pageWidth = 595; // Ширина страницы A4 в PDFMake

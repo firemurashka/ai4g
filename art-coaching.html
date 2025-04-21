@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css?_v=20240604140331" />
     <link rel="stylesheet" href="css/styles.css" />
     <link rel="stylesheet" href="css/art.css" />
+    <link rel="stylesheet" href="css/header.css" />
 
     <link rel="icon" href="img/favicon.ico" />
 
@@ -107,21 +108,105 @@
   <body class="body page-art">
     <div class="wrapper">
       <header class="header">
-        <div class="header__line"></div>
-        <a class="header__logo" href="index.html">
-          <div class="header__square">
-            <img src="img/logo-square.svg" alt="logo" width="51" height="47.6" />
-          </div>
-          <div class="header__logo-title">
-            <div class="header__Ai4G">
-              <img src="img/logo-Ai4G.svg" alt="logo" />
+        <div class="header__container">
+          <div class="header__body">
+            <!-- логотип -->
+            <a class="header__logo" href="index.html">
+              <div class="header__square">
+                <img src="img/logo-square.svg" alt="logo" width="51" height="47.6" />
+              </div>
+              <div class="header__logo-title">
+                <div class="header__Ai4G">
+                  <img src="img/logo-Ai4G.svg" alt="logo" />
+                </div>
+                <span class="header__logo-suptitle">Фарватер успешного развития</span>
+              </div>
+              <div class="header__triangle">
+                <img src="img/logo-triangle.svg" alt="logo" />
+              </div>
+            </a>
+            <div class="header__right">
+              <!-- меню -->
+
+              <div class="header__menu menu">
+                <button type="button" class="menu_icon icon-menu">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </button>
+                <nav class="menu__body">
+                  <ul class="menu__list">
+                    <li class="menu__item"><a href="index.html" class="menu__link">Главная</a></li>
+
+                    <li class="menu__item menu__item--dropdown">
+                      <a href="#" class="menu__link menu__link--dropdown"
+                        >Продукты
+                        <img src="img/art-coaching/arrow.svg" class="arrow" alt="" />
+                      </a>
+                      <ul class="submenu">
+                        <li class="submenu__item"><a href="https://ai4g.ru/coaching-session.html" class="submenu__link">Коучинговая сессия</a></li>
+                        <li class="submenu__item"><a href="https://ai4g.ru/career-advice.html" class="submenu__link">Карьерная консультация</a></li>
+                        <li class="submenu__item">
+                          <a href="https://ai4g.ru/serf-session.html" class="submenu__link">Serf-сессия определения паттернов</a>
+                        </li>
+                        <li class="submenu__item"><a href="https://ai4g.ru/allegro.html" class="submenu__link">Транскрибатор «Аллегро»</a></li>
+                        <li class="submenu__item"><a href="https://ai4g.ru/pattern-test.html" class="submenu__link">Тест паттернов</a></li>
+                        <li class="submenu__item"><a href="https://ai4g.ru/strategy-new-year.html" class="submenu__link">Стратегия Новый Год</a></li>
+                      </ul>
+                    </li>
+                    <li class="menu__item"><a href="mentors.html" class="menu__link">Наставники</a></li>
+
+                    <li class="menu__item menu__item--dropdown">
+                      <a href="#" class="menu__link menu__link--dropdown"
+                        >Справочная
+                        <img src="img/art-coaching/arrow.svg" class="arrow" alt="" />
+                      </a>
+                      <ul class="submenu">
+                        <li class="submenu__item"><a href="https://ai4g.ru/vozmozhnosti.html" class="submenu__link">Возможности</a></li>
+                        <li class="submenu__item"><a href="https://ai4g.ru/patterns.html" class="submenu__link">Паттерны</a></li>
+                        <li class="submenu__item"><a href="https://ai4g.ru/technics.html" class="submenu__link">Техники развития</a></li>
+                      </ul>
+                    </li>
+
+                    <li class="menu__item menu__item--dropdown">
+                      <a href="#" class="menu__link menu__link--dropdown"
+                        >Клиенту
+                        <img src="img/art-coaching/arrow.svg" class="arrow" alt="" />
+                      </a>
+                      <ul class="submenu">
+                        <li class="submenu__item"><a href="https://ai4g.ru/oferta.html" class="submenu__link">Договор оферты</a></li>
+                        <li class="submenu__item"><a href="https://ai4g.ru/oplata.html" class="submenu__link">Правила оплаты и возврата</a></li>
+                        <li class="submenu__item"><a href="https://ai4g.ru/requisites.html" class="submenu__link">Реквизиты</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                  <div class="header__icons header__icons_mob">
+                    <a href="mailto:info@ai4g.ru" class="header__icon">
+                      <img src="img/email.svg" alt="email" loading="lazy" />
+                      <span>info@ai4g.ru</span>
+                    </a>
+                    <a href="https://t.me/+79852000434" target="_blank" class="header__icon">
+                      <img src="img/telegram.svg" alt="telegram" loading="lazy" />
+                      <span>+7 985 2000434</span>
+                    </a>
+                  </div>
+                </nav>
+              </div>
+
+              <!-- иконки -->
+              <div class="header__icons">
+                <a href="mailto:info@ai4g.ru" class="header__icon">
+                  <img src="img/email.svg" alt="email" loading="lazy" />
+                  <!--  <span>info@ai4g.ru</span> -->
+                </a>
+                <a href="https://t.me/+79852000434" target="_blank" class="header__icon">
+                  <img src="img/telegram.svg" alt="telegram" loading="lazy" />
+                  <!--   <span>+7 985 2000434</span> -->
+                </a>
+              </div>
             </div>
-            <span class="header__logo-suptitle">Фарватер успешного развития</span>
           </div>
-          <div class="header__triangle">
-            <img src="img/logo-triangle.svg" alt="logo" />
-          </div>
-        </a>
+        </div>
       </header>
 
       <main class="page">
@@ -130,8 +215,11 @@
             <div class="art__content">
               <div class="art__block">
                 <h1 class="art__title art-title">Арт-коучинг</h1>
-                <h2 class="art__subtitle art-subtitle">Запишитесь на курс из 5 сессий <br> «Мы должны быть воображаемы»</h2>
-                <div class="art__text art__text_black ">
+                <h2 class="art__subtitle art-subtitle">
+                  Запишитесь на курс из 5 сессий <br />
+                  «Мы должны быть воображаемы»
+                </h2>
+                <div class="art__text art__text_black">
                   Прокачайте свой творческий потенциал <br />
                   и найдите свою персональную стратегию через искусство
                 </div>
@@ -162,40 +250,39 @@
 
             <ol class="art-details__list">
               <li class="art-details__item">
-                <img src="img/art-coaching/art-item01.svg" alt="" />
+                <img src="img/art-coaching/art-details/art-details01.jpg" alt="" />
                 <div>
-                  <h3 class="art-details__item-title">Импровизационный рисунок цветом пальцами</h3>
+                  <h3 class="art-details__item-title">Импровизационный рисунок цветом</h3>
                   <p>
-                    Участники будут рисовать пальцами с использованием акрила или гуаши, отпуская контроль и позволяя эмоциям руководить процессом. Закрыв
-                    глаза, они будут следовать своим внутренним состояниям и ощущениям, создавая яркие абстрактные изображения. В конце сессии состоится
-                    обсуждение доминирующих цветов и их значений, что поможет составить карту подсознательных желаний.
+                    Участники будут рисовать пальцами, отпуская контроль и позволяя эмоциям направлять процесс. Используя акрил, гуашь или краски для сенсорного
+                    самовыражения, они будут следовать внутренним состояниям, создавая яркие абстрактные композиции. В конце сессии мы проанализируем
+                    доминирующие цвета и их символику, что поможет выявить подсознательные желания и направления для дальнейшего самовыражения.
                   </p>
                 </div>
               </li>
               <li class="art-details__item">
-                <img src="img/art-coaching/art-item02.svg" alt="" />
-                <div>
+					<img src="img/art-coaching/art-details/art-details02.jpg" alt="" />
+					<div>
                   <h3 class="art-details__item-title">Абстракции</h3>
                   <p>
-                    Участники будут создавать абстрактные картины, выбирая цвета для различных сфер своей жизни, таких как работа и хобби. В процессе они будут
-                    исследовать, как каждый цвет и его взаимодействие отражают их цели и ритм в движении к ним. Результатом станет визуальный «компас»,
-                    помогающий гармонизировать их амбиции.
+                    Участники будут создавать абстрактные картины, используя деконструкцию существующих образов. Будут исследовать новые способы самовыражения.
+                    Это процесс открытия и конструирования нового через взаимодействие цветов и форм.
                   </p>
                 </div>
               </li>
               <li class="art-details__item">
-                <img src="img/art-coaching/art-item01.svg" alt="" />
+					<img src="img/art-coaching/art-details/art-details03.jpg" alt="" />
                 <div>
                   <h3 class="art-details__item-title">Коллажи</h3>
                   <p>
-                    Участники будут собирать коллажи из изображений, текстов и материалов, которые ассоциируются с их желаниями и целями. Каждый элемент коллажа
-                    будет символизировать конкретное намерение или мечту, а размещение этих элементов поможет выявить текущий фокус. В конечном итоге участники
-                    создадут карту маршрутов с визуальными «точками роста» для достижения своих целей.
+                    В ходе сессии участники будут собирать коллажи из изображений, текстов и материалов, которые ассоциируются с их желаниями и целями. Каждый
+                    элемент коллажа будет символизировать конкретное намерение или мечту, а размещение этих элементов поможет выявить текущий фокус. В конечном
+                    итоге участники создадут карту маршрутов с визуальными «точками роста» для достижения своих целей.
                   </p>
                 </div>
               </li>
               <li class="art-details__item">
-                <img src="img/art-coaching/art-item02.svg" alt="" />
+					<img src="img/art-coaching/art-details/art-details04.jpg" alt="" />
                 <div>
                   <h3 class="art-details__item-title">Реди-мейд</h3>
                   <p>
@@ -206,13 +293,12 @@
                 </div>
               </li>
               <li class="art-details__item">
-                <img src="img/art-coaching/art-item01.svg" alt="" />
+					<img src="img/art-coaching/art-details/art-details05.jpg" alt="" />
                 <div>
                   <h3 class="art-details__item-title">Автопортреты</h3>
                   <p>
-                    Участники создадут автопортреты с использованием смешанной техники, включающей рисунок, коллаж и цифровую обработку, наглядно отражая свои
-                    мечты и цели. Каждый элемент в портрете будет символизировать различные аспекты их идентичности и стремлений. Сессия завершится
-                    презентацией, где участники поделятся своими визуальными стратегиями на ближайшие пять лет.
+                    Создание автопортрета через смешанную технику. Каждый элемент будет символизировать различные аспекты идентичности и стремлений участников.
+                    Сессия завершится презентацией, где участники поделятся своими визуальными стратегиями на ближайшие пять лет.
                   </p>
                 </div>
               </li>
@@ -220,7 +306,7 @@
 
             <div class="art-details__text art__text art-details__text_small">
               <div>
-                <p>Материалы на каждой сессии разные — от акрила до «мусора» (сломанная ветка = символ кризиса).</p>
+                <p>Материалы на каждой сессии разные — от акрила до найденных объектов.</p>
                 <p>
                   <span> Групповой коучинг:</span> рефлексия через восприятие своей творческой работы и через вопросы: «Какие черты проявляются через цвета?»
                 </p>
@@ -386,6 +472,12 @@
                   <div class="lead__top">
                     <h4 class="lead__title">Янита Войт</h4>
                     <p class="lead__label">художник</p>
+                    <p class="lead__text">
+                      Эксперт в управлении талантами <br />
+                      Сооснователь галереи современного искусства, <br />
+                      организатор и куратор резиденций, <br />
+                      культурных событий для арт-мира
+                    </p>
                   </div>
                   <div class="lead__contacts lead-contacts">
                     <a href="https://t.me/ianitavoit" target="_blank" class="lead-contacts__item">
@@ -403,12 +495,17 @@
               </div>
               <div class="art__image-block lead">
                 <div class="lead__image">
-                  <img class="lead__image" src="img/art-coaching/leading02.jpg" alt="" />
+                  <img src="img/art-coaching/leading02.jpg" alt="" />
                 </div>
                 <div class="lead__info">
                   <div class="lead__top">
                     <h4 class="lead__title">Елена Семенова</h4>
                     <p class="lead__label">коуч</p>
+                    <p class="lead__text">
+                      Полимодальный психолог <br />
+                      Автор программ лидерского развития <br />
+                      через изменение паттернов <br />Executive и командный коуч лидеров и команд
+                    </p>
                   </div>
                   <div class="lead__contacts lead-contacts">
                     <a href="https://t.me/SemenovaElena" target="_blank" class="lead-contacts__item">
@@ -659,5 +756,6 @@
 		 "></script>
     <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
     <script src="js/products.js"></script>
+    <script src="js/art.js"></script>
   </body>
 </html>

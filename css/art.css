@@ -10,116 +10,6 @@ p {
   text-align: inherit;
   text-decoration: none;
 }
-/* header */
-.header {
-  height: 80px;
-}
-
-.header__logo {
-  display: flex;
-  animation: none;
-}
-
-.header__logo-mobile {
-  display: none;
-}
-
-.header__line {
-  margin-bottom: 18px;
-}
-
-.header__line {
-  height: 5px;
-  margin-bottom: 24px;
-}
-
-.header__square img {
-  width: 32px;
-  height: 32px;
-  transform: translateY(-1px);
-}
-
-.header__Ai4G img {
-  width: 110.8px;
-  height: 35px;
-  transform: translate(-15px, -2px);
-}
-
-.header__triangle img {
-  width: 37px;
-  height: 31px;
-}
-
-.header__triangle {
-  transform: translateX(-2px);
-}
-
-.header__logo-suptitle {
-  width: 95px;
-  font-size: 9.5px;
-  line-height: 10px;
-  animation: header-suptext-new-year 1.7s forwards;
-}
-
-.header__triangle img {
-  animation: header-triangle-new-year 0.9s forwards;
-}
-
-.top__title {
-  min-width: 95px;
-  margin-right: 10px;
-  font-size: 24px;
-  line-height: 29px;
-}
-
-.top__suptitle {
-  font-size: 18px;
-  line-height: 22px;
-}
-
-.top__inner {
-  padding-top: 85px;
-  display: flex;
-  justify-content: center;
-}
-
-.top {
-  height: 200px;
-}
-
-@keyframes header-suptext-new-year {
-  0% {
-    opacity: 0;
-  }
-
-  55% {
-    top: 38px;
-    left: 90px;
-    opacity: 0;
-  }
-
-  100% {
-    top: 38px;
-    left: 22px;
-    opacity: 1;
-  }
-}
-
-@keyframes header-triangle-new-year {
-  0% {
-    transform: translate(-140px, 0px);
-    opacity: 0.1;
-  }
-
-  100% {
-    transform: translate(-32px, 0px);
-    opacity: 1;
-  }
-}
-
-.header__line {
-  margin-bottom: 11px;
-}
 /* .art-link ------------------------------*/
 .art-link {
   background: #0386ff;
@@ -461,19 +351,21 @@ p {
   }
 } /* .art-details --------------------------*/
 .art-details__list {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: repeat(5, 1fr);
   gap: 20px;
   padding: 0;
   counter-reset: item;
   margin: 0px 0px 40px 0px;
-  @media (max-width: 980px) {
-    margin: 0px 0px 20px 0px;
+  @media (max-width: 900px) {
+    display: flex;
+    flex-direction: column;
   }
 }
 .art-details__item {
-  display: flex;
-  gap: 10px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 30px;
   background-color: #5c007bba;
   border-radius: 9px;
   padding: 20px;
@@ -483,7 +375,8 @@ p {
   line-height: 120%;
   font-weight: 400;
   color: #fff;
-  @media (max-width: 600px) {
+  @media (max-width: 900px) {
+    display: flex;
     flex-direction: column;
     padding: 10px;
   }
@@ -494,21 +387,22 @@ p {
 }
 
 .art-details__item::before {
-  content: counter(item);
-  counter-increment: item;
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  background-color: #fff;
-  border-radius: 50%;
-  width: 24px;
-  height: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  color: #5c007b;
-  font-size: 14px;
+	content: counter(item);
+	counter-increment: item;
+	position: absolute;
+	top: -12px;
+	left: -10px;
+	background-color: #fff;
+	border-radius: 50%;
+	width: 30px;
+	height: 30px;
+	display: flex
+;
+	align-items: center;
+	justify-content: center;
+	font-weight: 500;
+	color: #5c007b;
+	font-size: 15px;
 }
 .art-details__item-title {
   font-weight: 600;
@@ -522,8 +416,13 @@ p {
 }
 
 .art-details__item img {
-  width: 60px;
-  height: 60px;
+  max-width: 230px;
+  border-radius: 9px;
+  overflow: hidden;
+  @media (max-width: 460px) {
+    max-width: none;
+    width: 100%;
+  }
 }
 /* .art-leading -----------------------------*/
 .art-leading {
@@ -555,7 +454,7 @@ p {
   display: grid;
   gap: 50px;
   grid-template-columns: repeat(2, 1fr);
-  @media (max-width: 960px) {
+  @media (max-width: 1160px) {
     grid-template-columns: repeat(1, 1fr);
     gap: 40px;
   }
@@ -567,7 +466,7 @@ p {
   line-height: 140%;
   color: #fff;
   justify-items: center;
-  @media (max-width: 960px) {
+  @media (max-width: 1160px) {
     justify-content: center;
   }
   @media (max-width: 550px) {
@@ -601,9 +500,17 @@ p {
   line-height: 100%;
   font-weight: 600;
 }
+
 .lead__label {
   font-size: 20px;
   font-weight: 500;
+  margin: 0px 0px 20px 0px;
+}
+
+.lead__text {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 120%;
   margin: 0px 0px 20px 0px;
 }
 

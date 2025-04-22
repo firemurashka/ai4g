@@ -137,48 +137,48 @@ function validateForm() {
 
 // Функция обработки кнопки "Начать тест" ---------------------------------------
 function handleStartTestButton() {
-	// Получаем элементы формы и тестового блока
-	const formStart = document.getElementById("form-start"); // Контейнер формы с ФИО
-	const testBlock = document.getElementById("test-block"); // Блок с тестом
+  // Получаем элементы формы и тестового блока
+  const formStart = document.getElementById("form-start"); // Контейнер формы с ФИО
+  const testBlock = document.getElementById("test-block"); // Блок с тестом
 
-	// Проверяем форму на корректность
-	if (!validateForm()) {
-	  return; // Если валидация не пройдена, прекращаем выполнение функции
-	}
+  // Проверяем форму на корректность
+  if (!validateForm()) {
+    return; // Если валидация не пройдена, прекращаем выполнение функции
+  }
 
-	const fullNameInput = document.getElementById("fullName"); // Поле ввода ФИО
-	userFullName = fullNameInput.value.trim(); // Сохраняем введённое ФИО в глобальную переменную
+  const fullNameInput = document.getElementById("fullName"); // Поле ввода ФИО
+  userFullName = fullNameInput.value.trim(); // Сохраняем введённое ФИО в глобальную переменную
 
-	// Отображаем введённое ФИО перед блоком теста, оборачивая его в <span>
-	const fioDisplay = document.getElementById("fio-display"); // Элемент для отображения ФИО
-	fioDisplay.innerHTML = `ФИО: <span>${userFullName}</span>`;
+  // Отображаем введённое ФИО перед блоком теста, оборачивая его в <span>
+  const fioDisplay = document.getElementById("fio-display"); // Элемент для отображения ФИО
+  fioDisplay.innerHTML = `ФИО: <span>${userFullName}</span>`;
 
-	// Получаем текущую дату
-	const now = new Date();
+  // Получаем текущую дату
+  const now = new Date();
 
-	// Форматируем дату (например, в формате: "28 января 2025")
-	const formattedDate = now.toLocaleString("ru-RU", {
-	  day: "numeric",
-	  month: "long",
-	  year: "numeric",
-	});
+  // Форматируем дату (например, в формате: "28 января 2025")
+  const formattedDate = now.toLocaleString("ru-RU", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
 
-	// Отображаем текущую дату, оборачивая её в <span>
-	const timeDisplay = document.getElementById("time-display"); // Элемент для отображения времени
-	timeDisplay.innerHTML = `Дата: <span>${formattedDate}</span>`;
+  // Отображаем текущую дату, оборачивая её в <span>
+  const timeDisplay = document.getElementById("time-display"); // Элемент для отображения времени
+  timeDisplay.innerHTML = `Дата: <span>${formattedDate}</span>`;
 
-	// Скрываем первый экран и показываем блок с тестом
-	formStart.style.display = "none";
-	testBlock.style.display = "block";
+  // Скрываем первый экран и показываем блок с тестом
+  formStart.style.display = "none";
+  testBlock.style.display = "block";
 
-	// Запускаем загрузку вопросов
-	loadQuestions();
+  // Запускаем загрузку вопросов
+  loadQuestions();
 
-	// Вызываем функцию генерации PDF (пример)
-	const resultsData = {}; // Ваши данные результатов
-	const patternsData = {}; // Ваши данные шаблонов
-	generatePDF(resultsData, patternsData); // Передаём данные в функцию генерации PDF
- }
+  // Вызываем функцию генерации PDF (пример)
+  const resultsData = {}; // Ваши данные результатов
+  const patternsData = {}; // Ваши данные шаблонов
+  generatePDF(resultsData, patternsData); // Передаём данные в функцию генерации PDF
+}
 
 // Обработчик кнопки "Пройти тест"
 document.getElementById("trek-button").addEventListener("click", function () {
@@ -189,6 +189,9 @@ document.getElementById("trek-button").addEventListener("click", function () {
   // Показываем форму заполнения
   const formStart = document.getElementById("form-start");
   formStart.style.display = "block";
+
+  // Прокручиваем страницу к форме заполнения
+  formStart.scrollIntoView({ behavior: "smooth" }); // Прокрутка с анимацией
 });
 
 // Кнопка "Начать тест для формы"---------------------------------------------------------
@@ -1931,38 +1934,36 @@ document.getElementById("download-pdf").addEventListener("click", async () => {
 
 // Обработчик для кнопки открытия PDF
 document.getElementById("open-pdf").addEventListener("click", async () => {
-	toggleLoader(true, "Подождите, идет генерация PDF...");
+  toggleLoader(true, "Подождите, идет генерация PDF...");
 
-	try {
-	  const resultsData = showResults();
-	  const patternsData = await loadPatterns();
-	  const customStyles = {};
+  try {
+    const resultsData = showResults();
+    const patternsData = await loadPatterns();
+    const customStyles = {};
 
-	  // Генерация PDF и получение Blob
-	  const pdfBlob = await generatePDF(resultsData, patternsData, customStyles);
+    // Генерация PDF и получение Blob
+    const pdfBlob = await generatePDF(resultsData, patternsData, customStyles);
 
-	  // Создаем URL и открываем в новом окне
-	  const url = URL.createObjectURL(pdfBlob);
-	  const newWindow = window.open(url, "_blank");
+    // Создаем URL и открываем в новом окне
+    const url = URL.createObjectURL(pdfBlob);
+    const newWindow = window.open(url, "_blank");
 
-	  // Проверяем, успешно ли открылось новое окно
-	  if (!newWindow) {
-		 alert("Пожалуйста, разрешите всплывающие окна для этого сайта.");
-	  }
+    // Проверяем, успешно ли открылось новое окно
+    if (!newWindow) {
+      alert("Пожалуйста, разрешите всплывающие окна для этого сайта.");
+    }
 
-	  // Очистка URL после завершения использования
-	  newWindow.onload = () => {
-		 URL.revokeObjectURL(url);
-	  };
-
-	} catch (error) {
-	  console.error("Ошибка при создании PDF:", error);
-	  alert("Произошла ошибка при создании PDF. Пожалуйста, попробуйте снова.");
-	} finally {
-	  toggleLoader(false);
-	}
- });
-
+    // Очистка URL после завершения использования
+    newWindow.onload = () => {
+      URL.revokeObjectURL(url);
+    };
+  } catch (error) {
+    console.error("Ошибка при создании PDF:", error);
+    alert("Произошла ошибка при создании PDF. Пожалуйста, попробуйте снова.");
+  } finally {
+    toggleLoader(false);
+  }
+});
 
 // Показываем/скрываем прелоадер-----------------------------------------------------
 function toggleLoader(show, message = "Подождите, идет генерация...") {

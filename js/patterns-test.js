@@ -412,6 +412,8 @@ function nextQuestion() {
     } else {
       // Если это последний вопрос, показываем результаты
       showResults();
+		  // Прокручиваем страницу к форме заполнения
+		  formStart.scrollIntoView({ behavior: "smooth" }); // Прокрутка с анимацией
     }
   } else {
     // Если ответ не выбран, показываем сообщение об ошибке
@@ -1907,23 +1909,29 @@ document.getElementById("download-pdf").addEventListener("click", async () => {
     const patternsData = await loadPatterns();
     const customStyles = {};
 
-    // Получаем необходимые данные для формата имени файла
-    const testDate = new Date().toLocaleDateString("ru-RU"); // Получаем текущую дату (или получаем её из данных, если нужно)
+    // Получаем текущую дату для имени файла
+    const testDate = new Date().toLocaleDateString("ru-RU");
 
     // Генерация PDF и получение Blob
     const pdfBlob = await generatePDF(resultsData, patternsData, customStyles);
 
+    // Проверяем, что pdfBlob действительно создан
+    if (!pdfBlob || pdfBlob.size === 0) {
+      throw new Error("PDF не был сгенерирован.");
+    }
+
     // Формируем название файла
-    const fileName = `Паттерны ${userFullName} ${testDate}.pdf`; // Формат: "Паттерны Имя Фамилия ДД.ММ.ГГГГ"
+    const fileName = `Паттерны ${userFullName} ${testDate}.pdf`;
 
     // Создание ссылки для скачивания
     const url = URL.createObjectURL(pdfBlob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = fileName; // Используем сгенерированное название файла
+    a.download = fileName;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
+    URL.revokeObjectURL(url); // Освобождаем URL после загрузки
   } catch (error) {
     console.error("Ошибка при создании PDF:", error);
     alert("Произошла ошибка при создании PDF. Пожалуйста, попробуйте снова.");
@@ -1943,6 +1951,11 @@ document.getElementById("open-pdf").addEventListener("click", async () => {
 
     // Генерация PDF и получение Blob
     const pdfBlob = await generatePDF(resultsData, patternsData, customStyles);
+
+    // Проверяем, что pdfBlob действительно создан
+    if (!pdfBlob || pdfBlob.size === 0) {
+      throw new Error("PDF не был сгенерирован.");
+    }
 
     // Создаем URL и открываем в новом окне
     const url = URL.createObjectURL(pdfBlob);
@@ -2005,5 +2018,7 @@ function fillTestAnswers() {
   // Устанавливаем индекс на конец вопросов
   currentQuestionIndex = questionsWithPatterns.length;
   showResults(); // Показываем результаты
+  // Прокручиваем страницу к форме заполнения
+  formStart.scrollIntoView({ behavior: "smooth" }); // Прокрутка с анимацией
 }
 /* тест============================================================================ */

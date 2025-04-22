@@ -27,9 +27,8 @@ let categories = []; // Глобальный объект для категор�
 let currentQuestionIndex = 0; // Индекс текущего вопроса
 let answers = []; // Массив для сохранения ответов пользователя
 let patterns = []; // Массив для сохранения паттернов
-
-// Глобальная переменная для хранения имени пользователя
 let userFullName = "";
+
 let userPhone = "";
 
 // Массив для соотношения категорий и классов
@@ -136,45 +135,51 @@ function validateForm() {
   return formValid; // Возвращаем состояние валидности формы
 }
 
-// Функция обработки кнопки "Начать тест"---------------------------------------
+// Функция обработки кнопки "Начать тест" ---------------------------------------
 function handleStartTestButton() {
-  // Получаем элементы формы и тестового блока
-  const formStart = document.getElementById("form-start"); // Контейнер формы с ФИО
-  const testBlock = document.getElementById("test-block"); // Блок с тестом
+	// Получаем элементы формы и тестового блока
+	const formStart = document.getElementById("form-start"); // Контейнер формы с ФИО
+	const testBlock = document.getElementById("test-block"); // Блок с тестом
 
-  // Проверяем форму на корректность
-  if (!validateForm()) {
-    return; // Если валидация не пройдена, прекращаем выполнение функции
-  }
+	// Проверяем форму на корректность
+	if (!validateForm()) {
+	  return; // Если валидация не пройдена, прекращаем выполнение функции
+	}
 
-  const fullNameInput = document.getElementById("fullName"); // Поле ввода ФИО
-  const userFullName = fullNameInput.value.trim(); // Сохраняем введённое ФИО
+	const fullNameInput = document.getElementById("fullName"); // Поле ввода ФИО
+	userFullName = fullNameInput.value.trim(); // Сохраняем введённое ФИО в глобальную переменную
 
-  // Отображаем введённое ФИО перед блоком теста, оборачивая его в <span>
-  const fioDisplay = document.getElementById("fio-display"); // Элемент для отображения ФИО
-  fioDisplay.innerHTML = `ФИО: <span>${userFullName}</span>`;
+	// Отображаем введённое ФИО перед блоком теста, оборачивая его в <span>
+	const fioDisplay = document.getElementById("fio-display"); // Элемент для отображения ФИО
+	fioDisplay.innerHTML = `ФИО: <span>${userFullName}</span>`;
 
-  // Получаем текущую дату
-  const now = new Date();
+	// Получаем текущую дату
+	const now = new Date();
 
-  // Форматируем дату (например, в формате: "28 января 2025")
-  const formattedDate = now.toLocaleString("ru-RU", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
+	// Форматируем дату (например, в формате: "28 января 2025")
+	const formattedDate = now.toLocaleString("ru-RU", {
+	  day: "numeric",
+	  month: "long",
+	  year: "numeric",
+	});
 
-  // Отображаем текущую дату, оборачивая её в <span>
-  const timeDisplay = document.getElementById("time-display"); // Элемент для отображения времени
-  timeDisplay.innerHTML = `Дата: <span>${formattedDate}</span>`;
+	// Отображаем текущую дату, оборачивая её в <span>
+	const timeDisplay = document.getElementById("time-display"); // Элемент для отображения времени
+	timeDisplay.innerHTML = `Дата: <span>${formattedDate}</span>`;
 
-  // Скрываем первый экран и показываем блок с тестом
-  formStart.style.display = "none";
-  testBlock.style.display = "block";
+	// Скрываем первый экран и показываем блок с тестом
+	formStart.style.display = "none";
+	testBlock.style.display = "block";
 
-  // Запускаем загрузку вопросов
-  loadQuestions();
-}
+	// Запускаем загрузку вопросов
+	loadQuestions();
+
+	// Вызываем функцию генерации PDF (пример)
+	const resultsData = {}; // Ваши данные результатов
+	const patternsData = {}; // Ваши данные шаблонов
+	generatePDF(resultsData, patternsData); // Передаём данные в функцию генерации PDF
+ }
+
 // Обработчик кнопки "Пройти тест"
 document.getElementById("trek-button").addEventListener("click", function () {
   // Скрываем стартовый блок
@@ -294,6 +299,7 @@ function toggleLoaderTest(show) {
     console.error("Элемент с ID 'loader-test' не найден в DOM.");
   }
 }
+
 // Функция для перемешивания массива -------------------------------------------------
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
@@ -302,6 +308,7 @@ function shuffleArray(array) {
   }
   return array;
 }
+
 // Функция для рандомизации вопросов и их ответов------------------------------------
 function randomizeQuestionsAndAnswers() {
   if (!Array.isArray(questionsWithPatterns)) {
@@ -331,6 +338,7 @@ function randomizeQuestionsAndAnswers() {
     };
   });
 }
+
 //Показать вопрос--------------------------------------------------------------------
 function showQuestion() {
   // Если массив вопросов ещё не перемешан, перемешиваем их вместе с вариантами
@@ -1207,8 +1215,6 @@ async function generatePDF(resultsData, patternsData) {
                 pattern: dominanceResponse.pattern, // Сохраняем паттерн
                 percentage: dominanceResponse.percentage, // Процент доминирования
               });
-            } else {
-              console.log(dominanceResponse.status); // Выводим только статус для нейтрального
             }
           }
         });
@@ -1897,8 +1903,7 @@ document.getElementById("download-pdf").addEventListener("click", async () => {
     const resultsData = showResults();
     const patternsData = await loadPatterns();
     const customStyles = {};
-    const fullNameInput = document.getElementById("fullName"); // Поле ввода ФИО
-    const userFullName = fullNameInput.value.trim(); // Сохраняем введённое ФИО
+
     // Получаем необходимые данные для формата имени файла
     const testDate = new Date().toLocaleDateString("ru-RU"); // Получаем текущую дату (или получаем её из данных, если нужно)
 

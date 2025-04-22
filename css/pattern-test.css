@@ -1543,6 +1543,9 @@ td.question-cell-number[rowspan] {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  @media (max-width: 420px) {
+    font-size: 14px;
+  }
 }
 .pattern-result__label p {
   color: #000;

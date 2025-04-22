@@ -103,14 +103,12 @@ function validateForm() {
     formValid = false; // Валидация не пройдена
   }
 
-
   // Проверяем ввод ника в Telegram (не обязательно, но если есть, то не менее 3 символов)
   if (telegramNickname && telegramNickname.length < 3) {
     errorMessageTelegram.style.display = "block";
     errorMessageTelegram.textContent = "Если вводите ник, он должен содержать не менее 3 символов";
     formValid = false; // Валидация не пройдена
   }
-
 
   // Проверяем ввод электронной почты
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -870,18 +868,11 @@ function getDominanceResponse(subcategory) {
 }
 
 // Функция для генерации PDF------------------------------------------------
-function generatePDF(resultsData, patternsData) {
-  // Добавление проверок на наличие данных
-  if (!resultsData || resultsData.length === 0) {
-    console.error("Ошибка: resultsData пустой или не определен.");
-    return {}; // Возврат пустого документа
+async function generatePDF(resultsData, patternsData) {
+  if (!resultsData || resultsData.length === 0 || !patternsData || patternsData.length === 0) {
+    console.error("Ошибка: результаты или паттерны пустые или не определены.");
+    return new Blob(); // Возврат пустого Blob
   }
-
-  if (!patternsData || patternsData.length === 0) {
-    console.error("Ошибка: patternsData пустой или не определен.");
-    return {}; // Возврат пустого документа
-  }
-
   const defaultStyles = {
     //1 Блок Шапка документа---------------------------------
     //ФИО, дата
@@ -1693,22 +1684,20 @@ function generatePDF(resultsData, patternsData) {
     },
   };
 
-  // Формируем название файла
-  /* const fileName = `Паттерны ${userFullName} ${testDate}.pdf`; // Формат: "Паттерны Имя Фамилия ДД.ММ.ГГГГ"
-   */
-  // Генерация PDF
-  /*   pdfMake.createPdf(docDefinition).download(fileName); // Используем сгенерированное название файла */
-
   /* pdfMake.createPdf(docDefinition).open(); */
 
-  pdfMake.createPdf(docDefinition).getBlob((blob) => {
-    const url = URL.createObjectURL(blob);
-    const newWindow = window.open(url, "_blank");
-    if (!newWindow) {
-      alert("Пожалуйста, разрешите всплывающие окна для этого сайта.");
-    }
+  // Генерация PDF и возврат Blob
+  return new Promise((resolve, reject) => {
+    pdfMake.createPdf(docDefinition).getBlob((blob) => {
+      if (blob) {
+        resolve(blob);
+      } else {
+        reject("Ошибка при генерации Blob.");
+      }
+    });
   });
 }
+
 //Полоса под заголовком-----------------------
 const pageWidth = 595; // Ширина страницы A4 в PDFMake
 function createCenteredLine(lineWidth, yPosition) {
@@ -1900,30 +1889,75 @@ function addContactContent(content) {
   });
 }
 
-// Обработчик для кнопки генерации PDF----------------------------------------
+// Обработчик для кнопки скачивания PDF
 document.getElementById("download-pdf").addEventListener("click", async () => {
-  // Показываем пользователю прелоадер
   toggleLoader(true, "Подождите, идет генерация PDF...");
 
   try {
-    // Получаем данные для PDF
     const resultsData = showResults();
     const patternsData = await loadPatterns();
-
     const customStyles = {};
+    const fullNameInput = document.getElementById("fullName"); // Поле ввода ФИО
+    const userFullName = fullNameInput.value.trim(); // Сохраняем введённое ФИО
+    // Получаем необходимые данные для формата имени файла
+    const testDate = new Date().toLocaleDateString("ru-RU"); // Получаем текущую дату (или получаем её из данных, если нужно)
 
-    // Генерация PDF
-    generatePDF(resultsData, patternsData, customStyles);
+    // Генерация PDF и получение Blob
+    const pdfBlob = await generatePDF(resultsData, patternsData, customStyles);
+
+    // Формируем название файла
+    const fileName = `Паттерны ${userFullName} ${testDate}.pdf`; // Формат: "Паттерны Имя Фамилия ДД.ММ.ГГГГ"
+
+    // Создание ссылки для скачивания
+    const url = URL.createObjectURL(pdfBlob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = fileName; // Используем сгенерированное название файла
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
   } catch (error) {
     console.error("Ошибка при создании PDF:", error);
-
-    // Уведомление об ошибке
     alert("Произошла ошибка при создании PDF. Пожалуйста, попробуйте снова.");
   } finally {
-    // Скрываем прелоадер независимо от результатов
     toggleLoader(false);
   }
 });
+
+// Обработчик для кнопки открытия PDF
+document.getElementById("open-pdf").addEventListener("click", async () => {
+	toggleLoader(true, "Подождите, идет генерация PDF...");
+
+	try {
+	  const resultsData = showResults();
+	  const patternsData = await loadPatterns();
+	  const customStyles = {};
+
+	  // Генерация PDF и получение Blob
+	  const pdfBlob = await generatePDF(resultsData, patternsData, customStyles);
+
+	  // Создаем URL и открываем в новом окне
+	  const url = URL.createObjectURL(pdfBlob);
+	  const newWindow = window.open(url, "_blank");
+
+	  // Проверяем, успешно ли открылось новое окно
+	  if (!newWindow) {
+		 alert("Пожалуйста, разрешите всплывающие окна для этого сайта.");
+	  }
+
+	  // Очистка URL после завершения использования
+	  newWindow.onload = () => {
+		 URL.revokeObjectURL(url);
+	  };
+
+	} catch (error) {
+	  console.error("Ошибка при создании PDF:", error);
+	  alert("Произошла ошибка при создании PDF. Пожалуйста, попробуйте снова.");
+	} finally {
+	  toggleLoader(false);
+	}
+ });
+
 
 // Показываем/скрываем прелоадер-----------------------------------------------------
 function toggleLoader(show, message = "Подождите, идет генерация...") {
@@ -1939,7 +1973,7 @@ function toggleLoader(show, message = "Подождите, идет генера
 }
 
 /* Кнопка "Тест"============================================================== */
-/* document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {
   const startFillButton = document.getElementById("fill-test-answers"); // Кнопка "Начать тест"
 
   // Подключаем обработчик клика к кнопке "Начать тест"
@@ -1965,5 +1999,5 @@ function fillTestAnswers() {
   // Устанавливаем индекс на конец вопросов
   currentQuestionIndex = questionsWithPatterns.length;
   showResults(); // Показываем результаты
-} */
+}
 /* тест============================================================================ */

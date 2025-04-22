@@ -881,7 +881,7 @@ function getDominanceResponse(subcategory) {
 }
 
 // Функция для генерации PDF------------------------------------------------
-async function generatePDF(resultsData, patternsData) {
+function generatePDF(resultsData, patternsData) {
   if (!resultsData || resultsData.length === 0 || !patternsData || patternsData.length === 0) {
     console.error("Ошибка: результаты или паттерны пустые или не определены.");
     return new Blob(); // Возврат пустого Blob
@@ -1942,41 +1942,49 @@ document.getElementById("download-pdf").addEventListener("click", async () => {
 
 // Обработчик для кнопки открытия PDF
 document.getElementById("open-pdf").addEventListener("click", async () => {
-  toggleLoader(true, "Подождите, идет генерация PDF...");
+	toggleLoader(true, "Подождите, идет генерация PDF...");
 
-  try {
-    const resultsData = showResults();
-    const patternsData = await loadPatterns();
-    const customStyles = {};
+	try {
+	  const resultsData = showResults();
+	  const patternsData = await loadPatterns();
+	  const customStyles = {};
 
-    // Генерация PDF и получение Blob
-    const pdfBlob = await generatePDF(resultsData, patternsData, customStyles);
+	  // Генерация PDF и получение Blob
+	  const pdfBlob = await generatePDF(resultsData, patternsData, customStyles);
 
-    // Проверяем, что pdfBlob действительно создан
-    if (!pdfBlob || pdfBlob.size === 0) {
-      throw new Error("PDF не был сгенерирован.");
-    }
+	  // Проверяем, что pdfBlob действительно создан
+	  if (!pdfBlob || pdfBlob.size === 0) {
+		 throw new Error("PDF не был сгенерирован.");
+	  }
 
-    // Создаем URL и открываем в новом окне
-    const url = URL.createObjectURL(pdfBlob);
-    const newWindow = window.open(url, "_blank");
+	  // Создаем URL и открываем в новом окне
+	  const url = URL.createObjectURL(pdfBlob);
+	  const newWindow = window.open(url, "_blank");
 
-    // Проверяем, успешно ли открылось новое окно
-    if (!newWindow) {
-      alert("Пожалуйста, разрешите всплывающие окна для этого сайта.");
-    }
+	  // Проверяем, успешно ли открылось новое окно
+	  if (!newWindow || newWindow.closed || typeof newWindow.closed == 'undefined') {
+		 // Если окно не открылось, предложите скачать файл
+		 const a = document.createElement("a");
+		 a.href = url;
+		 a.download = `Паттерны ${userFullName} ${new Date().toLocaleDateString("ru-RU")}.pdf`;
+		 document.body.appendChild(a);
+		 a.click();
+		 document.body.removeChild(a);
+		 alert("Всплывающее окно не удалось открыть. PDF-файл будет загружен.");
+	  }
 
-    // Очистка URL после завершения использования
-    newWindow.onload = () => {
-      URL.revokeObjectURL(url);
-    };
-  } catch (error) {
-    console.error("Ошибка при создании PDF:", error);
-    alert("Произошла ошибка при создании PDF. Пожалуйста, попробуйте снова.");
-  } finally {
-    toggleLoader(false);
-  }
-});
+	  // Очистка URL после завершения использования
+	  newWindow.onload = () => {
+		 URL.revokeObjectURL(url);
+	  };
+	} catch (error) {
+	  console.error("Ошибка при создании PDF:", error);
+	  alert("Произошла ошибка при создании PDF. Пожалуйста, попробуйте снова.");
+	} finally {
+	  toggleLoader(false);
+	}
+ });
+
 
 // Показываем/скрываем прелоадер-----------------------------------------------------
 function toggleLoader(show, message = "Подождите, идет генерация...") {
@@ -1992,7 +2000,7 @@ function toggleLoader(show, message = "Подождите, идет генера
 }
 
 /* Кнопка "Тест"============================================================== */
-document.addEventListener("DOMContentLoaded", () => {
+/* document.addEventListener("DOMContentLoaded", () => {
   const startFillButton = document.getElementById("fill-test-answers"); // Кнопка "Начать тест"
 
   // Подключаем обработчик клика к кнопке "Начать тест"
@@ -2020,5 +2028,5 @@ function fillTestAnswers() {
   showResults(); // Показываем результаты
   // Прокручиваем страницу к форме заполнения
   formStart.scrollIntoView({ behavior: "smooth" }); // Прокрутка с анимацией
-}
+} */
 /* тест============================================================================ */

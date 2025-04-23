@@ -1898,11 +1898,10 @@ function generatePDF(resultsData, patternsData) {
   const fileName = `Паттерны ${userFullName} ${testDate}.pdf`;
 
   // Генерация PDF
-  pdfMake.createPdf(docDefinition).getBlob((blob) => {
-    // Здесь будет вызов функции для скачивания файла
-    downloadBlob(blob, fileName);
-  });
+  pdfMake.createPdf(docDefinition).download(`${fileName}.pdf`);
+
 }
+
 // Обработчик для кнопки генерации PDF----------------------------------------
 document.getElementById("download-pdf").addEventListener("click", async () => {
   // Показываем пользователю прелоадер
@@ -1928,56 +1927,6 @@ document.getElementById("download-pdf").addEventListener("click", async () => {
   }
 });
 
-// Функция для скачивания файла из Blob
-function downloadBlob(blob, fileName) {
-  if (!(blob instanceof Blob)) {
-    console.error("Ошибка генерации Blob");
-    alert("Ошибка генерации файла. Попробуйте ещё раз.");
-    return;
-  }
-
-  // Проверка на iOS
-  if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
-    const reader = new FileReader();
-    reader.onload = function () {
-      const base64data = reader.result;
-      const safariLink = document.createElement("a");
-      safariLink.href = base64data;
-      safariLink.download = fileName;
-      safariLink.click();
-    };
-    reader.readAsDataURL(blob);
-    return;
-  }
-
-  const url = URL.createObjectURL(blob);
-
-  // Пытаемся использовать стандартный метод
-  const link = document.createElement("a");
-  link.href = url;
-  link.download = fileName;
-  link.style.display = "none";
-
-  // Для мобильных устройств
-  if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-    // Открываем в новой вкладке
-    link.target = "_blank";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  } else {
-    // Для десктопов используем стандартное скачивание
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  }
-  // Показать модальное окно после успешного скачивания
-
-  setTimeout(() => showModal(), 500);
-
-  // Отложенное освобождение URL
-  setTimeout(() => URL.revokeObjectURL(url), 5000);
-}
 /* showModal успешное скачивание================================================= */
 // Функция для показа модального окна
 function showModal() {
@@ -1990,36 +1939,6 @@ document.getElementById("closeModal").onclick = function () {
   const modal = document.getElementById("successModal");
   modal.style.display = "none";
 };
-
-/* ==проверка браузера телеграм============================================== */
-// Функция для проверки, используется ли Telegram в качестве браузера
-function isTelegramBrowser() {
-  return /Telegram/i.test(navigator.userAgent);
-}
-
-// Функция для открытия стандартного браузера
-function openInStandardBrowser() {
-  const url = window.location.href; // Получаем текущий URL
-  // Переход в стандартный браузер
-  window.open(url, "_blank");
-}
-
-// Функция для показа модального окна
-function showBrowserWarning() {
-  const modal = document.getElementById("browserWarningModal");
-  modal.style.display = "block";
-}
-
-// Закрытие модального окна
-document.getElementById("closeModalBrowser").onclick = function () {
-  const modal = document.getElementById("browserWarningModal");
-  modal.style.display = "none";
-};
-
-// Проверяем, является ли браузер Telegram
-if (isTelegramBrowser()) {
-  showBrowserWarning(); // Показываем предупреждение, если браузер Telegram
-}
 
 /* Кнопка "Тест"============================================================== */
 document.addEventListener("DOMContentLoaded", () => {

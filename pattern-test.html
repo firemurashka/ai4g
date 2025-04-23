@@ -501,6 +501,12 @@
                   <!--  <button class="patterns-button patterns-button_download" id="open-pdf">Открыть PDF</button> -->
                   <div class="download__title">Скачать ваш отчет в формате pdf</div>
                   <button class="patterns-button patterns-button_download" id="download-pdf">Скачать PDF</button>
+                  <div id="successModal" class="modal">
+                    <div class="modal-content">
+                      <span class="close-btn" id="closeModal">&times;</span>
+                      <p>Файл успешно скачан!</p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -525,7 +531,7 @@
             </div>
           </div>
           <!-- тестовая кнопка - удалить========================================= -->
-           <div id="quiz-controls">
+          <div id="quiz-controls">
             <button class="patterns-button quiz-patterns__button_test" id="fill-test-answers">Заполнить тестовые ответы</button>
           </div>
           <style>
@@ -537,7 +543,17 @@
           <!-- тестовая кнопка - удалить -->
         </section>
       </main>
-
+      <div id="browserWarningModal" class="modal-browser">
+        <div class="modal-content-browser">
+          <span class="close-btn-browser" id="closeModalBrowser">&times;</span>
+          <p>
+            Мы рекомендуем открыть этот сайт в стандартном браузере для лучшей безопасности и производительности.
+            <br />
+            Пожалуйста, нажмите кнопку ниже, чтобы открыть в стандартном браузере.
+          </p>
+          <button class="offer-test__button patterns-button" id="openInBrowser" onclick="openInStandardBrowser()">Открыть в стандартном браузере</button>
+        </div>
+      </div>
       <footer class="footer">
         <div class="footer__super-wrapper">
           <div class="footer__wrapper">

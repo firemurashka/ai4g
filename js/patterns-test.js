@@ -868,6 +868,210 @@ function getDominanceResponse(subcategory) {
   };
 }
 
+//Полоса под заголовком-----------------------
+const pageWidth = 595; // Ширина страницы A4 в PDFMake
+function createCenteredLine(lineWidth, yPosition) {
+  return {
+    canvas: [
+      {
+        type: "rect",
+        x: (pageWidth - lineWidth) / 2, // Центрируем по x
+        y: yPosition, // Используем переданное значение
+        w: lineWidth,
+        h: 1,
+        color: "#ff008a",
+      },
+    ],
+    margin: [0, 0, 0, 20],
+    relativePosition: { x: -50, y: 0 }, // Позиция относительно блока
+  };
+}
+
+//Текстовый блок------------------------------------------------
+function addContactContent(content) {
+  // блок Контакты------------------
+  content.push({
+    text: [{ text: "Контакты", style: "secondTitle" }],
+    margin: [0, 0, 0, 5],
+  });
+  content.push(createCenteredLine(200, 0));
+  // Текст
+  content.push({
+    text: [{ text: "По любым возникающим вопросам можно связаться с автором проекта Еленой Семеновой:", style: "secondText" }],
+    margin: [0, 0, 0, 10],
+  });
+
+  content.push({
+    text: [
+      { text: "Телефон: ", style: "secondTextLink" },
+      { text: "+7 916 960 1863", style: "secondLink", link: "tel:+79169601863" },
+    ],
+    margin: [0, 0, 0, 5],
+  });
+
+  content.push({
+    text: [
+      { text: "Ник в телеграм: ", style: "secondTextLink" },
+      { text: "@SemenovaElena", style: "secondLink", link: "https://t.me/SemenovaElena" },
+    ],
+    margin: [0, 0, 0, 5],
+  });
+
+  // Email
+  content.push({
+    text: [
+      { text: "Email: ", style: "secondTextLink" },
+      { text: "es@ai4g.ru", style: "secondLink", link: "mailto:es@ai4g.ru" },
+    ],
+    margin: [0, 0, 0, 5],
+  });
+  content.push({
+    text: [{ text: "www.coachsemenova.com", style: "secondLink", link: "https://coachsemenova.com/" }],
+    margin: [0, 0, 0, 20],
+  });
+  // Администратор проекта
+  content.push({
+    text: [{ text: "Администратор проекта:", style: "secondText" }],
+    margin: [0, 0, 0, 10],
+  });
+
+  content.push({
+    text: [
+      { text: "Сергей Ковальчук : ", style: "secondTextLink" },
+      { text: "+7 965 753 6693", style: "secondLink", link: "tel:+79657536693" },
+    ],
+    margin: [0, 0, 0, 5],
+  });
+  content.push({
+    text: [
+      { text: "Ник в телеграм: ", style: "secondTextLink" },
+      { text: "@smkovalchuk", style: "secondLink", link: "https://t.me/smkovalchuk" },
+    ],
+    margin: [0, 0, 0, 20],
+  });
+  // Наш сайт
+  content.push({
+    text: [{ text: "Наш проект:", style: "secondText" }],
+    margin: [0, 0, 0, 10],
+  });
+
+  content.push({
+    text: [{ text: "www.ai4g.ru", style: "secondLink", link: "https://ai4g.ru/" }],
+    margin: [0, 0, 0, 5],
+  });
+
+  content.push({
+    text: [
+      { text: "Email: ", style: "secondTextLink" },
+      { text: "info@ai4g.ru", style: "secondLink", link: "mailto:info@ai4g.ru" },
+    ],
+    margin: [0, 0, 0, 5],
+  });
+
+  content.push({
+    text: [
+      { text: "Канал в телеграм: ", style: "secondTextLink" },
+      { text: "@life_watch", style: "secondLink", link: "https://t.me/life_watch" },
+    ],
+    margin: [0, 0, 0, 35],
+  });
+
+  // Блок Пройти тест повторно------------------
+  content.push({
+    text: [{ text: "Пройти тест повторно", style: "secondTitle" }],
+    margin: [0, 0, 0, 5],
+  });
+
+  content.push(createCenteredLine(200, 0));
+  content.push({
+    text: [
+      { text: "Если у вас возникнет желание пройти тест на паттерны повторно, вы всегда можете сделать это на нашем сайте: ", style: "secondTextLink" },
+      { text: "https://ai4g.ru/pattern-test.html", style: "secondLink", link: "https://ai4g.ru/pattern-test.html" },
+    ],
+    margin: [0, 0, 0, 10],
+  });
+
+  content.push({
+    text: [
+      {
+        text: "Хотя набор ваших паттернов обычно остается стабильным, жизненные обстоятельства и работа над собой могут привести к изменениям в вашем внутреннем состоянии. Эти изменения могут отразиться на ваших результатах в тесте. Мы рекомендуем проводить повторное тестирование не ранее чем через 3 месяца, чтобы отслеживать изменения в ваших паттернах.",
+        style: "secondTextLink",
+      },
+    ],
+    margin: [0, 0, 0, 10],
+  });
+
+  content.push({
+    text: [
+      { text: "Если вы хотите порекомендовать тест своим знакомым, просто поделитесь с ними ссылкой на наш сайт: ", style: "secondTextLink" },
+      { text: "https://ai4g.ru/pattern-test.html", style: "secondLink", link: "https://ai4g.ru/pattern-test.html" },
+    ],
+    margin: [0, 0, 0, 35],
+  });
+
+  content.push({ text: "", pageBreak: "before" });
+
+  // Автор проекта---------------------------
+  content.push({
+    text: [{ text: "Автор проекта", style: "secondTitle" }],
+    margin: [0, 0, 0, 5],
+  });
+  content.push(createCenteredLine(200, 0));
+
+  content.push({
+    text: [{ text: "Елена Семенова", style: "secondText", bold: true }],
+    margin: [0, 0, 0, 10],
+  });
+
+  content.push({
+    ul: [
+      { text: "Коуч, карьерный консультант, эксперт по управлению репутацией.\n", style: "secondList" },
+      {
+        text: "Образование: Окончила университет по специальности биология; РАГС при Президенте РФ по специальностям психология, управление персоналом; АНХ при Правительстве РФ по направлению менеджмент.\n",
+        style: "secondList",
+      },
+      {
+        text: "Прошла профессиональную переподготовку по психодиагностике (Институт Психологии РАН), медицинской психологии (Центр им В.П. Сербского).\n",
+        style: "secondList",
+      },
+      {
+        text: "Более 30 лет экспертизы в области работы с людьми. Опыт работы в ИТ, финансах и промышленности (ЗГД по оргразвитию и персоналу, операционный директор, управляющий директор).\n",
+        style: "secondList",
+      },
+      {
+        text: "Клиенты: собственники компаний, CEO, топ-менеджеры, высшие должностные лица (первые и вторые лица муниципального и гос управления уровня мэров городов, губернаторов, министров и заместителей министров).\n",
+        style: "secondList",
+      },
+      {
+        text: "Компании: Сбербанк, Банк «Открытие», Альфа групп, Газпроммедиагрупп, Север групп, Ренова, Колмар, ПЭК, ПКБ, Первая Линия, Правительство Москвы, Татарстана, Башкирии.\n",
+        style: "secondList",
+      },
+      { text: "Благотворительные фонды: Фонд президентских грантов, Фонд Потанина.\n", style: "secondList" },
+      {
+        text: "Основные места работы: Allianz, Информзащита; Газтехлизинг, Энвижн Груп (группа МТС), Ангара технологии, промышленная группа ПАО Соллерс.\n",
+        style: "secondList",
+      },
+      { text: "Эксперт по оценке и развитию людей, сертифицирована по инструментам Hogan, Gallup и др.\n", style: "secondList" },
+      /* { text: "Сертифицированный коуч и фасилитатор, с 2011 года ассоциированный коуч бизнес-школы Сколково.\n", style: "secondList" },
+		  { text: "Профессор практики в Антверпенской школе бизнеса AMS, содиректор академических программ.\n\n", style: "secondList" }, */
+    ],
+    margin: [10, 0, 0, 35],
+  });
+}
+
+// Показываем/скрываем прелоадер-----------------------------------------------------
+function toggleLoader(show, message = "Подождите, идет генерация...") {
+  const loaderOverlay = document.getElementById("loader-overlay");
+  const loaderText = document.getElementById("loader-text");
+
+  if (show) {
+    loaderText.textContent = message; // Устанавливаем сообщение
+    loaderOverlay.style.display = "flex"; // Показываем прелоадер
+  } else {
+    loaderOverlay.style.display = "none"; // Скрываем прелоадер
+  }
+}
+
 // Функция для генерации PDF------------------------------------------------
 function generatePDF(resultsData, patternsData) {
   // Добавление проверок на наличие данных
@@ -1689,249 +1893,16 @@ function generatePDF(resultsData, patternsData) {
       };
     },
   };
+
   // Получаем имя файла
   const fileName = `Паттерны ${userFullName} ${testDate}.pdf`;
 
   // Генерация PDF
   pdfMake.createPdf(docDefinition).getBlob((blob) => {
-    if (!(blob instanceof Blob)) {
-      console.error("Ошибка генерации Blob");
-      toggleLoader(false);
-      alert("Ошибка генерации файла. Попробуйте ещё раз.");
-      return;
-    }
-    // Проверка на iOS
-    if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
-      const reader = new FileReader();
-      reader.onload = function () {
-        const base64data = reader.result;
-        const safariLink = document.createElement("a");
-        safariLink.href = base64data;
-        safariLink.download = fileName;
-        safariLink.click();
-      };
-      reader.readAsDataURL(blob);
-      return;
-    }
-    const url = URL.createObjectURL(blob);
-
-    // Пытаемся использовать стандартный метод
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = fileName;
-    link.style.display = "none";
-
-    // Для мобильных устройств
-    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-      // Открываем в новой вкладке
-      link.target = "_blank";
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    } else {
-      // Для десктопов используем стандартное скачивание
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    }
-
-    // Отложенное освобождение URL
-    setTimeout(() => URL.revokeObjectURL(url), 5000);
-
-
+    // Здесь будет вызов функции для скачивания файла
+    downloadBlob(blob, fileName);
   });
 }
-//Полоса под заголовком-----------------------
-const pageWidth = 595; // Ширина страницы A4 в PDFMake
-function createCenteredLine(lineWidth, yPosition) {
-  return {
-    canvas: [
-      {
-        type: "rect",
-        x: (pageWidth - lineWidth) / 2, // Центрируем по x
-        y: yPosition, // Используем переданное значение
-        w: lineWidth,
-        h: 1,
-        color: "#ff008a",
-      },
-    ],
-    margin: [0, 0, 0, 20],
-    relativePosition: { x: -50, y: 0 }, // Позиция относительно блока
-  };
-}
-
-//Текстовый блок------------------------------------------------
-function addContactContent(content) {
-  // блок Контакты------------------
-  content.push({
-    text: [{ text: "Контакты", style: "secondTitle" }],
-    margin: [0, 0, 0, 5],
-  });
-  content.push(createCenteredLine(200, 0));
-  // Текст
-  content.push({
-    text: [{ text: "По любым возникающим вопросам можно связаться с автором проекта Еленой Семеновой:", style: "secondText" }],
-    margin: [0, 0, 0, 10],
-  });
-
-  content.push({
-    text: [
-      { text: "Телефон: ", style: "secondTextLink" },
-      { text: "+7 916 960 1863", style: "secondLink", link: "tel:+79169601863" },
-    ],
-    margin: [0, 0, 0, 5],
-  });
-
-  content.push({
-    text: [
-      { text: "Ник в телеграм: ", style: "secondTextLink" },
-      { text: "@SemenovaElena", style: "secondLink", link: "https://t.me/SemenovaElena" },
-    ],
-    margin: [0, 0, 0, 5],
-  });
-
-  // Email
-  content.push({
-    text: [
-      { text: "Email: ", style: "secondTextLink" },
-      { text: "es@ai4g.ru", style: "secondLink", link: "mailto:es@ai4g.ru" },
-    ],
-    margin: [0, 0, 0, 5],
-  });
-  content.push({
-    text: [{ text: "www.coachsemenova.com", style: "secondLink", link: "https://coachsemenova.com/" }],
-    margin: [0, 0, 0, 20],
-  });
-  // Администратор проекта
-  content.push({
-    text: [{ text: "Администратор проекта:", style: "secondText" }],
-    margin: [0, 0, 0, 10],
-  });
-
-  content.push({
-    text: [
-      { text: "Сергей Ковальчук : ", style: "secondTextLink" },
-      { text: "+7 965 753 6693", style: "secondLink", link: "tel:+79657536693" },
-    ],
-    margin: [0, 0, 0, 5],
-  });
-  content.push({
-    text: [
-      { text: "Ник в телеграм: ", style: "secondTextLink" },
-      { text: "@smkovalchuk", style: "secondLink", link: "https://t.me/smkovalchuk" },
-    ],
-    margin: [0, 0, 0, 20],
-  });
-  // Наш сайт
-  content.push({
-    text: [{ text: "Наш проект:", style: "secondText" }],
-    margin: [0, 0, 0, 10],
-  });
-
-  content.push({
-    text: [{ text: "www.ai4g.ru", style: "secondLink", link: "https://ai4g.ru/" }],
-    margin: [0, 0, 0, 5],
-  });
-
-  content.push({
-    text: [
-      { text: "Email: ", style: "secondTextLink" },
-      { text: "info@ai4g.ru", style: "secondLink", link: "mailto:info@ai4g.ru" },
-    ],
-    margin: [0, 0, 0, 5],
-  });
-
-  content.push({
-    text: [
-      { text: "Канал в телеграм: ", style: "secondTextLink" },
-      { text: "@life_watch", style: "secondLink", link: "https://t.me/life_watch" },
-    ],
-    margin: [0, 0, 0, 35],
-  });
-
-  // Блок Пройти тест повторно------------------
-  content.push({
-    text: [{ text: "Пройти тест повторно", style: "secondTitle" }],
-    margin: [0, 0, 0, 5],
-  });
-
-  content.push(createCenteredLine(200, 0));
-  content.push({
-    text: [
-      { text: "Если у вас возникнет желание пройти тест на паттерны повторно, вы всегда можете сделать это на нашем сайте: ", style: "secondTextLink" },
-      { text: "https://ai4g.ru/pattern-test.html", style: "secondLink", link: "https://ai4g.ru/pattern-test.html" },
-    ],
-    margin: [0, 0, 0, 10],
-  });
-
-  content.push({
-    text: [
-      {
-        text: "Хотя набор ваших паттернов обычно остается стабильным, жизненные обстоятельства и работа над собой могут привести к изменениям в вашем внутреннем состоянии. Эти изменения могут отразиться на ваших результатах в тесте. Мы рекомендуем проводить повторное тестирование не ранее чем через 3 месяца, чтобы отслеживать изменения в ваших паттернах.",
-        style: "secondTextLink",
-      },
-    ],
-    margin: [0, 0, 0, 10],
-  });
-
-  content.push({
-    text: [
-      { text: "Если вы хотите порекомендовать тест своим знакомым, просто поделитесь с ними ссылкой на наш сайт: ", style: "secondTextLink" },
-      { text: "https://ai4g.ru/pattern-test.html", style: "secondLink", link: "https://ai4g.ru/pattern-test.html" },
-    ],
-    margin: [0, 0, 0, 35],
-  });
-
-  content.push({ text: "", pageBreak: "before" });
-
-  // Автор проекта---------------------------
-  content.push({
-    text: [{ text: "Автор проекта", style: "secondTitle" }],
-    margin: [0, 0, 0, 5],
-  });
-  content.push(createCenteredLine(200, 0));
-
-  content.push({
-    text: [{ text: "Елена Семенова", style: "secondText", bold: true }],
-    margin: [0, 0, 0, 10],
-  });
-
-  content.push({
-    ul: [
-      { text: "Коуч, карьерный консультант, эксперт по управлению репутацией.\n", style: "secondList" },
-      {
-        text: "Образование: Окончила университет по специальности биология; РАГС при Президенте РФ по специальностям психология, управление персоналом; АНХ при Правительстве РФ по направлению менеджмент.\n",
-        style: "secondList",
-      },
-      {
-        text: "Прошла профессиональную переподготовку по психодиагностике (Институт Психологии РАН), медицинской психологии (Центр им В.П. Сербского).\n",
-        style: "secondList",
-      },
-      {
-        text: "Более 30 лет экспертизы в области работы с людьми. Опыт работы в ИТ, финансах и промышленности (ЗГД по оргразвитию и персоналу, операционный директор, управляющий директор).\n",
-        style: "secondList",
-      },
-      {
-        text: "Клиенты: собственники компаний, CEO, топ-менеджеры, высшие должностные лица (первые и вторые лица муниципального и гос управления уровня мэров городов, губернаторов, министров и заместителей министров).\n",
-        style: "secondList",
-      },
-      {
-        text: "Компании: Сбербанк, Банк «Открытие», Альфа групп, Газпроммедиагрупп, Север групп, Ренова, Колмар, ПЭК, ПКБ, Первая Линия, Правительство Москвы, Татарстана, Башкирии.\n",
-        style: "secondList",
-      },
-      { text: "Благотворительные фонды: Фонд президентских грантов, Фонд Потанина.\n", style: "secondList" },
-      {
-        text: "Основные места работы: Allianz, Информзащита; Газтехлизинг, Энвижн Груп (группа МТС), Ангара технологии, промышленная группа ПАО Соллерс.\n",
-        style: "secondList",
-      },
-      { text: "Эксперт по оценке и развитию людей, сертифицирована по инструментам Hogan, Gallup и др.\n", style: "secondList" },
-      /* { text: "Сертифицированный коуч и фасилитатор, с 2011 года ассоциированный коуч бизнес-школы Сколково.\n", style: "secondList" },
-		  { text: "Профессор практики в Антверпенской школе бизнеса AMS, содиректор академических программ.\n\n", style: "secondList" }, */
-    ],
-    margin: [10, 0, 0, 35],
-  });
-}
-
 // Обработчик для кнопки генерации PDF----------------------------------------
 document.getElementById("download-pdf").addEventListener("click", async () => {
   // Показываем пользователю прелоадер
@@ -1957,17 +1928,97 @@ document.getElementById("download-pdf").addEventListener("click", async () => {
   }
 });
 
-// Показываем/скрываем прелоадер-----------------------------------------------------
-function toggleLoader(show, message = "Подождите, идет генерация...") {
-  const loaderOverlay = document.getElementById("loader-overlay");
-  const loaderText = document.getElementById("loader-text");
-
-  if (show) {
-    loaderText.textContent = message; // Устанавливаем сообщение
-    loaderOverlay.style.display = "flex"; // Показываем прелоадер
-  } else {
-    loaderOverlay.style.display = "none"; // Скрываем прелоадер
+// Функция для скачивания файла из Blob
+function downloadBlob(blob, fileName) {
+  if (!(blob instanceof Blob)) {
+    console.error("Ошибка генерации Blob");
+    alert("Ошибка генерации файла. Попробуйте ещё раз.");
+    return;
   }
+
+  // Проверка на iOS
+  if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+    const reader = new FileReader();
+    reader.onload = function () {
+      const base64data = reader.result;
+      const safariLink = document.createElement("a");
+      safariLink.href = base64data;
+      safariLink.download = fileName;
+      safariLink.click();
+    };
+    reader.readAsDataURL(blob);
+    return;
+  }
+
+  const url = URL.createObjectURL(blob);
+
+  // Пытаемся использовать стандартный метод
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = fileName;
+  link.style.display = "none";
+
+  // Для мобильных устройств
+  if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+    // Открываем в новой вкладке
+    link.target = "_blank";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  } else {
+    // Для десктопов используем стандартное скачивание
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+  // Показать модальное окно после успешного скачивания
+
+  setTimeout(() => showModal(), 500);
+
+  // Отложенное освобождение URL
+  setTimeout(() => URL.revokeObjectURL(url), 5000);
+}
+/* showModal успешное скачивание================================================= */
+// Функция для показа модального окна
+function showModal() {
+  const modal = document.getElementById("successModal");
+  modal.style.display = "block";
+}
+
+// Функция для закрытия модального окна
+document.getElementById("closeModal").onclick = function () {
+  const modal = document.getElementById("successModal");
+  modal.style.display = "none";
+};
+
+/* ==проверка браузера телеграм============================================== */
+// Функция для проверки, используется ли Telegram в качестве браузера
+function isTelegramBrowser() {
+  return /Telegram/i.test(navigator.userAgent);
+}
+
+// Функция для открытия стандартного браузера
+function openInStandardBrowser() {
+  const url = window.location.href; // Получаем текущий URL
+  // Переход в стандартный браузер
+  window.open(url, "_blank");
+}
+
+// Функция для показа модального окна
+function showBrowserWarning() {
+  const modal = document.getElementById("browserWarningModal");
+  modal.style.display = "block";
+}
+
+// Закрытие модального окна
+document.getElementById("closeModalBrowser").onclick = function () {
+  const modal = document.getElementById("browserWarningModal");
+  modal.style.display = "none";
+};
+
+// Проверяем, является ли браузер Telegram
+if (isTelegramBrowser()) {
+  showBrowserWarning(); // Показываем предупреждение, если браузер Telegram
 }
 
 /* Кнопка "Тест"============================================================== */

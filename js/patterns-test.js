@@ -689,12 +689,11 @@ function generateHistogram(histogramData) {
       const categoryClass = categoryClassMap[category] || "default-class";
 
       // В зависимости от ширины экрана устанавливаем height или width
-      const isMobile = window.innerWidth < 768;
 
       column.innerHTML = `
 			 <span class="histogram__percentage ${percentageClass}">${percentage}%</span>
 			 <div class="histogram__bar-container">
-				<div class="histogram__bar ${categoryClass}" style="${isMobile ? `width: ${percentage}%` : `height: ${percentage}%`}"></div>
+				<div class="histogram__bar ${categoryClass}" style="${`width: ${percentage}%`}"></div>
 			 </div>
 			 <span class="histogram__pattern">${abbreviation}</span>
 		  `;
@@ -1216,8 +1215,6 @@ function generatePDF(resultsData, patternsData) {
                 pattern: dominanceResponse.pattern, // Сохраняем паттерн
                 percentage: dominanceResponse.percentage, // Процент доминирования
               });
-            } else {
-              console.log(dominanceResponse.status); // Выводим только статус для нейтрального
             }
           }
         });
@@ -1692,16 +1689,57 @@ function generatePDF(resultsData, patternsData) {
       };
     },
   };
-
-  // Формируем название файла
-  // Формат: "Паттерны Имя Фамилия ДД.ММ.ГГГГ"
+  // Получаем имя файла
   const fileName = `Паттерны ${userFullName} ${testDate}.pdf`;
 
   // Генерация PDF
-  // Используем сгенерированное название файла
-  pdfMake.createPdf(docDefinition).download(fileName);
+  pdfMake.createPdf(docDefinition).getBlob((blob) => {
+    if (!(blob instanceof Blob)) {
+      console.error("Ошибка генерации Blob");
+      toggleLoader(false);
+      alert("Ошибка генерации файла. Попробуйте ещё раз.");
+      return;
+    }
+    // Проверка на iOS
+    if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+      const reader = new FileReader();
+      reader.onload = function () {
+        const base64data = reader.result;
+        const safariLink = document.createElement("a");
+        safariLink.href = base64data;
+        safariLink.download = fileName;
+        safariLink.click();
+      };
+      reader.readAsDataURL(blob);
+      return;
+    }
+    const url = URL.createObjectURL(blob);
 
-  /* pdfMake.createPdf(docDefinition).open(); */
+    // Пытаемся использовать стандартный метод
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = fileName;
+    link.style.display = "none";
+
+    // Для мобильных устройств
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+      // Открываем в новой вкладке
+      link.target = "_blank";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } else {
+      // Для десктопов используем стандартное скачивание
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    // Отложенное освобождение URL
+    setTimeout(() => URL.revokeObjectURL(url), 5000);
+
+
+  });
 }
 //Полоса под заголовком-----------------------
 const pageWidth = 595; // Ширина страницы A4 в PDFMake

@@ -1564,12 +1564,16 @@ td.question-cell-number[rowspan] {
 }
 .histogram__body {
   margin-bottom: 30px;
-  padding: 30px;
   border: 1px solid #dde3e8;
   background: #ffffff;
   border-radius: 5px;
   color: #000;
+  padding: 30px;
+  @media (max-width: 768px) {
+    padding: 15px;
+  }
 }
+
 .histogram__title {
   text-align: center;
   line-height: 120%;
@@ -1577,23 +1581,35 @@ td.question-cell-number[rowspan] {
   font-weight: 700;
   margin: 0px 0px 40px 0px;
   color: #000;
+  @media (max-width: 768px) {
+    padding: 15px;
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0px 0px 20px 0px;
+    text-align: left;
+  }
 }
 
 .histogram__columns {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  gap: 20px;
-  height: 300px;
-  padding: 0 40px;
   margin: 0px 0px 40px 0px;
+  flex-direction: column;
+  height: auto;
+  gap: 15px;
 }
+
 .histogram__column {
   display: flex;
-  flex-direction: column;
   align-items: center;
   height: 100%;
   width: 10px;
+  width: 100%;
+  height: auto;
+  flex-direction: row-reverse;
+  gap: 10px;
+  margin-bottom: 0;
 }
 
 .histogram__percentage {
@@ -1603,7 +1619,12 @@ td.question-cell-number[rowspan] {
   line-height: 140%;
   font-weight: 500;
 }
-
+.histogram__percentage {
+	order: 1;
+	width: 50px;
+	text-align: right;
+	margin-bottom: 0;
+ }
 .histogram__bar-container {
   flex-grow: 1;
   width: 100%;
@@ -1629,61 +1650,31 @@ td.question-cell-number[rowspan] {
   text-align: center;
   color: #333;
 }
-@media (max-width: 768px) {
-  .histogram__body {
-    padding: 15px;
-  }
-  .histogram__title {
-    font-size: 20px;
-    font-weight: 600;
-    margin: 0px 0px 20px 0px;
-    text-align: left;
-  }
-  .histogram__columns {
-    flex-direction: column;
-    height: auto;
-    padding: 0;
-    gap: 15px;
-  }
 
-  .histogram__column {
-    width: 100%;
-    height: auto;
 
-    flex-direction: row-reverse;
-    gap: 10px;
-    margin-bottom: 0;
-  }
 
-  .histogram__percentage {
-    order: 1;
-    width: 50px;
-    text-align: right;
-    margin-bottom: 0;
-  }
-
-  .histogram__bar-container {
-    order: 2;
-    flex-grow: 1;
-    height: 8px;
-    background: #e1e1e1;
-    border-radius: 4px;
-  }
-
-  .histogram__bar {
-    width: auto;
-    height: 8px !important;
-    transition: width 0.3s ease;
-    border-radius: 4px;
-  }
-
-  .histogram__pattern {
-    order: 3;
-    width: 50px;
-    text-align: left;
-    margin-top: 0;
-  }
+.histogram__bar-container {
+  order: 2;
+  flex-grow: 1;
+  height: 8px;
+  background: #e1e1e1;
+  border-radius: 4px;
 }
+
+.histogram__bar {
+  width: auto;
+  height: 8px !important;
+  transition: width 0.3s ease;
+  border-radius: 4px;
+}
+
+.histogram__pattern {
+  order: 3;
+  width: 50px;
+  text-align: left;
+  margin-top: 0;
+}
+
 /* ------------------------------- */
 .legend__grid {
   display: grid;

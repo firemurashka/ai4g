@@ -27,8 +27,9 @@ let categories = []; // Глобальный объект для категор�
 let currentQuestionIndex = 0; // Индекс текущего вопроса
 let answers = []; // Массив для сохранения ответов пользователя
 let patterns = []; // Массив для сохранения паттернов
-let userFullName = "";
 
+// Глобальная переменная для хранения имени пользователя
+let userFullName = "";
 let userPhone = "";
 
 // Массив для соотношения категорий и классов
@@ -135,7 +136,7 @@ function validateForm() {
   return formValid; // Возвращаем состояние валидности формы
 }
 
-// Функция обработки кнопки "Начать тест" ---------------------------------------
+// Функция обработки кнопки "Начать тест"---------------------------------------
 function handleStartTestButton() {
   // Получаем элементы формы и тестового блока
   const formStart = document.getElementById("form-start"); // Контейнер формы с ФИО
@@ -147,7 +148,7 @@ function handleStartTestButton() {
   }
 
   const fullNameInput = document.getElementById("fullName"); // Поле ввода ФИО
-  userFullName = fullNameInput.value.trim(); // Сохраняем введённое ФИО в глобальную переменную
+  userFullName = fullNameInput.value.trim(); // Сохраняем введённое ФИО
 
   // Отображаем введённое ФИО перед блоком теста, оборачивая его в <span>
   const fioDisplay = document.getElementById("fio-display"); // Элемент для отображения ФИО
@@ -173,13 +174,7 @@ function handleStartTestButton() {
 
   // Запускаем загрузку вопросов
   loadQuestions();
-
-  // Вызываем функцию генерации PDF (пример)
-  const resultsData = {}; // Ваши данные результатов
-  const patternsData = {}; // Ваши данные шаблонов
-  generatePDF(resultsData, patternsData); // Передаём данные в функцию генерации PDF
 }
-
 // Обработчик кнопки "Пройти тест"
 document.getElementById("trek-button").addEventListener("click", function () {
   // Скрываем стартовый блок
@@ -188,9 +183,7 @@ document.getElementById("trek-button").addEventListener("click", function () {
 
   // Показываем форму заполнения
   const formStart = document.getElementById("form-start");
-  formStart.style.display = "block";
-
-  // Прокручиваем страницу к форме заполнения
+  formStart.style.display = "block"; // Прокручиваем страницу к форме заполнения
   formStart.scrollIntoView({ behavior: "smooth" }); // Прокрутка с анимацией
 });
 
@@ -302,7 +295,6 @@ function toggleLoaderTest(show) {
     console.error("Элемент с ID 'loader-test' не найден в DOM.");
   }
 }
-
 // Функция для перемешивания массива -------------------------------------------------
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
@@ -311,7 +303,6 @@ function shuffleArray(array) {
   }
   return array;
 }
-
 // Функция для рандомизации вопросов и их ответов------------------------------------
 function randomizeQuestionsAndAnswers() {
   if (!Array.isArray(questionsWithPatterns)) {
@@ -341,7 +332,6 @@ function randomizeQuestionsAndAnswers() {
     };
   });
 }
-
 //Показать вопрос--------------------------------------------------------------------
 function showQuestion() {
   // Если массив вопросов ещё не перемешан, перемешиваем их вместе с вариантами
@@ -370,18 +360,18 @@ function showQuestion() {
 
   // Обновляем содержимое контейнера вопроса
   questionContainer.innerHTML = `
-  <div class="question">${question.question}</div>
-  ${question.options
+	<div class="question">${question.question}</div>
+	${question.options
     .map(
       (option) => `
-		  <label class="option">
-				<input type="radio" name="answer" value="${option}" ${currentAnswer === option ? "checked" : ""} tabindex="0">
-				<span class="radio-label">${option}</span>
-		  </label>
-		`
+			<label class="option">
+				 <input type="radio" name="answer" value="${option}" ${currentAnswer === option ? "checked" : ""} tabindex="0">
+				 <span class="radio-label">${option}</span>
+			</label>
+		 `
     )
     .join("")}
-`;
+ `;
 
   // Обновляем счётчик вопросов
   questionCounter.innerHTML = `Вопрос ${currentQuestionIndex + 1} из ${questionsWithPatterns.length}`;
@@ -411,9 +401,8 @@ function nextQuestion() {
       showQuestion(); // Показываем следующий вопрос
     } else {
       // Если это последний вопрос, показываем результаты
-      showResults();
-		  // Прокручиваем страницу к форме заполнения
-		  formStart.scrollIntoView({ behavior: "smooth" }); // Прокрутка с анимацией
+      showResults(); // Прокручиваем страницу к форме заполнения
+      formStart.scrollIntoView({ behavior: "smooth" }); // Прокрутка с анимацией
     }
   } else {
     // Если ответ не выбран, показываем сообщение об ошибке
@@ -579,66 +568,66 @@ function showResults() {
         const patternDescription = currentPatternData?.description.ru || "Описание отсутствует";
 
         patternResults += `
-			 <div class="pattern-result">
-				<div class="pattern-result__label">
-					<div class="scale-bar-title-wrapper">
-					 <p class="scale-bar-title">${pattern}</p>
-					 <div class="info-icon">
-						<span>i</span>
-						<div class="tooltiptest hidden">
-							${patternDescription}
-						</div>
+			  <div class="pattern-result">
+				 <div class="pattern-result__label">
+					 <div class="scale-bar-title-wrapper">
+					  <p class="scale-bar-title">${pattern}</p>
+					  <div class="info-icon">
+						 <span>i</span>
+						 <div class="tooltiptest hidden">
+							 ${patternDescription}
+						 </div>
+					  </div>
 					 </div>
-					</div>
-					<p>${percentage}%</p>
-				</div>
-				<div class="scale-bar-container">
-					<div class="scale-bar" style="width: ${percentage}%;"></div>
-				</div>
-			 </div>`;
+					 <p>${percentage}%</p>
+				 </div>
+				 <div class="scale-bar-container">
+					 <div class="scale-bar" style="width: ${percentage}%;"></div>
+				 </div>
+			  </div>`;
       });
 
       patternResults += `</div>`;
 
       const analyticsBlock = `
-				<div class="analytics-block">
-				  <p  class="scale-status">${statusText}</p>
-				  <div class="scale-container">
-					  <div class="scale-line"></div>
-					  <div class="scale-labels">
-						<div class="scale-labels-item">
-						  <div class="indicator" style="opacity: ${maxPercentage <= 40 ? 1 : 0};"></div>
-						  <span>УМЕРЕННО</span>
+				 <div class="analytics-block">
+					<p  class="scale-status">${statusText}</p>
+					<div class="scale-container">
+						<div class="scale-line"></div>
+						<div class="scale-labels">
+						 <div class="scale-labels-item">
+							<div class="indicator" style="opacity: ${maxPercentage <= 40 ? 1 : 0};"></div>
+							<span>УМЕРЕННО</span>
+						 </div>
+						 <div class="scale-labels-item">
+							<div class="indicator" style="opacity: ${maxPercentage > 40 && maxPercentage <= 60 ? 1 : 0};"></div>
+							<span>НЕЙТРАЛЬНО</span>
+						 </div>
+						 <div class="scale-labels-item">
+							<div class="indicator" style="opacity: ${maxPercentage > 74 ? 1 : 0};"></div>
+							<span>ЯВНО</span>
+						 </div>
 						</div>
-						<div class="scale-labels-item">
-						  <div class="indicator" style="opacity: ${maxPercentage > 40 && maxPercentage <= 60 ? 1 : 0};"></div>
-						  <span>НЕЙТРАЛЬНО</span>
-						</div>
-						<div class="scale-labels-item">
-						  <div class="indicator" style="opacity: ${maxPercentage > 74 ? 1 : 0};"></div>
-						  <span>ЯВНО</span>
-						</div>
-					  </div>
-				  </div>
-				</div>`;
+					</div>
+				 </div>`;
 
       subcategoryResults += `
-				<div class="subcategory-block">
-				  <div class="subcategory-title">${subcategoryTitle}</div>
-				  <div class="subcategory-wrapper">
-					  <div class="analytics-wrapper">${analyticsBlock}</div>
-					  <div class="results-wrapper">${patternResults}</div>
-				  </div>
-				</div>`;
+				 <div class="subcategory-block">
+					<div class="subcategory-title">${subcategoryTitle}</div>
+					<div class="subcategory-wrapper">
+						<div class="analytics-wrapper">${analyticsBlock}</div>
+						<div class="results-wrapper">${patternResults}</div>
+					</div>
+				 </div>`;
     });
 
     // Если подкатегории содержат данные, добавляем их в категорию
     if (subcategoryResults) {
       results += `
-				<div class="category-block ${additionalClass}">
-				  <h3 class="category-label">${categoryTitle}</h3>
-				  ${subcategoryResults}
-				</div>`;
+				 <div class="category-block ${additionalClass}">
+					<h3 class="category-label">${categoryTitle}</h3>
+					${subcategoryResults}
+				 </div>`;
     }
   });
 
@@ -703,12 +692,12 @@ function generateHistogram(histogramData) {
       const isMobile = window.innerWidth < 768;
 
       column.innerHTML = `
-			<span class="histogram__percentage ${percentageClass}">${percentage}%</span>
-			<div class="histogram__bar-container">
-			  <div class="histogram__bar ${categoryClass}" style="${isMobile ? `width: ${percentage}%` : `height: ${percentage}%`}"></div>
-			</div>
-			<span class="histogram__pattern">${abbreviation}</span>
-		 `;
+			 <span class="histogram__percentage ${percentageClass}">${percentage}%</span>
+			 <div class="histogram__bar-container">
+				<div class="histogram__bar ${categoryClass}" style="${isMobile ? `width: ${percentage}%` : `height: ${percentage}%`}"></div>
+			 </div>
+			 <span class="histogram__pattern">${abbreviation}</span>
+		  `;
 
       // Добавляем аббревиатуру и название паттерна в legendMap
       legendMap[abbreviation] = foundPattern ? foundPattern.pattern.ru : pattern;
@@ -882,10 +871,17 @@ function getDominanceResponse(subcategory) {
 
 // Функция для генерации PDF------------------------------------------------
 function generatePDF(resultsData, patternsData) {
-  if (!resultsData || resultsData.length === 0 || !patternsData || patternsData.length === 0) {
-    console.error("Ошибка: результаты или паттерны пустые или не определены.");
-    return new Blob(); // Возврат пустого Blob
+  // Добавление проверок на наличие данных
+  if (!resultsData || resultsData.length === 0) {
+    console.error("Ошибка: resultsData пустой или не определен.");
+    return {}; // Возврат пустого документа
   }
+
+  if (!patternsData || patternsData.length === 0) {
+    console.error("Ошибка: patternsData пустой или не определен.");
+    return {}; // Возврат пустого документа
+  }
+
   const defaultStyles = {
     //1 Блок Шапка документа---------------------------------
     //ФИО, дата
@@ -1220,6 +1216,8 @@ function generatePDF(resultsData, patternsData) {
                 pattern: dominanceResponse.pattern, // Сохраняем паттерн
                 percentage: dominanceResponse.percentage, // Процент доминирования
               });
+            } else {
+              console.log(dominanceResponse.status); // Выводим только статус для нейтрального
             }
           }
         });
@@ -1695,20 +1693,16 @@ function generatePDF(resultsData, patternsData) {
     },
   };
 
+  // Формируем название файла
+  // Формат: "Паттерны Имя Фамилия ДД.ММ.ГГГГ"
+  const fileName = `Паттерны ${userFullName} ${testDate}.pdf`;
+
+  // Генерация PDF
+  // Используем сгенерированное название файла
+  pdfMake.createPdf(docDefinition).download(fileName);
+
   /* pdfMake.createPdf(docDefinition).open(); */
-
-  // Генерация PDF и возврат Blob
-  return new Promise((resolve, reject) => {
-    pdfMake.createPdf(docDefinition).getBlob((blob) => {
-      if (blob) {
-        resolve(blob);
-      } else {
-        reject("Ошибка при генерации Blob.");
-      }
-    });
-  });
 }
-
 //Полоса под заголовком-----------------------
 const pageWidth = 595; // Ширина страницы A4 в PDFMake
 function createCenteredLine(lineWidth, yPosition) {
@@ -1894,97 +1888,36 @@ function addContactContent(content) {
       },
       { text: "Эксперт по оценке и развитию людей, сертифицирована по инструментам Hogan, Gallup и др.\n", style: "secondList" },
       /* { text: "Сертифицированный коуч и фасилитатор, с 2011 года ассоциированный коуч бизнес-школы Сколково.\n", style: "secondList" },
-		 { text: "Профессор практики в Антверпенской школе бизнеса AMS, содиректор академических программ.\n\n", style: "secondList" }, */
+		  { text: "Профессор практики в Антверпенской школе бизнеса AMS, содиректор академических программ.\n\n", style: "secondList" }, */
     ],
     margin: [10, 0, 0, 35],
   });
 }
 
-// Обработчик для кнопки скачивания PDF
+// Обработчик для кнопки генерации PDF----------------------------------------
 document.getElementById("download-pdf").addEventListener("click", async () => {
+  // Показываем пользователю прелоадер
   toggleLoader(true, "Подождите, идет генерация PDF...");
 
   try {
+    // Получаем данные для PDF
     const resultsData = showResults();
     const patternsData = await loadPatterns();
+
     const customStyles = {};
 
-    // Получаем текущую дату для имени файла
-    const testDate = new Date().toLocaleDateString("ru-RU");
-
-    // Генерация PDF и получение Blob
-    const pdfBlob = await generatePDF(resultsData, patternsData, customStyles);
-
-    // Проверяем, что pdfBlob действительно создан
-    if (!pdfBlob || pdfBlob.size === 0) {
-      throw new Error("PDF не был сгенерирован.");
-    }
-
-    // Формируем название файла
-    const fileName = `Паттерны ${userFullName} ${testDate}.pdf`;
-
-    // Создание ссылки для скачивания
-    const url = URL.createObjectURL(pdfBlob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = fileName;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url); // Освобождаем URL после загрузки
+    // Генерация PDF
+    generatePDF(resultsData, patternsData, customStyles);
   } catch (error) {
     console.error("Ошибка при создании PDF:", error);
+
+    // Уведомление об ошибке
     alert("Произошла ошибка при создании PDF. Пожалуйста, попробуйте снова.");
   } finally {
+    // Скрываем прелоадер независимо от результатов
     toggleLoader(false);
   }
 });
-
-// Обработчик для кнопки открытия PDF
-document.getElementById("open-pdf").addEventListener("click", async () => {
-	toggleLoader(true, "Подождите, идет генерация PDF...");
-
-	try {
-	  const resultsData = showResults();
-	  const patternsData = await loadPatterns();
-	  const customStyles = {};
-
-	  // Генерация PDF и получение Blob
-	  const pdfBlob = await generatePDF(resultsData, patternsData, customStyles);
-
-	  // Проверяем, что pdfBlob действительно создан
-	  if (!pdfBlob || pdfBlob.size === 0) {
-		 throw new Error("PDF не был сгенерирован.");
-	  }
-
-	  // Создаем URL и открываем в новом окне
-	  const url = URL.createObjectURL(pdfBlob);
-	  const newWindow = window.open(url, "_blank");
-
-	  // Проверяем, успешно ли открылось новое окно
-	  if (!newWindow || newWindow.closed || typeof newWindow.closed == 'undefined') {
-		 // Если окно не открылось, предложите скачать файл
-		 const a = document.createElement("a");
-		 a.href = url;
-		 a.download = `Паттерны ${userFullName} ${new Date().toLocaleDateString("ru-RU")}.pdf`;
-		 document.body.appendChild(a);
-		 a.click();
-		 document.body.removeChild(a);
-		 alert("Всплывающее окно не удалось открыть. PDF-файл будет загружен.");
-	  }
-
-	  // Очистка URL после завершения использования
-	  newWindow.onload = () => {
-		 URL.revokeObjectURL(url);
-	  };
-	} catch (error) {
-	  console.error("Ошибка при создании PDF:", error);
-	  alert("Произошла ошибка при создании PDF. Пожалуйста, попробуйте снова.");
-	} finally {
-	  toggleLoader(false);
-	}
- });
-
 
 // Показываем/скрываем прелоадер-----------------------------------------------------
 function toggleLoader(show, message = "Подождите, идет генерация...") {
@@ -2000,7 +1933,7 @@ function toggleLoader(show, message = "Подождите, идет генера
 }
 
 /* Кнопка "Тест"============================================================== */
-/* document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {
   const startFillButton = document.getElementById("fill-test-answers"); // Кнопка "Начать тест"
 
   // Подключаем обработчик клика к кнопке "Начать тест"
@@ -2028,5 +1961,5 @@ function fillTestAnswers() {
   showResults(); // Показываем результаты
   // Прокручиваем страницу к форме заполнения
   formStart.scrollIntoView({ behavior: "smooth" }); // Прокрутка с анимацией
-} */
+}
 /* тест============================================================================ */

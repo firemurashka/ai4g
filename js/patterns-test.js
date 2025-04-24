@@ -1898,8 +1898,9 @@ function generatePDF(resultsData, patternsData) {
   const fileName = `Паттерны ${userFullName} ${testDate}.pdf`;
 
   // Генерация PDF
-  pdfMake.createPdf(docDefinition).download(`${fileName}.pdf`);
+ /*  pdfMake.createPdf(docDefinition).download(`${fileName}.pdf`); */
 
+  pdfMake.createPdf(docDefinition).open();
 }
 
 // Обработчик для кнопки генерации PDF----------------------------------------

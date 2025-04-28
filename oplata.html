@@ -23,6 +23,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
     <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/header.css" />
+
     <link rel="icon" href="img/favicon.ico" />
 
     <!-- Facebook Pixel Code -->
@@ -92,24 +94,108 @@
       }
     </script>
     <header class="header">
-      <div class="header__line"></div>
-      <a class="header__logo" href="index.html">
-        <div class="header__square">
-          <img src="img/logo-square.svg" alt="logo" width="51" height="47.6" />
-        </div>
-        <div class="header__logo-title">
-          <div class="header__Ai4G">
-            <img src="img/logo-Ai4G.svg" alt="logo" />
+      <div class="header__container">
+        <div class="header__body">
+          <!-- логотип -->
+          <a class="header__logo" href="index.html">
+            <div class="header__square">
+              <img src="img/logo-square.svg" alt="logo" width="51" height="47.6" />
+            </div>
+            <div class="header__logo-title">
+              <div class="header__Ai4G">
+                <img src="img/logo-Ai4G.svg" alt="logo" />
+              </div>
+              <span class="header__logo-suptitle">Фарватер успешного развития</span>
+            </div>
+            <div class="header__triangle">
+              <img src="img/logo-triangle.svg" alt="logo" />
+            </div>
+          </a>
+          <div class="header__right">
+            <!-- меню -->
+
+            <div class="header__menu menu">
+              <button type="button" class="menu_icon icon-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+              </button>
+
+              <nav class="menu__body">
+                <ul class="menu__list">
+                  <li class="menu__item"><a href="index.html" class="menu__link">Главная</a></li>
+
+                  <li class="menu__item menu__item--dropdown">
+                    <a href="#" class="menu__link menu__link--dropdown"
+                      >Продукты
+                      <img src="img/arrow.svg" class="arrow" alt="" />
+                    </a>
+                    <ul class="submenu">
+                      <li class="submenu__item"><a href="/services.html" class="submenu__link">Перечень оказываемых услуг </a></li>
+                      <li class="submenu__item"><a href="/art-coaching.html" class="submenu__link">Арт-коучинг</a></li>
+                      <li class="submenu__item"><a href="/coaching-session.html" class="submenu__link">Коучинговая сессия</a></li>
+                      <li class="submenu__item"><a href="/career-advice.html" class="submenu__link">Карьерная консультация</a></li>
+                      <li class="submenu__item">
+                        <a href="/serf-session.html" class="submenu__link">Serf-сессия определения паттернов</a>
+                      </li>
+                      <li class="submenu__item"><a href="/allegro.html" class="submenu__link">Транскрибатор «Аллегро»</a></li>
+                      <li class="submenu__item"><a href="/pattern-test.html" class="submenu__link">Тест паттернов</a></li>
+                      <li class="submenu__item"><a href="/strategy-new-year.html" class="submenu__link">Стратегия Новый Год</a></li>
+                    </ul>
+                  </li>
+                  <li class="menu__item"><a href="/mentors.html" class="menu__link">Наставники</a></li>
+
+                  <li class="menu__item menu__item--dropdown">
+                    <a href="#" class="menu__link menu__link--dropdown"
+                      >Справочная
+                      <img src="img/arrow.svg" class="arrow" alt="" />
+                    </a>
+                    <ul class="submenu">
+                      <li class="submenu__item"><a href="/vozmozhnosti.html" class="submenu__link">Возможности</a></li>
+                      <li class="submenu__item"><a href="/patterns.html" class="submenu__link">Паттерны</a></li>
+                      <li class="submenu__item"><a href="/technics.html" class="submenu__link">Техники развития</a></li>
+                    </ul>
+                  </li>
+
+                  <li class="menu__item menu__item--dropdown">
+                    <a href="#" class="menu__link menu__link--dropdown"
+                      >Клиенту
+                      <img src="img/arrow.svg" class="arrow" alt="" />
+                    </a>
+                    <ul class="submenu">
+                      <li class="submenu__item"><a href="/oferta.html" class="submenu__link">Договор оферты</a></li>
+                      <li class="submenu__item"><a href="/oplata.html" class="submenu__link">Правила оплаты и возврата</a></li>
+                      <li class="submenu__item"><a href="/requisites.html" class="submenu__link">Реквизиты</a></li>
+                    </ul>
+                  </li>
+                </ul>
+                <div class="header__icons header__icons_mob">
+                  <a href="mailto:info@ai4g.ru" class="header__icon">
+                    <img src="img/email.svg" alt="email" loading="lazy" />
+                    <span>info@ai4g.ru</span>
+                  </a>
+                  <a href="https://t.me/+79852000434" target="_blank" class="header__icon">
+                    <img src="img/telegram.svg" alt="telegram" loading="lazy" />
+                    <span>+7 985 2000434</span>
+                  </a>
+                </div>
+              </nav>
+            </div>
+
+            <!-- иконки -->
+            <div class="header__icons">
+              <a href="mailto:info@ai4g.ru" class="header__icon">
+                <img src="img/email.svg" alt="email" loading="lazy" />
+                <!--  <span>info@ai4g.ru</span> -->
+              </a>
+              <a href="https://t.me/+79852000434" target="_blank" class="header__icon">
+                <img src="img/telegram.svg" alt="telegram" loading="lazy" />
+                <!--   <span>+7 985 2000434</span> -->
+              </a>
+            </div>
           </div>
-          <span class="header__logo-suptitle">Фарватер успешного развития</span>
         </div>
-        <div class="header__triangle">
-          <img src="img/logo-triangle.svg" alt="logo" />
-        </div>
-      </a>
-      <a class="header__logo-mobile" href="index.html">
-        <img src="img/footer-logo.svg" alt="A4iG" width="151" height="62" />
-      </a>
+      </div>
     </header>
 
     <main>
@@ -226,5 +312,6 @@
     "></script>
     <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/header.js"></script>
   </body>
 </html>

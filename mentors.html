@@ -16,11 +16,13 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=PT+Sans:ital,wght@0,400;0,700;1,400&display=swap"
       rel="stylesheet"
     />
-	 <link href="https://fonts.googleapis.com/css?family=PT+Serif:regular,italic,700,700italic&display=swap" rel="stylesheet" />
-	 <link href="https://fonts.googleapis.com/css?family=PT+Sans:regular,italic,700,700italic&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=PT+Serif:regular,italic,700,700italic&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans:regular,italic,700,700italic&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
     <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/header.css" />
+
     <link rel="icon" href="img/favicon.ico" />
 
     <!-- Facebook Pixel Code -->
@@ -90,28 +92,108 @@
       }
     </script>
     <header class="header">
-      <div class="header__line"></div>
-      <a class="arrow-back-link" href="index.html" onclick="this.classList.add('active')">
-        <svg class="arrow-back" width="39" height="38" viewBox="0 0 39 38" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M36.0322 21.6904C37.4129 21.6904 38.5322 20.5711 38.5322 19.1904C38.5322 17.8097 37.4129 16.6904 36.0322 16.6904V21.6904ZM0.992126 17.4227C0.0158195 18.399 0.0158195 19.9819 0.992126 20.9582L16.902 36.8681C17.8783 37.8444 19.4613 37.8444 20.4376 36.8681C21.4139 35.8918 21.4139 34.3089 20.4376 33.3326L6.29543 19.1904L20.4376 5.04829C21.4139 4.07198 21.4139 2.48907 20.4376 1.51276C19.4613 0.536449 17.8783 0.536449 16.902 1.51276L0.992126 17.4227ZM36.0322 16.6904L2.7599 16.6904V21.6904L36.0322 21.6904V16.6904Z"
-          />
-        </svg>
-      </a>
-      <a class="header__logo" href="index.html">
-        <div class="header__square">
-          <img src="img/logo-square.svg" alt="logo" width="51" height="50" />
-        </div>
-        <div class="header__logo-title">
-          <div class="header__Ai4G">
-            <img src="img/logo-Ai4G.svg" alt="logo" />
+      <div class="header__container">
+        <div class="header__body">
+          <!-- логотип -->
+          <a class="header__logo" href="index.html">
+            <div class="header__square">
+              <img src="img/logo-square.svg" alt="logo" width="51" height="47.6" />
+            </div>
+            <div class="header__logo-title">
+              <div class="header__Ai4G">
+                <img src="img/logo-Ai4G.svg" alt="logo" />
+              </div>
+              <span class="header__logo-suptitle">Фарватер успешного развития</span>
+            </div>
+            <div class="header__triangle">
+              <img src="img/logo-triangle.svg" alt="logo" />
+            </div>
+          </a>
+          <div class="header__right">
+            <!-- меню -->
+
+            <div class="header__menu menu">
+              <button type="button" class="menu_icon icon-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+              </button>
+
+              <nav class="menu__body">
+                <ul class="menu__list">
+                  <li class="menu__item"><a href="index.html" class="menu__link">Главная</a></li>
+
+                  <li class="menu__item menu__item--dropdown">
+                    <a href="#" class="menu__link menu__link--dropdown"
+                      >Продукты
+                      <img src="img/arrow.svg" class="arrow" alt="" />
+                    </a>
+                    <ul class="submenu">
+                      <li class="submenu__item"><a href="/services.html" class="submenu__link">Перечень оказываемых услуг </a></li>
+                      <li class="submenu__item"><a href="/art-coaching.html" class="submenu__link">Арт-коучинг</a></li>
+                      <li class="submenu__item"><a href="/coaching-session.html" class="submenu__link">Коучинговая сессия</a></li>
+                      <li class="submenu__item"><a href="/career-advice.html" class="submenu__link">Карьерная консультация</a></li>
+                      <li class="submenu__item">
+                        <a href="/serf-session.html" class="submenu__link">Serf-сессия определения паттернов</a>
+                      </li>
+                      <li class="submenu__item"><a href="/allegro.html" class="submenu__link">Транскрибатор «Аллегро»</a></li>
+                      <li class="submenu__item"><a href="/pattern-test.html" class="submenu__link">Тест паттернов</a></li>
+                      <li class="submenu__item"><a href="/strategy-new-year.html" class="submenu__link">Стратегия Новый Год</a></li>
+                    </ul>
+                  </li>
+                  <li class="menu__item"><a href="/mentors.html" class="menu__link">Наставники</a></li>
+
+                  <li class="menu__item menu__item--dropdown">
+                    <a href="#" class="menu__link menu__link--dropdown"
+                      >Справочная
+                      <img src="img/arrow.svg" class="arrow" alt="" />
+                    </a>
+                    <ul class="submenu">
+                      <li class="submenu__item"><a href="/vozmozhnosti.html" class="submenu__link">Возможности</a></li>
+                      <li class="submenu__item"><a href="/patterns.html" class="submenu__link">Паттерны</a></li>
+                      <li class="submenu__item"><a href="/technics.html" class="submenu__link">Техники развития</a></li>
+                    </ul>
+                  </li>
+
+                  <li class="menu__item menu__item--dropdown">
+                    <a href="#" class="menu__link menu__link--dropdown"
+                      >Клиенту
+                      <img src="img/arrow.svg" class="arrow" alt="" />
+                    </a>
+                    <ul class="submenu">
+                      <li class="submenu__item"><a href="/oferta.html" class="submenu__link">Договор оферты</a></li>
+                      <li class="submenu__item"><a href="/oplata.html" class="submenu__link">Правила оплаты и возврата</a></li>
+                      <li class="submenu__item"><a href="/requisites.html" class="submenu__link">Реквизиты</a></li>
+                    </ul>
+                  </li>
+                </ul>
+                <div class="header__icons header__icons_mob">
+                  <a href="mailto:info@ai4g.ru" class="header__icon">
+                    <img src="img/email.svg" alt="email" loading="lazy" />
+                    <span>info@ai4g.ru</span>
+                  </a>
+                  <a href="https://t.me/+79852000434" target="_blank" class="header__icon">
+                    <img src="img/telegram.svg" alt="telegram" loading="lazy" />
+                    <span>+7 985 2000434</span>
+                  </a>
+                </div>
+              </nav>
+            </div>
+
+            <!-- иконки -->
+            <div class="header__icons">
+              <a href="mailto:info@ai4g.ru" class="header__icon">
+                <img src="img/email.svg" alt="email" loading="lazy" />
+                <!--  <span>info@ai4g.ru</span> -->
+              </a>
+              <a href="https://t.me/+79852000434" target="_blank" class="header__icon">
+                <img src="img/telegram.svg" alt="telegram" loading="lazy" />
+                <!--   <span>+7 985 2000434</span> -->
+              </a>
+            </div>
           </div>
-          <span class="header__logo-suptitle">Фарватер успешного развития</span>
         </div>
-        <div class="header__triangle">
-          <img src="img/logo-triangle.svg" alt="logo" />
-        </div>
-      </a>
+      </div>
     </header>
 
     <main>
@@ -334,5 +416,6 @@
     "></script>
     <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/header.js"></script>
   </body>
 </html>

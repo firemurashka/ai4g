@@ -1962,6 +1962,8 @@
   line-height: 140%;
   padding: 20px;
   padding: 0 20px 20px;
+  overflow: hidden;
+  animation: slideUp 3s ease forwards;
   @media (max-width: 768px) {
     font-size: 16px;
   }
@@ -1970,6 +1972,12 @@
   }
 }
 
+.faq__item.active p {
+  opacity: 1;
+  height: 100%;
+  display: block;
+  animation: slideDown 1s ease forwards;
+}
 .faq__icon {
   margin-left: 10px;
   font-weight: bold;
@@ -2037,7 +2045,6 @@
   align-self: start;
   background: #fff;
   @media (max-width: 768px) {
-
     align-self: center;
   }
 }
@@ -2128,7 +2135,7 @@
 }
 
 /* .offered__btn:hover-----------------------*/
- .offered__btn:hover {
+.offered__btn:hover {
   background: #150931;
   color: #fff;
 }

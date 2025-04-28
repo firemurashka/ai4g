@@ -30,41 +30,15 @@
 
 /* --------------------------------------------------- */
 
-.page-vozmozhnosti .header__line {
-	margin-bottom: 24px;
-}
-
-.page-vozmozhnosti .header {
-	height: 140px;
-}
-
-@media (max-width: 980px) {
-	.page-vozmozhnosti .header {
-		height: 90px;
-	}
-
-	.page-vozmozhnosti .header__logo {
-		display: flex;
-		animation: none;
-	}
-
-	.page-vozmozhnosti .header__logo-mobile {
-		display: none;
-	}
-
-	.page-vozmozhnosti .header__line {
-		margin-bottom: 18px;
-	}
-}
 
 body.page-vozmozhnosti {
-	background: #f9f9f9;
+	background: #fff;
 }
 
 /* --------------------------------------------------- */
 .vozmozhnosti {
 	padding: 50px 0;
-	margin: 100px 0px 0px 0px;
+	margin: 90px 0px 0px 0px;
 }
 
 .vozmozhnosti__container {

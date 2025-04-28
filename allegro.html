@@ -446,8 +446,29 @@
             </div>
           </div>
         </section>
+		  <script>
+			document.addEventListener("DOMContentLoaded", () => {
+			  const faqContent = document.querySelector(".faq__content");
 
-        <script>
+			  faqContent.addEventListener("click", function (event) {
+				 const clickedItemTitle = event.target.closest(".faq__item-title");
+				 if (clickedItemTitle) {
+					const answer = clickedItemTitle.nextElementSibling; // Получаем ul
+					const icon = clickedItemTitle.querySelector(".faq__icon");
+					const faqItem = clickedItemTitle.closest(".faq__item"); // Получаем ближайший родительский элемент .faq__item
+
+					faqItem.classList.toggle("active"); // Переключаем класс active
+
+					if (faqItem.classList.contains("active")) {
+					  icon.textContent = "-"; // Меняем на минус
+					} else {
+					  icon.textContent = "+"; // Меняем на плюс
+					}
+				 }
+			  });
+			});
+		 </script>
+   <!--      <script>
           document.addEventListener("DOMContentLoaded", () => {
             // Скрываем все ответы при загрузке
             const allAnswers = document.querySelectorAll(".faq__item p");
@@ -473,7 +494,7 @@
               }
             });
           });
-        </script>
+        </script> -->
 
         <!-- offered -->
         <section class="offered" id="offer">

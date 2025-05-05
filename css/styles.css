@@ -7580,7 +7580,7 @@ input:-webkit-autofill:focus {
 .drop-list__item ul li::before {
   content: "";
   position: absolute;
-  top: 13px;
+  top: 9px;
   left: 0;
   width: 8px;
   height: 8px;

@@ -355,7 +355,7 @@ p {
   padding: 0;
   counter-reset: item;
   margin: 0px 0px 40px 0px;
-  @media (max-width: 900px) {
+  @media (max-width: 980px) {
     grid-template-rows: auto;
     gap: 30px;
     grid-template-columns: repeat(2, 1fr);
@@ -376,7 +376,7 @@ p {
   line-height: 120%;
   font-weight: 400;
   color: #fff;
-  @media (max-width: 900px) {
+  @media (max-width: 980px) {
     display: flex;
     flex-direction: column;
     background-color: #5c007bba;
@@ -436,7 +436,7 @@ p {
   max-width: 230px;
   border-radius: 9px;
   overflow: hidden;
-  @media (max-width: 900px) {
+  @media (max-width: 980px) {
     max-width: none;
     width: 100%;
   }

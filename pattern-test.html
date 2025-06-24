@@ -134,6 +134,7 @@
                 <nav class="menu__body">
                   <ul class="menu__list">
                     <li class="menu__item"><a href="index.html" class="menu__link">Главная</a></li>
+                    <li class="menu__item"><a href="services.html" class="menu__link">Услуги</a></li>
 
                     <li class="menu__item menu__item--dropdown">
                       <a href="#" class="menu__link menu__link--dropdown"
@@ -141,16 +142,15 @@
                         <img src="img/arrow.svg" class="arrow" alt="" />
                       </a>
                       <ul class="submenu">
-                        <li class="submenu__item"><a href="/services.html" class="submenu__link">Перечень оказываемых услуг </a></li>
                         <li class="submenu__item"><a href="/art-coaching.html" class="submenu__link">Арт-коучинг</a></li>
-                        <li class="submenu__item"><a href="/coaching-session.html" class="submenu__link">Коучинговая сессия</a></li>
+                        <li class="submenu__item"><a href="/coaching-session.html" class="submenu__link">Бизнес-коучинг</a></li>
                         <li class="submenu__item"><a href="/career-advice.html" class="submenu__link">Карьерная консультация</a></li>
                         <li class="submenu__item">
-                          <a href="/serf-session.html" class="submenu__link">Serf-сессия определения паттернов</a>
+                          <a href="/serf-session.html" class="submenu__link">Serf-сессия</a>
                         </li>
                         <li class="submenu__item"><a href="/allegro.html" class="submenu__link">Транскрибатор «Аллегро»</a></li>
                         <li class="submenu__item"><a href="/pattern-test.html" class="submenu__link">Тест паттернов</a></li>
-                        <li class="submenu__item"><a href="/strategy-new-year.html" class="submenu__link">Стратегия Новый Год</a></li>
+                        <li class="submenu__item"><a href="/personal-strategy.html" class="submenu__link">Персональная стратегия</a></li>
                       </ul>
                     </li>
                     <li class="menu__item"><a href="/mentors.html" class="menu__link">Наставники</a></li>
@@ -209,13 +209,13 @@
       </header>
 
       <main>
-        <section class="quiz-patterns" id="top">
-          <!-- 1. Первая страница============================================== -->
+        <div class="quiz-patterns" id="top">
+          <!-- 1. Первая страница---------------------------------------- -->
           <div class="start-page" id="start-page">
             <!-- Блок призыва-------------------------------------------->
 
             <!-- offer-test  -->
-            <section class="offer-test">
+            <div class="offer-test">
               <div class="offer-test__container">
                 <div class="offer-test__body">
                   <div class="offer-test__content">
@@ -245,7 +245,7 @@
                   <img class="offer-test__image _anim-items _anim-no-hide" src="img/test-patterns/plane.png" alt="" />
                 </div>
               </div>
-            </section>
+            </div>
 
             <!-- Какие паттерны определяет тест-------------------->
             <div class="patterns-description">
@@ -454,10 +454,7 @@
             </div>
           </div>
 
-          <!-- 2. Вторая страница============================================== -->
-
-          <!-- Блок Форма для теста------------------------------------->
-
+          <!-- 2. Вторая страница - Блок Форма для теста---------------------->
           <div class="form-start" id="form-start" style="display: none">
             <div class="form-start__container">
               <div class="form-start__body">
@@ -529,8 +526,7 @@
             </div>
           </div>
 
-          <!-- 3. Третья страница ============================================---->
-          <!-- Вопросы теста------------------------------------- -->
+          <!-- 3. Третья страница - Вопросы теста-------------------------- -->
           <div class="question-block" id="test-block" style="display: none">
             <div class="question-block__container">
               <div class="question-block__content">
@@ -565,40 +561,46 @@
             </div>
           </div>
 
-          <!-- Всплывающее окно ============================================-->
-
-          <!-- Результаты теста ============================================-->
+          <!-- 4. Результаты теста ============================================-->
           <!-- Блок с тестом -->
 
           <div class="result__contain" id="result-container" style="display: none">
             <!-- Верхний блок -->
             <div class="result__top top-result">
               <div class="top-result__container">
-                <h2 class="top-result__subtitle">Спасибо за ваше участие в тестировании!</h2>
-
-                <!-- download -->
-                <div class="quiz-patterns__download download">
-                  <!-- spinner -->
-                  <div id="loader-overlay" style="display: none">
-                    <div id="loader">
-                      <div class="spinner"></div>
-                      <p id="loader-text">Подождите, идет генерация PDF...</p>
-                    </div>
+                <div class="top-result__body">
+                  <h2 class="top-result__subtitle">Спасибо за ваше участие в тестировании!</h2>
+                  <div class="top-result__text">
+                    Паттерн — устойчивая модель реагирования, предпочтение мыслить, действовать и чувствовать определенным образом. Паттерны зависят от
+                    контекста и уровня стресса и способны со временем изменяться. Паттерн отражает, что находится в фокусе внимания, а что отфильтровывается из
+                    области осознания. Зная свои паттерны, мы осознаем свои привычные способы автоматического реагирования.
                   </div>
 
-                  <!--  <button class="patterns-button patterns-button_download" id="open-pdf">Открыть PDF</button> -->
-                  <div class="download__title">Скачать ваш отчет в формате pdf</div>
-                  <button class="patterns-button patterns-button_download" id="download-pdf">Скачать PDF</button>
-                  <div id="successModal" class="modal">
-                    <div class="modal-content">
-                      <span class="close-btn" id="closeModal">&times;</span>
-                      <p>Файл успешно скачан!</p>
+                  <!-- download -->
+                  <div class="quiz-patterns__download download">
+                    <!-- spinner -->
+                    <div id="loader-overlay" style="display: none">
+                      <div id="loader">
+                        <div class="spinner"></div>
+                        <p id="loader-text">Подождите, идет генерация PDF...</p>
+                      </div>
+                    </div>
+
+                    <!--  <button class="patterns-button patterns-button_download" id="open-pdf">Открыть PDF</button> -->
+                    <div class="download__title">Скачать ваш отчет в формате pdf</div>
+                    <button class="patterns-button patterns-button_download" id="download-pdf">Скачать PDF</button>
+                    <div id="successModal" class="modal">
+                      <div class="modal-content">
+                        <span class="close-btn" id="closeModal">&times;</span>
+                        <p>Файл успешно скачан!</p>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
 
+            <!-- Результаты вашего тестирования -->
             <div class="quiz-patterns_result">
               <h2 class="quiz-patterns__subtitle">Результаты вашего тестирования</h2>
 
@@ -612,13 +614,159 @@
                 </div>
               </div>
 
-              <!-- Результаты по категориям -->
-              <div class="result__content" id="result-content">
-                <!-- Здесь будут выводиться результаты -->
+              <!-- Наиболее выраженные категории паттернов -->
+              <div class="expressed-category">
+                <div class="expressed-category__container">
+                  <div class="expressed-category__body">
+                    <h2 class="expressed-category__title">Наиболее выраженные категории паттернов</h2>
+
+                    <div class="expressed-category__content">
+                      <h3 class="expressed-category__subtitle">Паттерны коммуникации</h3>
+
+                      <div class="expressed-category__description">
+                        <p class="expressed-category__text">У вас наиболее выражена категория паттернов коммуникации из всех категорий паттернов.</p>
+                        <p class="expressed-category__text expressed-category__text_highlight">Это значит:</p>
+                        <p class="expressed-category__text">
+                          Ваш стиль общения имеет центральное значение в вашем взаимодействии с окружающими. Это может указывать на то, что вы уделяете особое
+                          внимание тому, как вы выражаете свои мысли и чувства, а также как вы воспринимаете коммуникацию других. Вы, скорее всего, считаете
+                          важным устанавливать контакт и поддерживать открытые каналы связи, что способствует созданию продуктивных и доверительных отношений.
+                        </p>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
               </div>
+
+              <!-- Тип реагирования -->
+              <div class="response-type">
+                <div class="response-type__container">
+                  <div class="response-type__body">
+                    <h1 class="response-type__title">Тип реагирования</h1>
+                    <div class="response-type__content">
+                      <h3 class="response-type__subtitle">Моноактивный</h3>
+                      <div class="response-type__description">
+                        <p class="response-type__text">На основании выраженных паттернов ваш тип реагирования: Моноактивный</p>
+                        <p class="response-type__text response-type__text_highlight">Это значит:</p>
+                        <p class="response-type__text">
+                          Вы склонны фокусироваться на выполнении одной задачи или активности за раз, сосредотачиваясь на ней до полного завершения. Вы
+                          предпочитаете глубоко погружаться в процесс, уделяя внимание деталям и качеству выполнения.
+                        </p>
+                      </div>
+
+
+                      <div class="response-type__sections">
+                        <div class="response-type__section response-type__section--features">
+                          <h3 class="response-type__section-title">
+									<img src="/img/test-patterns/star.svg" alt="">Особенности</h3>
+                          <ul class="response-type__list">
+                            <li class="response-type__list-item response-type__list-item--feature">
+                              <div class="response-type__list-item-content">
+                                <div class="response-type__list-item-title">Высокая концентрация</div>
+                                <div class="response-type__list-item-text">Имеет способность сосредотачиваться на задаче</div>
+                              </div>
+                            </li>
+                            <li class="response-type__list-item response-type__list-item--feature">
+                              <div class="response-type__list-item-content">
+                                <div class="response-type__list-item-title">Системность</div>
+                                <div class="response-type__list-item-text">Подход к выполнению задач с вниманием к порядку и процессу</div>
+                              </div>
+                            </li>
+                            <li class="response-type__list-item response-type__list-item--feature">
+                              <div class="response-type__list-item-content">
+                                <div class="response-type__list-item-title">Предпочтение предсказуемости</div>
+                                <div class="response-type__list-item-text">Ценит стабильность в рабочем окружении</div>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+
+                        <div class="response-type__section response-type__section--strengths">
+                          <h3 class="response-type__section-title"><img src="/img/test-patterns/star.svg" alt=""> Сильные стороны</h3>
+                          <ul class="response-type__list">
+                            <li class="response-type__list-item response-type__list-item--strength">
+
+                              <div class="response-type__list-item-content">
+                                <div class="response-type__list-item-title">Производительность</div>
+                                <div class="response-type__list-item-text">
+                                  Высокий уровень эффективности при работе над задачами, требующими сосредоточенности
+                                </div>
+                              </div>
+                            </li>
+                            <li class="response-type__list-item response-type__list-item--strength">
+                              <div class="response-type__list-item-content">
+                                <div class="response-type__list-item-title">Качественное решение проблем</div>
+                                <div class="response-type__list-item-text">Тщательный подход к решению сложных задач</div>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+
+                        <div class="response-type__section response-type__section--weaknesses">
+                          <h3 class="response-type__section-title"><img src="/img/test-patterns/star.svg" alt=""> Возможные недостатки</h3>
+                          <ul class="response-type__list">
+                            <li class="response-type__list-item response-type__list-item--weakness">
+
+                              <div class="response-type__list-item-content">
+                                <div class="response-type__list-item-title">Трудность в переключении</div>
+                                <div class="response-type__list-item-text">Может быть сложно быстро адаптироваться к изменениям</div>
+                              </div>
+                            </li>
+                            <li class="response-type__list-item response-type__list-item--weakness">
+
+                              <div class="response-type__list-item-content">
+                                <div class="response-type__list-item-title">Ограниченные навыки многозадачности</div>
+                                <div class="response-type__list-item-text">Может удивляться необходимости работы над несколькими задачами одновременно</div>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+
+                        <div class="response-type__section response-type__section--recommendations">
+                          <h3 class="response-type__section-title"><img src="/img/test-patterns/star.svg" alt="">Рекомендации</h3>
+                          <ul class="response-type__list">
+                            <li class="response-type__list-item response-type__list-item--recommendation">
+                              <div class="response-type__list-item-content">
+                                <div class="response-type__list-item-title">Развивать навыки многозадачности</div>
+                                <div class="response-type__list-item-text">Постепенно вводить управление несколькими задачами</div>
+                              </div>
+                            </li>
+                            <li class="response-type__list-item response-type__list-item--recommendation">
+                              <div class="response-type__list-item-content">
+                                <div class="response-type__list-item-title">Адаптивность</div>
+                                <div class="response-type__list-item-text">Практиковать гибкость в подходе к процессам и задачам</div>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="response-type__footer">
+                      <p>
+                        Ваш моноактивный подход — это <span class="response-type__footer-highlight">сила в концентрации</span>, которая приводит к глубокому
+                        пониманию и качественному выполнению задач!
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
             </div>
+
+				 <!-- Результаты по категориям -->
+              <div class="result">
+                <div class="result__container">
+                  <h2 class="result__subtitle">Паттерны по категориям</h2>
+                  <div class="result__content" id="result-content">
+                    <!-- Здесь будут выводиться результаты -->
+                  </div>
+                </div>
+              </div>
           </div>
-          <!-- тестовая кнопка - удалить========================================= -->
+
+          <!-- тестовая кнопка - удалить------------------ -->
           <div id="quiz-controls">
             <button class="patterns-button quiz-patterns__button_test" id="fill-test-answers">Заполнить тестовые ответы</button>
           </div>
@@ -627,9 +775,8 @@
               margin: 20px auto;
             }
           </style>
-
-          <!-- тестовая кнопка - удалить -->
-        </section>
+          <!-- тестовая кнопка - удалить --------------------->
+        </div>
       </main>
 
       <footer class="footer">
@@ -675,6 +822,7 @@
         <img src="img/arrow-up-dark.svg" alt="scrollUp" />
       </div>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/blob-polyfill/9.0.20240710/Blob.min.js"></script>
 
     <script src="js/patterns-test.js"></script>
     <script src="js/header.js"></script>

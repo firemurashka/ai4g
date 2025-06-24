@@ -1,12 +1,43 @@
-<!-- Для всех кроме последнего -->
 <style>
+  /* Отступы-------------------------------------*/
+  .drop-list {
+    padding: 50px 0px;
+    margin: 90px 0 0 0;
+    @media (max-width: 980px) {
+      padding: 30px 0px;
+      margin: 80px 0 0 0;
+    }
+  }
+  .personal {
+  line-height: 150%;
+  font-size: 14px;
+  padding: 130px 0 50px 0;
+  @media (max-width: 980px) {
+   padding: 110px 0 30px 0;
+  }
+}
+  /* Заголовки-------------------------------------- */
+  h1  {
+    font-size: 30px;
+    line-height: 140%;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 20px;
+    @media (max-width: 768px) {
+      font-size: 22px;
+    }
+  }
+  /* Цвета------------------------------------------- */
+  .color {
+    color: #0386ff;
+  }
+
+  /*  Для всех кроме последнего---------------------- */
   .option:not(:last-child) {
     margin: 0px 0px 15px 0px;
   }
-</style>
 
-<!-- media ------------------------->
-<style>
+  /*media ---------------------------------------- */
   .media {
     @media (max-width: 980px) {
       padding: 30px 0;
@@ -62,30 +93,25 @@
   }
 </style>
 
-/* Цвета-------------------------- */
-<style>
-  .color {
-    color: #0386ff;
-  }
-</style>
+/* Ссылки------------------------------------ */
+<div>
+  /* Почта */
+  <a target="_blank" href="mailto:es@ai4g.ru">es@ai4g.ru</a>
+  <a target="_blank" href="mailto:info@ai4g.ru">info@ai4g.ru</a>
 
-/* Почта */
-<a target="_blank" href="mailto:es@ai4g.ru">es@ai4g.ru</a>
-<a target="_blank" href="mailto:info@ai4g.ru">info@ai4g.ru</a>
+  <a target="_blank" href="https://yandex.ru/legal/confidential/">https://yandex.ru/legal/confidential/</a>
+  <a target="_blank" href="https://ai4g.ru">www.ai4g.ru</a>
 
-<a target="_blank" href="https://yandex.ru/legal/confidential/">https://yandex.ru/legal/confidential/</a>
+  /* telegram */
+  <a href="https://t.me/+79852000434" target="_blank" class="footer__item">
+    <img src="img/telegram.svg" alt="telegram" loading="lazy" />
+    <span>+7 985 2000434</span>
+  </a>
+  <a href="https://t.me/+79852000434" target="_blank">Telegram</a>
+  <a href="https://api.whatsapp.com/send?phone=79852000434" target="_blank">WhatsApp</a>
+</div>
 
-<a target="_blank" href="https://ai4g.ru">www.ai4g.ru</a>
-
-/* telegram */
-<a href="https://t.me/+79852000434" target="_blank" class="footer__item">
-  <img src="img/telegram.svg" alt="telegram" loading="lazy" />
-  <span>+7 985 2000434</span>
-</a>
-<a href="https://t.me/+79852000434" target="_blank">Telegram</a>
-<a href="https://api.whatsapp.com/send?phone=79852000434" target="_blank">WhatsApp</a>
-
-/* ==проверка браузера телеграм============================================== */
+/* ==проверка браузера телеграм-------------- */
 <script>
   // Функция для проверки, используется ли Telegram в качестве браузера
   function isTelegramBrowser() {
@@ -117,6 +143,7 @@
     showBrowserWarning(); // Показываем предупреждение, если браузер Telegram
   }
 </script>
+
 <style>
   /* -modal-browser ------------------------------ */
   .modal-browser {
@@ -172,6 +199,7 @@
   }
   /* --------------------------------- */
 </style>
+
 <div id="browserWarningModal" class="modal-browser">
   <div class="modal-content-browser">
     <span class="close-btn-browser" id="closeModalBrowser">&times;</span>
@@ -184,4 +212,115 @@
   </div>
 </div>
 
-/* == ==проверка браузера телеграм====================================================== */
+/* == ==проверка браузера телеграм------------ */ /* header------------------ */
+<header class="header">
+  <div class="header__container">
+    <div class="header__body">
+      <!-- логотип -->
+      <a class="header__logo" href="index.html">
+        <div class="header__square">
+          <img src="img/logo-square.svg" alt="logo" width="51" height="47.6" />
+        </div>
+        <div class="header__logo-title">
+          <div class="header__Ai4G">
+            <img src="img/logo-Ai4G.svg" alt="logo" />
+          </div>
+          <span class="header__logo-suptitle">Фарватер успешного развития</span>
+        </div>
+        <div class="header__triangle">
+          <img src="img/logo-triangle.svg" alt="logo" />
+        </div>
+      </a>
+      <div class="header__right">
+        <!-- меню -->
+
+        <div class="header__menu menu">
+          <button type="button" class="menu_icon icon-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+
+          <nav class="menu__body">
+            <ul class="menu__list">
+              <li class="menu__item"><a href="index.html" class="menu__link">Главная</a></li>
+              <li class="menu__item"><a href="services.html" class="menu__link">Услуги</a></li>
+
+              <li class="menu__item menu__item--dropdown">
+                <a href="#" class="menu__link menu__link--dropdown"
+                  >Продукты
+                  <img src="img/arrow.svg" class="arrow" alt="" />
+                </a>
+                <ul class="submenu">
+                  <li class="submenu__item"><a href="/art-coaching.html" class="submenu__link">Арт-коучинг</a></li>
+                  <li class="submenu__item"><a href="/coaching-session.html" class="submenu__link">Бизнес-коучинг</a></li>
+                  <li class="submenu__item"><a href="/career-advice.html" class="submenu__link">Карьерная консультация</a></li>
+                  <li class="submenu__item">
+                    <a href="/serf-session.html" class="submenu__link">Serf-сессия</a>
+                  </li>
+                  <li class="submenu__item"><a href="/allegro.html" class="submenu__link">Транскрибатор «Аллегро»</a></li>
+                  <li class="submenu__item"><a href="/pattern-test.html" class="submenu__link">Тест паттернов</a></li>
+                  <li class="submenu__item"><a href="/personal-strategy.html" class="submenu__link">Персональная стратегия</a></li>
+                </ul>
+              </li>
+              <li class="menu__item"><a href="/mentors.html" class="menu__link">Наставники</a></li>
+
+              <li class="menu__item menu__item--dropdown">
+                <a href="#" class="menu__link menu__link--dropdown"
+                  >Справочная
+                  <img src="img/arrow.svg" class="arrow" alt="" />
+                </a>
+                <ul class="submenu">
+                  <li class="submenu__item"><a href="/vozmozhnosti.html" class="submenu__link">Возможности</a></li>
+                  <li class="submenu__item"><a href="/patterns.html" class="submenu__link">Паттерны</a></li>
+                  <li class="submenu__item"><a href="/technics.html" class="submenu__link">Техники развития</a></li>
+                </ul>
+              </li>
+
+              <li class="menu__item menu__item--dropdown">
+                <a href="#" class="menu__link menu__link--dropdown"
+                  >Клиенту
+                  <img src="img/arrow.svg" class="arrow" alt="" />
+                </a>
+                <ul class="submenu">
+                  <li class="submenu__item"><a href="/oferta.html" class="submenu__link">Договор оферты</a></li>
+                  <li class="submenu__item"><a href="/oplata.html" class="submenu__link">Правила оплаты и возврата</a></li>
+                  <li class="submenu__item"><a href="/requisites.html" class="submenu__link">Реквизиты</a></li>
+                </ul>
+              </li>
+            </ul>
+            <div class="header__icons header__icons_mob">
+              <a href="mailto:info@ai4g.ru" class="header__icon">
+                <img src="img/email.svg" alt="email" loading="lazy" />
+                <span>info@ai4g.ru</span>
+              </a>
+              <a href="https://t.me/+79852000434" target="_blank" class="header__icon">
+                <img src="img/telegram.svg" alt="telegram" loading="lazy" />
+                <span>+7 985 2000434</span>
+              </a>
+            </div>
+          </nav>
+        </div>
+
+        <!-- иконки -->
+        <div class="header__icons">
+          <a href="mailto:info@ai4g.ru" class="header__icon">
+            <img src="img/email.svg" alt="email" loading="lazy" />
+            <!--  <span>info@ai4g.ru</span> -->
+          </a>
+          <a href="https://t.me/+79852000434" target="_blank" class="header__icon">
+            <img src="img/telegram.svg" alt="telegram" loading="lazy" />
+            <!--   <span>+7 985 2000434</span> -->
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+/* ----- */
+<link rel="stylesheet" href="css/header.css" />
+
+/* ----- */
+<script src="js/header.js"></script>
+/* ------------------------------ */

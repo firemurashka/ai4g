@@ -1,4 +1,3 @@
-"use strict";
 // Функция для отображения кнопки прокрутки вверх
 function scrollUp() {
   const scrollUp = document.querySelector(".scrollUp");
@@ -304,7 +303,6 @@ function shuffleArray(array) {
   }
   return array;
 }
-
 // Функция для рандомизации вопросов и их ответов------------------------------------
 function randomizeQuestionsAndAnswers() {
   if (!Array.isArray(questionsWithPatterns)) {
@@ -334,7 +332,6 @@ function randomizeQuestionsAndAnswers() {
     };
   });
 }
-
 //Показать вопрос--------------------------------------------------------------------
 function showQuestion() {
   // Если массив вопросов ещё не перемешан, перемешиваем их вместе с вариантами
@@ -659,152 +656,75 @@ function generateHistogram(histogramData) {
   const histogramContainer = document.getElementById("histogram");
   if (!histogramContainer) return;
 
-  histogramContainer.innerHTML = ""; // Очищаем контейнер
+  histogramContainer.innerHTML = ""; // Очищаем контейнер перед обновлением
 
   if (histogramData.length > 0) {
-    // Группируем данные по категориям
-    const groupedData = {};
-    histogramData.forEach(item => {
-      if (!groupedData[item.category]) {
-        groupedData[item.category] = [];
-      }
-      groupedData[item.category].push(item);
-    });
+    const columns = document.createElement("div");
+    columns.className = "histogram__columns";
 
-    // Считаем количество явно проявленных паттернов (≥75%) для каждой категории
-    const strongPatternsCount = {};
-    Object.keys(groupedData).forEach(category => {
-      strongPatternsCount[category] = groupedData[category].filter(
-        item => item.percentage >= 75
-      ).length;
-    });
+    // Объект для хранения условных обозначений
+    const legendMap = {};
 
-    // Находим максимальное количество явно проявленных паттернов
-    const maxStrongPatterns = Math.max(...Object.values(strongPatternsCount));
+    histogramData.forEach(({ pattern, percentage, category }) => {
+      const column = document.createElement("div");
+      column.className = "histogram__column";
 
-    // Создаем блоки для каждой категории
-    Object.entries(groupedData).forEach(([category, items]) => {
-      const categoryWrapper = document.createElement("div");
-      categoryWrapper.className = "histogram__category-wrapper";
+      // Ищем аббревиатуру для текущего паттерна
+      let abbreviation = "Нет данных"; // Значение по умолчанию
 
-      // Добавляем класс border если в категории максимальное количество явно проявленных паттернов
-      if (strongPatternsCount[category] === maxStrongPatterns && maxStrongPatterns > 0) {
-        categoryWrapper.classList.add("border");
+      const foundPattern = categories
+        .flatMap((category) =>
+          category.subcategories.flatMap((subcategory) => subcategory.patterns.find((p) => p.pattern.ru === pattern || p.pattern.en === pattern))
+        )
+        .find(Boolean);
+
+      if (foundPattern) {
+        abbreviation = foundPattern.pattern.abbreviation || "Нет аббревиатуры"; // Обработка отсутствия аббревиатуры
       }
 
-      // Заголовок категории с информацией о количестве явно проявленных паттернов
-      const categoryHeader = document.createElement("div");
-      categoryHeader.className = "histogram__category";
+      // Добавляем класс для процентного значения, если оно равно 100%
+      const percentageClass = percentage === 100 ? "maximum" : "";
 
-      // Формируем текст с количеством явно проявленных паттернов
-      const strongCount = strongPatternsCount[category];
-      const patternWord = getPatternWord(strongCount);
-      categoryHeader.innerHTML = `${category}`;
+      // Получаем класс категории из categoryClassMap
+      const categoryClass = categoryClassMap[category] || "default-class";
 
-      categoryWrapper.appendChild(categoryHeader);
+      // В зависимости от ширины экрана устанавливаем height или width
 
-      // Контейнер для колонок
-      const columns = document.createElement("div");
-      columns.className = "histogram__columns";
+      column.innerHTML = `
+			 <span class="histogram__percentage ${percentageClass}">${percentage}%</span>
+			 <div class="histogram__bar-container">
+				<div class="histogram__bar ${categoryClass}" style="${`width: ${percentage}%`}"></div>
+			 </div>
+			 <span class="histogram__pattern">${abbreviation}</span>
+		  `;
 
-      // Добавляем колонки для каждого паттерна в категории
-      items.forEach(({ pattern, percentage }) => {
-        const column = document.createElement("div");
-        column.className = "histogram__column";
+      // Добавляем аббревиатуру и название паттерна в legendMap
+      legendMap[abbreviation] = foundPattern ? foundPattern.pattern.ru : pattern;
 
-        // Добавляем класс для явно проявленных паттернов
-        if (percentage >= 75) {
-          column.classList.add("strong-pattern");
-        }
-
-        // Ищем аббревиатуру
-        let abbreviation = "Нет данных";
-        const foundPattern = categories
-          .flatMap(cat =>
-            cat.subcategories.flatMap(sub =>
-              sub.patterns.find(p =>
-                p.pattern.ru === pattern || p.pattern.en === pattern
-              )
-            )
-          )
-          .find(Boolean);
-
-        if (foundPattern) {
-          abbreviation = foundPattern.pattern.abbreviation || pattern;
-        }
-
-        // Классы для стилизации
-        const percentageClass = percentage === 100 ? "maximum" : "";
-        const categoryClass = categoryClassMap[category] || "";
-
-        column.innerHTML = `
-          <span class="histogram__pattern">${pattern}</span>
-          <span class="histogram__pattern-abr">${abbreviation}</span>
-          <div class="histogram__bar-container">
-            <div class="histogram__bar ${categoryClass}" style="width: ${percentage}%"></div>
-          </div>
-          <span class="histogram__percentage ${percentageClass}">${percentage}%</span>
-        `;
-        columns.appendChild(column);
-      });
-
-      categoryWrapper.appendChild(columns);
-      histogramContainer.appendChild(categoryWrapper);
+      columns.appendChild(column);
     });
 
-    // Добавляем условные обозначения (легенду)
+    histogramContainer.appendChild(columns);
+
+    // Создаем блок условных обозначений с заголовком
     const legendContainer = document.createElement("div");
     legendContainer.className = "legend";
     legendContainer.innerHTML = "<h4>Условные обозначения:</h4>";
 
     const legendGrid = document.createElement("div");
-    legendGrid.className = "legend__grid";
+    legendGrid.className = "legend__grid"; // Класс для стилизации сетки
 
-    // Собираем уникальные аббревиатуры
-    const uniqueAbbreviations = new Map();
-    histogramData.forEach(({ pattern }) => {
-      const foundPattern = categories
-        .flatMap(cat =>
-          cat.subcategories.flatMap(sub =>
-            sub.patterns.find(p =>
-              p.pattern.ru === pattern || p.pattern.en === pattern
-            )
-          )
-        )
-        .find(Boolean);
-
-      if (foundPattern) {
-        const abbr = foundPattern.pattern.abbreviation;
-        if (abbr && !uniqueAbbreviations.has(abbr)) {
-          uniqueAbbreviations.set(abbr, foundPattern.pattern.ru);
-        }
-      }
-    });
-
-    // Заполняем легенду
-    uniqueAbbreviations.forEach((name, abbr) => {
-      legendGrid.innerHTML += `<div class="legend__item"><span class="abbreviation">${abbr}</span> <span>-</span> ${name}</div>`;
+    // Заполняем сетку условными обозначениями
+    Object.entries(legendMap).forEach(([abbreviation, patternName]) => {
+      legendGrid.innerHTML += `<div class="legend__item"><span class="abbreviation">${abbreviation}</span> - ${patternName}</div>`;
     });
 
     legendContainer.appendChild(legendGrid);
-    histogramContainer.appendChild(legendContainer);
-
+    histogramContainer.appendChild(legendContainer); // Добавляем блок с условными обозначениями в контейнер гистограммы
   } else {
     histogramContainer.innerHTML = "<p>Нет явно проявленных паттернов.</p>";
   }
 }
-
-// Вспомогательная функция для правильного склонения слова "паттерн"
-function getPatternWord(count) {
-  if (count % 10 === 1 && count % 100 !== 11) {
-    return "явно проявленный паттерн";
-  } else if ([2, 3, 4].includes(count % 10) && ![12, 13, 14].includes(count % 100)) {
-    return "явно проявленных паттерна";
-  }
-  return "явно проявленных паттернов";
-}
-
-
 
 // Всплывающий текст описания паттернов--------------------------------------
 function initializeTooltips() {
@@ -1997,7 +1917,6 @@ document.getElementById("download-pdf").addEventListener("click", async () => {
 
     // Генерация PDF
     generatePDF(resultsData, patternsData, customStyles);
-    showModal();
   } catch (error) {
     console.error("Ошибка при создании PDF:", error);
 
@@ -2023,7 +1942,7 @@ document.getElementById("closeModal").onclick = function () {
 };
 
 /* Кнопка "Тест"============================================================== */
-document.addEventListener("DOMContentLoaded", () => {
+/* document.addEventListener("DOMContentLoaded", () => {
   const startFillButton = document.getElementById("fill-test-answers"); // Кнопка "Начать тест"
 
   // Подключаем обработчик клика к кнопке "Начать тест"
@@ -2051,5 +1970,5 @@ function fillTestAnswers() {
   showResults(); // Показываем результаты
   // Прокручиваем страницу к форме заполнения
   formStart.scrollIntoView({ behavior: "smooth" }); // Прокрутка с анимацией
-}
+} */
 /* тест============================================================================ */
